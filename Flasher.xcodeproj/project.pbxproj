@@ -1,0 +1,421 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		006B645D47A1345156B498BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30D787221F889B77B3B83CF8 /* Assets.xcassets */; };
+		074ABFD2EA1C58B4E5A2B751 /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = E664E28143EA3A652BC4C1F5 /* Achievement.swift */; };
+		0B9544501B0881C723E09C40 /* StudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD24281E890D6EB4EFB1F0F /* StudyView.swift */; };
+		140CC1DFD6042178EA15E404 /* ProgressStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2866CF6C7C986AB50523B34B /* ProgressStore.swift */; };
+		2089B4A44DC37894793E1C86 /* SeedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA642928CF609403D00FAE50 /* SeedData.swift */; };
+		28BEFEC6891D0CBAEB89D1B0 /* PlacementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEB29B44C38CB09DD23C2F6 /* PlacementViewModel.swift */; };
+		4436E573729DF8D2E479796E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55E68FEEABC8D07EC15B631 /* ContentView.swift */; };
+		54C4DE5BF0D922FB4F39D076 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E93C9EB9DC6995455A9E61E /* ResultView.swift */; };
+		55BB5EE7A3F41D842851BA70 /* StudyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A2B51AF9913DF15A62E39 /* StudyViewModel.swift */; };
+		5F1C11D7C3A8632BC7255D6F /* AchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC05ED628F30D3AAD0FFCB2C /* AchievementsView.swift */; };
+		60A4B1478B175238169D12A7 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC88BFCE38DB893F937BADEA /* Word.swift */; };
+		7A37469872C3F18EE5259DBE /* AchievementToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDBE347A416F8D1EF00D91F /* AchievementToastView.swift */; };
+		7BC242D5E32B3D51D3686880 /* FlasherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A6798C607E3356A04F1993 /* FlasherApp.swift */; };
+		91F77F13A0E44E04ED2B48F7 /* WordProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF089558510EBF2303C96AB /* WordProgress.swift */; };
+		A4B19D60CA5802EA0FF72357 /* SeedData+Sentences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A97AE3F7361E93D8B297D /* SeedData+Sentences.swift */; };
+		AAED40C9430D0BE07290E4CA /* FlashcardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E529F4375338B9F2C7D2EF8 /* FlashcardView.swift */; };
+		B5020D28658EAFE45F8B7437 /* PlacementQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7045F70119B2781F3C96CC38 /* PlacementQuizView.swift */; };
+		BA581B1A1473B0C5354D6273 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F413245547E0FD2840FD9 /* HomeView.swift */; };
+		BA96B23CF2289AF273F5A97A /* SeedData+Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBD555022DBFB947CDE8111 /* SeedData+Words.swift */; };
+		D28C691C503DD346A912E73D /* SeedData+Synonyms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF5D7936DD7ECE4DD9D99E6 /* SeedData+Synonyms.swift */; };
+		E907C877405936A4FA128EE2 /* SessionCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857928A1FA26257E2EF7F8D6 /* SessionCompleteView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0E93C9EB9DC6995455A9E61E /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
+		1AD24281E890D6EB4EFB1F0F /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
+		1BBD555022DBFB947CDE8111 /* SeedData+Words.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SeedData+Words.swift"; sourceTree = "<group>"; };
+		1FDBE347A416F8D1EF00D91F /* AchievementToastView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AchievementToastView.swift; sourceTree = "<group>"; };
+		212F413245547E0FD2840FD9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		25A6798C607E3356A04F1993 /* FlasherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlasherApp.swift; sourceTree = "<group>"; };
+		2866CF6C7C986AB50523B34B /* ProgressStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressStore.swift; sourceTree = "<group>"; };
+		30D787221F889B77B3B83CF8 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3DF5D7936DD7ECE4DD9D99E6 /* SeedData+Synonyms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SeedData+Synonyms.swift"; sourceTree = "<group>"; };
+		408A2B51AF9913DF15A62E39 /* StudyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewModel.swift; sourceTree = "<group>"; };
+		5BF089558510EBF2303C96AB /* WordProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordProgress.swift; sourceTree = "<group>"; };
+		648A97AE3F7361E93D8B297D /* SeedData+Sentences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SeedData+Sentences.swift"; sourceTree = "<group>"; };
+		6E529F4375338B9F2C7D2EF8 /* FlashcardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardView.swift; sourceTree = "<group>"; };
+		6FEB29B44C38CB09DD23C2F6 /* PlacementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementViewModel.swift; sourceTree = "<group>"; };
+		7045F70119B2781F3C96CC38 /* PlacementQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementQuizView.swift; sourceTree = "<group>"; };
+		857928A1FA26257E2EF7F8D6 /* SessionCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCompleteView.swift; sourceTree = "<group>"; };
+		AA096575DD698DA69AB2ECAF /* Flasher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flasher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C95D08AB2BFA6C16CC638D61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		CC05ED628F30D3AAD0FFCB2C /* AchievementsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AchievementsView.swift; sourceTree = "<group>"; };
+		E664E28143EA3A652BC4C1F5 /* Achievement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
+		EC88BFCE38DB893F937BADEA /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
+		F55E68FEEABC8D07EC15B631 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FA642928CF609403D00FAE50 /* SeedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedData.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		3C21C613BC71D29C7BC63923 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				2866CF6C7C986AB50523B34B /* ProgressStore.swift */,
+				FA642928CF609403D00FAE50 /* SeedData.swift */,
+				648A97AE3F7361E93D8B297D /* SeedData+Sentences.swift */,
+				3DF5D7936DD7ECE4DD9D99E6 /* SeedData+Synonyms.swift */,
+				1BBD555022DBFB947CDE8111 /* SeedData+Words.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		3E0C16DF9936DD932E17C9F8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				6FEB29B44C38CB09DD23C2F6 /* PlacementViewModel.swift */,
+				408A2B51AF9913DF15A62E39 /* StudyViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		4D9489A0F1956051AC0AD63E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F55E68FEEABC8D07EC15B631 /* ContentView.swift */,
+				6E529F4375338B9F2C7D2EF8 /* FlashcardView.swift */,
+				212F413245547E0FD2840FD9 /* HomeView.swift */,
+				7045F70119B2781F3C96CC38 /* PlacementQuizView.swift */,
+				0E93C9EB9DC6995455A9E61E /* ResultView.swift */,
+				857928A1FA26257E2EF7F8D6 /* SessionCompleteView.swift */,
+				1AD24281E890D6EB4EFB1F0F /* StudyView.swift */,
+				1FDBE347A416F8D1EF00D91F /* AchievementToastView.swift */,
+				CC05ED628F30D3AAD0FFCB2C /* AchievementsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5BBA3AC8FBCA7470E860D9E5 /* Flasher */ = {
+			isa = PBXGroup;
+			children = (
+				25A6798C607E3356A04F1993 /* FlasherApp.swift */,
+				C95D08AB2BFA6C16CC638D61 /* Info.plist */,
+				3C21C613BC71D29C7BC63923 /* Data */,
+				5EC69928BA713E0866531494 /* Models */,
+				3E0C16DF9936DD932E17C9F8 /* ViewModels */,
+				4D9489A0F1956051AC0AD63E /* Views */,
+				30D787221F889B77B3B83CF8 /* Assets.xcassets */,
+			);
+			path = Flasher;
+			sourceTree = "<group>";
+		};
+		5EC69928BA713E0866531494 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EC88BFCE38DB893F937BADEA /* Word.swift */,
+				5BF089558510EBF2303C96AB /* WordProgress.swift */,
+				E664E28143EA3A652BC4C1F5 /* Achievement.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		64085F9CF2348C4196F9E835 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA096575DD698DA69AB2ECAF /* Flasher.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8A177F88F0802E3F0E70A5B9 = {
+			isa = PBXGroup;
+			children = (
+				5BBA3AC8FBCA7470E860D9E5 /* Flasher */,
+				64085F9CF2348C4196F9E835 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F59FFD89D73A7F1638C65D0C /* Flasher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6CA35B27CFAD4CC5E99B2B9D /* Build configuration list for PBXNativeTarget "Flasher" */;
+			buildPhases = (
+				EBDB778ABCF83CD8AA4FAA47 /* Sources */,
+				7DD60EE95860072AC68FA22F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Flasher;
+			productName = Flasher;
+			productReference = AA096575DD698DA69AB2ECAF /* Flasher.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D873D67618BAF4D166ABEF07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2640;
+			};
+			buildConfigurationList = 95F42905BEC29558ED36D8FE /* Build configuration list for PBXProject "Flasher" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 8A177F88F0802E3F0E70A5B9;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 64085F9CF2348C4196F9E835 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F59FFD89D73A7F1638C65D0C /* Flasher */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7DD60EE95860072AC68FA22F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				006B645D47A1345156B498BD /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EBDB778ABCF83CD8AA4FAA47 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4436E573729DF8D2E479796E /* ContentView.swift in Sources */,
+				AAED40C9430D0BE07290E4CA /* FlashcardView.swift in Sources */,
+				7BC242D5E32B3D51D3686880 /* FlasherApp.swift in Sources */,
+				BA581B1A1473B0C5354D6273 /* HomeView.swift in Sources */,
+				B5020D28658EAFE45F8B7437 /* PlacementQuizView.swift in Sources */,
+				28BEFEC6891D0CBAEB89D1B0 /* PlacementViewModel.swift in Sources */,
+				140CC1DFD6042178EA15E404 /* ProgressStore.swift in Sources */,
+				54C4DE5BF0D922FB4F39D076 /* ResultView.swift in Sources */,
+				A4B19D60CA5802EA0FF72357 /* SeedData+Sentences.swift in Sources */,
+				D28C691C503DD346A912E73D /* SeedData+Synonyms.swift in Sources */,
+				BA96B23CF2289AF273F5A97A /* SeedData+Words.swift in Sources */,
+				2089B4A44DC37894793E1C86 /* SeedData.swift in Sources */,
+				E907C877405936A4FA128EE2 /* SessionCompleteView.swift in Sources */,
+				0B9544501B0881C723E09C40 /* StudyView.swift in Sources */,
+				55BB5EE7A3F41D842851BA70 /* StudyViewModel.swift in Sources */,
+				60A4B1478B175238169D12A7 /* Word.swift in Sources */,
+				91F77F13A0E44E04ED2B48F7 /* WordProgress.swift in Sources */,
+				074ABFD2EA1C58B4E5A2B751 /* Achievement.swift in Sources */,
+				7A37469872C3F18EE5259DBE /* AchievementToastView.swift in Sources */,
+				5F1C11D7C3A8632BC7255D6F /* AchievementsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		58297CE743545F96A67975DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Distribution: Dylan Yurgionas (C84MKW6B2K)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = C84MKW6B2K;
+				INFOPLIST_FILE = Flasher/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dcreey.Flasher;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Flasher Provisioner";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9ED29D2E28D60F565083C09D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = C84MKW6B2K;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		CC68231BCC29D134C19198AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Distribution: Dylan Yurgionas (C84MKW6B2K)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = C84MKW6B2K;
+				INFOPLIST_FILE = Flasher/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dcreey.Flasher;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Flasher Provisioner";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D3679EBCBC79EA80EDFAA293 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = C84MKW6B2K;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6CA35B27CFAD4CC5E99B2B9D /* Build configuration list for PBXNativeTarget "Flasher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC68231BCC29D134C19198AC /* Debug */,
+				58297CE743545F96A67975DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		95F42905BEC29558ED36D8FE /* Build configuration list for PBXProject "Flasher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9ED29D2E28D60F565083C09D /* Debug */,
+				D3679EBCBC79EA80EDFAA293 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D873D67618BAF4D166ABEF07 /* Project object */;
+}

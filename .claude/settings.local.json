@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xcodebuild -project /Users/dcreey/dev/flasher/Flasher.xcodeproj -scheme Flasher -destination 'platform=iOS Simulator,name=iPhone 16 Pro' build)",
+      "Bash(xcrun simctl *)",
+      "Bash(xcodebuild -project /Users/dcreey/dev/flasher/Flasher.xcodeproj -scheme Flasher -destination 'platform=iOS Simulator,id=1269EC9C-32EF-4487-AA9A-8E76FB10263D' build)",
+      "Bash(open -a Simulator)",
+      "Bash(xcodebuild -project /Users/dcreey/dev/flasher/Flasher.xcodeproj -scheme Flasher -destination 'platform=iOS Simulator,id=1269EC9C-32EF-4487-AA9A-8E76FB10263D' -derivedDataPath /tmp/flasher-build build)",
+      "Bash(xcodegen generate *)",
+      "Bash(xcodebuild -scheme Flasher -destination 'platform=iOS Simulator,id=1269EC9C-32EF-4487-AA9A-8E76FB10263D' -showBuildSettings)",
+      "Bash(xcodebuild -scheme Flasher -destination 'platform=iOS Simulator,id=1269EC9C-32EF-4487-AA9A-8E76FB10263D' build)",
+      "Bash(pkill -f xcodebuild)",
+      "Bash(python3 -c \"import sys; words=[l.strip\\(\\).split\\('\\\\\"'\\)[1] for l in sys.stdin]; print\\(f'Raw: {len\\(words\\)}, Unique: {len\\(set\\(words\\)\\)}'\\)\")",
+      "Bash(xcodebuild -scheme Flasher -destination 'id=1269EC9C-32EF-4487-AA9A-8E76FB10263D' -configuration Debug build)",
+      "Bash(xcodebuild -project Flasher/Flasher.xcodeproj -scheme Flasher -destination 'platform=iOS Simulator,id=1269EC9C-32EF-4487-AA9A-8E76FB10263D' -configuration Debug build)",
+      "Bash(xcodebuild -project Flasher.xcodeproj -scheme Flasher -destination 'platform=iOS Simulator,id=1269EC9C-32EF-4487-AA9A-8E76FB10263D' build)",
+      "Bash(xcodebuild -project Flasher.xcodeproj -scheme Flasher -destination 'platform=iOS Simulator,id=1269EC9C-32EF-4487-AA9A-8E76FB10263D' -showBuildSettings)"
+    ]
+  }
+}
