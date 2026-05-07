@@ -20,9 +20,18 @@ final class StudyViewModel {
     private let allWords: [Word]
     private let sentencesByWord: [String: [VocabSentence]]
 
+    private static let footWords: Set<String> = [
+        "pie", "zapato", "bota", "calcetín", "calceta", "tobillo", "talón", "torcedura"
+    ]
+    private static let dungeonWords: Set<String> = [
+        "magia", "mago", "mágico", "héroe", "fortaleza", "mito", "leyenda",
+        "batallar", "daño", "exorcismo", "pitaya", "pitahaya", "pez espada"
+    ]
+
     private var queue: [CardItem] = []
     private var sessionResolvedIDs: Set<String> = []
     private(set) var sessionIncorrectIDs: Set<String> = []
+    private var sessionMissCount: [String: Int] = [:]
 
     var currentCard: CardItem?
     var userInput: String = ""
@@ -153,9 +162,14 @@ final class StudyViewModel {
             correctStreak = 0
             wrongStreak += 1
             sessionIncorrectIDs.insert(card.word.spanish)
+            let missCount = (sessionMissCount[card.word.spanish] ?? 0) + 1
+            sessionMissCount[card.word.spanish] = missCount
             lastResult = .incorrect
             isShowingResult = true
             checkAchievements(event: .wrong)
+            if missCount == 2 { fireAchievement(.repeatedMiss) }
+            if missCount == 3 { fireAchievement(.repeatedMiss3) }
+            if missCount == 4 { fireAchievement(.repeatedMiss4) }
         }
     }
 
@@ -177,13 +191,10 @@ final class StudyViewModel {
 
     func learnWord() {
         guard let card = currentCard else { return }
-        if !sessionResolvedIDs.contains(card.word.spanish) {
-            sessionResolvedIDs.insert(card.word.spanish)
-            store.markLearned(wordID: card.word.spanish, sentenceIdx: card.sentenceIdx)
-            queue.removeAll { $0.word.spanish == card.word.spanish }
-        }
+        sessionIncorrectIDs.insert(card.word.spanish)
         lastResult = .revealed
         isShowingResult = true
+        fireAchievement(.learnWord)
     }
 
     private func resolveCorrect(_ card: CardItem) {
@@ -196,10 +207,14 @@ final class StudyViewModel {
             let wasIncorrect = sessionIncorrectIDs.contains(card.word.spanish)
             if wasIncorrect {
                 store.incrementSessionCorrect(wordID: card.word.spanish, sentenceIdx: card.sentenceIdx)
+                if store.isEffectivelyLearned(card.word.spanish) { fireAchievement(.wordMastered) }
             } else {
                 store.markLearned(wordID: card.word.spanish, sentenceIdx: card.sentenceIdx)
             }
             queue.removeAll { $0.word.spanish == card.word.spanish }
+            if (sessionMissCount[card.word.spanish] ?? 0) >= 2 { fireAchievement(.redemption) }
+            if Self.footWords.contains(card.word.spanish)    { fireAchievement(.footWord) }
+            if Self.dungeonWords.contains(card.word.spanish) { fireAchievement(.dungeonWord) }
         }
         lastResult = .correct
         isShowingResult = true
@@ -210,7 +225,7 @@ final class StudyViewModel {
     func next() {
         guard let card = currentCard else { advance(); return }
 
-        if lastResult == .incorrect {
+        if lastResult == .incorrect || lastResult == .revealed {
             // Re-queue: insert in second half of queue so it comes back, not immediately
             if let (sentence, idx) = pickSentence(for: card.word) {
                 let insertAt = Int.random(in: max(1, queue.count / 2)...max(1, queue.count))
@@ -225,34 +240,34 @@ final class StudyViewModel {
 
     private enum SessionEvent { case correct, wrong }
 
+    private func fireAchievement(_ trigger: AchievementTrigger) {
+        guard pendingAchievement == nil else { return }
+        guard firedTriggersThisSession.insert(trigger).inserted else { return }
+        if let toast = AchievementMessages.pickUnseen(for: trigger, seen: store.unlockedAchievements) {
+            store.unlock(toast.name)
+            pendingAchievement = toast
+        }
+    }
+
+    private func fireCycledAchievement(_ trigger: AchievementTrigger, cycle: Int) {
+        guard pendingAchievement == nil else { return }
+        guard firedTriggersThisSession.insert(trigger).inserted else { return }
+        guard store.canFireMilestone(trigger, cycle: cycle) else { return }
+        if let toast = AchievementMessages.pickUnseen(for: trigger, seen: store.unlockedAchievements) {
+            store.unlock(toast.name)
+            store.recordMilestoneFired(trigger, cycle: cycle)
+            pendingAchievement = toast
+        }
+    }
+
     private func checkAchievements(event: SessionEvent) {
-        func fire(_ trigger: AchievementTrigger) {
-            guard pendingAchievement == nil else { return }
-            guard firedTriggersThisSession.insert(trigger).inserted else { return }
-            if let toast = AchievementMessages.pickUnseen(for: trigger, seen: store.unlockedAchievements) {
-                store.unlock(toast.name)
-                pendingAchievement = toast
-            }
-        }
-
-        func fireCycled(_ trigger: AchievementTrigger, cycle: Int) {
-            guard pendingAchievement == nil else { return }
-            guard firedTriggersThisSession.insert(trigger).inserted else { return }
-            guard store.canFireMilestone(trigger, cycle: cycle) else { return }
-            if let toast = AchievementMessages.pickUnseen(for: trigger, seen: store.unlockedAchievements) {
-                store.unlock(toast.name)
-                store.recordMilestoneFired(trigger, cycle: cycle)
-                pendingAchievement = toast
-            }
-        }
-
         switch event {
         case .correct:
-            fire(.firstCorrect)
-            if correctStreak == 5  { fire(.streak5) }
-            if correctStreak == 10 { fire(.streak10) }
+            fireAchievement(.firstCorrect)
+            if correctStreak == 5  { fireAchievement(.streak5) }
+            if correctStreak == 10 { fireAchievement(.streak10) }
             if queue.isEmpty && sessionIncorrectIDs.isEmpty && sessionCorrectCount == sessionWordCount {
-                fire(.perfectSession)
+                fireAchievement(.perfectSession)
             }
             let learned = store.learnedCount(in: allWords)
             let milestones: [(minWords: Int, trigger: AchievementTrigger, cycleSize: Int)] = [
@@ -264,11 +279,11 @@ final class StudyViewModel {
                 (1000, .learned1000, 1000),
             ]
             for (minWords, trigger, cycleSize) in milestones where learned >= minWords {
-                fireCycled(trigger, cycle: learned / cycleSize)
+                fireCycledAchievement(trigger, cycle: learned / cycleSize)
             }
         case .wrong:
-            fire(.firstWrong)
-            if wrongStreak == 5 { fire(.wrongStreak5) }
+            fireAchievement(.firstWrong)
+            if wrongStreak == 5 { fireAchievement(.wrongStreak5) }
         }
     }
 
