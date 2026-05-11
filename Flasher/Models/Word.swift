@@ -24,8 +24,30 @@ struct VocabSentence: Identifiable, Codable {
     init(wordID: String, template: String, full: String, translation: String = "") {
         self.id = UUID()
         self.wordID = wordID
-        self.template = template
-        self.full = full
-        self.translation = translation
+        self.template = template.decodedSentence
+        self.full = full.decodedSentence
+        self.translation = translation.decodedSentence
+    }
+}
+
+private extension String {
+    var decodedSentence: String {
+        var s = self
+        // Double-encoded entities first
+        let replacements: [(String, String)] = [
+            ("&amp;gt;", ">"), ("&amp;lt;", "<"), ("&amp;quot;", "\""),
+            ("&amp;", "&"), ("&lt;", "<"), ("&gt;", ">"), ("&quot;", "\""), ("&apos;", "'"), ("&#39;", "'"),
+            // RTF smart-quote artifact
+            ("\\'97", "'"),
+            // HTML tags
+        ]
+        for (from, to) in replacements {
+            s = s.replacingOccurrences(of: from, with: to)
+        }
+        // Strip any remaining HTML tags like <i>, </i>, <br>
+        while let open = s.range(of: "<"), let close = s.range(of: ">", range: open.upperBound..<s.endIndex) {
+            s.removeSubrange(open.lowerBound...close.lowerBound)
+        }
+        return s.trimmingCharacters(in: .whitespaces)
     }
 }

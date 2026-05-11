@@ -26,6 +26,7 @@
 		B5020D28658EAFE45F8B7437 /* PlacementQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7045F70119B2781F3C96CC38 /* PlacementQuizView.swift */; };
 		BA581B1A1473B0C5354D6273 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F413245547E0FD2840FD9 /* HomeView.swift */; };
 		BA96B23CF2289AF273F5A97A /* SeedData+Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBD555022DBFB947CDE8111 /* SeedData+Words.swift */; };
+		C4061ABACCD5F1C8CEE040F0 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED885D500DD47ADB249EB578 /* ReviewView.swift */; };
 		D28C691C503DD346A912E73D /* SeedData+Synonyms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF5D7936DD7ECE4DD9D99E6 /* SeedData+Synonyms.swift */; };
 		E907C877405936A4FA128EE2 /* SessionCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857928A1FA26257E2EF7F8D6 /* SessionCompleteView.swift */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 		CC05ED628F30D3AAD0FFCB2C /* AchievementsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AchievementsView.swift; sourceTree = "<group>"; };
 		E664E28143EA3A652BC4C1F5 /* Achievement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
 		EC88BFCE38DB893F937BADEA /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
+		ED885D500DD47ADB249EB578 /* ReviewView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		F55E68FEEABC8D07EC15B631 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FA642928CF609403D00FAE50 /* SeedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,6 +92,7 @@
 				1AD24281E890D6EB4EFB1F0F /* StudyView.swift */,
 				1FDBE347A416F8D1EF00D91F /* AchievementToastView.swift */,
 				CC05ED628F30D3AAD0FFCB2C /* AchievementsView.swift */,
+				ED885D500DD47ADB249EB578 /* ReviewView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				074ABFD2EA1C58B4E5A2B751 /* Achievement.swift in Sources */,
 				7A37469872C3F18EE5259DBE /* AchievementToastView.swift in Sources */,
 				5F1C11D7C3A8632BC7255D6F /* AchievementsView.swift in Sources */,
+				C4061ABACCD5F1C8CEE040F0 /* ReviewView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

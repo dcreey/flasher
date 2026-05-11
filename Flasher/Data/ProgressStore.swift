@@ -88,6 +88,23 @@ final class ProgressStore {
         p.sessionCorrectCount = min(p.sessionCorrectCount + 1, SeedData.neededSessions)
         p.lastSentenceIdx = sentenceIdx
         p.lastCorrectSession = currentSessionNumber
+        p.lastReviewDate = Date()
+        progress[wordID] = p
+        save()
+    }
+
+    func recordWrong(wordID: String) {
+        var p = progressFor(wordID)
+        p.totalWrongCount += 1
+        p.lastReviewDate = Date()
+        progress[wordID] = p
+        save()
+    }
+
+    func recordLearnWord(wordID: String) {
+        var p = progressFor(wordID)
+        p.learnWordCount += 1
+        p.lastReviewDate = Date()
         progress[wordID] = p
         save()
     }
@@ -96,6 +113,7 @@ final class ProgressStore {
         var p = progressFor(wordID)
         p.sessionCorrectCount = SeedData.neededSessions
         p.lastSentenceIdx = sentenceIdx
+        p.lastReviewDate = Date()
         progress[wordID] = p
         save()
     }

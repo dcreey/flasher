@@ -164,6 +164,7 @@ final class StudyViewModel {
             sessionIncorrectIDs.insert(card.word.spanish)
             let missCount = (sessionMissCount[card.word.spanish] ?? 0) + 1
             sessionMissCount[card.word.spanish] = missCount
+            store.recordWrong(wordID: card.word.spanish)
             lastResult = .incorrect
             isShowingResult = true
             checkAchievements(event: .wrong)
@@ -192,6 +193,7 @@ final class StudyViewModel {
     func learnWord() {
         guard let card = currentCard else { return }
         sessionIncorrectIDs.insert(card.word.spanish)
+        store.recordLearnWord(wordID: card.word.spanish)
         lastResult = .revealed
         isShowingResult = true
         fireAchievement(.learnWord)
@@ -204,8 +206,8 @@ final class StudyViewModel {
 
         if !sessionResolvedIDs.contains(card.word.spanish) {
             sessionResolvedIDs.insert(card.word.spanish)
-            let wasIncorrect = sessionIncorrectIDs.contains(card.word.spanish)
-            if wasIncorrect {
+            let p = store.progressFor(card.word.spanish)
+            if p.totalWrongCount > 0 || p.learnWordCount > 0 {
                 store.incrementSessionCorrect(wordID: card.word.spanish, sentenceIdx: card.sentenceIdx)
                 if store.isEffectivelyLearned(card.word.spanish) { fireAchievement(.wordMastered) }
             } else {

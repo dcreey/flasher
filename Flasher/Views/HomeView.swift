@@ -7,6 +7,7 @@ struct HomeView: View {
     @State private var showStudy = false
     @State private var showPlacement = false
     @State private var showAchievements = false
+    @State private var showReview = false
 
     private var allWords: [Word] { SeedData.words }
     private var totalWords: Int { allWords.count }
@@ -48,9 +49,7 @@ struct HomeView: View {
         .navigationTitle("El Pie")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    showAchievements = true
-                } label: {
+                Button { showAchievements = true } label: {
                     Image(systemName: "trophy.fill")
                         .foregroundStyle(store.unlockedAchievements.isEmpty ? Color.secondary : Color.yellow)
                 }
@@ -66,6 +65,9 @@ struct HomeView: View {
         }
         .navigationDestination(isPresented: $showAchievements) {
             AchievementsView()
+        }
+        .navigationDestination(isPresented: $showReview) {
+            ReviewView()
         }
     }
 
@@ -114,6 +116,7 @@ struct HomeView: View {
         .padding()
         .background(.regularMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 16))
+        .onTapGesture { showReview = true }
     }
 
     // MARK: - Current level card (zoomed 10% band)
@@ -235,6 +238,7 @@ struct HomeView: View {
         .padding()
         .background(.regularMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 16))
+        .onTapGesture { showReview = true }
     }
 
     // MARK: - Actions

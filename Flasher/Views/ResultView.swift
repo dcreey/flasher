@@ -6,7 +6,14 @@ struct ResultView: View {
     let userInput: String
     let onNext: () -> Void
 
+    @State private var confirmInput: String = ""
+    @FocusState private var confirmFocused: Bool
+
     private var isCorrect: Bool { result == .correct }
+
+    private var confirmMatches: Bool {
+        normalize(confirmInput) == normalize(card.word.spanish)
+    }
 
     var body: some View {
         VStack(spacing: 24) {
@@ -33,10 +40,12 @@ struct ResultView: View {
                 Text(card.sentence.full)
                     .font(.title3)
                     .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
                 Text(card.sentence.translation)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .padding(.horizontal)
 
@@ -66,15 +75,48 @@ struct ResultView: View {
                     .foregroundStyle(.secondary)
             }
 
-            Button(action: onNext) {
-                Text("Continue")
-                    .frame(maxWidth: .infinity)
+            // For wrong/revealed: require typing before continuing
+            if result == .incorrect || result == .revealed {
+                VStack(spacing: 10) {
+                    Text("Type the word to continue")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+
+                    TextField(card.word.spanish, text: $confirmInput)
+                        .textFieldStyle(.roundedBorder)
+                        .autocorrectionDisabled()
+                        .textInputAutocapitalization(.never)
+                        .focused($confirmFocused)
+                        .onSubmit { if confirmMatches { onNext() } }
+                        .padding(.horizontal)
+
+                    Button(action: onNext) {
+                        Text("Continue")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(result == .revealed ? .orange : .red)
+                    .disabled(!confirmMatches)
+                    .padding(.horizontal)
+                }
+                .onAppear { confirmFocused = true }
+            } else {
+                Button(action: onNext) {
+                    Text("Continue")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(isCorrect ? .green : .red)
+                .padding(.horizontal)
             }
-            .buttonStyle(.borderedProminent)
-            .tint(isCorrect ? .green : (result == .revealed ? .orange : .red))
-            .padding(.horizontal)
         }
         .padding(.vertical)
+    }
+
+    private func normalize(_ s: String) -> String {
+        s.lowercased()
+            .folding(options: .diacriticInsensitive, locale: .current)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     private var iconName: String {
@@ -88,8 +130,8 @@ struct ResultView: View {
     private var headline: String {
         switch result {
         case .correct: "Correct!"
-        case .incorrect: "Not quite"
-        case .revealed: "Word revealed"
+        case .incorrect: "Not quite — type it to continue"
+        case .revealed: "Word revealed — type it to continue"
         }
     }
 

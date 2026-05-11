@@ -99,6 +99,7 @@ struct FlashcardView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal)
             }
 
@@ -129,8 +130,10 @@ struct SentenceView: View {
 
     var body: some View {
         Text(attributedSentence)
-            .frame(maxWidth: .infinity, alignment: .center)
             .multilineTextAlignment(.center)
+            .lineLimit(nil)
+            .fixedSize(horizontal: false, vertical: true)
+            .frame(maxWidth: .infinity, alignment: .center)
     }
 
     private var attributedSentence: AttributedString {

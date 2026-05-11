@@ -103,8 +103,8 @@ extension SeedData {
         ],
         "querer": [
             ("Hay que ___ a la familia.", "Hay que querer a la familia.", "You have to love family."),
-            ("No puedo dejar de ___.", "No puedo dejar de querer.", "I can't stop loving."),
-            ("Parece ___ todo.", "Parece querer todo.", "He seems to want everything."),
+            ("No puedo dejar de ___.", "No puedo dejar de quererte.", "I can't stop loving you."),
+            ("Parece ___lo todo.", "Parece quererlo todo.", "He seems to want everything."),
         ],
         "hablar": [
             ("Me gusta ___ con ella.", "Me gusta hablar con ella.", "I like talking with her."),
@@ -125,7 +125,7 @@ extension SeedData {
         "buscar": [
             ("Voy a ___ trabajo nuevo.", "Voy a buscar trabajo nuevo.", "I'm going to look for a new job."),
             ("Ayúdame a ___ mis llaves.", "Ayúdame a buscar mis llaves.", "Help me look for my keys."),
-            ("Siempre estoy ___.", "Siempre estoy buscando.", "I'm always searching."),
+            ("Siempre estoy ___ algo nuevo.", "Siempre estoy buscando algo nuevo.", "I'm always looking for something new."),
         ],
         "ver": [
             ("Vamos a ___ una película.", "Vamos a ver una película.", "Let's watch a movie."),
@@ -261,7 +261,7 @@ extension SeedData {
         "malo": [
             ("El clima está muy ___.", "El clima está muy malo.", "The weather is very bad."),
             ("No es ___ intentarlo.", "No es malo intentarlo.", "It's not bad to try."),
-            ("¡Qué ___ estuvo eso!", "¡Qué malo estuvo eso!", "That was so bad!"),
+            ("Ese lugar es muy ___.", "Ese lugar es muy malo.", "That place is very bad."),
         ],
         "grande": [
             ("Es una familia muy ___.", "Es una familia muy grande.", "It's a very big family."),
@@ -290,7 +290,7 @@ extension SeedData {
         ],
         "siempre": [
             ("___ hay tráfico en el DF.", "Siempre hay tráfico en el DF.", "There's always traffic in Mexico City."),
-            ("___ pide extra salsa.", "Siempre pide extra salsa.", "He/she always asks for extra salsa."),
+            ("Siempre pide salsa ___.", "Siempre pide salsa extra.", "He/she always asks for extra salsa."),
             ("Te voy a querer ___.", "Te voy a querer siempre.", "I'll always love you."),
         ],
         "aquí": [
@@ -336,12 +336,12 @@ extension SeedData {
         "jitomate": [
             ("El ___ está maduro.", "El jitomate está maduro.", "The tomato is ripe."),
             ("Necesito un ___ para la salsa.", "Necesito un jitomate para la salsa.", "I need a tomato for the sauce."),
-            ("Agarra el ___ del mercado.", "Agarra el jitomate del mercado.", "Grab the tomato from the market."),
+            ("Compra ___s en el mercado.", "Compra jitomates en el mercado.", "Buy tomatoes at the market."),
         ],
         "aguacate": [
             ("El ___ está en su punto.", "El aguacate está en su punto.", "The avocado is perfectly ripe."),
             ("No hay guacamole sin ___.", "No hay guacamole sin aguacate.", "There's no guacamole without avocado."),
-            ("Dame ___ en el taco.", "Dame aguacate en el taco.", "Put avocado on my taco."),
+            ("Ponle ___ a mi taco.", "Ponle aguacate a mi taco.", "Put avocado on my taco."),
         ],
         "plaza": [
             ("Nos vemos en la ___ central.", "Nos vemos en la plaza central.", "See you at the main square."),
@@ -551,7 +551,6 @@ extension SeedData {
         "PIB": [
             ("Que el ___ sólo es la producción.", "Que el PIB sólo es la producción.", "GDP is just output."),
             ("Alrededor del 60% del ___ fue en consumo.", "Alrededor del 60% del PIB fue en consumo.", "About 60% of our GDP was on consumption."),
-            ("(Risas) Si contaminan, el ___ sube.", "(Risas) Si contaminan, el PIB sube.", "(Laughter) If you pollute, GDP goes up."),
         ],
         "SEP": [
             ("AMOR (sin apego) Satsang con Mooji , Brixton 26 ___ 2010 S3", "AMOR (sin apego) Satsang con Mooji , Brixton 26 Sep 2010 S3", "LOVE [Without Attachment] Satsang with Mooji Brixton 26 Sep 2010 S3"),
@@ -565,16 +564,12 @@ extension SeedData {
         "a pesar de": [
             ("¿Debemos darle algo ___ todo?", "¿Debemos darle algo a pesar de todo?", "Shall we give him a little something all the same?"),
             ("Estoy trabajando ___ que estoy de vacaciones.", "Estoy trabajando a pesar de que estoy de vacaciones.", "I work even though I'm on vacation."),
-            ("Chile: Refinería reabre ___ intoxicación en una escuela", "Chile: Refinería reabre a pesar de intoxicación en una escuela", "Chile: Refinery Reopens in Spite of Intoxication in School · Global Voices"),
         ],
         "a propósito": [
             ("¿Eso significa que Su Majestad hizo esto ___?", "¿Eso significa que Su Majestad hizo esto a propósito?", "You planned it this way?"),
             ("¿Eso fue de accidente o ___?", "¿Eso fue de accidente o a propósito?", "Was it by accident or by design?"),
-            ("Tomaré una pequeña pausa pero ___ okey?", "Tomaré una pequeña pausa pero a propósito okey?", "Now, that exact price is an approximation, right? It's a bunch of presumptions. I want you to figure this out."),
         ],
         "abajo": [
-            ("żCrees que lo tengan aquí ___?", "żCrees que lo tengan aquí abajo?", "Hey, you think they kept him down here?"),
-            ("-Esta ___ en ese cuarto. żDónde?", "-Esta abajo en ese cuarto. żDónde?", "There's nobody here."),
             ("¿Qué sucedería si yo cavara justo allí ___?", "¿Qué sucedería si yo cavara justo allí abajo?", "What would happen if I dug straight down there?"),
         ],
         "abandonar": [
@@ -589,7 +584,6 @@ extension SeedData {
         ],
         "abdicar": [
             ("¿___? ¡Eso no és posible!", "¿Abdicar? ¡Eso no és posible!", "No, absolutely not."),
-            ("Holanda, Bélgica… ¿será el rey de España el siguiente en ___?", "Holanda, Bélgica… ¿será el rey de España el siguiente en abdicar?", "Royal Abdications: Netherlands, Belgium, Will Spain be Next? · Global Voices"),
             ("¿___? ¿Cómo puede considerar eso?", "¿Abdicar? ¿Cómo puede considerar eso?", "How can you even suggest..?"),
         ],
         "abeja": [
@@ -613,12 +607,10 @@ extension SeedData {
             ("Idris Mohammed, indicó que tenemos un liderazgo ___ en África.", "Idris Mohammed, indicó que tenemos un liderazgo abismal en África.", "Idris Mohammed, indicated that we've had abysmal leadership in Africa."),
         ],
         "abogada": [
-            ("China: Interrogan sobre su vida sexual a ___ de DDHH detenida", "China: Interrogan sobre su vida sexual a abogada de DDHH detenida", "China: Detained Rights Lawyer Interrogated About Sex Life · Global Voices"),
             ("Me encantaba la escuela, quería ser ___.", "Me encantaba la escuela, quería ser abogada.", "I loved school, I wanted to be a lawyer."),
             ("Mientras que la ___ Carolina Rodríguez comentó:", "Mientras que la abogada Carolina Rodríguez comentó:", "Meanwhile, lawyer Carolina Rodríguez commented:"),
         ],
         "abogado": [
-            ("Juez saudita a activista encarcelado: ¿Necesitas un ___?", "Juez saudita a activista encarcelado: ¿Necesitas un abogado?", "Saudi Judge to Jailed Activist: You Need a Lawyer?"),
             ("OK. &amp;quot;Consulte a un ___ de derecho de autor calificado&amp;quot;?", "OK. &amp;quot;Consulte a un abogado de derecho de autor calificado&amp;quot;?", "OK. \"Consult a qualified copyright attorney\"?"),
             ("¿Por qué no consultás con un ___?", "¿Por qué no consultás con un abogado?", "Why don't you consult a lawyer?"),
         ],
@@ -663,7 +655,6 @@ extension SeedData {
         "abril": [
             ("El 6 de ___, el MNLA declaró la independencia de Azawad.", "El 6 de abril, el MNLA declaró la independencia de Azawad.", "On April 6, the MNLA declared the independence of Azawad."),
             ("Por ejemplo, el 26 de ___ de 2012, Karimova tuiteaba:", "Por ejemplo, el 26 de abril de 2012, Karimova tuiteaba:", "For instance, on April 26, 2012, Karimova tweeted :"),
-            ("(Música) Koragi, 10 de ___ de 2011.", "(Música) Koragi, 10 de abril de 2011.", "Korangi, April 10th 2011."),
         ],
         "abrir": [
             ("¿Podría alguien ___ la puerta, por favor?", "¿Podría alguien abrir la puerta, por favor?", "Could somebody please open the door?"),
@@ -681,7 +672,6 @@ extension SeedData {
             ("El Federalista lo sintetiza ___:", "El Federalista lo sintetiza abruptamente:", "The winer: Correa, the losers: everyone"),
         ],
         "abrupto": [
-            ("Los surcoreanos están desconcertados con este ___ anuncio.", "Los surcoreanos están desconcertados con este abrupto anuncio.", "Relations between North Korea and South Korea have been cooling down rapidly since the new government in South Korea and South Koreans are disconcerted by this sudden announcement."),
             ("El ___ tamaño del barcamp fue muy impresionante.", "El abrupto tamaño del barcamp fue muy impresionante.", "The sheer size of the barcamp was pretty impressive."),
         ],
         "absolutamente": [
@@ -721,7 +711,7 @@ extension SeedData {
         ],
         "abundante": [
             ("Este año hubo una cosecha ___.", "Este año hubo una cosecha abundante.", "There was an abundant harvest this year."),
-            ("Elemento ___. 250TARDIS Altamente explosivo en presencia de oxígeno.", "Elemento abundante. 250TARDIS Altamente explosivo en presencia de oxígeno.", "Elemento abundante. Altamente explosivo en presencia de oxígeno."),
+            ("Elemento ___. 250TARDIS Altamente explosivo en presencia de oxígeno.", "Elemento abundante. 250TARDIS Altamente explosivo en presencia de oxígeno.", "Elemento abundante”. “Altamente explosivo en presencia de oxígeno”."),
             ("Se trata de tomar eso que es escaso y volverlo ___.", "Se trata de tomar eso que es escaso y volverlo abundante.", "It is about taking that which was scarce and making it abundant."),
         ],
         "aburrido": [
@@ -840,9 +830,7 @@ extension SeedData {
             ("Siempre ___, nunca equivocado, alabamos a Rama en esta canción", "Siempre acertado, nunca equivocado, alabamos a Rama en esta canción", "Always right, never wrong, we praise Rama in this song Sing his love, sing his praise Rama set his wife ablaze"),
         ],
         "acertar": [
-            ("Acho que esses brinquedos sсo feitos para ___ nossos ovos.", "Acho que esses brinquedos sсo feitos para acertar nossos ovos.", "Acho que esses brinquedos sсo feitos para acertar nossos ovos."),
             ("Y siempre voy a ___.", "Y siempre voy a acertar.", "And I will be right every single time."),
-            ("Vou ___ bem na sua cara.", "Vou acertar bem na sua cara.", "Vou acertar bem na sua cara."),
         ],
         "achacar": [
             ("Él suele ___ sus fracasos a la mala suerte.", "Él suele achacar sus fracasos a la mala suerte.", "He often attributes his failures to bad luck."),
@@ -859,7 +847,6 @@ extension SeedData {
         ],
         "acogedor": [
             ("• Desarrollar una ciudad dinámica y un hogar ___", "• Desarrollar una ciudad dinámica y un hogar acogedor", "• Develop a vibrant city and an endearing home"),
-            ("Pequeño pero ___. Paul: Muy bonito.", "Pequeño pero acogedor. Paul: Muy bonito.", "Of course!"),
             ("Oh, se ve muy ___.", "Oh, se ve muy acogedor.", "Oh, your place has everything."),
         ],
         "acomodar": [
@@ -878,9 +865,7 @@ extension SeedData {
             ("¿Qué me podés ___?", "¿Qué me podés aconsejar?", "What advice can you give me?"),
         ],
         "acontecer": [
-            ("Nunca vou deixar nada ___ com vocЖ.", "Nunca vou deixar nada acontecer com vocЖ.", "Nunca vou deixar nada acontecer com vocЖ."),
             ("Si esto puede ___, ¡Santa Claus existe!", "Si esto puede acontecer, ¡Santa Claus existe!", "If this can happen, there is a Santa Claus!"),
-            ("- Qual ж P, sabe que nсo vai ___.", "- Qual ж P, sabe que nсo vai acontecer.", "- Qual ж P, sabe que nсo vai acontecer."),
         ],
         "acordar": [
             ("¿Quién se va a ___?", "¿Quién se va a acordar?", "Who is going to remember?"),
@@ -903,7 +888,6 @@ extension SeedData {
             ("No necesariamente hay que ___ a una mujer para limitar su carrera.", "No necesariamente hay que acosar a una mujer para limitar su carrera.", "You don't have to harass a woman to limit her career."),
         ],
         "acoso": [
-            ("Egipto: ___ sexual en Eid", "Egipto: acoso sexual en Eid", "Egypt: Sexual Harassment over Eid · Global Voices"),
             ("Y el ___ escolar es tan sólo un ejemplo de ésto.", "Y el acoso escolar es tan sólo un ejemplo de ésto.", "And bullying is just an example of that."),
             ("Puede que lo conozcan como ___ cibernético o intimidación cibernética.", "Puede que lo conozcan como acoso cibernético o intimidación cibernética.", "You might know it as cyberharassment or cyberbullying."),
         ],
@@ -922,12 +906,10 @@ extension SeedData {
             ("Él es ___.", "Él es acróbata.", "He is an acrobat."),
         ],
         "acta": [
-            ("Europa: ¿Sobrevivirá el ___ a las protestas?", "Europa: ¿Sobrevivirá el ACTA a las protestas?", "Europe: Will ACTA Treaty Pass After Protests? · Global Voices"),
             ("¿Qué constará en el ___ del parlamento?", "¿Qué constará en el acta del parlamento?", "What will parliament record in the minutes?"),
             ("¿Sobre ___? creo que no hay dudas.", "¿Sobre ACTA? creo que no hay dudas.", "About ACTA, I think there is no question."),
         ],
         "actitud": [
-            ("¿Qué tal si tuviéramos ese tipo de ___?", "¿Qué tal si tuviéramos ese tipo de actitud?", "Until I WlN!!"),
             ("¿Qué piensas de su ___?", "¿Qué piensas de su actitud?", "What do you think of her attitude?"),
             ("¿Por qué persiste esta ___ hacia los homosexuales en nuestro país?", "¿Por qué persiste esta actitud hacia los homosexuales en nuestro país?", "Why does this attitude toward gays persists in our country?"),
         ],
@@ -944,7 +926,6 @@ extension SeedData {
         "actor": [
             ("Supongo que sabes a quién me refiero. - ¿El ___, Strömberg?", "Supongo que sabes a quién me refiero. - ¿El actor, Strömberg?", "I suppose you know who I mean?"),
             ("¿Quién es tu ___ favorito?", "¿Quién es tu actor favorito?", "Who's your favorite actor?"),
-            ("Jugador pobre ___: ¿Cuánto es?", "Jugador pobre actor: ¿Cuánto es?", "PP: How much is that?"),
         ],
         "actriz": [
             ("Sólo tengo que encontrar a la ___ principal, ¿verdad?", "Sólo tengo que encontrar a la actriz principal, ¿verdad?", "I just have to find the lead actress, right?"),
@@ -984,7 +965,6 @@ extension SeedData {
         "acuerdo": [
             ("Kerim, vas al médico si sigue con vómitos, ¿de ___?", "Kerim, vas al médico si sigue con vómitos, ¿de acuerdo?", "Kerim, go to the doctor if she keeps vomiting, okay?"),
             ("Dibussi Tande no está de ___.", "Dibussi Tande no está de acuerdo.", "Dibussi Tande disagrees."),
-            ("(Risas) Es difícil descartar esta teoría, creo que estarán de ___.", "(Risas) Es difícil descartar esta teoría, creo que estarán de acuerdo.", "(Laughter) It's a difficult theory to discount, I think you'll agree."),
         ],
         "acumular": [
             ("¿Por qué ___ dinero para luego hacer filantropía?", "¿Por qué acumular dinero para luego hacer filantropía?", "Why the need for accumulating money, then doing philanthropy?"),
@@ -998,7 +978,6 @@ extension SeedData {
         ],
         "acusar": [
             ("¿Vas a ___ a cada marinero de asesinato, entonces?", "¿Vas a acusar a cada marinero de asesinato, entonces?", "Are you gonna accuse every sailor with murder then?"),
-            ("Quién es usted para ___ a alguien?", "Quién es usted para acusar a alguien?", "You which is to give condammations?"),
             ("¿No es un crimen para ___ a una persona inocente?", "¿No es un crimen para acusar a una persona inocente?", "Isn't it a crime to accuse an innocent person?"),
         ],
         "acuñar": [
@@ -1037,7 +1016,6 @@ extension SeedData {
             ("Sólo un milagro me va a hacer ___", "Sólo un milagro me va a hacer adelgazar", "Only a miracle can make me loose weight"),
         ],
         "adentro": [
-            ("¿Está él ___? Si, Mi Señora.", "¿Está él adentro? Si, Mi Señora.", "- He inside?"),
             ("Por que?.. hay algo ___ de lo que debiera estar enterada?", "Por que?.. hay algo adentro de lo que debiera estar enterada?", "Why? Is there something inside I should be aware of?"),
             ("Una mirada a la industria de la carne japonesa desde ___", "Una mirada a la industria de la carne japonesa desde adentro", "An Insider's View of the Japanese Meat Industry · Global Voices"),
         ],
@@ -1074,12 +1052,10 @@ extension SeedData {
         "aduana": [
             ("Un agente de ___ me pidió que abriera mi maleta.", "Un agente de aduana me pidió que abriera mi maleta.", "A customs official asked me to open my suitcase."),
             ("Los bienes fueron incautados por la ___.", "Los bienes fueron incautados por la aduana.", "The goods were seized by customs."),
-            ("Es algo que la ___ no le gustó.", "Es algo que la Aduana no le gustó.", "Okay and so in every small town in America, if movies didn't exist, they'd have to, then, recreate the Dark Knight. SAL: Right."),
         ],
         "adulto": [
             ("Ningún ___ participa de esto en absoluto.", "Ningún adulto participa de esto en absoluto.", "There are no adults involved in this at all."),
             ("Y tenía ___ esquizofrenia de comienzo.", "Y tenía adulto esquizofrenia de comienzo.", "And he had adult onset schizophrenia."),
-            ("(Risas) Pero es bueno ser ___.", "(Risas) Pero es bueno ser adulto.", "(Laughter) Now it's good to be a grownup."),
         ],
         "adverbio": [
             ("Pregúntate: ¿en verdad necesito ese ___?", "Pregúntate: ¿en verdad necesito ese adverbio?", "Ask yourself: do I really need that adverb?"),
@@ -1141,8 +1117,6 @@ extension SeedData {
             ("Pero no debería ___ en mi segundo día en el trabajo.", "Pero no debería aflojar en mi segundo día en el trabajo.", "But I shouldn't slack in my second day at work."),
         ],
         "afortunadamente": [
-            ("(risas) ___, Yo recibí el premio TED de este año.", "(risas) Afortunadamente, Yo recibí el premio TED de este año.", "(Laughter) Luckily, I was the recipient of the TED Prize this year."),
-            ("(Risas) ___, no lo era.", "(Risas) Afortunadamente, no lo era.", "(Laughter) Luckily, it wasn't."),
             ("Y nosotros estamos ___ aquí en 2009.", "Y nosotros estamos Afortunadamente aquí en 2009.", "And we're fortunately turned up here in 2009."),
         ],
         "afrontar": [
@@ -1187,7 +1161,6 @@ extension SeedData {
         ],
         "agotador": [
             ("¿Por qué? Porque es ___.", "¿Por qué? Porque es agotador.", "Why? Because it's tiring and we feel fatigue."),
-            ("Mh, ___. їAlguna noticia sobre Guney? їCуmo estб el seсor Sami?", "Mh, agotador. їAlguna noticia sobre Guney? їCуmo estб el seсor Sami?", "Nothing new from Gkiounef? How is Mr. Sami?"),
             ("Y no me gusta el deshierbe, ni el trabajo ___.", "Y no me gusta el deshierbe, ni el trabajo agotador.", "And I don't like weeding, and I don't like back-breaking labor."),
         ],
         "agotar": [
@@ -1201,7 +1174,6 @@ extension SeedData {
             ("Hay que ser ___, comer", "Hay que ser agradable, comer", "Be nice, eat"),
         ],
         "agradecer": [
-            ("Este salmo es de ___ para grandes milagros. żPor qu? vienen?", "Este salmo es de agradecer para grandes milagros. żPor qu? vienen?", "This psalm is to be thankful for GREAT miracles. Why do they come?"),
             ("¿Cómo sabrás ___ al Creador?", "¿Cómo sabrás agradecer al Creador?", "How will you say thank you to God?"),
             ("No pude ___ adecuadamente para el otro día.", "No pude agradecer adecuadamente para el otro día.", "I couldn't thank you properly for the other day."),
         ],
@@ -1216,7 +1188,6 @@ extension SeedData {
             ("¿Algo más que ___ de tu parte?", "¿Algo más que agregar de tu parte?", "Is there anything else you'd like to add?"),
         ],
         "agresivo": [
-            ("Egipto: ¿Es ___ el nuevo logo de la Hermandad Musulmana?", "Egipto: ¿Es agresivo el nuevo logo de la Hermandad Musulmana?", "Egypt: Is the New Muslim Brotherhood Logo Aggressive? · Global Voices"),
             ("Darwin se quejó, “¿por qué tienes que ser tan ___?”", "Darwin se quejó, “¿por qué tienes que ser tan agresivo?”", "Darwin complained, \"But why should you be so aggressive?\""),
             ("Es como restregarmelo en la cara, es muy ___, ¿no?", "Es como restregarmelo en la cara, es muy agresivo, ¿no?", "- Right, that's kind of rubbing it in."),
         ],
@@ -1323,13 +1294,11 @@ extension SeedData {
             ("Twitter estuvo ___ con el hashtag de #harimalaysia.", "Twitter estuvo alborotado con el hashtag de #harimalaysia.", "Twitter has been abuzz with the #harimalaysia hashtag."),
         ],
         "alcalde": [
-            ("Rusia: Ilya Varlamov, ¿___-blogger de Omsk?", "Rusia: Ilya Varlamov, ¿alcalde-blogger de Omsk?", "Russia: Ilya Varlamov, Omsk's Blogger-Mayor? · Global Voices"),
             ("El ___ se dirigió al público en general.", "El alcalde se dirigió al público en general.", "The mayor addressed the general public."),
             ("Eres el ___ de tu ciudad.", "Eres el alcalde de tu ciudad.", "You're the mayor of your local town."),
         ],
         "alcaldía": [
             ("¿Cómo concertamos reuniones de ___?", "¿Cómo concertamos reuniones de alcaldía?", "How do we arrange town hall meetings?"),
-            ("Perú: Dos candidatas se pelean la ___ de Lima", "Perú: Dos candidatas se pelean la alcaldía de Lima", "Peru: Two Women Contend to Become Mayor of Lima · Global Voices"),
             ("La Plaza de la ___ de Boston.", "La Plaza de la Alcaldía de Boston.", "Boston City Hall Plaza."),
         ],
         "alcantarilla": [
@@ -1344,8 +1313,6 @@ extension SeedData {
         ],
         "alce": [
             ("¿Viste acaso a un ___ enfermo?", "¿Viste acaso a un alce enfermo?", "Did you see a sick moose?"),
-            ("También me dio una de un ___, creen o no.", "También me dio una de un alce, creen o no.", "ZACH:"),
-            ("(Risas) Este es un ___.", "(Risas) Este es un alce.", "(Laughter) This is a moose."),
         ],
         "aleatoriamente": [
             ("¿como un ojo generará ___?", "¿como un ojo generará aleatoriamente?", "like an eye generate randomly?"),
@@ -1354,7 +1321,6 @@ extension SeedData {
         ],
         "alegoría": [
             ("¿Cuál sería la ___ del buen gobierno en el presente?", "¿Cuál sería la alegoría del buen gobierno en el presente?", "What would an allegory of good government look like today?"),
-            ("China: Aftershock - ¿Una película histórica o una ___ política?", "China: Aftershock - ¿Una película histórica o una alegoría política?", "China: Aftershock - history or political allegory? · Global Voices"),
             ("cómo contar un relato histórico por medio de una ___;", "cómo contar un relato histórico por medio de una alegoría;", "How to tell a political story but an allegorical story."),
         ],
         "alegrar": [
@@ -1363,7 +1329,6 @@ extension SeedData {
             ("Pero sigo viva y los voy a ___ con la verdad.", "Pero sigo viva y los voy a alegrar con la verdad.", "But I'm still alive and going to make you happy with truth."),
         ],
         "alegrarse": [
-            ("Entonces deberнa ___ de verte feliz.", "Entonces deberнa alegrarse de verte feliz.", "Entonces deberнa alegrarse de verte feliz."),
             ("Por fin Marruecos tiene algo de lo que ___.", "Por fin Marruecos tiene algo de lo que alegrarse.", "At last Morocco has something to cheer about."),
             ("Él va a ___ de verdad.", "Él va a alegrarse de verdad.", "He will be really pleased."),
         ],
@@ -1415,7 +1380,6 @@ extension SeedData {
         "algodón": [
             ("Algún día compraré una máquina de hacer ___ dulce.", "Algún día compraré una máquina de hacer algodón dulce.", "Someday I'll buy a cotton candy machine."),
             ("Prefiero una blusa de ___.", "Prefiero una blusa de algodón.", "I prefer a cotton blouse."),
-            ("Mujer: Ya está padre, el sari de ___ doblado ocho veces.", "Mujer: Ya está padre, el sari de algodón doblado ocho veces.", "Woman: Here, father, your eight-times folded cotton sari."),
         ],
         "algoritmo": [
             ("¿Qué tan rapido puede un ___ de aprendizaje automático aprender realmente?", "¿Qué tan rapido puede un algoritmo de aprendizaje automático aprender realmente?", "How, fast can a machine algorithm actually learn?"),
@@ -1452,12 +1416,10 @@ extension SeedData {
             ("¡Espero que esto pueda ayudarte a ___ tus sentimientos!", "¡Espero que esto pueda ayudarte a aliviar tus sentimientos!", "I hope this will help to relieve your feelings!"),
         ],
         "allí": [
-            ("¿Por qué ir ___? Fui a ver si estaba bien.", "¿Por qué ir allí? Fui a ver si estaba bien.", "Why go there?"),
             ("Y luego, que poco, estás ___, ¿vale?", "Y luego, que poco, estás allí, ¿vale?", "And then, that little bit, you are there, okay?"),
             ("¿Cual es ___ tu tipo de sangre?", "¿Cual es allí tu tipo de sangre?", "What is your blood type there?"),
         ],
         "alma": [
-            ("Vamos ___. żCu?l es su nombre?", "Vamos alma. żCu?l es su nombre?", "Let's soul. What is your name?"),
             ("Te dir? g-d, s?, el ___.", "Te dir? g-d, s?, el alma.", "Tell you g-d, yes, soul."),
             ("La música bella es sopa de pollo para mi ___.", "La música bella es sopa de pollo para mi alma.", "Beautiful music is chicken soup for my soul."),
         ],
@@ -1487,7 +1449,6 @@ extension SeedData {
         ],
         "alpaca": [
             ("Puedes comprar videojuegos, regalos, libros, servidores y calcetines de ___.", "Puedes comprar videojuegos, regalos, libros, servidores y calcetines de alpaca.", "You can purchase video games, gifts, books, servers and alpaca socks."),
-            ("Perú: Acusaciones de abuso a los animales en defensa de la ___ Surfera", "Perú: Acusaciones de abuso a los animales en defensa de la Alpaca Surfera", "Peru: Cries of Animal Abuse in Defense of Surfing Alpaca · Global Voices"),
         ],
         "alquilar": [
             ("¿Tienes que ___ equipo adicional?", "¿Tienes que alquilar equipo adicional?", "Do you have to rent additional equipment?"),
@@ -1495,8 +1456,6 @@ extension SeedData {
             ("¿Puedo ___ patines de hielo?", "¿Puedo alquilar patines de hielo?", "Can I rent ice skates?"),
         ],
         "alrededor": [
-            ("(Risas) Había muchos ejemplos a nuestro ___.", "(Risas) Había muchos ejemplos a nuestro alrededor.", "(Laughter) There were plenty of role models all around us."),
-            ("(Risas) Hasta 40 niños ___ de un árbol.", "(Risas) Hasta 40 niños alrededor de un árbol.", "(Laughter) Sometimes 40 children are around a tree."),
             ("Y bajó del rango ___ del 80%", "Y bajó del rango alrededor del 80%", "And it dropped from about the 80% range."),
         ],
         "altar": [
@@ -1524,8 +1483,6 @@ extension SeedData {
             ("Pero les prometo que uno está a la ___.", "Pero les prometo que uno está a la altura.", "But I promise you are up to it."),
         ],
         "alucinante": [
-            ("(Risas) Fue tan sobrecogedor... debes hacer tantas cosas que es ___.", "(Risas) Fue tan sobrecogedor... debes hacer tantas cosas que es alucinante.", "(Laughter) It was so overwhelming, because the amount of things you have to do, it's just mind-boggling."),
-            ("- Tanto que estoy mareada. - ¡Es ___!", "- Tanto que estoy mareada. - ¡Es alucinante!", "I'll say!"),
             ("Otra historia ___ viene de Alberto Fernández-Arias.", "Otra historia alucinante viene de Alberto Fernández-Arias.", "Another amazing story came from Alberto Fernández-Arias."),
         ],
         "aludir": [
@@ -1544,13 +1501,10 @@ extension SeedData {
             ("Mejor dicho, es un mar de electrones de ___.", "Mejor dicho, es un mar de electrones de aluminio.", "Or you create this sea of aluminum electrons."),
         ],
         "alumna": [
-            ("Le tenнa mucho aprecio. ї Y su ___?", "Le tenнa mucho aprecio. ї Y su alumna?", "Le tenнa mucho aprecio. ї Y su alumna?"),
             ("¿Sigue pasando por aquí? ___:", "¿Sigue pasando por aquí? Alumna:", "Is she still going up here?Student:"),
             ("Permítanme mencionarles solo uno, que hicimos con mi ___, Tumar Kusher.", "Permítanme mencionarles solo uno, que hicimos con mi alumna, Tumar Kusher.", "Let me mention just one that we did with Tumar Kushner, my student."),
         ],
         "alumno": [
-            ("¿Por qué son desiertos los mares abiertos? ___:", "¿Por qué son desiertos los mares abiertos? Alumno:", "Why not?"),
-            ("¿De donde lo van a obtener? ___: Exposición al medio o--", "¿De donde lo van a obtener? Alumno: Exposición al medio o--", "So yes, you can temporarily fix a lot of carbon by planting a"),
             ("El ___ levantó su mano para hacer una pregunta.", "El alumno levantó su mano para hacer una pregunta.", "The student raised his hand to ask a question."),
         ],
         "alzar": [
@@ -1566,7 +1520,6 @@ extension SeedData {
         "amablemente": [
             ("¿Por qué no simplemente juegas ___?", "¿Por qué no simplemente juegas amablemente?", "Why don't you just play nice?"),
             ("Se le permitió ___ bolsillo la cuchara:", "Se le permitió amablemente bolsillo la cuchara:", "Was kindly permitted to pocket the spoon:"),
-            ("Sophie Andrews: Pam continuó preguntando ___ a la niña.", "Sophie Andrews: Pam continuó preguntando amablemente a la niña.", "Sophie Andrews: Pam continued to gently ask the girl about herself."),
         ],
         "amanecer": [
             ("¿Viniste aquí a comprarte comida, ver el ___ y a divertirte?", "¿Viniste aquí a comprarte comida, ver el amanecer y a divertirte?", "Ah? Did you come here to eat by yourself, watch the sunrise and enjoy yourself?"),
@@ -1580,7 +1533,6 @@ extension SeedData {
         ],
         "amargado": [
             ("Lo siento, no estoy ___.", "Lo siento, no estoy amargado.", "Sorry. I'm not bitter."),
-            ("¡Quéjense! (Risas) Lo siento, no estoy ___.", "¡Quéjense! (Risas) Lo siento, no estoy amargado.", "(Laughter) Sorry. I'm not bitter."),
             ("No hagas cara de ___.", "No hagas cara de amargado.", "Don't make such a sour face."),
         ],
         "amargamente": [
@@ -1625,8 +1577,6 @@ extension SeedData {
         ],
         "ambulancia": [
             ("¿Era tu amiga la que llevaron en una ___?", "¿Era tu amiga la que llevaron en una ambulancia?", "Was it your friend who was taken away in an ambulance?"),
-            ("Oye. &lt;i&gt;Hola, ¿policía, bomberos o ___? ¿Hola?&lt;/i&gt;", "Oye. &lt;i&gt;Hola, ¿policía, bomberos o ambulancia? ¿Hola?&lt;/i&gt;", "Hey."),
-            ("¿Hola? &lt;i&gt;- ¿Necesita la policía, bomberos o ___?", "¿Hola? &lt;i&gt;- ¿Necesita la policía, bomberos o ambulancia?", "Hello? Do you need police, fire or ambulance?"),
         ],
         "amenazante": [
             ("Incluso ___ ¿qué opina usted?", "Incluso amenazante ¿qué opina usted?", "I might even call it threatening, what do you say?"),
@@ -1640,7 +1590,6 @@ extension SeedData {
         ],
         "americano": [
             ("¿Cómo distinguirías a un ___ de un inglés?", "¿Cómo distinguirías a un americano de un inglés?", "How would you know an American from an Englishman?"),
-            ("Siglo ___ conseguimos la paz por medio de nuestra fuerza.", "Siglo Americano conseguimos la paz por medio de nuestra fuerza.", "(Applause)"),
             ("Estoy loco por el fútbol ___.", "Estoy loco por el fútbol americano.", "I'm crazy about football."),
         ],
         "amiga": [
@@ -1654,7 +1603,6 @@ extension SeedData {
             ("Y miren ahora, nada ___.", "Y miren ahora, nada amistoso.", "And now look at this: not friendly."),
         ],
         "amnistía": [
-            ("Azerbaiyán: Emin Milli habla en la conferencia de ___ Internacional", "Azerbaiyán: Emin Milli habla en la conferencia de Amnistía Internacional", "Azerbaijan: Emin Milli speaks at Amnesty International conference · Global Voices"),
             ("Un comunicado de prensa de ___ Internacional dice :", "Un comunicado de prensa de Amnistía Internacional dice :", "An Amnesty international press release says:"),
             ("Ante esta situación, ___ Internacional se retira de la discusión.", "Ante esta situación, Amnistía Internacional se retira de la discusión.", "Faced with that, Amnesty International withdraws from the discussion."),
         ],
@@ -1688,7 +1636,6 @@ extension SeedData {
             ("O, ¿cuánto puedo ___ mi balance general?", "O, ¿cuánto puedo ampliar mi balance general?", "Or, how much can I expand my balance sheet?"),
         ],
         "amplio": [
-            ("Es ___, no es alto, y se siente pesado.", "Es amplio, no es alto, y se siente pesado.", "We also see a slightly different type of fluting, and we also, importantly, see a base. Let's move to the Corinthian order. This looks really different, and is the most decorative, and the distinguishing feature here is, again, the capital, where we see leaf-like shapes."),
             ("emitida desde Medio Oriente. Y tenemos algo más ___,", "emitida desde Medio Oriente. Y tenemos algo más amplio,", "We've got a bigger conversation about Israel and Palestine radiating outwards from the Middle East."),
             ("Este es el entorno monocromático azul más ___ del planeta.", "Este es el entorno monocromático azul más amplio del planeta.", "This is the largest single monochromatic blue environment on our planet."),
         ],
@@ -1783,7 +1730,6 @@ extension SeedData {
         ],
         "animado": [
             ("Porque realmente, ¿cómo matas a un dibujo ___?", "Porque realmente, ¿cómo matas a un dibujo animado?", "Because really, how do you kill a cartoon?"),
-            ("- O Darryl estр ___?", "- O Darryl estр animado?", "- O Darryl estр animado?"),
             ("Me sentí contento y ___ y decidí seguir tratándote.", "Me sentí contento y animado y decidí seguir tratándote.", "I was at once content and stimulated with what I saw: I liked what I had seen, and wished to see more."),
         ],
         "animal": [
@@ -1827,7 +1773,6 @@ extension SeedData {
             ("Contrario a como suena, el antihéroe no es el villano ni el ___.", "Contrario a como suena, el antihéroe no es el villano ni el antagonista.", "Contrary to the sound, the anti-hero is not the villain, not the antagonist."),
         ],
         "ante": [
-            ("Sri Lanka: ¿Cómo reaccionar ___ los mendigos?", "Sri Lanka: ¿Cómo reaccionar ante los mendigos?", "Sri Lanka: How Should We React To Beggars? · Global Voices"),
             ("Y realmente podemos defendernos ___ cualquier tipo concebible de ataque.", "Y realmente podemos defendernos ante cualquier tipo concebible de ataque.", "And we can rarely defend against every conceivable kind of attack."),
             ("Él fue impotente ___ la muerte.", "Él fue impotente ante la muerte.", "He was powerless in the face of death."),
         ],
@@ -1905,7 +1850,6 @@ extension SeedData {
             ("¿Nunca te han dicho que tienes una sonrisa... ... de ___?", "¿Nunca te han dicho que tienes una sonrisa... ... de anuncio?", "Has anyone ever told you that your smile... ... is perfect for a TV Ad?"),
         ],
         "análisis": [
-            ("GV: ¿Cómo promueven sus ___?", "GV: ¿Cómo promueven sus análisis?", "GV: How do you promote your analysis?"),
             ("Aquí es un ___ rápido.", "Aquí es un análisis rápido.", "Here is a quick analysis."),
             ("Tenemos que democratizar efectivamente los datos de ___ de riesgos.", "Tenemos que democratizar efectivamente los datos de análisis de riesgos.", "We need to effectively democratize threat intelligence data."),
         ],
@@ -1920,7 +1864,6 @@ extension SeedData {
             ("Un usuario ___ de la región de Dónetsk escribió :", "Un usuario anónimo de la región de Dónetsk escribió :", "An anonymous user from Donetsk region wrote :"),
         ],
         "apagado": [
-            ("Después del tono.. żAún ___?", "Después del tono.. żAún apagado?", "The number you are calling is unavailable at this time. After the beep ... Still is closed?"),
             ("Pero de cualquier forma, son interruptores de prendido / ___.", "Pero de cualquier forma, son interruptores de prendido / apagado.", "But for all intents and purposes they're on-off switches."),
             ("Su teléfono móvil también fue ___.", "Su teléfono móvil también fue apagado.", "His mobile phone was also switched off."),
         ],
@@ -1932,7 +1875,6 @@ extension SeedData {
         "aparato": [
             ("¿Utilizas habitualmente algún ___ de ayuda para caminar?", "¿Utilizas habitualmente algún aparato de ayuda para caminar?", "Do you regularly use any assistive devices for walking?"),
             ("¿vale? el ___ y introducimos nuestra herramienta, ¿vale?", "¿vale? el aparato y introducimos nuestra herramienta, ¿vale?", "So with the thumb, we open the apparatus, alright?"),
-            ("Rock &amp; Roll. El ___ está encendido, ¿lo notas?", "Rock &amp; Roll. El aparato está encendido, ¿lo notas?", "If you believe in yourself, you will know how to ride a bike!"),
         ],
         "aparcar": [
             ("-Se puede ___ en el frente y la derecha inversa?", "-Se puede aparcar en el frente y la derecha inversa?", "-You can park in front and reverse right?"),
@@ -1946,7 +1888,6 @@ extension SeedData {
         ],
         "aparentemente": [
             ("¿Por qué hay ___ un vínculo entre el Islam y autoritarismo?", "¿Por qué hay aparentemente un vínculo entre el Islam y autoritarismo?", "Why there is apparently a link between Islam and authoritarianism?"),
-            ("Vemos en Libia un ataque ___ por...", "Vemos en Libia un ataque aparentemente por...", "The Navy said they needed 313 ships to carry out their mission. We're now down to 285. We're headed down to the \\'97 to the low 200s if we go through with sequestration."),
             ("Pero hay ___ numerosos niños Jesús en un sólo pastel)", "Pero hay aparentemente numerosos niños Jesús en un sólo pastel)", "But there are apparently numerous Jesuses in one cake.)"),
         ],
         "aparición": [
@@ -1966,7 +1907,6 @@ extension SeedData {
         ],
         "apelación": [
             ("Al Tribunal de ___, por favor. -¿Viene Gottfrid?", "Al Tribunal de Apelación, por favor. -¿Viene Gottfrid?", "The Court of Appeal, please. -Is Gottfrid coming? -I highly doubt that."),
-            ("Egipto: Posponen la ___ de Kareem Amer", "Egipto: Posponen la apelación de Kareem Amer", "Egypt: Kareem Amer's Appeal Postponed · Global Voices"),
             ("Nuestra ___, Comercio sin Ayuda", "Nuestra apelación, Comercio sin Ayuda", "Our appeal, Trade not Aid"),
         ],
         "apelar": [
@@ -1980,14 +1920,11 @@ extension SeedData {
             ("Voy a escribirte ___ pueda.", "Voy a escribirte apenas pueda.", "I will write to you as soon as I can."),
         ],
         "aperitivo": [
-            ("PM: ¿Eso es para el ___ o el postre, Mark?", "PM: ¿Eso es para el aperitivo o el postre, Mark?", "PM: Is that for appetizer or dessert, Mark?"),
             ("Este ___ no sabe nada bien.", "Este aperitivo no sabe nada bien.", "This snack doesn't taste good at all."),
             ("Hay tiempo suficiente para un ___ rápido.", "Hay tiempo suficiente para un aperitivo rápido.", "There's enough time for a quick snack."),
         ],
         "aplastante": [
-            ("Ecuador: La ___ victoria de Correa", "Ecuador: La aplastante victoria de Correa", "Ecuador: Correa's Clear Victory · Global Voices"),
             ("Más bien, encontramos un ___ sentido de desesperanza.", "Más bien, encontramos un aplastante sentido de desesperanza.", "What we found was an overwhelming sense of helplessness."),
-            ("Bangladesh: Victoria ___ para la Liga Awami guiada por Gran Alianza", "Bangladesh: Victoria aplastante para la Liga Awami guiada por Gran Alianza", "Bangladesh: Landslide Victory For Awami League Led Grand Alliance · Global Voices"),
         ],
         "aplicación": [
             ("No. ¿Teníamos alguna innovadora ___ que nadie más tenía?", "No. ¿Teníamos alguna innovadora aplicación que nadie más tenía?", "Did we have a killer application that no one else had? No."),
@@ -1995,9 +1932,7 @@ extension SeedData {
             ("Ven, la ___ militar de esto es inmediata.", "Ven, la aplicación militar de esto es inmediata.", "But, you see, the military aplication for this is immediate."),
         ],
         "aplicación móvil": [
-            ("Tailandia: ___ para autistas", "Tailandia: Aplicación móvil para autistas", "Thailand: Mobile App for Autistic · Global Voices"),
             ("Kakao Talk, ___ de mensajería lider en Corea.", "Kakao Talk, aplicación móvil de mensajería lider en Corea.", "Kakao Talk, leading Korean mobile messenger application."),
-            ("Tailandia: ___ para informes de tráfico", "Tailandia: Aplicación móvil para informes de tráfico", "Thailand: Mobile App for Traffic Reports · Global Voices"),
         ],
         "aportar": [
             ("¿Qué puede ___ el arte a esto?", "¿Qué puede aportar el arte a esto?", "What can artwork say about this?"),
@@ -2005,7 +1940,6 @@ extension SeedData {
             ("Las personas empezaron a ___ ideas.", "Las personas empezaron a aportar ideas.", "People started contributing ideas."),
         ],
         "apostar": [
-            ("Corea: Juego de Internet = ___?", "Corea: Juego de Internet = apostar?", "Korea: Internet Game = Gambling? · Global Voices"),
             ("Podría ___ que uno de estos tres escenarios va a ocurrir:", "Podría apostar que uno de estos tres escenarios va a ocurrir:", "I might bet that one of these three scenarios will happen:"),
             ("Son personas que desean ___ por algo.", "Son personas que desean apostar por algo.", "They're the people you want to bet on."),
         ],
@@ -2036,7 +1970,6 @@ extension SeedData {
         ],
         "aprendizaje automático": [
             ("¿Qué tan rapido puede un algoritmo de ___ aprender realmente?", "¿Qué tan rapido puede un algoritmo de aprendizaje automático aprender realmente?", "How, fast can a machine algorithm actually learn?"),
-            ("(Música) Son experimentos simples de ___.", "(Música) Son experimentos simples de aprendizaje automático.", "(Music) These are simple experiments in machine learning."),
             ("Bienvenidos a esta clase gratuita online sobre ___.", "Bienvenidos a esta clase gratuita online sobre aprendizaje automático.", "Welcome to this free online class on machine learning. Machine learning is one of the most exciting recent technologies."),
         ],
         "apresuradamente": [
@@ -2115,8 +2048,6 @@ extension SeedData {
             ("Algo se está moviendo detrás del ___.", "Algo se está moviendo detrás del arbusto.", "Something is moving behind the bush."),
         ],
         "archipiélago": [
-            ("Chile: Maremoto golpea el ___ Juan Fernández", "Chile: Maremoto golpea el Archipiélago Juan Fernández", "Chile: Tsunami Strikes Juan Fernández Islands · Global Voices"),
-            ("Japón: Ocho lenguas en peligro en el ___ japonés", "Japón: Ocho lenguas en peligro en el archipiélago japonés", "Japan: Eight endangered languages in the Japanese archipelago · Global Voices"),
             ("Las Islas Malvinas son un ___.", "Las Islas Malvinas son un archipiélago.", "The Falkland Islands are an archipelago."),
         ],
         "archivar": [
@@ -2140,7 +2071,6 @@ extension SeedData {
             ("Es un trabajo realmente ___.", "Es un trabajo realmente arduo.", "It's really hard work."),
         ],
         "arena": [
-            ("Bahréin: ¿Por qué tantas tormentas de ___?", "Bahréin: ¿Por qué tantas tormentas de arena?", "Bahrain: Why so many sandstorms? · Global Voices"),
             ("Es una tonelada de ___ al año.", "Es una tonelada de arena al año.", "So, that is one ton of sand a year."),
             ("Comentaban que sus personajes favoritos eran los enormes gusanos de ___.", "Comentaban que sus personajes favoritos eran los enormes gusanos de arena.", "They were talking about how their favorite characters were the giant sandworms."),
         ],
@@ -2161,7 +2091,6 @@ extension SeedData {
         ],
         "armadillo": [
             ("- No veo al ___. - ¿Habrá sido gas?", "- No veo al Armadillo. - ¿Habrá sido gas?", "- Armadillo's off the scope. - I think we've had a blowout."),
-            ("Ella es mejor que nosotros. SITIO DE PRUEBAS DEL ___", "Ella es mejor que nosotros. SITIO DE PRUEBAS DEL ARMADILLO", "Better than all of us."),
             ("Relájate, te voy a mostrar gratis cómo manejar el ___.", "Relájate, te voy a mostrar gratis cómo manejar el Armadillo.", "Harry, just sit back, relax. I'm gonna put on a free Armadillo driving clinic. Whoa, whoa, whoa, whoa, Harry!"),
         ],
         "armar": [
@@ -2177,7 +2106,6 @@ extension SeedData {
         "armonía": [
             ("¿No debería valorarse el actual entorno de desarrollo en perfecta ___?", "¿No debería valorarse el actual entorno de desarrollo en perfecta armonía?", "Is the present environment of development in tranquil harmony not something to be cherished?"),
             ("Equilibrio y ___ pueden sustituirse por otra palabra: estandarización.", "Equilibrio y armonía pueden sustituirse por otra palabra: estandarización.", "Balance and harmony can be substituted with another word: standardization."),
-            ("Bahréin: ___ en la diversidad", "Bahréin: Armonía en la diversidad", "Bahrain: Harmony in Diversity · Global Voices"),
         ],
         "arqueólogo": [
             ("Soñaba con ser arquitecto o ___.", "Soñaba con ser arquitecto o arqueólogo.", "I had dreams of becoming an architect or an archaeologist."),
@@ -2187,7 +2115,6 @@ extension SeedData {
         "arquitecto": [
             ("¿Por qué Ud., como ___, se involucró con el espacio?", "¿Por qué Ud., como arquitecto, se involucró con el espacio?", "Why would you, as an architect, get involved in space?"),
             ("Mi padre es ___, no ingeniero.", "Mi padre es arquitecto, no ingeniero.", "My father is an architect, not an engineer."),
-            ("Sina Weibo le responde al ___ del Gran Cortafuegos: Piérdete", "Sina Weibo le responde al arquitecto del Gran Cortafuegos: Piérdete", "Sina Weibo to 'Great Firewall' Architect: Get Lost · Global Voices"),
         ],
         "arrasar": [
             ("Y solo no puedes ___ con toda la policía.", "Y solo no puedes arrasar con toda la policía.", "You can't blow 'em all away!"),
@@ -2211,7 +2138,6 @@ extension SeedData {
         "arrecife": [
             ("Particularmente, ¿cómo hace un pez para encontrar un ___?", "Particularmente, ¿cómo hace un pez para encontrar un arrecife?", "In particular, how to fish find a reef?"),
             ("¿Cómo funciona el ___? Bueno es muy simple.", "¿Cómo funciona el arrecife? Bueno es muy simple.", "How does the reef work? Well, it's very, very simple."),
-            ("¿Qué sucede cuando fijan carbono en un ___?", "¿Qué sucede cuando fijan carbono en un arrecife?", "And that's one of the issues that gets talked a lot about in the European Union is how to equalize these kinds of costs. Because basically Canada is being treated as an externality by the United States, and Scandinavia is being treated as an externality by Germany. So that sort of thing needs conflict resolution."),
         ],
         "arreglar": [
             ("¿En verdad confiarían en algunas otras criaturas para ___ sus problemas?", "¿En verdad confiarían en algunas otras criaturas para arreglar sus problemas?", "Would you really rely on some other creatures to fix your problems?"),
@@ -2236,10 +2162,8 @@ extension SeedData {
         "arrestar": [
             ("¿Quiere Vuestra Eminencia que los haga ___ a los dos?", "¿Quiere Vuestra Eminencia que los haga arrestar a los dos?", "\"Does your Eminence command that they both be instantly arrested?\""),
             ("¿___ a los clientes con los niños?", "¿Arrestar a los clientes con los niños?", "Arrest the shoppers, with kids?"),
-            ("Zimbabwe: ¿Por qué ___ a Roy Bennett?", "Zimbabwe: ¿Por qué arrestar a Roy Bennett?", "Zimbabwe: Why Arrest Roy Bennett? · Global Voices"),
         ],
         "arriba": [
-            ("TT: ¿Podrías subirlo un pelín más ___?", "TT: ¿Podrías subirlo un pelín más arriba?", "TT: Can you pull it up just a smidgeon."),
             ("Pon el libro en el estante de más ___.", "Pon el libro en el estante de más arriba.", "Put the book on the top shelf."),
             ("Así que los que digan sí, manos ___.", "Así que los que digan sí, manos arriba.", "So those who are \"yes,\" raise your hand. \"For.\""),
         ],
@@ -2255,7 +2179,6 @@ extension SeedData {
         ],
         "arrogante": [
             ("¿Por qué eres tan ___?", "¿Por qué eres tan arrogante?", "Why are you so arrogant?"),
-            ("528 00:43:28,116 --&gt; 00:43:29,910 Estás siendo ___ a nosotros?", "528 00:43:28,116 --&gt; 00:43:29,910 Estás siendo arrogante a nosotros?", "528 00:43:28,116 --&gt; 00:43:29,910 Are you being arrogant to us?"),
             ("¡Oh! Tu...Tu eres esa chica ___... ¿Qué es esto?", "¡Oh! Tu...Tu eres esa chica arrogante... ¿Qué es esto?", "You... you're that little bean-girl."),
         ],
         "arrojar": [
@@ -2330,7 +2253,6 @@ extension SeedData {
         ],
         "asamblea": [
             ("¿Cómo sería una ___ Anual sin un himno?", "¿Cómo sería una Asamblea Anual sin un himno?", "What would Annual Meeting be like without a hymn?"),
-            ("Bahréin: Protestas bloquean edificio de la ___ Nacional", "Bahréin: Protestas bloquean edificio de la Asamblea Nacional", "Bahrain: Protests Block National Assembly Building · Global Voices"),
             ("Por ejemplo, en el sitio web de la ___ Soviética.", "Por ejemplo, en el sitio web de la Asamblea Soviética.", "For example, on the website of the Supreme Soviet."),
         ],
         "asar": [
@@ -2346,7 +2268,6 @@ extension SeedData {
         "asegurar": [
             ("Así que, hemos visto tres maneras diferentes de ___ algo, ¿vale?.", "Así que, hemos visto tres maneras diferentes de asegurar algo, ¿vale?.", "If something really is questionable, they often say, well that's obvious."),
             ("Y que estamos intentando ___ o prevenir?", "Y que estamos intentando asegurar o prevenir?", "And what are we, we trying to, ensure or, or prevent?"),
-            ("¿Por qué necesitamos ___ nada?", "¿Por qué necesitamos asegurar nada?", "Because people try to paper over the cracks in their arguments, with these assurances. At least in some cases, and you have to learn to watch out for that."),
         ],
         "asentar": [
             ("¿Cuántas veces te he dicho que no la dejes ___?", "¿Cuántas veces te he dicho que no la dejes asentar?", "How often have I told you not to let it sit out?"),
@@ -2399,7 +2320,6 @@ extension SeedData {
         ],
         "asombroso": [
             ("¿Quién quiere unirse a este equipo ___?", "¿Quién quiere unirse a este equipo asombroso?", "Would you care to join this amazing team?"),
-            ("(Risas) Entonces yo analicé este problema, y encontré algo ___.", "(Risas) Entonces yo analicé este problema, y encontré algo asombroso.", "(Laughter) So what I did actually is to study this problem, and I found something quite surprising."),
             ("Ese es un hecho ___.", "Ese es un hecho asombroso.", "You know, there is this amazing fact."),
         ],
         "aspiradora": [
@@ -2420,7 +2340,6 @@ extension SeedData {
         "astronomía": [
             ("¿Cuál será el próximo capítulo de la ___?", "¿Cuál será el próximo capítulo de la astronomía?", "What is the next chapter for astronomy?"),
             ("¿Qué tiene que ver esto con la ___?", "¿Qué tiene que ver esto con la astronomía?", "So what does this have to do with astronomy?"),
-            ("Discuten sobre ___. Ryan Freedle:", "Discuten sobre astronomía. Ryan Freedle:", "You know, if you believe that you can do the learning for the student, then don't even try peer discussion."),
         ],
         "astrónomo": [
             ("Pero yo no soy ni científico del clima, ni ___,", "Pero yo no soy ni científico del clima, ni astrónomo,", "But I'm not a climate scientist, I'm an astronomer."),
@@ -2435,7 +2354,6 @@ extension SeedData {
         "asustado": [
             ("Y ésto no es una pregunta cínica, como '¿Quién está ___?", "Y ésto no es una pregunta cínica, como '¿Quién está asustado?", "And this is not a cynical question, like [Mooji uses arrogant voice] 'Who is afraid?' No."),
             ("Estás ___ sin tus amigos, ¿no?", "Estás asustado sin tus amigos, ¿no?", "Scared without your pals?"),
-            ("Egipto: ¿Por qué está Israel ___?", "Egipto: ¿Por qué está Israel asustado?", "Egypt: Why is Israel Scared? · Global Voices"),
         ],
         "asustar": [
             ("¿Podrías no ___ al nuevo, por favor?", "¿Podrías no asustar al nuevo, por favor?", "Can you not scare the new guy away, please?"),
@@ -2462,7 +2380,6 @@ extension SeedData {
             ("En lugar de tomar un pausa para mirar, queremos ___ el problema de inmediato.", "En lugar de tomar un pausa para mirar, queremos atajar el problema de inmediato.", "Rather than actually taking a pause to look, we right away want to jump. It's sort of American foreign policy, you know?"),
         ],
         "atardecer": [
-            ("Níger: Imponen toque de queda del ___ al amanecer", "Níger: Imponen toque de queda del atardecer al amanecer", "Niger: Dusk to dawn curfew imposed · Global Voices"),
             ("Pero el horizonte era anaranjado, como un ___. Un giro completo.", "Pero el horizonte era anaranjado, como un atardecer. Un giro completo.", "But on the horizon it was orange, like sunset, 360 degrees."),
             ("Y cada ___, vuelan 150 millas de regreso.", "Y cada atardecer, vuelan 150 millas de regreso.", "And every evening, they fly 150 miles back."),
         ],
@@ -2489,7 +2406,6 @@ extension SeedData {
         "ateo": [
             ("En la práctica, ¿qué es un ___?", "En la práctica, ¿qué es un ateo?", "In practice, what is an atheist?"),
             ("¿Y si se hubiera hecho pasar por mormón, budista o ___?", "¿Y si se hubiera hecho pasar por mormón, budista o ateo?", "And if he had pretended to be Mormon or Buddhist or an atheist?"),
-            ("(Aplausos) En la práctica, ¿qué es un ___?", "(Aplausos) En la práctica, ¿qué es un ateo?", "(Applause) In practice, what is an atheist?"),
         ],
         "aterrizaje": [
             ("¿Comerían algo que parece una pista de ___?", "¿Comerían algo que parece una pista de aterrizaje?", "Would you eat something that looks like an airport runway?"),
@@ -2498,7 +2414,6 @@ extension SeedData {
         ],
         "aterrizar": [
             ("No es posible ___ con un traje aéreo... todavía.", "No es posible aterrizar con un traje aéreo... todavía.", "It's not possible to land a wingsuit yet."),
-            ("(Risas) No es posible ___ con un traje aéreo... todavía.", "(Risas) No es posible aterrizar con un traje aéreo... todavía.", "(Laughter) It's not possible to land a wingsuit yet."),
             ("Así, podría ___ en un parque, por ejemplo.", "Así, podría aterrizar en un parque, por ejemplo.", "So it could land in a park, for example."),
         ],
         "atesorar": [
@@ -2507,7 +2422,6 @@ extension SeedData {
         ],
         "atestiguar": [
             ("¿Quién puede ___ aquello, que da testimonio incluso del 'Yo soy'?", "¿Quién puede atestiguar aquello, que da testimonio incluso del 'Yo soy'?", "What can witness that, which witnesses even 'I am'?"),
-            ("(Risas) Sentimos ira en la adolescencia, como mi mamá puede ___.", "(Risas) Sentimos ira en la adolescencia, como mi mamá puede atestiguar.", "(Laughter) We feel it throughout our teenage years, as my mom can certainly attest to with me."),
             ("El ___ de eso ocurre...", "El atestiguar de eso ocurre...", "Witnessing of that is taking place..."),
         ],
         "atletismo": [
@@ -2525,7 +2439,6 @@ extension SeedData {
             ("Mi abuelita hizo ___ de avena.", "Mi abuelita hizo atole de avena.", "My grandma made oatmeal atole."),
         ],
         "atracar": [
-            ("żY luego podremos ___ donde queramos?", "żY luego podremos atracar donde queramos?", "Yes, but I want you on my side, against Carrot."),
             ("Lo primero que pienso es que voy a ___ un banco.", "Lo primero que pienso es que voy a atracar un banco.", "First thing to come to my mind: I'll go hold up a bank."),
             ("Aunque están llegando en bote, no pueden ___ en el muelle.", "Aunque están llegando en bote, no pueden atracar en el muelle.", "Though they are coming here by boat, they aren’t being able to dock in the quay."),
         ],
@@ -2535,7 +2448,6 @@ extension SeedData {
             ("¿Conseguirá el E-Cat ___ la atención mundial científica?", "¿Conseguirá el E-Cat atraer la atención mundial científica?", "Will the E-Cat be able to draw the scientific world's attention?"),
         ],
         "atrapar": [
-            ("żQuieren ___ a un criminal?", "żQuieren atrapar a un criminal?", "You?"),
             ("¿No soy yo a quien verdaderamente quieren ___?", "¿No soy yo a quien verdaderamente quieren atrapar?", "I'm the one you're after."),
             ("Pero debes perder una mosca para ___ una trucha, derecho querida?", "Pero debes perder una mosca para atrapar una trucha, derecho querida?", "But you must lose a fly to catch a trout, right my dear?"),
         ],
@@ -2585,8 +2497,6 @@ extension SeedData {
         ],
         "auditor": [
             ("¿Eres consultor, ___ o director de calidad?", "¿Eres consultor, auditor o director de calidad?", "Are you a consultant, an Auditor or a Quality Manager?"),
-            ("Pagaremos el ___ $50.000. &gt;&gt; Verdad?", "Pagaremos el auditor $50.000. &gt;&gt; Verdad?", "We'll pay the auditor $50,000. &gt;&gt; Right?"),
-            ("&gt;&gt; Pagar por un ___ es un costo período.", "&gt;&gt; Pagar por un auditor es un costo período.", "&gt;&gt; Paying for an auditor is a period cost."),
         ],
         "auditoría": [
             ("¿Ni tú, Sa Hun Bu, y el oficial de la ___?", "¿Ni tú, Sa Hun Bu, y el oficial de la auditoría?", "Neither did the officer in charge of the audit?"),
@@ -2609,8 +2519,6 @@ extension SeedData {
             ("Espero que estas herramientas ayuden a ___ su adaptabilidad.", "Espero que estas herramientas ayuden a aumentar su adaptabilidad.", "So I hope that these tools help you to raise your own AQ."),
         ],
         "austeridad": [
-            ("Portugal: Más ___, ¿por qué está tardando tanto La Revolución?", "Portugal: Más austeridad, ¿por qué está tardando tanto La Revolución?", "Portugal: More Austerity, Why's the Revolution Taking So Long? · Global Voices"),
-            ("Barbados: ¿Es la ___ el mejor camino?", "Barbados: ¿Es la austeridad el mejor camino?", "Barbados: Is Austerity The Way To Go? · Global Voices"),
             ("Portugal ríe antes de manifestarse contra la ___", "Portugal ríe antes de manifestarse contra la austeridad", "Portugal Gets the Giggles Ahead of Austerity Protests · Global Voices"),
         ],
         "austero": [
@@ -2685,7 +2593,6 @@ extension SeedData {
         "avaricia": [
             ("¿Cuándo se acabará la ___ humana?", "¿Cuándo se acabará la avaricia humana?", "When will human greed end?"),
             ("Tu crees que Russia no es controlada por la ___?", "Tu crees que Russia no es controlada por la avaricia?", "You think China doesn't run on greed?"),
-            ("Y sofocaré al resto con ___", "Y sofocaré al resto con avaricia", "Hey!"),
         ],
         "avaro": [
             ("-¿Y sabes también que mi padre era un hombre ___, sórdido?", "-¿Y sabes también que mi padre era un hombre avaro, sórdido?", "\"And did you ever hear that my father was an avaricious, grasping man?\""),
@@ -2699,7 +2606,6 @@ extension SeedData {
         ],
         "avenida": [
             ("¿tiene líneas rojas?, ¿en qué ___ está?", "¿tiene líneas rojas?, ¿en qué avenida está?", "Where is it? Are there buildings? Knock them down."),
-            ("Londres, París, La quinta ___", "Londres, París, La quinta avenida", "Good night Garet."),
             ("Manifestación en la ___ Habib Bourguiba, Túnez.", "Manifestación en la Avenida Habib Bourguiba, Túnez.", "Demonstration on Avenue Habib Bourguiba, Tunis."),
         ],
         "avergonzado": [
@@ -2718,13 +2624,11 @@ extension SeedData {
             ("Trate de ___ si es verdad todo lo que dijo.", "Trate de averiguar si es verdad todo lo que dijo.", "Try to find out if everything he said is true."),
         ],
         "avioneta": [
-            ("Perú: Mototaxistas iluminan despegue de ___ con enfermos", "Perú: Mototaxistas iluminan despegue de avioneta con enfermos", "Peru: Motorcycle Taxis Light Up Runway to Transport Sick Patients · Global Voices"),
             ("Dos colegas míos fallecieron recientemente al estrellarse con una ___.", "Dos colegas míos fallecieron recientemente al estrellarse con una avioneta.", "Two colleagues of mine passed away recently in the crash of a small plane."),
         ],
         "avisar": [
             ("¿Tenía algún medio de ___ a su amo?", "¿Tenía algún medio de avisar a su amo?", "Had Neb any means by which to warn his master?"),
             ("¿Me será permitido ___ a mi mujer? preguntó. ¡Oh!", "¿Me será permitido avisar a mi mujer? preguntó. ¡Oh!", "\"Oh, you may even see her if you like, my dear Mr. O’Reilly."),
-            ("Tiene tiempo de... (Risas) Tiene tiempo de ___ a una casa.", "Tiene tiempo de... (Risas) Tiene tiempo de avisar a una casa.", "You have time to -- (Laughter) you have time to alert one house."),
         ],
         "avión": [
             ("¿Tienes miedo a errores de software en un ___?", "¿Tienes miedo a errores de software en un avión?", "Are you scared of software errors in an airplane?"),
@@ -2777,7 +2681,6 @@ extension SeedData {
             ("Hoy, todo joven coreano termina el ___.", "Hoy, todo joven coreano termina el bachillerato.", "Today, every young Korean finishes high school."),
         ],
         "bahía": [
-            ("Guatemala: El presidente Colom se disculpa por ___ de Cochinos", "Guatemala: El presidente Colom se disculpa por Bahía de Cochinos", "Guatemala: President Colom Apologizes for the Bay of Pigs · Global Voices"),
             ("Los tiburones solían entrar a la ___.", "Los tiburones solían entrar a la bahía.", "This is Keem Bay up in Achill Island."),
             ("Regresé 5 años después y esa misma ___ ahora es magnífica.", "Regresé 5 años después y esa misma bahía ahora es magnífica.", "Five years later, come back, and that same bay is now gorgeous. It's beautiful."),
         ],
@@ -2818,11 +2721,9 @@ extension SeedData {
         ],
         "balbucear": [
             ("¿Podría el haber...? ¡Deja de ___!", "¿Podría el haber...? ¡Deja de balbucear!", "- He's not-- - None of your foolishness."),
-            ("Blab? &gt;&gt; Anna? Kinda &gt;&gt; ___. &gt;&gt; Sí, balbuceo.", "Blab? &gt;&gt; Anna? Kinda &gt;&gt; balbucear. &gt;&gt; Sí, balbuceo.", "Blab? &amp;gt;&amp;gt; Anna? &amp;gt;&amp;gt; Kinda babble. &amp;gt;&amp;gt; Yeah, babble."),
             ("Tiendo a ___ en ocasiones.", "Tiendo a balbucear en ocasiones.", "I do tend to babble at times."),
         ],
         "ballena": [
-            ("¿Puedes traerme la ___ azul, por favor?", "¿Puedes traerme la ballena azul, por favor?", "Could you bring in the blue whale, please Bryson? (laughter)"),
             ("¿Y qué decir de una ___ o un ser humano?", "¿Y qué decir de una ballena o un ser humano?", "And what about a whale or a human being?"),
             ("¿Qué esperamos de una ___ asesina?", "¿Qué esperamos de una ballena asesina?", "And I thought, \"What do we expect from a killer whale?"),
         ],
@@ -2877,7 +2778,6 @@ extension SeedData {
             ("¿Sabes dónde puedo alquilar un ___?", "¿Sabes dónde puedo alquilar un barco?", "Do you know where I can rent a boat?"),
         ],
         "barniz": [
-            ("¿Como un pedazo de....??? con ___ de madera.", "¿Como un pedazo de....??? con barniz de madera.", "I went around to the stores on the street and found Stuyvesant Guitars. Guitars everywhere, people everywhere. This instrument was just there calling out to me-- this explorer."),
             ("Hay que darle una mano de ___.", "Hay que darle una mano de barniz.", "We must give it a coat of varnish."),
             ("En otras palabras, las reformas en Marruecos son solamente un ___.", "En otras palabras, las reformas en Marruecos son solamente un barniz.", "In other words, reforms in Morocco are only a varnish."),
         ],
@@ -2897,14 +2797,11 @@ extension SeedData {
             ("Y el ___ se siente mejor por esa emoción.", "Y el barrio se siente mejor por esa emoción.", "And the neighborhood feels better, thanks to that emotion."),
         ],
         "base": [
-            ("Goulart defendнa las reformas de ___.", "Goulart defendнa las reformas de base.", "Goulart was a supporter of base reforms."),
             ("Afortunadamente, las vitrinas, sólidamente fijadas en su ___, habían resistido.", "Afortunadamente, las vitrinas, sólidamente fijadas en su base, habían resistido.", "Fortunately the glass cases were solidly secured at the base and had stood fast."),
-            ("Uzbekistan: Tashkent permite a USA acceso a ___ aérea", "Uzbekistan: Tashkent permite a USA acceso a base aérea", "Uzbekistan: Tashkent Allows US Access to Airbase · Global Voices"),
         ],
         "base de datos": [
             ("¿Cómo encuentro el contenido de esta ___?", "¿Cómo encuentro el contenido de esta base de datos?", "How do I find out what does this database contain?"),
             ("Porque los datos se esconden en ___.", "Porque los datos se esconden en base de datos.", "Because the data is hidden down in the databases."),
-            ("Africa: Lanzan ___ de conflictos sociales", "Africa: Lanzan base de datos de conflictos sociales", "Africa: Database of Social Conflicts Launched · Global Voices"),
         ],
         "bastar": [
             ("-En efecto -respondí-, una decena de hombres debe ___.", "-En efecto -respondí-, una decena de hombres debe bastar.", "\"Correct,\" I replied. \"Under existing conditions some ten men at the most should be enough to operate it.\""),
@@ -2917,7 +2814,6 @@ extension SeedData {
             ("El paraguas es a veces también un ___.", "El paraguas es a veces también un bastón.", "The umbrella is also a cane sometimes."),
         ],
         "basura": [
-            ("Global: ___ electrónica - ¿Reciclar o reutilizar?", "Global: Basura electrónica - ¿Reciclar o reutilizar?", "Global: e-Waste - Recycle or Reuse? · Global Voices"),
             ("¿Qué vi? Estrellas, satélites, aviones parpadeántes -- típica ___ del cielo.", "¿Qué vi? Estrellas, satélites, aviones parpadeántes -- típica basura del cielo.", "What did I see? Stars, satellites, blinking airplanes -- typical sky junk."),
             ("¿De dónde sacaste toda esa ___?", "¿De dónde sacaste toda esa basura?", "Where did you get all this crap from?"),
         ],
@@ -2951,7 +2847,6 @@ extension SeedData {
             ("Entonces anuncié que intentaría ___ el récord de Sietas públicamente.", "Entonces anuncié que intentaría batir el récord de Sietas públicamente.", "(Laughter ends) I then announced that I was going to go for Sietas' record, publicly."),
         ],
         "bautizo": [
-            ("(Risas) ¿Acaban de ver un ___, no?", "(Risas) ¿Acaban de ver un bautizo, no?", "(Laughter) You just saw a baptism, yes?"),
             ("___ con agua.", "Bautizo con agua.", "I baptize with water."),
         ],
         "bazo": [
@@ -2976,13 +2871,11 @@ extension SeedData {
         ],
         "bebida": [
             ("¿___, Kleenex? - ¿Qué quiere?", "¿Bebida, Kleenex? - ¿Qué quiere?", "Drinks? Kleenex?"),
-            ("Ąhola! żPuedo invitarte una ___?", "Ąhola! żPuedo invitarte una bebida?", "- Well, I like Jigsaw. I think he kills people very creatively. - But she don't give a shit who dies... ...cos there's no character to fill a man."),
             ("¿Cuál es tu ___ energética favorita?", "¿Cuál es tu bebida energética favorita?", "What's your favorite energy drink?"),
         ],
         "beca": [
             ("Me dieron una ___, pero necesitaba llegar hasta aquí.", "Me dieron una beca, pero necesitaba llegar hasta aquí.", "I got a scholarship but I needed to get myself here."),
             ("Dos semanas después conseguí una ___ militar y me admitieron.", "Dos semanas después conseguí una beca militar y me admitieron.", "I didn't expect to get in, and my family had no money for college."),
-            ("Así que conseguiste una ___. Richard Turere: Sí.", "Así que conseguiste una beca. Richard Turere: Sí.", "So you got this scholarship.Richard Turere: Yep."),
         ],
         "becario": [
             ("¿Llevas más de tres meses de ___?", "¿Llevas más de tres meses de becario?", "You have been in intern for more than three months?"),
@@ -3002,7 +2895,6 @@ extension SeedData {
         "bendecir": [
             ("¿Por qué las mujeres temen ___ por sus realidades no perfectas?", "¿Por qué las mujeres temen bendecir por sus realidades no perfectas?", "Why are women afraid to bless over their lacking situation?"),
             ("Tome un hermoso arreglo y ___", "Tome un hermoso arreglo y bendecir", "Take a beautiful arrangement and bless"),
-            ("Chicas, deberes: ___, estar linda, comprarse un vestido y hornear masa.", "Chicas, deberes: bendecir, estar linda, comprarse un vestido y hornear masa.", "You will have. Girls - Homework: bless, be pretty, buy a dress and bake dough, but this week we have two great great saints"),
         ],
         "bendito": [
             ("¿Y si él -¡___ sea!corre hacia mí?", "¿Y si él -¡bendito sea!corre hacia mí?", "And if I did--what then?"),
@@ -3024,18 +2916,11 @@ extension SeedData {
             ("Es Ud ___ al pretender que Dios me perdonará.", "Es Ud benévolo al pretender que Dios me perdonará.", "You're kind to pretend God forgives me."),
             ("El dictador ___ es realmente hacer el bien para la sociedad.", "El dictador benévolo es realmente hacer el bien para la sociedad.", "The benevolent dictator is actually doing good for society."),
         ],
-        "bermuda": [
-            ("___: ¿El impuesto a las bolsas es un mal impuesto?", "Bermuda: ¿El impuesto a las bolsas es un mal impuesto?", "Bermuda: Bag Tax or Bad Tax? · Global Voices"),
-            ("Jamaica, ___: Citas sobre Mumbai", "Jamaica, Bermuda: Citas sobre Mumbai", "Jamaica, Bermuda: Quotes on Mumbai · Global Voices"),
-            ("Cuba, ___: Criticando al Ché", "Cuba, Bermuda: Criticando al Ché", "Cuba, Bermuda: Critiquing Che · Global Voices"),
-        ],
         "besar": [
-            ("Mamá , usted puede ___? Si el agua.", "Mamá , usted puede besar? Si el agua.", "Yes water."),
             ("¡Puedes ___ a la novia!", "¡Puedes besar a la novia!", "You can kiss the bride!"),
             ("Ellos nos dicen que no a ___ y abrazar ...", "Ellos nos dicen que no a besar y abrazar ...", "Ellos nos dicen que no a besar y abrazar ..."),
         ],
         "besarse": [
-            ("Corea: ___ en sitios públicos", "Corea: Besarse en sitios públicos", "Korea: Kissing in Public Places · Global Voices"),
             ("Ellos pararon de ___.", "Ellos pararon de besarse.", "They stopped kissing."),
             ("Encarcelan a dos mujeres tras ___ en un mitin religioso en Brasil", "Encarcelan a dos mujeres tras besarse en un mitin religioso en Brasil", "Two Women Jailed After Kissing at Religious Rally in Brazil · Global Voices"),
         ],
@@ -3130,7 +3015,6 @@ extension SeedData {
         ],
         "bisonte": [
             ("Teníamos estas grandes básculas que pesan al ___, por ejemplo.", "Teníamos estas grandes básculas que pesan al bisonte, por ejemplo.", "We had these big things that I weigh the bison on, for instance."),
-            ("Ucrania: Salvando al ___ europeo", "Ucrania: Salvando al Bisonte europeo", "Ukraine: Rescuing the European Bison · Global Voices"),
             ("Más atrás está el ancestro común con el ___.", "Más atrás está el ancestro común con el bisonte.", "The bison has a slightly older common ancestor."),
         ],
         "bisturí": [
@@ -3149,7 +3033,6 @@ extension SeedData {
             ("Se está volviendo ___ ahora que es mayor.", "Se está volviendo blando ahora que es mayor.", "He's getting soft in his old age."),
         ],
         "blanqueador": [
-            ("Jamaica: Reggae, ___ e historia negra", "Jamaica: Reggae, blanqueador e historia negra", "Jamaica: Reggae, Bleaching and Black History · Global Voices"),
             ("Esperamos que, con con el tiempo tal vez elijan el ___ sin cloro.", "Esperamos que, con con el tiempo tal vez elijan el blanqueador sin cloro.", "So, we hope that, over course of becoming a regular, that maybe they'll pick up the non-chlorine bleach eventually."),
         ],
         "bloquear": [
@@ -3185,11 +3068,9 @@ extension SeedData {
         "bodega": [
             ("¿Cómo desgraciado, lo retenéis en la ___ desde entonces?", "¿Cómo desgraciado, lo retenéis en la bodega desde entonces?", "\"What, you scoundrel! Have you kept him in the cellar all this time?\""),
             ("Hay muchas cosas peligrosas en esta ___.", "Hay muchas cosas peligrosas en esta bodega.", "There's a lot of dangerous stuff in this warehouse."),
-            ("Fuimos... a la ___, donde se guardaban las bebidas en frнo.", "Fuimos... a la bodega, donde se guardaban las bebidas en frнo.", "Fuimos... a la bodega, donde se guardaban las bebidas en frнo."),
         ],
         "boicotear": [
             ("Lo tradicional sería ___, ¿verdad?", "Lo tradicional sería boicotear, ¿verdad?", "The traditional thing would be to boycott right?"),
-            ("Sudáfrica: ¿Los sudáfricanos deberían ___ los productos chinos?", "Sudáfrica: ¿Los sudáfricanos deberían boicotear los productos chinos?", "South Africa: Should South Africans boycott Chinese products? · Global Voices"),
             ("¿___ las elecciones –o dañar la papeleta?", "¿Boicotear las elecciones –o dañar la papeleta?", "To boycott the election - or to spoil the ballot?"),
         ],
         "boina": [
@@ -3200,12 +3081,10 @@ extension SeedData {
         "bolero": [
             ("Por ejemplo, un ___, ¿qué les parece?", "Por ejemplo, un bolero, ¿qué les parece?", "A \"bolero\" for example, what do you think?"),
             ("Que si es un ___, ¿cómo no va a tener texto?", "Que si es un bolero, ¿cómo no va a tener texto?", "If this is a bolero, we need lyrics."),
-            ("SF: ¿Se te ocurre alguna palabra para el ___?", "SF: ¿Se te ocurre alguna palabra para el bolero?", "Give me a word for a bolero?"),
         ],
         "boleto": [
             ("Perdí mi ___. ¿Qué debería hacer?", "Perdí mi boleto. ¿Qué debería hacer?", "I lost my ticket. What should I do?"),
             ("¿Dónde puedo recoger mi ___?", "¿Dónde puedo recoger mi boleto?", "Where can I pick up my ticket?"),
-            ("El tampoco va a vender medio ___", "El tampoco va a vender medio boleto", "He might sell 0 tickets, so m of 0, he's going to get $0. m of, if he sells one ticket, he's going to get $3."),
         ],
         "bolsa": [
             ("¿Puedo dejar aquí mi ___?", "¿Puedo dejar aquí mi bolsa?", "Can I leave my bag here?"),
@@ -3278,7 +3157,7 @@ extension SeedData {
             ("¿Recuperó usted la otra ___?", "¿Recuperó usted la otra bota?", "Did you get your other boot?\""),
         ],
         "botana": [
-            ("Abajo es mostaza náutica, que tiene sentido, es una ___ lógica.", "Abajo es mostaza náutica, que tiene sentido, es una botana lógica.", "And at the bottom is seamans mustard. It does make sense, this is a logical snack."),
+            ("Abajo es mostaza náutica, que tiene sentido, es una ___ lógica.", "Abajo es mostaza náutica, que tiene sentido, es una botana lógica.", "And at the bottom is seaman’s mustard. It does make sense, this is a logical snack."),
             ("Ella nos preparó una ___.", "Ella nos preparó una botana.", "She fixed us a snack."),
         ],
         "bote": [
@@ -3288,16 +3167,13 @@ extension SeedData {
         ],
         "boxeador": [
             ("Solía ser un ___. Eso vuelve locas a las mujeres, ¿verdad?", "Solía ser un boxeador. Eso vuelve locas a las mujeres, ¿verdad?", "He used to be a boxer, women are into that, aren't they?"),
-            ("Puerto Rico: ___ Orlando Cruz está orgulloso de ser gay", "Puerto Rico: Boxeador Orlando Cruz está orgulloso de ser gay", "Puerto Rico: Boxer Orlando Cruz Is Proud to Be Gay · Global Voices"),
             ("11. Experto ___, y esgrimista de palo y espada.", "11. Experto boxeador, y esgrimista de palo y espada.", "11° ……………………… Est tres fort a la canne, a la boxe et a l’épée."),
         ],
         "boxeo": [
-            ("Cuba: ¿Sacándose los Guantes de ___?", "Cuba: ¿Sacándose los Guantes de boxeo?", "Cuba: Taking Off the Boxing Gloves? · Global Voices"),
             ("Oigan, ¿recuerdan ese deporte, ___ de pesos pesados?", "Oigan, ¿recuerdan ese deporte, boxeo de pesos pesados?", "Hey remember that sport heavyweight boxing?"),
             ("- Quemaron tu sala de ___.", "- Quemaron tu sala de boxeo.", "They burned down the gym."),
         ],
         "brazo": [
-            ("(Aplausos) Amanda, por favor, ¿quieres contar como perdiste el ___?", "(Aplausos) Amanda, por favor, ¿quieres contar como perdiste el brazo?", "(Applause) So Amanda, would you please tell us how you lost your arm?"),
             ("Das la mano, cogen el ___.", "Das la mano, cogen el brazo.", "You give them an inch and they take a mile."),
             ("No hay evidencia de un hombre con uno ___.", "No hay evidencia de un hombre con uno brazo.", "There is no evidence of a one-armed man."),
         ],
@@ -3322,7 +3198,6 @@ extension SeedData {
             ("Ahora su futuro se ve mucho más ___.", "Ahora su futuro se ve mucho más brillante.", "Now his future looks a lot brighter."),
         ],
         "brincar": [
-            ("Consuela, porque nсo leva as crianуas para ___?", "Consuela, porque nсo leva as crianуas para brincar?", "Consuela, porque nсo leva as crianуas para brincar?"),
             ("Alguna chica te ha hecho ___ de la cama?", "Alguna chica te ha hecho brincar de la cama?", "- Absalom! Has some pretty girl set you on your toes?"),
             ("¿Qué tan alto puedes ___?", "¿Qué tan alto puedes brincar?", "How high can you jump?"),
         ],
@@ -3343,7 +3218,6 @@ extension SeedData {
         ],
         "bromear": [
             ("¿Cómo puede usted ___ con algo como eso?", "¿Cómo puede usted bromear con algo como eso?", "How can you joke about that? I thought I'd die too."),
-            ("Qué es ésto, Erdal abi? Quién puede ___ así?", "Qué es ésto, Erdal abi? Quién puede bromear así?", "Thank you, Dad"),
             ("Sн. їQuй pasa? їNo puedo ___? їAh?", "Sн. їQuй pasa? їNo puedo bromear? їAh?", "Yes. What is it? \"He has a problem therewith?"),
         ],
         "brotar": [
@@ -3353,7 +3227,6 @@ extension SeedData {
         ],
         "bruma": [
             ("¿Cómo nos deshacemos de toda esta ___ y la niebla?", "¿Cómo nos deshacemos de toda esta bruma y la niebla?", "How do we get rid of all this haze and fog?"),
-            ("Ahн estбbamos, rodeados de esa ___ que viene del rнo...", "Ahн estбbamos, rodeados de esa bruma que viene del rнo...", "Ahн estбbamos, rodeados de esa bruma que viene del rнo..."),
             ("La ___ se describe como un gato.", "La bruma se describe como un gato.", "Fog is being described as a cat."),
         ],
         "brusco": [
@@ -3374,7 +3247,6 @@ extension SeedData {
         "buena onda": [
             ("Sabes que toda la gente ___ está haciéndolo.", "Sabes que toda la gente buena onda está haciéndolo.", "You know that all of the cool people are -- they're doing it."),
             ("Él es divertido y ___.", "Él es divertido y buena onda.", "He's funny and cool."),
-            ("(Risas) Sabes que toda la gente ___ está haciéndolo.", "(Risas) Sabes que toda la gente buena onda está haciéndolo.", "(Laughter) You know that all of the cool people are -- they're doing it."),
         ],
         "bufanda": [
             ("¿Llevas esa ___ porque te gusta o para taparte las arrugas?", "¿Llevas esa bufanda porque te gusta o para taparte las arrugas?", "Do you wear the scarf, because it's pretty or to cover your wrinkly neck?"),
@@ -3399,7 +3271,6 @@ extension SeedData {
         "burlarse": [
             ("-Es que divertido ___ de mí?", "-Es que divertido burlarse de mí?", "-Is it that fun to tease me?"),
             ("Cuántos estudiantes mejoraron su puntuación de ___ del examen?", "Cuántos estudiantes mejoraron su puntuación de burlarse del examen?", "How many students improved their scores from the midterm to the final exam?"),
-            ("Quièn se atreve a ___ de mi pequeño cordero?", "Quièn se atreve a burlarse de mi pequeño cordero?", "Πάρε τον αδελφό μου"),
         ],
         "burocrático": [
             ("¿Es esto un desastre ___ o una calamidad?", "¿Es esto un desastre burocrático o una calamidad?", "Is this a bureaucratic disaster or a calamity?"),
@@ -3431,7 +3302,6 @@ extension SeedData {
             ("Pertenezco al equipo de ___.", "Pertenezco al equipo de béisbol.", "I belong to the baseball team."),
         ],
         "bélico": [
-            ("Argentina y las Islas Malvinas: A 30 años del conflicto ___", "Argentina y las Islas Malvinas: A 30 años del conflicto bélico", "Argentina and the Falkland Islands: 30 Years After the Armed Conflict · Global Voices"),
             ("De esos tres, el debate ___ es el dominante.", "De esos tres, el debate bélico es el dominante.", "Of those three, the argument as war is the dominant one."),
             ("Ahora, cuando hablamos de debates, hablamos en un lenguaje muy ___.", "Ahora, cuando hablamos de debates, hablamos en un lenguaje muy bélico.", "Now, when we talk about arguments, we talk in a very militaristic language."),
         ],
@@ -3467,7 +3337,6 @@ extension SeedData {
         ],
         "cable": [
             ("¿___ de Ethernet sobre equipo dos?", "¿Cable de Ethernet sobre equipo dos?", "Ethernet cable over to computer two?"),
-            ("Eslovaquia: ¿Cobrar por noticias en línea, como la televisión por ___?", "Eslovaquia: ¿Cobrar por noticias en línea, como la televisión por cable?", "Slovakia: Charging for Online News, Cable TV Style? · Global Voices"),
             ("Tan comienza justo donde empieza el campo magnético afectando el ___.", "Tan comienza justo donde empieza el campo magnético afectando el cable.", "So it starts right where the magnetic field starts affecting the wire."),
         ],
         "cabo": [
@@ -3477,16 +3346,13 @@ extension SeedData {
         ],
         "cabra": [
             ("Mira ése. Parece inofensivo, con su chaqueta de culo de ___.", "Mira ése. Parece inofensivo, con su chaqueta de culo de cabra.", "They look cute in their fancy leather jackets."),
-            ("(Risas) Si son ___, no se ofendan por favor.", "(Risas) Si son cabra, no se ofendan por favor.", "(Laughter) If you are a Goat, please don't feel bad."),
             ("Él no puede distinguir una oveja de una ___.", "Él no puede distinguir una oveja de una cabra.", "He can not tell a sheep from a goat."),
         ],
         "cabrito": [
             ("-Desa manera -dijo Sancho-, no faltará ternera o ___.", "-Desa manera -dijo Sancho-, no faltará ternera o cabrito.", "\"In that case,\" said Sancho, \"you will not be without veal or kid.\""),
             ("Chanta la moto, ___. No puedes entrar acá a menos que tengas un pase.", "Chanta la moto, cabrito. No puedes entrar acá a menos que tengas un pase.", "Hold your horses, young man. You can't enter here unless you have a pass."),
-            ("___ a tu alrededor.", "Cabrito a tu alrededor.", "(Laughter)Small people wandering about."),
         ],
         "cacahuate": [
-            ("Legal: Fizzy Cola. Concesión: M&amp;Ms de ___.", "Legal: Fizzy Cola. Concesión: M&amp;Ms de cacahuate.", "Legal: Fizzy Cola Bottle. Claim: Peanut M&amp;Ms."),
             ("Ese es un ___ grande.", "Ese es un cacahuate grande.", "That is one big peanut."),
             ("Sí, tal vez seas un ___.", "Sí, tal vez seas un cacahuate.", "[Mooji] Yes, maybe you are a peanut."),
         ],
@@ -3518,7 +3384,6 @@ extension SeedData {
         "cadera": [
             ("¿padres hip? ¿Crees que ser ___ y ser los padres somos...", "¿padres hip? ¿Crees que ser cadera y ser los padres somos...", "Do you think that being hip and being parents are..."),
             ("¿O dejas que sigan adelante con el reemplazo de ___?", "¿O dejas que sigan adelante con el reemplazo de cadera?", "Or do you let him go and have hip replacement?\""),
-            ("la ___ de manera sistemática.", "la cadera de manera sistemática.", "The following is a suggested order of exam that incorporates the common techniques for diagnosing hip injuries."),
         ],
         "caer": [
             ("Así que ahora les contaré como no ___ en eso.", "Así que ahora les contaré como no caer en eso.", "So now I'm going to tell you how to get out of that."),
@@ -3532,7 +3397,6 @@ extension SeedData {
         ],
         "cafetera": [
             ("Mejor que alguien ponga la ___ también.", "Mejor que alguien ponga la cafetera también.", "Better get some coffee going too, someone."),
-            ("Baronesa: prepárale el café en la ___ nueva.", "Baronesa: prepárale el café en la cafetera nueva.", "Baroness, some coffee for him out of the new coffee-pot..."),
             ("Si tomas café instantáneo, no necesitas una ___.", "Si tomas café instantáneo, no necesitas una cafetera.", "If you drink instant coffee you do not need a coffee pot."),
         ],
         "café": [
@@ -3541,12 +3405,10 @@ extension SeedData {
             ("Dos huevos fritos y un ___, por favor.", "Dos huevos fritos y un café, por favor.", "Two fried eggs and coffee, please."),
         ],
         "caja": [
-            ("Abran esa ___. żQuiere que nos vayamos?", "Abran esa caja. żQuiere que nos vayamos?", "We want the boss's money."),
             ("Cual es el volumen de la ___?", "Cual es el volumen de la caja?", "What's the volume of this box?"),
             ("¿Había pan fresco en la ___?", "¿Había pan fresco en la caja?", "Was there fresh bread in the box?"),
         ],
         "cajero": [
-            ("- Yo siempre quise hacer de un ___. - їEn serio?", "- Yo siempre quise hacer de un cajero. - їEn serio?", "I always wanted to work behind a register."),
             ("¿Es eso un ___ automático?", "¿Es eso un cajero automático?", "Is that a cash machine?"),
             ("¿Dónde puedo encontrar un ___ automático?", "¿Dónde puedo encontrar un cajero automático?", "Where can I find an ATM?"),
         ],
@@ -3611,7 +3473,6 @@ extension SeedData {
             ("La luz del sol puede ___ el agua.", "La luz del sol puede calentar el agua.", "Sunlight can heat water."),
         ],
         "caliente": [
-            ("-Con doble de espuma y extra ___. -żQué?", "-Con doble de espuma y extra caliente. -żQué?", "Don't freak out."),
             ("¡Aquí llega, aquí llega! ¡Aquí llega la parrillada ___!", "¡Aquí llega, aquí llega! ¡Aquí llega la parrillada caliente!", "Here comes hot barbeque!"),
             ("Todo el tiempo mientras yo estaba aquí estaba ___.", "Todo el tiempo mientras yo estaba aquí estaba caliente.", "- THE WHOLE TlME THAT WE'VE BEEN HERE HAS BEEN HARD,"),
         ],
@@ -3621,7 +3482,6 @@ extension SeedData {
             ("Así que tienen una ___ muy alta.", "Así que tienen una calificación muy alta.", "So they have a very, very high rating."),
         ],
         "calificado": [
-            ("Sri Lanka: ¿En qué consiste un marquetero de medios sociales ___?", "Sri Lanka: ¿En qué consiste un marquetero de medios sociales calificado?", "Sri Lanka: What Makes a Qualified Social Media Marketer? · Global Voices"),
             ("Tampoco estoy ___ para ser un esposo, ¿cierto?", "Tampoco estoy calificado para ser un esposo, ¿cierto?", "I'm not qualified to be a husband either, right?"),
             ("¿Piensas que estoy ___ para ese trabajo?", "¿Piensas que estoy calificado para ese trabajo?", "Do you think I'm qualified for that job?"),
         ],
@@ -3653,10 +3513,8 @@ extension SeedData {
         "callejón": [
             ("Un ___ en la parte más concurrida de Šuto Orizari.", "Un callejón en la parte más concurrida de Šuto Orizari.", "An alley in the more affluent part of Šuto Orizari."),
             ("El ladrón la atacó en un ___.", "El ladrón la atacó en un callejón.", "The robber attacked her on a back street."),
-            ("Este fue un ___ sin salida (Risas)", "Este fue un callejón sin salida (Risas)", "This was a blind alley."),
         ],
         "calma": [
-            ("Espera, ___. żCómo te llamas?", "Espera, calma. żCómo te llamas?", "Are there any others?"),
             ("Primero piensa en las cosas que dices, con ___.", "Primero piensa en las cosas que dices, con calma.", "Think first what you told me, weigh."),
             ("Tómelo con ___ en mis padres!", "Tómelo con calma en mis padres!", "Take it easy on my parents!"),
         ],
@@ -3742,11 +3600,8 @@ extension SeedData {
         ],
         "campaña": [
             ("En Facebook, se lanzó una ___ titulada ¿Cuánto por el blogger?", "En Facebook, se lanzó una campaña titulada ¿Cuánto por el blogger?", "On Facebook, a campaign was launched entitled How Much for the Blogger?"),
-            ("Arabia Saudita: La ___ pro liberación de Samar Albadawi", "Arabia Saudita: La campaña pro liberación de Samar Albadawi", "Saudi Arabia: Calls to Free Samar Albadawi · Global Voices"),
-            ("Maldivas: Condena a menor violada desencadena ___ contra el turismo", "Maldivas: Condena a menor violada desencadena campaña contra el turismo", "Maldives Rape Victim's Flogging Sentence Touches Off Anti-Tourism Campaign · Global Voices"),
         ],
         "campeonato": [
-            ("China: El ___ de Li Na, ¿orgullo nacional?", "China: El campeonato de Li Na, ¿orgullo nacional?", "China: Li Na's Championship, National Pride? · Global Voices"),
             ("Llegué a ganar el ___ Mundial de Debate Escolar tres veces.", "Llegué a ganar el Campeonato Mundial de Debate Escolar tres veces.", "I went on to win the World Schools Debating Championships three times."),
             ("No habían ganado un ___ nacional desde 1975.", "No habían ganado un campeonato nacional desde 1975.", "They hadn't won a national championship since 1975."),
         ],
@@ -3758,7 +3613,6 @@ extension SeedData {
         "campeón": [
             ("¿Veis? ¡Podéis hacer cosplay de CUALQUIER ___!", "¿Veis? ¡Podéis hacer cosplay de CUALQUIER campeón!", "See, you can cosplay ANY champion!"),
             ("¿Qué deporte creéis que jugaría vuestro ___ preferido?", "¿Qué deporte creéis que jugaría vuestro campeón preferido?", "What sport do you think your favorite champion would play?"),
-            ("105 00:09:18.400 --&gt; 00:09:22,500 mejoran hasta la mañana siguiente ___!", "105 00:09:18.400 --&gt; 00:09:22,500 mejoran hasta la mañana siguiente campeón!", "105 00:09:18,400 --&gt; 00:09:22,500 Get better till morning champion!"),
         ],
         "campo": [
             ("El ___ no va a ayudarte a hacer eso. ¿sabes?", "El campo no va a ayudarte a hacer eso. ¿sabes?", "Countryside won't help you to do that."),
@@ -3786,7 +3640,6 @@ extension SeedData {
             ("Él tuvo que ___ la deuda.", "Él tuvo que cancelar la deuda.", "We had to write off the debt."),
         ],
         "cancha": [
-            ("Diego: ¿Al medio de la ___?", "Diego: ¿Al medio de la cancha?", "Diego: at the middle of the field?"),
             ("¿Es eso la ___ entera?", "¿Es eso la cancha entera?", "Is that the entire field?"),
             ("¿En la ___ en Anfield?", "¿En la cancha en Anfield?", "On the pitch at Anfield?"),
         ],
@@ -3802,17 +3655,14 @@ extension SeedData {
         ],
         "candelaria": [
             ("“Al día siguiente, ___ estaba muuuuy diferente.", "“Al día siguiente, Candelaria estaba muuuuy diferente.", "“The following day, Candelaria looked waaaaaay different."),
-            ("México: Día de la ___ y Tamales", "México: Día de la Candelaria y Tamales", "Mexico: Candelaria Day and Tamales · Global Voices"),
         ],
         "canela": [
             ("- ¿Te gustaría ___ en él?", "- ¿Te gustaría canela en él?", "- Would you like cinnamon on it?"),
             ("Tus besos saben a ___.", "Tus besos saben a canela.", "Your kisses taste like cinnamon."),
-            ("Nuez moscada, maíz, ___, clavo.", "Nuez moscada, maíz, canela, clavo.", "Creating a forced labor regime that would allow plantations owned by the Dutch East India Company to produce those spices that used to be produced by the villages, now for export to Europe."),
         ],
         "cangrejo": [
             ("¿Alguien va a comerse este ___?", "¿Alguien va a comerse este cangrejo?", "Is anyone going to eat this crab?"),
             ("El ___ es un crustáceo.", "El cangrejo es un crustáceo.", "Crabs are crustaceans."),
-            ("(Risas) Poner un ___ adentro.", "(Risas) Poner un cangrejo adentro.", "(Laughter) Put a crab inside it."),
         ],
         "canguro": [
             ("En una relación, cállate puta, ___ ?", "En una relación, cállate puta, canguro ?", "I'd never let another chick bring me down in a relationship"),
@@ -3835,9 +3685,7 @@ extension SeedData {
             ("Sé que esto es muy ___, pero va a ser satisfacer al final.", "Sé que esto es muy cansino, pero va a ser satisfacer al final.", "I know this is very tiresome, but it'll be satisfying in the end."),
         ],
         "cantante": [
-            ("Pakistán: ¿quién asesinó a la ___ pastún Ghazala Javed?", "Pakistán: ¿quién asesinó a la cantante pastún Ghazala Javed?", "Pakistan: Who Killed Pashto Singer Ghazala Javed? · Global Voices"),
             ("¿O quizá Stu justo necesita otra ___ del coro?", "¿O quizá Stu justo necesita otra cantante del coro?", "Or maybe Stu just needs another backup singer?"),
-            ("(Risas) ¿O quizá Stu justo necesita otra ___ del coro?", "(Risas) ¿O quizá Stu justo necesita otra cantante del coro?", "(Laughter) Or maybe Stu just needs another backup singer?"),
         ],
         "cantar": [
             ("¿No puedes ___ como ella?", "¿No puedes cantar como ella?", "Can't you sing like her?"),
@@ -3855,7 +3703,6 @@ extension SeedData {
             ("Ella pierde 20% de esta ___ de dinero.", "Ella pierde 20% de esta cantidad de dinero.", "She loses 20% of this amount of money."),
         ],
         "cantina": [
-            ("Espero que te guste. es una ___?", "Espero que te guste. es una cantina?", "-oui -ok"),
             ("Como en la ___ de la empresa.", "Como en la cantina de la empresa.", "I eat in the company cafeteria."),
             ("Pensé que Burke fue golpeado, tenía un agujero en la ___", "Pensé que Burke fue golpeado, tenía un agujero en la cantina", "I thought Burke was hit, he had a hole in his canteen"),
         ],
@@ -3921,7 +3768,6 @@ extension SeedData {
         ],
         "cara": [
             ("¿No me pondrá barro en Ia ___?", "¿No me pondrá barro en Ia cara?", "Not with mud on my face?"),
-            ("Sr. ___ de Papa: ¿nos harás esto, Woody?", "Sr. Cara de Papa: ¿nos harás esto, Woody?", "Mr. Potato Head: You going to make us, Woody?"),
             ("¡Señor! Tu ___... ¿Qué ocurrió?", "¡Señor! Tu cara... ¿Qué ocurrió?", "Sir, your face..."),
         ],
         "caracol": [
@@ -3942,7 +3788,6 @@ extension SeedData {
         "carbono": [
             ("¿Conocen otros calculadores de huellas de ___?", "¿Conocen otros calculadores de huellas de carbono?", "Do you know of other carbon footprint calculators?"),
             ("¿Cuál fue el impacto de dióxido de ___ del sándwich?", "¿Cuál fue el impacto de dióxido de carbono del sándwich?", "What was the carbon impact of the sandwich?"),
-            ("¿Qué sucede cuando fijan ___ en un arrecife?", "¿Qué sucede cuando fijan carbono en un arrecife?", "And that's one of the issues that gets talked a lot about in the European Union is how to equalize these kinds of costs. Because basically Canada is being treated as an externality by the United States, and Scandinavia is being treated as an externality by Germany. So that sort of thing needs conflict resolution."),
         ],
         "cardenal": [
             ("¿Queréis reflexionar, sire? dijo el ___ .", "¿Queréis reflexionar, sire? dijo el cardenal .", "\"Be so kind as to reflect, sire,\" said the cardinal."),
@@ -3966,7 +3811,6 @@ extension SeedData {
         ],
         "cargado": [
             ("¿Esto es más q esto quede ___ positivamente, derecha?", "¿Esto es más q esto quede cargado positivamente, derecha?", "So this is plus Q so this is positively charged, right?"),
-            ("Allí va ___ de polen.", "Allí va cargado de polen.", "There he is now, with his back there, and there are the pollen sacs on his back."),
             ("Olviden los mítines tradicionales, solo tienen que mantener el teléfono ___.", "Olviden los mítines tradicionales, solo tienen que mantener el teléfono cargado.", "Forget traditional rallies just keep your cellphone charged."),
         ],
         "cargar": [
@@ -3997,7 +3841,6 @@ extension SeedData {
         "carnicero": [
             ("Conoces al ___ Irfan, no?", "Conoces al carnicero Irfan, no?", "You know butcher Irfan, right?"),
             ("Vamos a ver terminar los últimos años usted por su ___", "Vamos a ver terminar los últimos años usted por su carnicero", "Let's see you finish the last years you by your butcher"),
-            ("Bahréin: El Regreso del ‘___ de Bahréin’:", "Bahréin: El Regreso del ‘Carnicero de Bahréin’:", "Bahrain: The Return of the British ‘Butcher of Bahrain’ · Global Voices"),
         ],
         "carnicería": [
             ("Venían de la ___, de los regalos.", "Venían de la carnicería, de los regalos.", "It would come from the butcher's, it would come from presents."),
@@ -4005,7 +3848,6 @@ extension SeedData {
             ("La ___ continuará hasta que Chechenia sea completamente independiente.", "La carnicería continuará hasta que Chechenia sea completamente independiente.", "The carnage will continue until Chechnya becomes completely independent."),
         ],
         "caro": [
-            ("- 25 liras. żQué? żUna hora por esa cantidad? żMuy ___?", "- 25 liras. żQué? żUna hora por esa cantidad? żMuy caro?", "25 (pounds). What? An hour with this amount?"),
             ("¿Por qué está tan ___ el gas?", "¿Por qué está tan caro el gas?", "Why are gas prices so high?"),
             ("Me quedo con el ___.", "Me quedo con el caro.", "I'll take the expensive one."),
         ],
@@ -4017,12 +3859,10 @@ extension SeedData {
         "carpintero": [
             ("–¿Cómo es que el ___ no está arreglando la trilladora?", "–¿Cómo es que el carpintero no está arreglando la trilladora?", "'Why is the carpenter not with the threshing-machine?'"),
             ("–¿Para qué quería el señor traer entonces un ___?", "–¿Para qué quería el señor traer entonces un carpintero?", "'But what do you want with the carpenter?'"),
-            ("- żPor qué estás gritando, Pájaro ___? - ĄQuerida Zorra!", "- żPor qué estás gritando, Pájaro Carpintero? - ĄQuerida Zorra!", "- Why do you, Woodpecker, scream?"),
         ],
         "carretera": [
             ("La oraci?n de la ___. Yemima, no puedo ser Rachel.", "La oraci?n de la carretera. Yemima, no puedo ser Rachel.", "Prayer of the road. yemima, I can not be Rachel."),
             ("No es una ___, sino un camino.", "No es una carretera, sino un camino.", "It isn't a road, but a path."),
-            ("Bolivia: Continúa conflicto por ___ que atraviesa TIPNIS", "Bolivia: Continúa conflicto por carretera que atraviesa TIPNIS", "Bolivia: Conflict Over Road Through TIPNIS National Park Continues · Global Voices"),
         ],
         "carril": [
             ("-Enfócate en la carretera. -¿Puedo ir al ___ lento?", "-Enfócate en la carretera. -¿Puedo ir al carril lento?", "-Focus on the road. -Can I go into the slow lane?"),
@@ -4080,7 +3920,6 @@ extension SeedData {
             ("Ésta es una ___ que hice yo mismo.", "Ésta es una caseta que hice yo mismo.", "This is a doghouse that I made myself."),
         ],
         "castigar": [
-            ("¿Qué quieres decir con ___?", "¿Qué quieres decir con castigar?", "Punish?"),
             ("¿Crees que los padres deberían ___ a sus hijos cuando mienten?", "¿Crees que los padres deberían castigar a sus hijos cuando mienten?", "Do you think parents should punish their children when they lie?"),
             ("¿Es contradictorio ___ el despido de jueces despidiendo más jueces?", "¿Es contradictorio castigar el despido de jueces despidiendo más jueces?", "Is it contradictory to rule the firing of judges illegal by firing more judges?"),
         ],
@@ -4130,7 +3969,6 @@ extension SeedData {
             ("Así que introducen un ___ y bum, bum, bum se deshacen del coágulo.", "Así que introducen un catéter y bum, bum, bum se deshacen del coágulo.", "And they go up to the cath lab and boom, boom, boom get rid of the clot."),
         ],
         "causa": [
-            ("Es a ___ de ?l. żQu? le o??", "Es a causa de ?l. żQu? le o??", "It's because of him."),
             ("¿Será esta una ___ perdida?", "¿Será esta una causa perdida?", "So is this a hopeless cause?"),
             ("-¿Puedo saber, señor, cuál es la ___ de este accidente?", "-¿Puedo saber, señor, cuál es la causa de este accidente?", "\"May I learn, sir,\" I asked him, \"what caused this accident?\""),
         ],
@@ -4175,7 +4013,6 @@ extension SeedData {
             ("Vamos a suponer que yo arregle la ___. ¿Cuánto me vas a pagar?", "Vamos a suponer que yo arregle la cañería. ¿Cuánto me vas a pagar?", "Let's say I fix the pipe. How much will you pay me?"),
         ],
         "cañón": [
-            ("Marte tiene el gran ___ del Sistema Solar: Valles Marineris.", "Marte tiene el gran cañón del Sistema Solar: Valles Marineris.", "Mars has the Grand Canyon of the solar system, Valles Marineris."),
             ("La salvé, era la mujer ___.", "La salvé, era la mujer cañón.", "No, I caught her."),
             ("Esta es una pesada bala de ___.", "Esta es una pesada bala de cañón.", "This is a heavy cannon ball."),
         ],
@@ -4185,7 +4022,6 @@ extension SeedData {
             ("Hasta luego. - ¿Que es esto? - ¿Algún té de ___?", "Hasta luego. - ¿Que es esto? - ¿Algún té de cebada?", "See you later. - What is it? - Any barley tea?"),
         ],
         "cebolla": [
-            ("JO: ¿___? Jamie Oliver: de inmediato nos damos cuenta", "JO: ¿Cebolla? Jamie Oliver: de inmediato nos damos cuenta", "Child: Onion. JO: Onion? No."),
             ("¿Le gusta a él con ___? Ok.", "¿Le gusta a él con cebolla? Ok.", "He like his plain or with onions?"),
             ("¿Cuál es la mejor forma de cortar una ___?", "¿Cuál es la mejor forma de cortar una cebolla?", "What's the best way to chop an onion?"),
         ],
@@ -4195,7 +4031,6 @@ extension SeedData {
             ("Terminarás en un paso de ___ junto a un colegio.", "Terminarás en un paso de cebra junto a un colegio.", "You're going to wind up working a school crosswalk."),
         ],
         "ceder": [
-            ("GV: ¿Considerarías ___ la URL a la próxima campaña del alcalde?", "GV: ¿Considerarías ceder la URL a la próxima campaña del alcalde?", "GV: Would you consider ceding the URL to the mayor's upcoming campaign efforts?"),
             ("¿___ a los cambios de la madurez, está bien?", "¿Ceder a los cambios de la madurez, está bien?", "The 30 bucks is fixed. Yield to maturity changes, okay?"),
             ("¿Qué viene primero, precio o ___ a la madurez?", "¿Qué viene primero, precio o ceder a la madurez?", "What comes first, price or yield to maturity?"),
         ],
@@ -4217,12 +4052,10 @@ extension SeedData {
         "celebración": [
             ("Creo que esto exige una ___.", "Creo que esto exige una celebración.", "I think that this calls for a celebration."),
             ("Las Sociedades del Santísimo son las encargadas de la ___.", "Las Sociedades del Santísimo son las encargadas de la celebración.", "The Sociedades del Santísimo (Societies of the Holiest) are in charge of the celebration."),
-            ("Brasil: ___ de la cultura boliviana", "Brasil: Celebración de la cultura boliviana", "Brazil: A Celebration of Bolivian Culture · Global Voices"),
         ],
         "celebrar": [
             ("Paz, es un utensilio para ___ la bendici?n.", "Paz, es un utensilio para celebrar la bendici?n.", "Peace, is a utensil to hold blessing."),
             ("¿Por qué los antiguos persas ___ la santa mar?", "¿Por qué los antiguos persas celebrar la santa mar?", "Why did the old Persians hold the sea holy?"),
-            ("Zambia: Vecinos ayudan a ___ victoria en la Copa Africana 2012", "Zambia: Vecinos ayudan a celebrar victoria en la Copa Africana 2012", "Zambia: Neighbors Help Celebrate AFCON 2012 Victory · Global Voices"),
         ],
         "celos": [
             ("¿Revelan nuestros ___ que estamos muy lejos de la soledad?", "¿Revelan nuestros celos que estamos muy lejos de la soledad?", "Does our jealousy show that we are very far from aloneness?"),
@@ -4251,11 +4084,10 @@ extension SeedData {
         ],
         "cenar": [
             ("¿Por qué no vas después de ___?", "¿Por qué no vas después de cenar?", "Why don't you go there after dinner? It isn't far"),
-            ("Son las siete, ¿quieres ___?", "Son las siete, ¿quieres cenar?", "Its 7:00. Would you like some food?"),
+            ("Son las siete, ¿quieres ___?", "Son las siete, ¿quieres cenar?", "It’s 7:00. Would you like some food?"),
             ("¿Por qué no vamos a ___ esta noche?", "¿Por qué no vamos a cenar esta noche?", "Let's have dinner tonight."),
         ],
         "censurar": [
-            ("Maldivas a Egipto: ¿Se puede ___ una revolución?", "Maldivas a Egipto: ¿Se puede censurar una revolución?", "Maldives to Egypt: Can a Revolution be Censored? · Global Voices"),
             ("No es solo para ___.", "No es solo para censurar.", "That's not only to censor you."),
             ("Me pregunto cuál será el primer país en ___ Tatoeba.", "Me pregunto cuál será el primer país en censurar Tatoeba.", "I wonder which country will be the first to censor Tatoeba."),
         ],
@@ -4360,7 +4192,6 @@ extension SeedData {
         "chaleco": [
             ("¿o con un ___ antibalas?", "¿o con un chaleco antibalas?", "Or with a bulletproof vest?"),
             ("Hasik se levantó la camiseta y ahí estaba el ___.", "Hasik se levantó la camiseta y ahí estaba el chaleco.", "Hasik lifts his t-shirt — and there’s the vest."),
-            ("Carter: ayúdeme a ponerle el ___.", "Carter: ayúdeme a ponerle el chaleco.", "Here, Carter, help him on with his waist-coat."),
         ],
         "chamarra": [
             ("¿De qué está hecha esta ___?", "¿De qué está hecha esta chamarra?", "What stuff is this jacket made of?"),
@@ -4373,7 +4204,6 @@ extension SeedData {
         ],
         "chapulín": [
             ("Eso no es un saltamontes. ¡Es un ___!", "Eso no es un saltamontes. ¡Es un chapulín!", "That's not a grasshopper. It's a locust!"),
-            ("Paraguay: El uso del ___ Colorado en materiales de campaña", "Paraguay: El uso del Chapulín Colorado en materiales de campaña", "Paraguay: The Use of the Chapulín Colorado on Campaign Materials · Global Voices"),
         ],
         "charlar": [
             ("Ellos miraron: ¿Cuándo las personas se detenían a ___?", "Ellos miraron: ¿Cuándo las personas se detenían a charlar?", "They watched: Where did people stop and talk?"),
@@ -4408,7 +4238,6 @@ extension SeedData {
         "chimpancé": [
             ("¿Qué tal si ese ___ pudiera hablar?", "¿Qué tal si ese chimpancé pudiera hablar?", "\"Wow. What if a chimpanzee could talk, you know?"),
             ("¿Qué clase de ___ eres?", "¿Qué clase de chimpancé eres?", "What kind of chimpanzee are you?"),
-            ("Vamos por más ¿qué hay del ___?", "Vamos por más ¿qué hay del chimpancé?", "(Laughter) Let's get that one out of there."),
         ],
         "chismear": [
             ("No tengo tiempo para ___.", "No tengo tiempo para chismear.", "I have no time to engage in gossip."),
@@ -4420,8 +4249,6 @@ extension SeedData {
         ],
         "chistoso": [
             ("A Picaporte le pareció esto muy ___ sin saber por qué.", "A Picaporte le pareció esto muy chistoso sin saber por qué.", "Passepartout, without exactly knowing why, thought this very funny."),
-            ("SI! el tiene un peinado ___", "SI! el tiene un peinado chistoso", "SKEPTlC/ NEGATlVE JERK: YES. He has funny hair."),
-            ("Sí, eso estuvo muy ___, Einstein.", "Sí, eso estuvo muy chistoso, Einstein.", "SW: Yeah, yeah. That was pretty funny, Einstein."),
         ],
         "chocar": [
             ("¿Con quién debería ___ el automóvil robótico?", "¿Con quién debería chocar el automóvil robótico?", "Which one should your robot car crash into?"),
@@ -4463,7 +4290,6 @@ extension SeedData {
             ("Como dice Ivan, la comunidad ___ online es increíble.", "Como dice Ivan, la comunidad ciclista online es increíble.", "As Ivan explains, the online cycling community is a vibrant one."),
         ],
         "cielo": [
-            ("Calibán: ¿No caíste del ___?", "Calibán: ¿No caíste del cielo?", "Caliban: Hast thou not dropped from heaven?"),
             ("¿Qué vi? Estrellas, satélites, aviones parpadeántes -- típica basura del ___.", "¿Qué vi? Estrellas, satélites, aviones parpadeántes -- típica basura del cielo.", "What did I see? Stars, satellites, blinking airplanes -- typical sky junk."),
             ("¿Por qué hay estrellas en el ___?", "¿Por qué hay estrellas en el cielo?", "Why are there stars in the sky?"),
         ],
@@ -4528,7 +4354,6 @@ extension SeedData {
             ("Yo ___ .", "Yo cigarra .", "I cicada ."),
         ],
         "cilantro": [
-            ("¿Como dices ser alérgico al ___?", "¿Como dices ser alérgico al cilantro?", "Mmm-mmm. That's amazing. I mean, I'm sitting in on a few classes, and it's crazy what my hands remember that my, you know, that my mind forgot."),
             ("La policía arrestó a todos en ___.", "La policía arrestó a todos en cilantro.", "Police just arrested everyone in cilantro."),
             ("Cuando usted compra el ___, el perejil se puede mostrar", "Cuando usted compra el cilantro, el perejil se puede mostrar", "When you buy cilantro, it can show parsley"),
         ],
@@ -4540,12 +4365,10 @@ extension SeedData {
         "cinco": [
             ("Así uno, dos, tres, cuatro, ___, seis, siete, ocho ¿vale?", "Así uno, dos, tres, cuatro, cinco, seis, siete, ocho ¿vale?", "So one, two, three, four, five, six, seven, eight, right?"),
             ("Vivimos juntos durante ___ años.", "Vivimos juntos durante cinco años.", "We had lived together for five years."),
-            ("24 cabe en 5, ___ es dividido entre 24.", "24 cabe en 5, cinco es dividido entre 24.", "24 goes into 5."),
         ],
         "cincuenta": [
             ("Pero, ¿escuchó también que la señorita Grey tiene ___ mil libras?", "Pero, ¿escuchó también que la señorita Grey tiene cincuenta mil libras?", "But have you likewise heard that Miss Grey has fifty thousand pounds?"),
             ("¿Un respetable caballero de ___ años?", "¿Un respetable caballero de cincuenta años?", "Does that mean a respectable well-conducted man of fifty? Or what does it mean?\""),
-            ("les dije, entonces te burlas de? żQu? es exactamente ___?", "les dije, entonces te burlas de? żQu? es exactamente cincuenta?", "I told them, then you make fun of? What exactly fifty?"),
         ],
         "cine": [
             ("¿Por qué la gente va al ___?", "¿Por qué la gente va al cine?", "Why do people go to the movies?"),
@@ -4599,8 +4422,6 @@ extension SeedData {
         ],
         "cirujano": [
             ("¿Cómo cambiaría eso las capacidades del ___?", "¿Cómo cambiaría eso las capacidades del cirujano?", "How would that change the capabilities of the surgeon?"),
-            ("(Risas) Yo soy ___ por eso no es tan divertido.", "(Risas) Yo soy cirujano por eso no es tan divertido.", "(Laughter) I'm a surgeon so that's not that funny."),
-            ("Deja que me alcance para el ___, me ibas a ver...", "Deja que me alcance para el cirujano, me ibas a ver...", "Friend: wait until I save for surgery and you'll see"),
         ],
         "cisterna": [
             ("Bueno, los rusos tienen una ___ en su patio de atrás.", "Bueno, los rusos tienen una cisterna en su patio de atrás.", "Well the Russians have a tank in their own backyard."),
@@ -4649,8 +4470,6 @@ extension SeedData {
         ],
         "claro que sí": [
             ("¿Eso crees? ___.", "¿Eso crees? Claro que sí.", "- Is that so, do you think?"),
-            ("Hombre, si tuviera una, demonios ___.", "Hombre, si tuviera una, demonios claro que sí.", "Boy: Man, if I had one, too fuckin' right."),
-            ("¡Orestes se va a casar es conmigo! Ariana: ¡___!", "¡Orestes se va a casar es conmigo! Ariana: ¡Claro que sí!", "-"),
         ],
         "clase": [
             ("Y aun entonces, ¿qué ___ de socialismo practican?", "Y aun entonces, ¿qué clase de socialismo practican?", "And even then, what kind of socialism did they practice?"),
@@ -4686,7 +4505,6 @@ extension SeedData {
             ("Me rompí la ___.", "Me rompí la clavícula.", "I broke my collarbone."),
         ],
         "claxon": [
-            ("[___] [MARLEY'S: BAR Y PARRILLADA ANTISISTEMA]", "[CLAXON] [MARLEY'S: BAR Y PARRILLADA ANTISISTEMA]", "[CAR HORN]"),
             ("¡No aguanto tantos coches tocando el ___ al mismo tiempo!", "¡No aguanto tantos coches tocando el claxon al mismo tiempo!", "I can't stand so many cars honking their horns at the same time!"),
             ("(estruendo de un ___)", "(estruendo de un claxon)", "( horn blares)"),
         ],
@@ -4741,12 +4559,10 @@ extension SeedData {
             ("Al que a buen árbol se arrima, buena sombra le ___.", "Al que a buen árbol se arrima, buena sombra le cobija.", "He who approaches a good tree will find himself in good shade."),
         ],
         "cobrar": [
-            ("Eslovaquia: ¿___ por noticias en línea, como la televisión por cable?", "Eslovaquia: ¿Cobrar por noticias en línea, como la televisión por cable?", "Slovakia: Charging for Online News, Cable TV Style? · Global Voices"),
             ("¿El derecho a ___ por tiempo extra?", "¿El derecho a cobrar por tiempo extra?", "Not have the right to overtime?"),
             ("¿Voy a seguir sin ___?", "¿Voy a seguir sin cobrar?", "Am I going to keep not getting paid?"),
         ],
         "cobre": [
-            ("Chile: 40 años del ___ nacionalizado", "Chile: 40 años del cobre nacionalizado", "Chile: 40 Years of Nationalized Copper · Global Voices"),
             ("Mucho mas barato que el ___.", "Mucho mas barato que el cobre.", "Much cheaper than copper."),
             ("En vez de 10 ó 15 como el ___.", "En vez de 10 ó 15 como el cobre.", "Instead of, like, copper in 10 or 15."),
         ],
@@ -4803,7 +4619,6 @@ extension SeedData {
         "coherente": [
             ("Soy ___ con lo que creo.", "Soy coherente con lo que creo.", "I am consistent with what I believe."),
             ("Sólo había un requisito fundamental: la minoría tenía que ser ___.", "Sólo había un requisito fundamental: la minoría tenía que ser coherente.", "There was just one key requirement: the minority had to be consistent."),
-            ("Tenemos una situaciĂłn totalmente ___.", "Tenemos una situaciĂłn totalmente coherente.", "We have a fully consistent situation."),
         ],
         "cohete": [
             ("¿Qué es peor: un meteorito o un ___?", "¿Qué es peor: un meteorito o un cohete?", "what's worse: a meteorite or a rocket?"),
@@ -4867,10 +4682,8 @@ extension SeedData {
         "colibrí": [
             ("¿Por qué pensaron que era oportuno biomimetizar y simular un ___?", "¿Por qué pensaron que era oportuno biomimetizar y simular un colibrí?", "Why did we think that this was the time to go biomimicry and copy a hummingbird?"),
             ("Este es un ___ robot", "Este es un colibrí robot", "This is a hummingbird drone."),
-            ("Colombia: Navidad para los niños de 'La Casa del ___'", "Colombia: Navidad para los niños de 'La Casa del Colibrí'", "Colombia: Christmas for Children at 'The House of the Hummingbird' · Global Voices"),
         ],
         "collage": [
-            ("(Risas) Esto es parte del ___.", "(Risas) Esto es parte del collage.", "(Laughter) This is a part of that."),
             ("Así que hice un ___.", "Así que hice un collage.", "So I made a collage."),
             ("No puedes hacer un ___ en un sendero directo.", "No puedes hacer un collage en un sendero directo.", "You can not make a collage on a direct path."),
         ],
@@ -4916,7 +4729,6 @@ extension SeedData {
         ],
         "combativo": [
             ("Hilaridad por el espíritu ___ de Rusia en Eurovisión", "Hilaridad por el espíritu combativo de Rusia en Eurovisión", "Laughing at Russia's Eurovision Shooting Spirit · Global Voices"),
-            ("ausente, contencioso, ___, que no está presente.", "ausente, contencioso, combativo, que no está presente.", "So: absentee, confrontational, combative, not present."),
         ],
         "combinar": [
             ("¿Y si pudiéramos ___ ambas fuerzas?", "¿Y si pudiéramos combinar ambas fuerzas?", "But what if we could combine those forces?"),
@@ -4964,7 +4776,6 @@ extension SeedData {
             ("Y así cubriría virtualmente todo el ___.", "Y así cubriría virtualmente todo el comercio electrónico.", "And Freeny eventually sold this patent to somebody who wanted to interpret those terms very broadly."),
         ],
         "comillas": [
-            ("CA: Amor y paz fueron mencionadas, pero entre ___, ¿verdad?", "CA: Amor y paz fueron mencionadas, pero entre comillas, ¿verdad?", "CA: Love and peace were mentioned, kind of with quote marks around them, right?"),
             ("Por eso lo pongo entre ___.", "Por eso lo pongo entre comillas.", "That's why I put it in quotes."),
             ("Me parece mejor sin las ___.", "Me parece mejor sin las comillas.", "It seems to me better without the quotation marks."),
         ],
@@ -4990,8 +4801,6 @@ extension SeedData {
         ],
         "compadre": [
             ("Jedi, ¿querrías venir y tocarme un blues de 12 compases, ___?", "Jedi, ¿querrías venir y tocarme un blues de 12 compases, compadre?", "Jedi, do you fancy coming and playing some twelve bar blues for me, cobba?"),
-            ("Kuwait: ___ ¿Dónde está mi invierno?", "Kuwait: Compadre ¿Dónde está mi invierno?", "Kuwait: Dude, Where is my Winter ? · Global Voices"),
-            ("A ver, ___ żqué es lo que no pronuncio bien?", "A ver, compadre żqué es lo que no pronuncio bien?", "Let me see, my friend What is what I am not pronouncing well?"),
         ],
         "comparar": [
             ("¿Por lo tanto, puedo ___ estos dos?", "¿Por lo tanto, puedo comparar estos dos?", "So, can I compare these two?"),
@@ -5084,7 +4893,6 @@ extension SeedData {
         "componer": [
             ("–¿Y cómo se va a ___, señor Ciro? –preguntó Pencroff–.", "–¿Y cómo se va a componer, señor Ciro? –preguntó Pencroff–.", "\"Why! how are you going to manage that, captain?\" asked Pencroft."),
             ("¿Es posible ___ música que no tenga repetición alguna?", "¿Es posible componer música que no tenga repetición alguna?", "Is it possible to write a piece of music that has no repetition whatsoever?"),
-            ("(Risas) puedo hacer cosas como leer y ___ música.", "(Risas) puedo hacer cosas como leer y componer música.", "(Laughter) I can do things like read and write music."),
         ],
         "compositor": [
             ("¿Quién es tu ___ favorito?", "¿Quién es tu compositor favorito?", "Who is your favorite composer?"),
@@ -5182,8 +4990,6 @@ extension SeedData {
             ("Esto no esta fuera del alcance de la gente ___.", "Esto no esta fuera del alcance de la gente común.", "This is not beyond the grasp of ordinary people."),
         ],
         "concentrar": [
-            ("Tim Johnson:Te puedes ___ todo el tiempo, ¿verdad?", "Tim Johnson:Te puedes concentrar todo el tiempo, ¿verdad?", "Tim Johnson: And you can focus for that long, right?"),
-            ("E se se ___, não tem visões?", "E se se concentrar, não tem visões?", "- Even by concentrating you don't have a visions?"),
             ("Necesitas orientar, manifestar, contactar, agrupar y ___.", "Necesitas orientar, manifestar, contactar, agrupar y concentrar.", "You need to orient, declare, network, cluster and focus."),
         ],
         "concentrarse": [
@@ -5193,7 +4999,6 @@ extension SeedData {
         ],
         "concepto": [
             ("Si tuviera que reducir la obra, ¿qué imagen mantendría el ___?", "Si tuviera que reducir la obra, ¿qué imagen mantendría el concepto?", "What, if I were to boil it down, would be the one image that I could hang my hat on for this?"),
-            ("Luego está el ___ del Efecto Pasa Primero.", "Luego está el concepto del Efecto Pasa Primero.", "Now, in this situation, you could actually argue that this is an example of topical drug delivery, but not really. So, even though you inhale the drug, then you do dilate the airways directly in the drug, it would directly in the lung. You also get systemic, systemic absorption of the drug to enhance that local effect."),
             ("A este ___ lo llamamos locomoción dinámica pasiva.", "A este concepto lo llamamos locomoción dinámica pasiva.", "We call that the concept of passive dynamic locomotion."),
         ],
         "conciencia": [
@@ -5218,7 +5023,6 @@ extension SeedData {
         ],
         "concretar": [
             ("Entonces, para ___ este sueño,", "Entonces, para concretar este sueño,", "So, in order to realize this dream,"),
-            ("Macedonia: Inminentes elecciones anticipadas, fecha por ___", "Macedonia: Inminentes elecciones anticipadas, fecha por concretar", "Macedonia: Early Elections Imminent, Date Uncertain · Global Voices"),
             ("Trató de ___ sus ideas.", "Trató de concretar sus ideas.", "Kostya is an unbeliever,' she thought again with a smile."),
         ],
         "concreto": [
@@ -5237,14 +5041,12 @@ extension SeedData {
             ("Es como ___ los materiales de un nivel de energía superior", "Es como condensar los materiales de un nivel de energía superior", "It's like condensing out the materials from a higher energy level."),
         ],
         "condesa": [
-            ("–¿Quién la ha traído? –preguntó la ___.", "–¿Quién la ha traído? –preguntó la Condesa.", "'Who brought it?'"),
             ("¿Un paseo antes de la cena le vendría bien, señora ___?", "¿Un paseo antes de la cena le vendría bien, señora condesa?", "Would a walk before dinner suit you, Madam Countess?"),
             ("¿Quién no recuerda a la ___ Agata de Macopazza?", "¿Quién no recuerda a la condesa Agata de Macopazza?", "Who does not recall Countess Agata de Macopazza?"),
         ],
         "condominio": [
             ("¿Sabías que compró un ___?", "¿Sabías que compró un condominio?", "Did you know he bought a condominium?"),
             ("Quiero decir, tu me estabas hablando de renovar tu ___", "Quiero decir, tu me estabas hablando de renovar tu condominio", "I mean your were talking about fixing up your condo."),
-            ("Brasil: ___ residencial aprobado sobre dunas protegidas", "Brasil: Condominio residencial aprobado sobre dunas protegidas", "Brazil: Condos Upstage Protected Dunes · Global Voices"),
         ],
         "conductor": [
             ("¿Cómo reconocer a un ___ borracho - en Austria y Eslovaquia?", "¿Cómo reconocer a un conductor borracho - en Austria y Eslovaquia?", "How to recognize a drunk driver - in Austria and Slovakia?"),
@@ -5294,7 +5096,6 @@ extension SeedData {
         "confiar": [
             ("¿Se puede ___ en ti?", "¿Se puede confiar en ti?", "Are you trustworthy?"),
             ("¿Acaso puedes culparme de no ___ en ti?", "¿Acaso puedes culparme de no confiar en ti?", "Can you blame me if I don't trust you?"),
-            ("Por favor. żComo puedo ___ en ustedes dos, mentiroso?", "Por favor. żComo puedo confiar en ustedes dos, mentiroso?", "Please. How can you trust you two, liars?"),
         ],
         "configurar": [
             ("Hay muchas formas de ___ a Nidalee.", "Hay muchas formas de configurar a Nidalee.", "There are many builds for Nidalee."),
@@ -5319,7 +5120,6 @@ extension SeedData {
         "conflicto": [
             ("¿Y cómo afectará este ___ a las relaciones sino-argelinas?", "¿Y cómo afectará este conflicto a las relaciones sino-argelinas?", "And how will this 'brawl' impact Sino-Algerian relations?"),
             ("No puedo creer cuantas personas quieren que haya ___.", "No puedo creer cuantas personas quieren que haya conflicto.", "I can't get over how much people want blood sport."),
-            ("Colombia: El inquietante ___ con Ecuador y Venezuela", "Colombia: El inquietante Conflicto con Ecuador y Venezuela", "Colombia: The Unsettling Conflict with Ecuador and Venezuela · Global Voices"),
         ],
         "confundido": [
             ("Espero no haberles ___ al tomar el valor absoluto.", "Espero no haberles confundido al tomar el valor absoluto.", "I hope I didn't confuse you by taking the absolute value."),
@@ -5328,7 +5128,6 @@ extension SeedData {
         ],
         "confundir": [
             ("¿Cómo mierda pudo el fiscal Roswall ___ megabit y megabyte?", "¿Cómo mierda pudo el fiscal Roswall confundir megabit y megabyte?", "How the hell can prosecutor Roswall mix up megabit and megabyte?"),
-            ("(Aplausos) Nunca los va a ___ ¿No?", "(Aplausos) Nunca los va a confundir ¿No?", "You would never confuse them, would you?"),
             ("Ponemos en poco ¿pies y mano un poco para ___, vale?", "Ponemos en poco ¿pies y mano un poco para confundir, vale?", "We put on little feet and a little hand to confuse you, okay?"),
         ],
         "confuso": [
@@ -5342,14 +5141,11 @@ extension SeedData {
             ("pueden ___ la mitad de su cerebro, lo regenera;", "pueden congelar la mitad de su cerebro, lo regenera;", "You can freeze half the brain. It regrows."),
         ],
         "congestionamiento": [
-            ("Panamá: ___ vehicular provoca quejas y reportes en Internet", "Panamá: Congestionamiento vehicular provoca quejas y reportes en Internet", "Panama: Traffic Congestion Sparks Online Reports and Complaints · Global Voices"),
             ("___ a la salida del trabajo.", "Congestionamiento a la salida del trabajo.", "Post-work congestion."),
             ("Y con esto viene el ___, y perdemos movilidad y así sucesivamente.", "Y con esto viene el congestionamiento, y perdemos movilidad y así sucesivamente.", "And with it, comes congestion, and we lose mobility, and so on and so forth."),
         ],
         "congreso": [
             ("Entonces, ¿cuál es la posición del ___ acerca de esta lucha?", "Entonces, ¿cuál es la posición del Congreso acerca de esta lucha?", "So, where does the fight stand in Congress?"),
-            ("Kuwait: Parlamentarios pelean en el ___", "Kuwait: Parlamentarios pelean en el congreso", "Kuwait: Parliament Members Go Boxing! · Global Voices"),
-            ("México: #300Vacantes, iniciativa para impulsar a ciudadanos al ___", "México: #300Vacantes, iniciativa para impulsar a ciudadanos al Congreso", "Mexico: Group Looks for Independent Citizens to Run for Congress · Global Voices"),
         ],
         "conjunción": [
             ("Hay alguna ___ que todavía podría ser condición suficiente para morir?", "Hay alguna conjunción que todavía podría ser condición suficiente para morir?", "So are there any conjunctions that still might be sufficient conditions for death."),
@@ -5364,7 +5160,6 @@ extension SeedData {
         "conmemorar": [
             ("¿Están listos para ___ a Emma?", "¿Están listos para conmemorar a Emma?", "Are you guys ready to celebrate Emma?"),
             ("Algunos bloggers usaron fotografías para ___ el evento.", "Algunos bloggers usaron fotografías para conmemorar el evento.", "Some bloggers used pictures to commemorate the event."),
-            ("Myanmar: estudiantes detenidos por ___ un suceso histórico", "Myanmar: estudiantes detenidos por conmemorar un suceso histórico", "Myanmar: Students Detained for Commemorating Historical Event · Global Voices"),
         ],
         "conmovedor": [
             ("Es ___. - ¿ Estás llorando?", "Es conmovedor. - ¿ Estás llorando?", "He's moving. - Are you crying?"),
@@ -5377,13 +5172,11 @@ extension SeedData {
             ("Vronsky calló de nuevo, visiblemente ___.", "Vronsky calló de nuevo, visiblemente conmovido.", "He paused, evidently greatly excited."),
         ],
         "conocer": [
-            ("Quiero decir, żpor qué me resulta imposible ___ a un hombre?", "Quiero decir, żpor qué me resulta imposible conocer a un hombre?", "You can see everything coming."),
             ("Le respondí mansamente que había hablado sin ___ todos los datos.", "Le respondí mansamente que había hablado sin conocer todos los datos.", "I meekly answered that I had spoken without knowing all the facts."),
             ("Nos llegaremos a ___ [Aplausos] y trabajaremos hacia un propósito común.", "Nos llegaremos a conocer [Aplausos] y trabajaremos hacia un propósito común.", "We will know one another [Applause] and we will work to common purpose."),
         ],
         "conocido": [
             ("Si nosotros... ...nos hubiéramos ___ antes o después, ¿Qué habría sucedido?", "Si nosotros... ...nos hubiéramos conocido antes o después, ¿Qué habría sucedido?", "If we... met long ago or much later, what would we be?"),
-            ("Uzbekistán: ___ clérigo uzbeko fue baleado en Suecia", "Uzbekistán: Conocido clérigo uzbeko fue baleado en Suecia", "Uzbekistan: Well-Known Uzbek Cleric Shot in Sweden · Global Voices"),
             ("En él se describe cada trastorno mental ___.", "En él se describe cada trastorno mental conocido.", "It lists every known mental disorder."),
         ],
         "conocimiento": [
@@ -5412,7 +5205,6 @@ extension SeedData {
             ("Cuándo quiere volver y ___ el Can?", "Cuándo quiere volver y conseguir el Can?", "When do you want to go back and get the Can?"),
         ],
         "consejo": [
-            ("¿Tienes algún ___? (Risas) DG: ¿Para ti o para ellos?", "¿Tienes algún consejo? (Risas) DG: ¿Para ti o para ellos?", "(Laughter) DG: For you or for them?"),
             ("¿Algun buen ___ para el embalaje, desembalaje y el viaje?", "¿Algun buen consejo para el embalaje, desembalaje y el viaje?", "Any good tips for packing and unpacking and traveling?"),
             ("¿Tiene, por ventura, una resulución gallarda necesidad de ___ alguno?", "¿Tiene, por ventura, una resulución gallarda necesidad de consejo alguno?", "Does a bold determination stand in need of arguments?"),
         ],
@@ -5497,12 +5289,10 @@ extension SeedData {
             ("En este segmento, vamos a ___ sistemas de cifrado autenticado.", "En este segmento, vamos a construir sistemas de cifrado autenticado.", "In this segment, we're gonna construct authenticated encryption systems."),
         ],
         "consulado": [
-            ("@ShababLibya: ¿Qué consiguió el ataque de anoche al ___?", "@ShababLibya: ¿Qué consiguió el ataque de anoche al consulado?", "@ShababLibya: What did attacking the consulate last night achieve?"),
             ("En Francia, ¿trabajaste en la embajada o en el ___?", "En Francia, ¿trabajaste en la embajada o en el consulado?", "In France did you work at the embassy or in the consulate?"),
             ("Ocupación del ___ de Senegal a París contra... de socialisme-republique", "Ocupación del Consulado de Senegal a París contra... de socialisme-republique", "Senegalese news website, Walf Fidjri , explains that 200 people were arrested at the embassy, and 31 others at the consulate."),
         ],
         "consultar": [
-            ("CR: ¿Sin ___ nunca nada con Google?", "CR: ¿Sin consultar nunca nada con Google?", "CR: Never coming to Google to ask for anything."),
             ("¿Lo vas a ___ con la almohada?", "¿Lo vas a consultar con la almohada?", "Are you going to sleep on it?"),
             ("Lo que están haciendo no es ___.", "Lo que están haciendo no es consultar.", "What they are doing is not consulting."),
         ],
@@ -5537,7 +5327,6 @@ extension SeedData {
             ("Es ___ y se propaga rapidamente.", "Es contagioso y se propaga rapidamente.", "It's contagious and it spreads quickly."),
         ],
         "contaminación": [
-            ("¿Cuál es...? ¿Enfermedades por ___ de agua?", "¿Cuál es...? ¿Enfermedades por contaminación de agua?", "Which is ...?"),
             ("¿Cómo mido el nivel de ___?", "¿Cómo mido el nivel de contaminación?", "Now, how do I measure dirty?"),
             ("No hay ___ de partículas,", "No hay contaminación de partículas,", "There's particulate pollution,"),
         ],
@@ -5557,12 +5346,10 @@ extension SeedData {
             ("Gobernar era el arte de ___ las formas.", "Gobernar era el arte de contemplar las formas.", "Ruling was the craft of contemplating the Forms."),
         ],
         "contener": [
-            ("(Risas) Zach, ¿puedes ___ la respiración, por favor?", "(Risas) Zach, ¿puedes contener la respiración, por favor?", "(Laughter) Zach, can you hold your breath, please?"),
             ("Y yo no puedo ___", "Y yo no puedo contener", "And I just can't contain"),
             ("Pero yo no puedo ___", "Pero yo no puedo contener", "But I just can't contain"),
         ],
         "contenido": [
-            ("NM: ¿Qué tipo de ___ aceptan?", "NM: ¿Qué tipo de contenido aceptan?", "NM: What type of content do you accept? AS: We accept text, audio, videos and photos. NM: Who are the people running the project at the moment?"),
             ("¿Cómo encuentro el ___ de esta base de datos?", "¿Cómo encuentro el contenido de esta base de datos?", "How do I find out what does this database contain?"),
             ("¿No tienes tiempo para crear todo este ___ por ti mismo?", "¿No tienes tiempo para crear todo este contenido por ti mismo?", "Don't have time to create all this content on your own?"),
         ],
@@ -5579,7 +5366,6 @@ extension SeedData {
         "continente": [
             ("¿Cuál es el ___ más poblado del mundo?", "¿Cuál es el continente más poblado del mundo?", "Which is the most populated continent in the world?"),
             ("¿Será que más líderes africanos en este ___ sigan el ejemplo?", "¿Será que más líderes africanos en este continente sigan el ejemplo?", "Will more African leaders in Africa take the cue?"),
-            ("NE: ¿Tiene algún consejo para los próximos jóvenes emprendedores del ___?", "NE: ¿Tiene algún consejo para los próximos jóvenes emprendedores del continente?", "NE: Do you have any advice to young and upcoming tech entrepreneurs in the continent?"),
         ],
         "continuamente": [
             ("¿Tienes que identificarte con Mora ___?", "¿Tienes que identificarte con Mora continuamente?", "Do you have to identify with Maura continuously? [Q.] No."),
@@ -5597,7 +5383,6 @@ extension SeedData {
             ("Su estado ___ de cautela le causó un gran agotamiento.", "Su estado continuo de cautela le causó un gran agotamiento.", "His constant state of wariness caused him great weariness."),
         ],
         "contradecir": [
-            ("(Risas) ¿Quién soy yo para ___ a mi niña?", "(Risas) ¿Quién soy yo para contradecir a mi niña?", "(Laughter) Who am I to contradict my baby girl?"),
             ("No tengo la intención de ___ tu teoría.", "No tengo la intención de contradecir tu teoría.", "I don't intend to counter your theory."),
             ("No me voy a ___.", "No me voy a contradecir.", "I'm not going to contradict myself."),
         ],
@@ -5624,7 +5409,6 @@ extension SeedData {
         "contrato": [
             ("¿Cuáles son las condiciones del ___?", "¿Cuáles son las condiciones del contrato?", "What are the terms of the contract?"),
             ("No necesitas un depósito de ___, ¿verdad?", "No necesitas un depósito de contrato, ¿verdad?", "You don't need a contract deposit, right?"),
-            ("La seńora de la casa. - żDónde está el ___?", "La seńora de la casa. - żDónde está el contrato?", "Master of the house! - Where's the contract? - Here it is."),
         ],
         "contribuir": [
             ("¿Cómo puedes ___ con tus talentos al bienestar de la comunidad?", "¿Cómo puedes contribuir con tus talentos al bienestar de la comunidad?", "How can you contribute with your talents to the welfare of the community?"),
@@ -5639,7 +5423,6 @@ extension SeedData {
         "controvertido": [
             ("Era muy ___ decirlo hace 3, 4 o 5 años.", "Era muy controvertido decirlo hace 3, 4 o 5 años.", "It was very controversial to say three, four, five years ago."),
             ("Por esto fue tan ___, porque fue muy cruel.", "Por esto fue tan controvertido, porque fue muy cruel.", "This is also what made him so controversial, because it was very cruel, it's a very cruel way of having evolution."),
-            ("Israel: ___ juramento de lealtad socava la democracia", "Israel: Controvertido juramento de lealtad socava la democracia", "Israel: Controversial Loyalty Oath Undermines Democracy · Global Voices"),
         ],
         "contundente": [
             ("Es otro ejemplo ___ de una potencial tragedia de las anti-commons", "Es otro ejemplo contundente de una potencial tragedia de las anti-commons", "Another cogent example of a potential tragedy of the anti-commons is the sale of slices of the radio spectrum."),
@@ -5739,7 +5522,6 @@ extension SeedData {
         "cordero": [
             ("¿Ves el ___ de mi hermano?", "¿Ves el cordero de mi hermano?", "Do you see my brother's lamb?"),
             ("¿Por qué viniste a casa temprano, mi ___?", "¿Por qué viniste a casa temprano, mi cordero?", "¿Por qué viniste a casa temprano, mi cordero?"),
-            ("Mi ___ ... mi bebé .... 0:11:10.940,0:11:12.940 ¿Estás bien, papá?", "Mi cordero ... mi bebé .... 0:11:10.940,0:11:12.940 ¿Estás bien, papá?", "My lamb... my baby...."),
         ],
         "cordial": [
             ("¿Y qué hay de la recepción ___?", "¿Y qué hay de la recepción cordial?", "And what about the cordial reception?"),
@@ -5759,12 +5541,9 @@ extension SeedData {
         "coreógrafo": [
             ("Ni siquiera quiero que se piense que hubo un ___.", "Ni siquiera quiero que se piense que hubo un coreógrafo.", "I don't want you to even think there's a choreographer."),
             ("No soy ___, en realidad soy cineasta, narrador.", "No soy coreógrafo, en realidad soy cineasta, narrador.", "I'm not a choreographer -- I'm actually a filmmaker, a storyteller."),
-            ("Jeff Simpson,es el mejor ___ en el mundo. ¡Aquí está!", "Jeff Simpson,es el mejor coreógrafo en el mundo. ¡Aquí está!", "Here it is!"),
         ],
         "coro": [
-            ("Tú también enseńas en el club de ___, żcierto?", "Tú también enseńas en el club de coro, żcierto?", "Now, you also teach Glee Club, right?"),
             ("–¿El ___ es el del monasterio de Chudov?", "–¿El coro es el del monasterio de Chudov?", "'Is it the Chudovsky Choir?'"),
-            ("żSabes lo que haría si fuera profesor del ___?", "żSabes lo que haría si fuera profesor del coro?", "You know what I would do if I was teaching Glee Club?"),
         ],
         "corporación": [
             ("un miembro de la ___ de Rupert Murdoch?", "un miembro de la corporación de Rupert Murdoch?", "being a victim of hacking for a change."),
@@ -5778,7 +5557,6 @@ extension SeedData {
         ],
         "correctivo": [
             ("Como dije, hay mucho trabajo ___.", "Como dije, hay mucho trabajo correctivo.", "Now as I said, that's a lot of corrective work."),
-            ("Pero hay otra manera de mirar &lt;br&gt;el trabajo ___.", "Pero hay otra manera de mirar &lt;br&gt;el trabajo correctivo.", "But there is another way to look at corrective work."),
             ("Como ya lo he dicho, hay mucho trabajo ___.", "Como ya lo he dicho, hay mucho trabajo correctivo.", "As I have said, that is a lot of corrective work."),
         ],
         "correcto": [
@@ -5817,13 +5595,11 @@ extension SeedData {
             ("Es tipo de resultado ___.", "Es tipo de resultado corriente.", "It's kind of a running result."),
         ],
         "corroborar": [
-            ("CA: Lo vamos a ___.", "CA: Lo vamos a corroborar.", "CA: We will check it out."),
             ("La gente compartió su historia sin ___ si era verdadera.", "La gente compartió su historia sin corroborar si era verdadera.", "People shared her story without ever checking if it was true."),
             ("Deberíamos ___ sus intenciones una vez más.", "Deberíamos corroborar sus intenciones una vez más.", "We should confirm his intentions once more."),
         ],
         "corrupción": [
             ("¿Conocen el Premio Mobutu de ___ Internacional?", "¿Conocen el Premio Mobutu de Corrupción Internacional?", "Do you know the Mobutu Prize of Corruption International?"),
-            ("AS: Nuestros problemas: ___, salud, educación y gobernanza.", "AS: Nuestros problemas: corrupción, salud, educación y gobernanza.", "AS: Our problems: corruption, health, education and governance."),
             ("Es sobre asesinato, ___, enfermedades, desastres naturales.", "Es sobre asesinato, corrupción, enfermedades, desastres naturales.", "Most of it's about murder, corruption, diseases, natural disasters."),
         ],
         "corrupto": [
@@ -5832,12 +5608,9 @@ extension SeedData {
             ("Esto tiene olor a oportunismo ___.", "Esto tiene olor a oportunismo corrupto.", "That is nothing but reeking opportunism."),
         ],
         "cortafuegos": [
-            ("Rusia: ¿Un gran ___ que censure la RuNet?", "Rusia: ¿Un gran cortafuegos que censure la RuNet?", "Russia: A Great Firewall to Censor the RuNet? · Global Voices"),
             ("Cupid_Yes： ¿Por qué no abrís el Gran ___ (filtro de Internet)?", "Cupid_Yes： ¿Por qué no abrís el Gran Cortafuegos (filtro de Internet)?", "Cupid_Yes：Why don't you open up the Great Fire Wall (internet filter)?"),
-            ("Sina Weibo le responde al arquitecto del Gran ___: Piérdete", "Sina Weibo le responde al arquitecto del Gran Cortafuegos: Piérdete", "Sina Weibo to 'Great Firewall' Architect: Get Lost · Global Voices"),
         ],
         "cortar": [
-            ("(aplausos) ¿podemos ___ este pedazo de música, por favor?", "(aplausos) ¿podemos cortar este pedazo de música, por favor?", "(Applause) Can we cue the music please?"),
             ("La función de un cuchillo es ___ bien.", "La función de un cuchillo es cortar bien.", "The function of a knife is to cut well."),
             ("La última cosa que queremos hacer es ___ árboles.", "La última cosa que queremos hacer es cortar árboles.", "The last thing we want to do is cut down trees."),
         ],
@@ -5859,10 +5632,8 @@ extension SeedData {
         "cortometraje": [
             ("Se otorgará premios al mejor ___ local, nacional e internacional.", "Se otorgará premios al mejor cortometraje local, nacional e internacional.", "Awards will be given to the best local, national and international short film and documentary."),
             ("Una captura de pantalla del ___", "Una captura de pantalla del cortometraje", "A screen shot from the movie"),
-            ("Video: Historia de amor, ___, teléfono celular", "Video: Historia de amor, cortometraje, teléfono celular", "Video: Love Story, Short Film, Cellphone · Global Voices"),
         ],
         "cortés": [
-            ("Qué lindo, ¿sabes ser ___?", "Qué lindo, ¿sabes ser cortés?", "SW: That's nice. Can you be polite?"),
             ("Y no se olvide de ser ___.", "Y no se olvide de ser cortés.", "And don't forget to be polite."),
             ("Cedí a la ___ invitación.", "Cedí a la cortés invitación.", "I couldn't refuse such a lovely invitation."),
         ],
@@ -5877,14 +5648,11 @@ extension SeedData {
             ("El mal tiempo afectará la ___.", "El mal tiempo afectará la cosecha.", "The bad weather will affect the yield."),
         ],
         "cosechar": [
-            ("Interpretación de roles Empresario: ¡¿Tienen permiso para ___ este arroz?!", "Interpretación de roles Empresario: ¡¿Tienen permiso para cosechar este arroz?!", "Role plays (Business man) - Do you have permission letter to harvest this rice?"),
             ("Ahora, con objeto de cosecharlas, me pregunto ¿qué es ___?", "Ahora, con objeto de cosecharlas, me pregunto ¿qué es cosechar?", "Now, in order to harvest it -- I mean, what's harvesting?"),
             ("Me explico, eso es ___... decimos que criamos puercos ¿cierto?", "Me explico, eso es cosechar... decimos que criamos puercos ¿cierto?", "I mean, that's what's harvest -- we say we harvest the pig, you know?"),
         ],
         "costa": [
             ("Fui de vacaciones con mis padres a la ___ de Jersey.", "Fui de vacaciones con mis padres a la costa de Jersey.", "And I went on vacation with my parents to the Jersey shore."),
-            ("___ de Marfil: ¿Abandonando la CFA?", "Costa de Marfil: ¿Abandonando la CFA?", "Côte d’Ivoire: Abandoning the CFA? · Global Voices"),
-            ("___ de Marfil: ¿Quién mató a las 7 mujeres manifestantes?", "Costa de Marfil: ¿Quién mató a las 7 mujeres manifestantes?", "Côte d'Ivoire: Who Killed the Seven Women Protestors?"),
         ],
         "costilla": [
             ("Nuestro vecino se rompió una ___.", "Nuestro vecino se rompió una costilla.", "Our neighbor has broken a rib."),
@@ -5943,7 +5711,6 @@ extension SeedData {
         ],
         "crecer": [
             ("Beautiful ___ m?s fuerte cada vez! Wow!", "Beautiful crecer m?s fuerte cada vez! Wow!", "Beautiful grow stronger every single time!"),
-            ("El hombre inmediatamente. żSabes cu?ntos a?os lleva los residuos a ___?", "El hombre inmediatamente. żSabes cu?ntos a?os lleva los residuos a crecer?", "Are you crazy? Honi said, The man immediately. You know how many years it takes waste to grow?"),
             ("Deben ___ sin emisiones, y he ahí un nuevo problema.", "Deben crecer sin emisiones, y he ahí un nuevo problema.", "So they must develop without emissions, and that is a different kind of problem."),
         ],
         "creciente": [
@@ -5963,12 +5730,10 @@ extension SeedData {
         ],
         "creer": [
             ("¿Podemos ___ a los políticos?", "¿Podemos creer a los políticos?", "Can we believe politicians?"),
-            ("-No lo puedo ___. -żQué?", "-No lo puedo creer. -żQué?", "I don't fucking believe this."),
             ("Oh, no puedo ___ que ocurriera.", "Oh, no puedo creer que ocurriera.", "Oh, I can't believe that happened."),
         ],
         "crema": [
             ("¿Es la miel más viscosa que la ___ para la piel?", "¿Es la miel más viscosa que la crema para la piel?", "Is honey more viscous than skin lotion?"),
-            ("¿mantequeras? Chef: ¿para la ___?", "¿mantequeras? Chef: ¿para la crema?", "IM: Churn. SM: From cream."),
             ("Quiero un helado con mucha ___ batida.", "Quiero un helado con mucha crema batida.", "I want an ice cream with a lot of whipped cream."),
         ],
         "crepúsculo": [
@@ -5987,7 +5752,6 @@ extension SeedData {
             ("Se necesita una aldea para ___ a un bebé", "Se necesita una aldea para criar a un bebé", "It takes a village to raise a child"),
         ],
         "crimen": [
-            ("Armenia: ¿Una nueva respuesta al ___ de odio?", "Armenia: ¿Una nueva respuesta al crimen de odio?", "Armenia: A New Response to Hate Crime? · Global Voices"),
             ("¿Es un ___ el volver a casa?", "¿Es un crimen el volver a casa?", "Is it a crime to come home to your family?"),
             ("Desde Nuremberg esto es considerado un ___ de guerra.", "Desde Nuremberg esto es considerado un crimen de guerra.", "Since Nuremberg this is considered a war crime."),
         ],
@@ -6042,8 +5806,6 @@ extension SeedData {
             ("¿Todo lo que te preocupaba era el ___ que encontramos?", "¿Todo lo que te preocupaba era el cráneo que encontramos?", "Was it all that fretting about the skull we found?"),
         ],
         "crítica literaria": [
-            ("China: ___ para libros imaginarios", "China: Crítica literaria para libros imaginarios", "China: Writing Imaginary Book Reviews · Global Voices"),
-            ("Japón: Una historia de la moderna ___ japonesa", "Japón: Una historia de la moderna crítica literaria japonesa", "Japan: A History of Modern Japanese Literary Criticism · Global Voices"),
             ("Leer ___ es muy útil para comprender la literatura.", "Leer crítica literaria es muy útil para comprender la literatura.", "Reading literary criticism is very helpful to understanding literature."),
         ],
         "críticamente": [
@@ -6083,7 +5845,6 @@ extension SeedData {
         ],
         "cualquier": [
             ("¿Quién es el catador de ___ experiencia?", "¿Quién es el catador de cualquier experiencia?", "Who is the taster of any experience?"),
-            ("MZ: Pero para medir realmente ___ mejora, necesitamos datos, ¿verdad?", "MZ: Pero para medir realmente cualquier mejora, necesitamos datos, ¿verdad?", "MZ: OK, but to really measure any improvement, we needed data, right?"),
             ("De hecho, niega rotundamente haber consumido ___ tipo de alcohol:", "De hecho, niega rotundamente haber consumido cualquier tipo de alcohol:", "In fact, she strenuously denies consuming any alcohol at all:"),
         ],
         "cuarenta": [
@@ -6093,18 +5854,14 @@ extension SeedData {
         ],
         "cuaresma": [
             ("¿Cómo recuerdan en tu país el comienzo de la ___?", "¿Cómo recuerdan en tu país el comienzo de la Cuaresma?", "How does your country mark the start of Lent?"),
-            ("Rusia: Empezó la Gran ___", "Rusia: Empezó la Gran Cuaresma", "Russia: Great Lent Has Begun · Global Voices"),
             ("–En la ___ de san Felipe hizo dos años.", "–En la cuaresma de san Felipe hizo dos años.", "'Yes, just over two years.'"),
         ],
         "cuarto": [
-            ("-Esta abajo en ese ___. żDónde?", "-Esta abajo en ese cuarto. żDónde?", "There's nobody here."),
             ("No quiero seguir dibujando el ___ de las cabezas azules.", "No quiero seguir dibujando el cuarto de las cabezas azules.", "I don't want to keep drawing the blue forehead room."),
             ("Así que agarré mi teléfono y salí del ___.", "Así que agarré mi teléfono y salí del cuarto.", "So grabbed my phone and left my room."),
         ],
         "cuartos de final": [
             ("Ahora van todos a ___.", "Ahora van todos a cuartos de final.", "Now they are all through to the quarterfinal."),
-            ("Uruguay: Celebrando la llegada a ___", "Uruguay: Celebrando la llegada a cuartos de final", "Uruguay: Celebrating Advancement to Quarter Finals · Global Voices"),
-            ("Perú: La Selección sobrevive y pasa a ___", "Perú: La Selección sobrevive y pasa a Cuartos de Final", "Peru: National Team Survives and Moves on to Quarterfinals · Global Voices"),
         ],
         "cuatro": [
             ("Hoy mi hijo cumple ___ años.", "Hoy mi hijo cumple cuatro años.", "Today my son turns four years old."),
@@ -6123,7 +5880,6 @@ extension SeedData {
         ],
         "cubrir": [
             ("¿Para qué exáctamente?, ¿qué queréis ___ creando éste partido?", "¿Para qué exáctamente?, ¿qué queréis cubrir creando éste partido?", "For what exacly?, what do you want to cover with this Party?"),
-            ("Pregunta: ¿Que usan los residentes de Tivoli para ___ sus ventanas?", "Pregunta: ¿Que usan los residentes de Tivoli para cubrir sus ventanas?", "Q: What do Tivoli residents use to screen their windows?"),
             ("Estoy teniendo dificultades para ___ aquí para usted.", "Estoy teniendo dificultades para cubrir aquí para usted.", "I'm having hard time here covering for you."),
         ],
         "cuchara": [
@@ -6148,7 +5904,6 @@ extension SeedData {
         ],
         "cuenca": [
             ("Estamos bien, la ___ del Mediterráneo", "Estamos bien, la cuenca del Mediterráneo", "We are nice, the Mediterranean Basin"),
-            ("Ecuador: Noticias locales de ___ ausentes de los diarios nacionales", "Ecuador: Noticias locales de Cuenca ausentes de los diarios nacionales", "Ecuador: Local News from Cuenca Absent from National Newspapers · Global Voices"),
             ("El océano Pacífico es nuestra ___ oceánica más grande y profunda.", "El océano Pacífico es nuestra cuenca oceánica más grande y profunda.", "The Pacific Ocean is our largest, deepest ocean basin."),
         ],
         "cuenta": [
@@ -6167,7 +5922,6 @@ extension SeedData {
             ("Ya puede cortar a través de ___ grueso.", "Ya puede cortar a través de cuero grueso.", "He can now cut through tough animal hide."),
         ],
         "cuerpo": [
-            ("¿Cómo están las heridas en tu ___?", "¿Cómo están las heridas en tu cuerpo?", "How are you?"),
             ("¿Qué podría ser tan serio acerca de mi ___ enfermandose?", "¿Qué podría ser tan serio acerca de mi cuerpo enfermandose?", "What does that matter now?"),
             ("Se arrastró sobre el ___ latente de Park y se fugó.", "Se arrastró sobre el cuerpo latente de Park y se fugó.", "He crawled over Park's smoldering body and ran off."),
         ],
@@ -6187,7 +5941,6 @@ extension SeedData {
             ("¿Dónde queda la entrada a la ___ del dragón?", "¿Dónde queda la entrada a la cueva del dragón?", "Where is the entrance to the dragon's cave?"),
         ],
         "cuidadosamente": [
-            ("¡Miren ___ frente a ustedes y sean moderados. ¿Entienden?", "¡Miren cuidadosamente frente a ustedes y sean moderados. ¿Entienden?", "Watch your step, alright?"),
             ("Debemos mover esta estatua muy ___.", "Debemos mover esta estatua muy cuidadosamente.", "We must move this statue very carefully."),
             ("Coloco ___ las cosas hasta que siento que pertenecen.", "Coloco cuidadosamente las cosas hasta que siento que pertenecen.", "I carefully place things till I feel they belong."),
         ],
@@ -6204,7 +5957,6 @@ extension SeedData {
         "culpable": [
             ("«¿Acaso soy ___? ¿He hecho algo que no esté bien?", "«¿Acaso soy culpable? ¿He hecho algo que no esté bien?", "'Can I really be guilty – have I really done anything wrong?"),
             ("Yo le quería ... ... Hacer Erdoğan parece el único ___.", "Yo le quería ... ... Hacer Erdoğan parece el único culpable.", "I wanted him to... ... make Erdoğan look like the only guilty one."),
-            ("Hallamos el acusado ___ de asesinato en primer grado.", "Hallamos el acusado culpable de asesinato en primer grado.", "JUROR: KlMBLE:"),
         ],
         "cultivar": [
             ("¿Puedo usar este lugar para ___ verduras?", "¿Puedo usar este lugar para cultivar verduras?", "Can I use this area to raise vegetables?"),
@@ -6222,7 +5974,6 @@ extension SeedData {
             ("Y el vudú no es un ___ de magia negra.", "Y el vudú no es un culto de magia negra.", "And Voodoo is not a black magic cult."),
         ],
         "cultura": [
-            ("¿Cómo puede funcionar? Pero antes de eso veamos la ___ popular.", "¿Cómo puede funcionar? Pero antes de eso veamos la cultura popular.", "How would it work?"),
             ("¿Quién soy yo para juzgar esta ___?", "¿Quién soy yo para juzgar esta cultura?", "Who am I to judge this culture?"),
             ("Debemos estar unidos y aprender nuestra ___.", "Debemos estar unidos y aprender nuestra cultura.", "We have to be united and learn our culture."),
         ],
@@ -6234,12 +5985,9 @@ extension SeedData {
         "cumbia": [
             ("MAS VALE QUE PASEN REGGATEON Y ___", "MAS VALE QUE PASEN REGGATEON Y CUMBIA", "SUPER TlNI PELADO NO SE DEJEN METER LOS DEDOS EN LA BOCA YA ME CANSE DE DEClRLES DE ESTOS PlJONES ."),
             ("Bien, seré rápido, traje música de ___.", "Bien, seré rápido, traje música de cumbia.", "OK, I will be quick, I brought some Cumbia music around."),
-            ("Argentina: ___ Digital en Buenos Aires", "Argentina: Cumbia Digital en Buenos Aires", "Argentina: Digital Cumbia in Buenos Aires · Global Voices"),
         ],
         "cumbre": [
-            ("Américas: Reacciones a la V ___", "Américas: Reacciones a la V Cumbre", "Americas: 5th Summit Reactions · Global Voices"),
             ("Cosas ‘buenas' que salieron de la ___:", "Cosas ‘buenas' que salieron de la Cumbre:", "'Good' things coming out of the Summit :"),
-            ("EE.UU.: blogger macedonia asciende la ___ Denali en Alaska", "EE.UU.: blogger macedonia asciende la cumbre Denali en Alaska", "USA: Macedonian Blogger Climbs Denali in Alaska · Global Voices"),
         ],
         "cumpleaños": [
             ("¿Por qué no nos dijiste que fue tu ___ ayer?", "¿Por qué no nos dijiste que fue tu cumpleaños ayer?", "Why didn't you tell us that yesterday was your birthday?"),
@@ -6258,7 +6006,6 @@ extension SeedData {
         "cuota": [
             ("¿Había que llenar una ___ de estupidez?", "¿Había que llenar una cuota de estupidez?", "Was there a quota of stupid you needed to fill?"),
             ("Es la ___ anual de $700, pagada al final del", "Es la cuota anual de $700, pagada al final del", "It's $700 annual fee, paid at the end of"),
-            ("Rusia, Arabia Saudita: Más sobre la ___ del Hajj", "Rusia, Arabia Saudita: Más sobre la cuota del Hajj", "Russia, Saudi Arabia: More on Hajj Quota · Global Voices"),
         ],
         "curar": [
             ("¿Que incluso podría ___ la devastación del planeta?", "¿Que incluso podría curar la devastación del planeta?", "What if I explained that my elixir could help heal the planet's devastation?"),
@@ -6369,11 +6116,6 @@ extension SeedData {
             ("Veré el ___ de esta página", "Veré el código fuente de esta página", "And what I am going to do is to view the source code of his web page,"),
             ("Y hay proyectos completos que hacen solo mantenimiento del ___.", "Y hay proyectos completos que hacen solo mantenimiento del código fuente.", "And there are whole projects that do only source-code maintenance."),
         ],
-        "cóndor": [
-            ("Ecuador: Día Nacional del ___ Andino", "Ecuador: Día Nacional del Cóndor Andino", "Ecuador: National Day of the Andean Condor · Global Voices"),
-            ("Ecuador: El Día Nacional del ___", "Ecuador: El Día Nacional del Cóndor", "Ecuador: The National Day of the Condor · Global Voices"),
-            ("Un ___ vive de 50 a 75 años.", "Un cóndor vive de 50 a 75 años.", "We have been surprised with the most beautiful flowers, orchids, birds, mammals, and people."),
-        ],
         "cónsul": [
             ("Pero, ¿no os equivocáis? Preguntó de nuevo el ___.", "Pero, ¿no os equivocáis? Preguntó de nuevo el cónsul.", "\"But are you not mistaken?\""),
             ("No lo sé, señor ___ dijo el agente , pero oídme...", "No lo sé, señor cónsul dijo el agente , pero oídme...", "I have no idea; but listen to me.\""),
@@ -6392,7 +6134,6 @@ extension SeedData {
         "dar": [
             ("¿Nos puedes ___ el menú, por favor?", "¿Nos puedes dar el menú, por favor?", "Can we have a menu, please?"),
             ("¿Me puedes ___ la receta?", "¿Me puedes dar la receta?", "Can you give me the recipe?"),
-            ("Pide, por ejemplo, s?lo voy a ___ un ejemplo,", "Pide, por ejemplo, s?lo voy a dar un ejemplo,", "I told him, I do not know, believe me, I do not know by now, I'm not even understand what I went there He tells me, child safe and sound, great kid. He asks, say, I'll give you just an example,"),
         ],
         "dar a luz": [
             ("¿Qué hace el rabino, que tienen miedo de ___?", "¿Qué hace el rabino, que tienen miedo de dar a luz?", "What does the rabbi, are you afraid of childbirth?"),
@@ -6405,7 +6146,6 @@ extension SeedData {
             ("Como pueden ___, estoy haciendo esto en el camino.", "Como pueden darse cuenta, estoy haciendo esto en el camino.", "As you can tell I'm doing this on the fly."),
         ],
         "dato": [
-            ("Ya, sin ese ___, ¿cómo podríamos vivir?", "Ya, sin ese dato, ¿cómo podríamos vivir?", "Now, without that, how could we possibly function? (Laughter)"),
             ("A-mí-me-funciona es un ___ anecdótico ¿sí?", "A-mí-me-funciona es un dato anecdótico ¿sí?", "It-works-for-me is anecdotal, right?"),
             ("Sabía que necesitábamos un mejor estimativo, algún ___ científico.", "Sabía que necesitábamos un mejor estimativo, algún dato científico.", "I knew we really need a better estimate -- some scientific data."),
         ],
@@ -6431,7 +6171,6 @@ extension SeedData {
         ],
         "de verdad": [
             ("As? que tengo un milagro muy especial ___.", "As? que tengo un milagro muy especial de verdad.", "So I have a very special miracle really."),
-            ("(Risas) CA: ¿___ que te están llamando?", "(Risas) CA: ¿de verdad que te están llamando?", "(Laughter) CA: They really are calling?"),
             ("¿A Dios ___ le importan una mierda detalles como estos?", "¿A Dios de verdad le importan una mierda detalles como estos?", "Does God really give a fuck about details like this?"),
         ],
         "debajo": [
@@ -6441,7 +6180,6 @@ extension SeedData {
         ],
         "debate": [
             ("Durante el ___ de la medida,", "Durante el debate de la medida,", "During the debate on the measure,"),
-            ("Corea del Sur: El ___ en Twitter sobre los supermercados", "Corea del Sur: El debate en Twitter sobre los supermercados", "South Korea: The Super-Supermarkets Twitter shootout · Global Voices"),
             ("Hay mucho ___ sobre este tema.", "Hay mucho debate sobre este tema.", "There are several discussions on the subject."),
         ],
         "debatir": [
@@ -6502,7 +6240,6 @@ extension SeedData {
         "declarar": [
             ("¿Quién decide ___ la guerra a un país?", "¿Quién decide declarar la guerra a un país?", "Who decided to declare war on a country?"),
             ("¿Tiene usted algo que ___?", "¿Tiene usted algo que declarar?", "Do you have anything to declare?"),
-            ("237 00:21:12,903 --&gt; 00:21:15,048 No ___ la nuestra?", "237 00:21:12,903 --&gt; 00:21:15,048 No declarar la nuestra?", "237 00:21:12,903 --&gt; 00:21:15,048 Did ours declare?"),
         ],
         "decreciente": [
             ("Podríamos decir plana o ___, ¿cierto?", "Podríamos decir plana o decreciente, ¿cierto?", "We could say flat or decreasing, right?"),
@@ -6515,7 +6252,6 @@ extension SeedData {
             ("Ese ___ fué ordenado por mi.", "Ese decreto fué ordenado por mi.", "And my Royal Seal."),
         ],
         "dedicarse": [
-            ("¿Pueden ___ a sí mismos 3 minutos diarios?", "¿Pueden dedicarse a sí mismos 3 minutos diarios?", "Is it possible?"),
             ("Entonces ¿por qué no ___ 3 minutos a un mismo?", "Entonces ¿por qué no dedicarse 3 minutos a un mismo?", "So why not three minutes to yourself?"),
             ("Podría ___ completamente a programas para la comunidad.", "Podría dedicarse completamente a programas para la comunidad.", "It could totally be dedicated to community programming."),
         ],
@@ -6526,7 +6262,6 @@ extension SeedData {
         ],
         "deducir": [
             ("¿Qué podemos ___ de esto?", "¿Qué podemos deducir de esto?", "What's some things we can see about this?"),
-            ("Host: ¿qué podemos ___ de esto?", "Host: ¿qué podemos deducir de esto?", "Host: what can we deduce from that?"),
             ("Entonces, damas y caballeros, como podrán ___, tengo una misión.", "Entonces, damas y caballeros, como podrán deducir, tengo una misión.", "So, ladies and gentlemen, as you can probably tell, I'm on a bit of a mission."),
         ],
         "defender": [
@@ -6561,7 +6296,6 @@ extension SeedData {
         ],
         "definitivo": [
             ("¿Dónde está su ubicación,? Este observador ___", "¿Dónde está su ubicación,? Este observador definitivo", "Where is its location, this ultimate seer?"),
-            ("Otro momento ___ y ¿qué fue lo que hizo?", "Otro momento definitivo y ¿qué fue lo que hizo?", "(Applause)"),
             ("Este fue un momento ___ en mi vida.", "Este fue un momento definitivo en mi vida.", "This was the defining moment of my life."),
         ],
         "deflación": [
@@ -6570,12 +6304,10 @@ extension SeedData {
             ("Esta es la línea divisoria entre la inflación y la ___.", "Esta es la línea divisoria entre la inflación y la deflación.", "That's the dividing line between inflation and deflation."),
         ],
         "deforestación": [
-            ("Brasil: ¿Se mezclan elecciones y ___?", "Brasil: ¿Se mezclan elecciones y deforestación?", "Brazil: Do deforestation and elections mix? · Global Voices"),
             ("Así, la ___ reduce las plantas que almacenan CO2.", "Así, la deforestación reduce las plantas que almacenan CO2.", "Thus, deforestation reduces the plants that store CO2."),
             ("Santo Tomé y Príncipe: La ___ amenaza a la biodiversidad", "Santo Tomé y Príncipe: La deforestación amenaza a la biodiversidad", "São Tomé & Príncipe: Deforestation Threatens Biodiversity · Global Voices"),
         ],
         "dejar": [
-            ("¿Cómo se puede ___ de respirar y vivir?", "¿Cómo se puede dejar de respirar y vivir?", "Yes, you can."),
             ("Hasta habíamos pensado en ___ la serpiente fuera de la casa.", "Hasta habíamos pensado en dejar la serpiente fuera de la casa.", "We even thought about keeping the snake outside of the house."),
             ("Ella decidió ___ el trabajo.", "Ella decidió dejar el trabajo.", "She decided to resign her job."),
         ],
@@ -6616,7 +6348,6 @@ extension SeedData {
         ],
         "deliberadamente": [
             ("¿Por qué destruye la gente el patrimonio cultural ___?", "¿Por qué destruye la gente el patrimonio cultural deliberadamente?", "Why do people deliberately destroy cultural heritage?"),
-            ("Reportero: ¿Estaban ___ caminando con una cadencia, o algo así?", "Reportero: ¿Estaban deliberadamente caminando con una cadencia, o algo así?", "Interviewer: Were they deliberately walking in step, or anything like that?"),
             ("“¿O acaso dejaron pasar esto ___?", "“¿O acaso dejaron pasar esto deliberadamente?", "\"Or did they deliberately let that one through?"),
         ],
         "deliberado": [
@@ -6691,12 +6422,10 @@ extension SeedData {
         ],
         "denunciar": [
             ("¿Y quién, quién me va a ___?", "¿Y quién, quién me va a denunciar?", "And who, who's going to complain?"),
-            ("(Música) ¿Y quién, quién me va a ___?", "(Música) ¿Y quién, quién me va a denunciar?", "(Music) And who, who's going to complain?"),
             ("¿A quién vamos a ___ la violencia practicada contra nuestras vidas?", "¿A quién vamos a denunciar la violencia practicada contra nuestras vidas?", "To whom are we going to denounce the violence perpetrated against our lives?"),
         ],
         "departamento": [
             ("¿Qué pasó? Hay agua en todo el ___.", "¿Qué pasó? Hay agua en todo el departamento.", "What happened? There's water in the whole apartment."),
-            ("¡¿Podría ser esa muchacha?! Libreria del ___ de Asuntos Internos.", "¡¿Podría ser esa muchacha?! Libreria del Departamento de Asuntos Internos.", "No, not her..."),
             ("El ___ del Contralor General también es un desperdicio de dinero.", "El Departamento del Contralor General también es un desperdicio de dinero.", "The Auditor General’s Office is also a waste of money."),
         ],
         "depender": [
@@ -6710,7 +6439,6 @@ extension SeedData {
             ("Son la competencia, pero me vuelvo ___.", "Son la competencia, pero me vuelvo dependiente.", "They can, but then I would depend on them."),
         ],
         "deporte": [
-            ("żQué tan bueno eres en ___?", "żQué tan bueno eres en deporte?", "How good are you in sports?"),
             ("¿Qué es la psicología del ___?", "¿Qué es la psicología del deporte?", "What is sport psychology?"),
             ("¿Cuál es el ___ más popular en los Estados Unidos?", "¿Cuál es el deporte más popular en los Estados Unidos?", "What is the most popular sport in America?"),
         ],
@@ -6740,7 +6468,6 @@ extension SeedData {
             ("Así puede ___ cualquier función, derecha.", "Así puede depurar cualquier función, derecha.", "So you can debug any function, right."),
         ],
         "derecho": [
-            ("El ___, eres incre?ble. żCu?l es su nombre?", "El derecho, eres incre?ble. żCu?l es su nombre?", "Come on sweetheart. The right, you're amazing."),
             ("¿Y, a continuación, 33 menos 16 17, ___?", "¿Y, a continuación, 33 menos 16 17, derecho?", "And then 33 minus 16 is 17, right?"),
             ("¿f minúscula, en tanto, encontró espacio en espacio, ___?", "¿f minúscula, en tanto, encontró espacio en espacio, derecho?", "lower case f, on so, found space on space, Right?"),
         ],
@@ -6760,7 +6487,6 @@ extension SeedData {
             ("La sal se usa para ___ la nieve.", "La sal se usa para derretir la nieve.", "Salt is used to melt snow."),
         ],
         "desacuerdo": [
-            ("Egipto: ¿El acoso sexual como arma contra el ___?", "Egipto: ¿El acoso sexual como arma contra el desacuerdo?", "Egypt: Sexual Harassment as a Weapon Against Dissent? · Global Voices"),
             ("Simplemente estamos en ___ el uno con el otro.", "Simplemente estamos en desacuerdo el uno con el otro.", "I haven't argued that it is. We're just disagreeing with each other."),
             ("A encontrar mejores maneras de estar en ___.", "A encontrar mejores maneras de estar en desacuerdo.", "To find better ways of disagreeing."),
         ],
@@ -6786,13 +6512,10 @@ extension SeedData {
         ],
         "desagüe": [
             ("–Vamos al ___ –propuso Pencroff.", "–Vamos al desagüe –propuso Pencroff.", "\"Take care, captain!\" cried Pencroft, \"perhaps there are still some of these rascals."),
-            ("18. El ___ del lago resulta un palacio de granito", "18. El desagüe del lago resulta un palacio de granito", "Chapter 18"),
             ("Puedes ver la presa ahí, vamos a bajar por el ___.", "Puedes ver la presa ahí, vamos a bajar por el desagüe.", "You can see the dam there, and we'll drive down here in the spillway."),
         ],
         "desalojar": [
-            ("Reino Unido: No se puede ___ una idea", "Reino Unido: No se puede desalojar una idea", "United Kingdom: You cannot evict an idea · Global Voices"),
             ("Los modelos son difíciles de ___.", "Los modelos son difíciles de desalojar.", "Models are hard to dislodge."),
-            ("Chile: Alcalde de Talca ordena ___ a los vendedores de las aceras", "Chile: Alcalde de Talca ordena desalojar a los vendedores de las aceras", "Chile: Talca Mayor Orders Removal of Sidewalk Vendors · Global Voices"),
         ],
         "desanimado": [
             ("¿No le pareció terriblemente ___ cuando estaba en Barton?", "¿No le pareció terriblemente desanimado cuando estaba en Barton?", "Did you not think him dreadful low-spirited when he was at Barton?"),
@@ -6865,7 +6588,6 @@ extension SeedData {
             ("Nuestro ___ no se interrumpía un solo instante.", "Nuestro descenso no se interrumpía un solo instante.", "Still we kept descending."),
         ],
         "desconectar": [
-            ("Japón: ¿Cómo ___ tu vida y ahorrar electricidad?", "Japón: ¿Cómo desconectar tu vida y ahorrar electricidad?", "Japan: How to Unplug Your Life and Save Electricity · Global Voices"),
             ("¿Puedes sobrevivir y ___ la inteligencia artificial?", "¿Puedes sobrevivir y desconectar la inteligencia artificial?", "How can you survive and shut off the artificial intelligence?"),
             ("¿Quieres ___ las turbinas o que?", "¿Quieres desconectar las turbinas o que?", "You want to pull those PCLs off-line or what?"),
         ],
@@ -6904,7 +6626,6 @@ extension SeedData {
             ("El idílico parque Osho Teerth fue una vez un ___ vertedero.", "El idílico parque Osho Teerth fue una vez un descuidado vertedero.", "The delightful Osho Teerth park was once a neglected waste area."),
         ],
         "desde": [
-            ("Cuba: ¿Qué dicen los cables ___ La Habana?", "Cuba: ¿Qué dicen los cables desde La Habana?", "Cuba: What do the Cables from Havana Say?"),
             ("¿O bloguear es algo que escribes retirado y ___ el aislamiento?", "¿O bloguear es algo que escribes retirado y desde el aislamiento?", "Or is blogging something that you retreat to and write from in isolation?"),
             ("Maysaloon publica fotos ___ Gaza, tituladas: Masacre de Gaza.", "Maysaloon publica fotos desde Gaza, tituladas: Masacre de Gaza.", "Maysaloon posts photos from Gaza, titled: Gaza Massacre."),
         ],
@@ -6915,8 +6636,6 @@ extension SeedData {
         ],
         "desempleo": [
             ("Einstein no podría decirnos cómo reducir el ___.", "Einstein no podría decirnos cómo reducir el desempleo.", "Einstein couldn't tell you how to improve unemployment."),
-            ("Lo que siginifica, alto ___ continuo y una recuperación anémica", "Lo que siginifica, alto desempleo continuo y una recuperación anémica", "Final dot"),
-            ("- Primero: Reducir el ___ e incrementar las oportunidades de empleo;", "- Primero: Reducir el desempleo e incrementar las oportunidades de empleo;", "- First : Reducing Unemployment and Increasing Employment Opportunities;"),
         ],
         "desenlace": [
             ("¿No fue un buen ___?", "¿No fue un buen desenlace?", "Wasn't that a good outcome?"),
@@ -6934,11 +6653,9 @@ extension SeedData {
         ],
         "desfibrilador": [
             ("Pueden ver el ___. Pueden ver el equipamiento.", "Pueden ver el desfibrilador. Pueden ver el equipamiento.", "You see the defibrillator. You see the equipment."),
-            ("Algo así como que usó un ___ con ustéd!", "Algo así como que usó un desfibrilador con ustéd!", "Do you know what happens when you worship in your home, in your house, with your children? Fathers, as you put your little babies to bed. I challenge you to worship with them."),
             ("Usamos tecnología actual de marcapasos ___ que se usa para el corazón.", "Usamos tecnología actual de marcapasos desfibrilador que se usa para el corazón.", "We use current pacemaker defibrillator technology that's used for the heart."),
         ],
         "desfile": [
-            ("¿Te importa? Estoy tratando de ver el ___ de la piña.", "¿Te importa? Estoy tratando de ver el desfile de la piña.", "Do you mind?"),
             ("Irán: ___ persa en la ciudad de Nueva York", "Irán: Desfile persa en la ciudad de Nueva York", "Iran:New York City's Persian parade · Global Voices"),
             ("Estoy muy feliz de que el ___ se haya cancelado.", "Estoy muy feliz de que el desfile se haya cancelado.", "I'm very glad that the parade got cancelled."),
         ],
@@ -7023,7 +6740,6 @@ extension SeedData {
             ("Todas estas cosas, llegaron ___ de ti.", "Todas estas cosas, llegaron después de ti.", "All these things, they came after you."),
         ],
         "destacado": [
-            ("Preguntas al Parlamento: ¡lo ___!", "Preguntas al Parlamento: ¡lo destacado!", "Questions to parliament: the highlights!"),
             ("Nadeem F. Paracha, ___ columnista, lo considera un vagabundo .", "Nadeem F. Paracha, destacado columnista, lo considera un vagabundo .", "Nadeem F. Paracha, a notable columnist, considers him to be a vagabond."),
             ("Vietnam arresta a ___ abogado y escritor", "Vietnam arresta a destacado abogado y escritor", "Vietnam arrests prominent lawyer and writer · Global Voices"),
         ],
@@ -7033,7 +6749,6 @@ extension SeedData {
             ("Cuidado, podrías hacerte daño con un ___.", "Cuidado, podrías hacerte daño con un destornillador.", "Be careful. You might hurt yourself with a screwdriver."),
         ],
         "destreza": [
-            ("¿Que pasó? Mientras la tarea involucró solamente ___ mecánica", "¿Que pasó? Mientras la tarea involucró solamente destreza mecánica", "What happened?"),
             ("¿Es un problema de ___?", "¿Es un problema de destreza?", "Is it a dexterity problem?"),
             ("¿Es un problema de ___? ¿Es la aparición de artrítis?", "¿Es un problema de destreza? ¿Es la aparición de artrítis?", "Is it a dexterity problem? Is it the onset of arthritis?"),
         ],
@@ -7073,7 +6788,6 @@ extension SeedData {
             ("También que podamos ___ el brote desde el principio.", "También que podamos detectar el brote desde el principio.", "But, also where we'll see the outbreak very early on."),
         ],
         "detención": [
-            ("Etiopía: ¿___ de periodistas debería preocupar a los bloggers?", "Etiopía: ¿Detención de periodistas debería preocupar a los bloggers?", "Ethiopia: Should detention of journalists worry bloggers? · Global Voices"),
             ("Uh, ¿resistencia a la ___?", "Uh, ¿resistencia a la detención?", "Uh, resisting arrest?"),
             ("Pero siguieron Erdoğan en ___.", "Pero siguieron Erdoğan en detención.", "But they kept Erdoğan in detention."),
         ],
@@ -7098,7 +6812,6 @@ extension SeedData {
             ("Está ___ por tu inconsciente.", "Está determinado por tu inconsciente.", "It is determined by your unconscious."),
         ],
         "detrás": [
-            ("(Risas) ¿Y qué habrá ___ de esas máscaras, si las llevaban?", "(Risas) ¿Y qué habrá detrás de esas máscaras, si las llevaban?", "(Laughter) And what would be behind those rubber masks, if they were?"),
             ("Una persona ___ de Japón, ¿qué tenemos?", "Una persona detrás de Japón, ¿qué tenemos?", "A person behind Japan, what do we get?"),
             ("Este barrido ___ de todos ellos", "Este barrido detrás de todos ellos", "But really it sweeps along everyone,"),
         ],
@@ -7145,7 +6858,6 @@ extension SeedData {
         "dibujar": [
             ("¿A dónde ___ la línea moral?", "¿A dónde dibujar la línea moral?", "In the words of Richard A. Gabriel in a text called 'A Short History of War'"),
             ("Me encanta pintar y ___.", "Me encanta pintar y dibujar.", "I love to paint and draw."),
-            ("Déjenme ___ un pequeño gráfico aquí, así podemos visualizarlo mejor.", "Déjenme dibujar un pequeño gráfico aquí, así podemos visualizarlo mejor.", "So, it's the same thing as the absolute value of the polynomial approximation at x minus, minus f of x. So the thing that you just need to know, is we can bound this, we can bound this if, if we know some properties about the n plus 1. So this is nth degree approximation."),
         ],
         "dibujo": [
             ("¿Quieres probar un Nuevo estilo de ___?", "¿Quieres probar un Nuevo estilo de dibujo?", "Hey, wanna try out a new art style?"),
@@ -7184,7 +6896,6 @@ extension SeedData {
         ],
         "diente": [
             ("¿Este ___ es sensible a las comidas frías?", "¿Este diente es sensible a las comidas frías?", "Is this tooth sensitive to cold foods?"),
-            ("(Risas) ¿Ven... ¿Ven algún ___ canino?", "(Risas) ¿Ven... ¿Ven algún diente canino?", "(Laughter) Do you -- Do you see any Canine teeth?"),
             ("A caballo regalado no le mires el ___.", "A caballo regalado no le mires el diente.", "Don't look a gift horse in the mouth."),
         ],
         "diez": [
@@ -7213,7 +6924,6 @@ extension SeedData {
             ("Y si nos reímos con las personas, ___ sea de chistes.", "Y si nos reímos con las personas, difícilmente sea de chistes.", "And when we laugh with people, we're hardly ever actually laughing at jokes."),
         ],
         "digerir": [
-            ("¿Es más fácil para ellos ___ pasto que maíz?", "¿Es más fácil para ellos digerir pasto que maíz?", "FARYON: Is it easier for them to digest grass rather then corn?"),
             ("Te prometo que acaba de ___ lo más difícil que", "Te prometo que acaba de digerir lo más difícil que", "I promise you you've just digested the most difficult thing"),
             ("Incluso las partes que no podemos ___ son muy importantes.", "Incluso las partes que no podemos digerir son muy importantes.", "But even the parts you can't digest are very important."),
         ],
@@ -7313,7 +7023,6 @@ extension SeedData {
             ("Usted podría tener solo tiempo ___ mercados.", "Usted podría tener solo tiempo discreto mercados.", "You could have single period discrete time markets."),
         ],
         "discriminación": [
-            ("Bangladesh: ¿___ en el Medio Oriente?", "Bangladesh: ¿Discriminación en el Medio Oriente?", "Bangladesh: Discrimination In The Middle East? · Global Voices"),
             ("¡negro! cońo, compadre, eso es ___, ¿eh?", "¡negro! cońo, compadre, eso es discriminación, ¿eh?", "Black! Hell, buddie! that's discrimination, huh?"),
             ("Documentando casos de ___ para terminar con la intocabilidad", "Documentando casos de discriminación para terminar con la intocabilidad", "Documenting Cases Of Discrimination To End Untouchability · Global Voices"),
         ],
@@ -7325,7 +7034,6 @@ extension SeedData {
         "disculpa": [
             ("Pero el día después de la ___, ¿qué pasó?", "Pero el día después de la disculpa, ¿qué pasó?", "But the day after the apology, what happened?"),
             ("___, no escuché, ¿cómo te llamas?", "Disculpa, no escuché, ¿cómo te llamas?", "I beg your pardon. I didn't quite catch your name."),
-            ("Guatemala: El presidente Colom se ___ por Bahía de Cochinos", "Guatemala: El presidente Colom se disculpa por Bahía de Cochinos", "Guatemala: President Colom Apologizes for the Bay of Pigs · Global Voices"),
         ],
         "disculparse": [
             ("Las fangirls saben cómo amar algo sin ___ ni temer.", "Las fangirls saben cómo amar algo sin disculparse ni temer.", "Fangirls know how to love something without apology or fear."),
@@ -7352,7 +7060,6 @@ extension SeedData {
             ("Una ___ debe ser dividida en párrafos.", "Una disertación debe ser dividida en párrafos.", "A dissertation should be divided into paragraphs."),
         ],
         "diseñador": [
-            ("Ja; ¿Cuál es su ocupación? ___ industrial e ingeniero social", "Ja; ¿Cuál es su ocupación? diseñador industrial e ingeniero social", "The solutions he has presented for more than thirty years (maglev trains, self erecting buildings, self-sustaining houses) still haven't been widely adopted due to the monetary system's constraints."),
             ("Digo, ¿fue pensado por un ___?", "Digo, ¿fue pensado por un diseñador?", "I mean, did a designer come up with that?"),
             ("Finalmente, ¿qué es un ___ gráfico?", "Finalmente, ¿qué es un diseñador gráfico?", "Finally, what is a graphic designer?"),
         ],
@@ -7369,12 +7076,10 @@ extension SeedData {
         "disfrutar": [
             ("Así es como ___ de una torta de fresas?", "Así es como disfrutar de una torta de fresas?", "That's how you enjoy a strawberry shortcake?"),
             ("¿No? Fuimos a ___ de tu actuación.", "¿No? Fuimos a disfrutar de tu actuación.", "We went to enjoy your performance."),
-            ("1023 01:25:15,599 --&gt; 01:25:18,264 ___..- mert dónde está?", "1023 01:25:15,599 --&gt; 01:25:18,264 disfrutar..- mert dónde está?", "1023 01:25:15,599 --&gt; 01:25:18,264 Enjoy..- Where is Mert?"),
         ],
         "disminuir": [
             ("Esto no va a ___? si se disminuye", "Esto no va a disminuir? si se disminuye", "Won't that decrease? You are."),
             ("Y no mostraba signos de ___.", "Y no mostraba signos de disminuir.", "And it showed no signs of letting up."),
-            ("Birmania: Soldados tratan de ___ la influencia de los monjes", "Birmania: Soldados tratan de disminuir la influencia de los monjes", "Myanmar: Soldiers Trying to Reduce Monk's Influence · Global Voices"),
         ],
         "disolver": [
             ("Pero los amenazaron con ___ el periódico si insistían.", "Pero los amenazaron con disolver el periódico si insistían.", "But they were threatened that the newspaper would be dissolved if they insisted."),
@@ -7418,7 +7123,6 @@ extension SeedData {
         "distraer": [
             ("Conviértete en un bello venado dorado para ___ a Rama.", "Conviértete en un bello venado dorado para distraer a Rama.", "Transform yourself into a beautful golden deer to distract Rama."),
             ("Dan comenzó una discusión con el cajero para ___ la seguridad.", "Dan comenzó una discusión con el cajero para distraer la seguridad.", "Dan started an argument with the cashier to distract security."),
-            ("Nosotros tenemos que ___ la atención de Jang Hee Jae primero.", "Nosotros tenemos que distraer la atención de Jang Hee Jae primero.", "We need a distraction."),
         ],
         "distraerse": [
             ("Pidió una revista ilustrada para ___.", "Pidió una revista ilustrada para distraerse.", "He asked for a picture magazine to amuse himself."),
@@ -7436,7 +7140,6 @@ extension SeedData {
             ("Las videocámaras están principalmente para ___ a los ladrones.", "Las videocámaras están principalmente para disuadir a los ladrones.", "The video cameras are mainly there to deter thieves."),
         ],
         "diversidad": [
-            ("Taiwan: Promoviendo la ___ de lenguas", "Taiwan: Promoviendo la diversidad de lenguas", "Taiwan: Promoting language diversity · Global Voices"),
             ("Lo segundo es la ___.", "Lo segundo es la diversidad.", "The second thing is is we see diversity."),
             ("Así que para mí, eso es el poder de la ___.", "Así que para mí, eso es el poder de la diversidad.", "So that is the power of diversity for me."),
         ],
@@ -7458,7 +7161,6 @@ extension SeedData {
         "dividendo": [
             ("Por lo tanto, mi ___ uno es ahora ¿qué?", "Por lo tanto, mi dividendo uno es ahora ¿qué?", "Okay. So, my dividend one is now what?"),
             ("Estás seguro ¿para los próximos 30 años obtendrá ese ___?", "Estás seguro ¿para los próximos 30 años obtendrá ese dividendo?", "Are you sure for the next 30 years you'll get that dividend?"),
-            ("¿Cómo puede justificar posible tener un ___ por pagar aquí?", "¿Cómo puede justificar posible tener un dividendo por pagar aquí?", "The dividends are owed to the owners. How can you possible justify having a dividend payable here? &gt;&gt; And how can you record dividends on the date they are declared?"),
         ],
         "dividir": [
             ("¿Tenían un acuerdo sobre cómo ___ los ingresos de los anuncios?", "¿Tenían un acuerdo sobre cómo dividir los ingresos de los anuncios?", "Was there an agreement about how the ad revenue was to be divided?"),
@@ -7476,7 +7178,6 @@ extension SeedData {
             ("Hay una gran ___ en el partido.", "Hay una gran división en el partido.", "There's a serious split in the party."),
         ],
         "divorciarse": [
-            ("As? que no ___ de juegos, żcu?l es su esposa?", "As? que no divorciarse de juegos, żcu?l es su esposa?", "So not divorce her, what is your wife?"),
             ("¿Es cierto que van a ___?", "¿Es cierto que van a divorciarse?", "Is it true that they'll divorce?"),
             ("¿Es que parece que van a ___?", "¿Es que parece que van a divorciarse?", "Do they look like they'll divorce?"),
         ],
@@ -7531,8 +7232,6 @@ extension SeedData {
             ("Tiene un ___ en estadística.", "Tiene un doctorado en estadística.", "He has a PhD's degree in statistics."),
         ],
         "documental": [
-            ("GV: ¿Qué experiencia cinematográfica tuviste con este ___?", "GV: ¿Qué experiencia cinematográfica tuviste con este documental?", "GV: From a cinematographic perspective, how was the experience of making this documentary?"),
-            ("África: The Grid y el ___ sobre celulares", "África: The Grid y el documental sobre celulares", "Africa: The Grid and Mobile Phone Documentary · Global Voices"),
             ("Y nuestro ___ mostrará lo que queremos decir con esto.", "Y nuestro documental mostrará lo que queremos decir con esto.", "And our documentary will show you what we mean by this."),
         ],
         "documentar": [
@@ -7605,7 +7304,6 @@ extension SeedData {
         ],
         "dorado": [
             ("Hubo juegos de color gris, negro, azul, plateado, ___... ¿pero transparente?", "Hubo juegos de color gris, negro, azul, plateado, dorado... ¿pero transparente?", "Games came in gray, black, blue, silver, gold, but clear?"),
-            ("Angola: Un nuevo El ___ africano para trabajadores extranjeros", "Angola: Un nuevo El Dorado africano para trabajadores extranjeros", "Angola: A new African El Dorado for foreign workers · Global Voices"),
             ("Estoy dándole de comer al pez ___.", "Estoy dándole de comer al pez dorado.", "I'm feeding the goldfish."),
         ],
         "dormirse": [
@@ -7656,7 +7354,6 @@ extension SeedData {
         "ducharse": [
             ("Voy a venir a casa para cambiarse y ___ todos modos.", "Voy a venir a casa para cambiarse y ducharse todos modos.", "I'll come home to change and shower anyway."),
             ("Es obligatorio ___ antes de entrar.", "Es obligatorio ducharse antes de entrar.", "Showering before entering is mandatory."),
-            ("Además de ___ poco, claro.", "Además de ducharse poco, claro.", "Source: www.rogercasero.cat"),
         ],
         "duda": [
             ("¿Estás poniendo en ___ mis razones?", "¿Estás poniendo en duda mis razones?", "Are you questioning my motives?"),
@@ -7724,7 +7421,6 @@ extension SeedData {
             ("Durante el ___ en Bromo Mountain, East Java.", "Durante el día en Bromo Mountain, East Java.", "Daytime in Bromo Mountain, East Java."),
         ],
         "dócil": [
-            ("Un elemento tan ___ finalmente destruye la roca.", "Un elemento tan dócil finalmente destruye la roca.", "Now something has awakened in you, and that something is enough as a seed. It will grow, it will come to fruition, to flowering. And when so many people gather around such a man, naturally there arises a commune."),
             ("Ese perro es muy ___.", "Ese perro es muy dócil.", "That dog is very gentle."),
             ("Este león es muy ___.", "Este león es muy dócil.", "This lion is very tame."),
         ],
@@ -7750,7 +7446,6 @@ extension SeedData {
         ],
         "ecológico": [
             ("Ahora, mucha gente me pregunta ¿por qué tu negocio es ___?", "Ahora, mucha gente me pregunta ¿por qué tu negocio es ecológico?", "Now a lot of people ask me, why is your business eco-friendly?"),
-            ("(Risas) Ahora se puede optar por un funeral ___.", "(Risas) Ahora se puede optar por un funeral ecológico.", "(Laughter) You can now opt for an eco-funeral."),
             ("La bioclimática es un acercamiento ___ a la arquitectura.", "La bioclimática es un acercamiento ecológico a la arquitectura.", "Bioclimatic is an ecological approach to architecture."),
         ],
         "economía": [
@@ -7824,7 +7519,6 @@ extension SeedData {
             ("¿Flujos de ___, que pertenecen a?", "¿Flujos de efectivo, que pertenecen a?", "Cash flows, who do they belong to? The project."),
         ],
         "efecto": [
-            ("Ahora. (risas) ¿Qué tiene ésto que ver con el ___ placebo?", "Ahora. (risas) ¿Qué tiene ésto que ver con el efecto placebo?", "Now, (Laughter) what does that have to do with the placebo effect?"),
             ("¿Cuál es el ___? ¿Cuál es la consecuencia?", "¿Cuál es el efecto? ¿Cuál es la consecuencia?", "What is the effect? What's the consequence?"),
             ("- La poción amorosa. - ¿Te da un ___ tan fuerte?", "- La poción amorosa. - ¿Te da un efecto tan fuerte?", "- What is it? - The love potion. - Do you feel it strongly?"),
         ],
@@ -7839,7 +7533,6 @@ extension SeedData {
             ("Pero no es muy probable que sea el más ___.", "Pero no es muy probable que sea el más eficaz.", "But it's not really what is probably most efficient."),
         ],
         "eficiencia": [
-            ("¿Cuál es el índice de ___ de la sociedad?", "¿Cuál es el índice de eficiencia de la sociedad?", "Now what do you feel that description may lack, at least compressed or other things we talk about? Man: It doesn't contain any.. its like studying economics or political science."),
             ("Ahora, ¿cómo definimos la ___ y la equidad?", "Ahora, ¿cómo definimos la eficiencia y la equidad?", "Now how do we define efficiency and fairness. We'll see some example in other contexts"),
             ("¿Quién no ama la ___?", "¿Quién no ama la eficiencia?", "Who doesn't love efficiency?"),
         ],
@@ -7880,7 +7573,6 @@ extension SeedData {
         ],
         "elección": [
             ("Daos cuenta de la ___ de mi logo, ¿vale?", "Daos cuenta de la elección de mi logo, ¿vale?", "But notice my choice of logo here, right?"),
-            ("Francia: La ___ presidencial vista por extranjeros", "Francia: La elección presidencial vista por extranjeros", "France: The Presidential Election Through Foreign Eyes · Global Voices"),
             ("Para muchos, esta no será una ___ sencilla.", "Para muchos, esta no será una elección sencilla.", "For many, this won't be an easy decision."),
         ],
         "electricidad": [
@@ -7889,7 +7581,6 @@ extension SeedData {
             ("El descubrimiento de la ___ cambió nuestra historia.", "El descubrimiento de la electricidad cambió nuestra historia.", "The discovery of electricity changed our history."),
         ],
         "electricista": [
-            ("OK Troy, de 39 años, es un ___.", "OK Troy, de 39 años, es un electricista.", "Okay. &gt;&gt; 39-year-old Troy is an electrician."),
             ("Anda, ve donde un ___ y soluciona esto.", "Anda, ve donde un electricista y soluciona esto.", "Still did not learn how to do a proper job!"),
             ("El ___ viene la semana siguiente a arreglar los cables.", "El electricista viene la semana siguiente a arreglar los cables.", "Next week the electrician is coming to fix the wires."),
         ],
@@ -7916,7 +7607,6 @@ extension SeedData {
         "elegir": [
             ("¿Debo ___ papel o plástico?", "¿Debo elegir papel o plástico?", "Should I choose paper or plastic?"),
             ("¿Por qué no deberían poder ___ lo que quieren?", "¿Por qué no deberían poder elegir lo que quieren?", "Why shouldn't they be able to choose what they want?"),
-            ("RS: Sí, ¿crees que va a ___ éste?", "RS: Sí, ¿crees que va a elegir éste?", "RS: Yeah, you think he's going to take that one? All right. Let's see."),
         ],
         "elemento": [
             ("Para obtener este ___, ¿qué debo hacer?", "Para obtener este elemento, ¿qué debo hacer?", "So to get this row 1, column 1 element, what do I do?"),
@@ -7944,12 +7634,10 @@ extension SeedData {
             ("Espero que tu también puedas ___ su buen trabajo.", "Espero que tu también puedas elogiar su buen trabajo.", "So you could praise your protege."),
         ],
         "embajada": [
-            ("¿Tu no sabes que la ___ de Qing está aqui?", "¿Tu no sabes que la embajada de Qing está aqui?", "For the Chinese."),
             ("¿Cómo llego a la ___ americana?", "¿Cómo llego a la embajada americana?", "How do I get to the American Embassy?"),
             ("La ___ de Suiza en Berlín es especial.", "La Embajada de Suiza en Berlín es especial.", "The Swiss Embassy in Berlin is special."),
         ],
         "embajador": [
-            ("Madagascar: ¿Expulsan a ___ francés porque era de mala suerte?", "Madagascar: ¿Expulsan a embajador francés porque era de mala suerte?", "French Ambassador expelled from Madagascar because he was bad luck? · Global Voices"),
             ("¿¿Sabe esto el ___ estadounidense??", "¿¿Sabe esto el embajador estadounidense??", "THE American AmbAssador know this??"),
             ("Cuatro norteamericanos están muertos, incluido un ___ americano.", "Cuatro norteamericanos están muertos, incluido un embajador americano.", "No, I believe, as the president indicated and said at the time, that I supported his \\'97 his action there."),
         ],
@@ -7976,7 +7664,6 @@ extension SeedData {
         "embotellamiento": [
             ("La resistencia es el ¨___¨ (o cuellode botella), no?", "La resistencia es el ¨embotellamiento¨ (o cuellode botella), no?", "This resistor is a bit of a bottleneck, right?"),
             ("Quedé atrapado en un ___.", "Quedé atrapado en un embotellamiento.", "I was caught in a traffic jam."),
-            ("Tuve que sufrir hasta dos horas en un ___ de tráfico.", "Tuve que sufrir hasta dos horas en un embotellamiento de tráfico.", "Here are some of the related tweets: @SyazwanHassan: Pleaze ok..stop roadblock against me..I had to suffer up to 2 hour stranded in traffic jam..it took about 1 hour for 500M distance ahead.."),
         ],
         "embustero": [
             ("-Pues, ¿no te llaman ansí, ___? -dijo la guarda.", "-Pues, ¿no te llaman ansí, embustero? -dijo la guarda.", "\"Don't they call you so, you liar?\" said the guard."),
@@ -7989,8 +7676,6 @@ extension SeedData {
             ("¿Puede nombrar alguna ___ en su región?", "¿Puede nombrar alguna emergencia en su región?", "Can you name some in your region?"),
         ],
         "emigrante": [
-            ("ĄO ___! żA dónde viajas?", "ĄO emigrante! żA dónde viajas?", "Oh emigrant, where are you going?"),
-            ("Rusia, Tayikistán: ¿A quién insulta la Guía del trabajador ___?", "Rusia, Tayikistán: ¿A quién insulta la Guía del trabajador emigrante?", "Russia, Tajikistan: Who is Insulted by the Migrant Worker's Guide? · Global Voices"),
             ("El padre de Dilma Rousseff es un ___ búlgaro -Peter Roussev.", "El padre de Dilma Rousseff es un emigrante búlgaro -Peter Roussev.", "Dilma Rousseff's father is a Bulgarian emigrant - Peter Roussev."),
         ],
         "emigrar": [
@@ -8019,7 +7704,6 @@ extension SeedData {
             ("Escapar supone un verdadero compromiso ___ con el cambio.", "Escapar supone un verdadero compromiso emocional con el cambio.", "Breaking out requires real emotional commitment to change."),
         ],
         "emocionante": [
-            ("- No, ¿no es ___? ¡Luces fuera!", "- No, ¿no es emocionante? ¡Luces fuera!", "Lights off!"),
             ("Es un momento ___ para estar vivo.", "Es un momento emocionante para estar vivo.", "It's an exciting time to be alive."),
             ("El video juego ___ tomó toda mi atención.", "El video juego emocionante tomó toda mi atención.", "The thrilling video game took all my attention."),
         ],
@@ -8069,7 +7753,6 @@ extension SeedData {
         ],
         "emprendedor": [
             ("Y, ¿y pensando, lo significa para mí como un ___?", "Y, ¿y pensando, lo significa para mí como un emprendedor?", "And, and thinking about, what does that mean for me as an entrepreneur?"),
-            ("La primera pregunta, por qué decidiste ser un ___?", "La primera pregunta, por qué decidiste ser un emprendedor?", "My first job and only job was trying out for McDonalds and they rejected me so. I realized that hey there is something called the internet and looked at what was going on I mean the full year of it and fell in love with the whole online advertising space and you know the beauty of the internet is you don't need the stigma that's attached to kind of business as it was probably 50 years ago."),
             ("Pero Chopin, otro ___ inteligente, ¿saben qué hace?", "Pero Chopin, otro emprendedor inteligente, ¿saben qué hace?", "But Chopin, another clever entrepreneur, you know what he does?"),
         ],
         "emprender": [
@@ -8200,12 +7883,10 @@ extension SeedData {
             ("Y me enviaron con otro alumno a la ___.", "Y me enviaron con otro alumno a la enfermería.", "And I was sent down, with another student, to the nurse's office."),
         ],
         "enfermo": [
-            ("¿Príncipe Heredero, te sientes ___?", "¿Príncipe Heredero, te sientes enfermo?", "Are you ill?"),
             ("¿Pensaste que estaría acostada en una cama de ___ o algo?", "¿Pensaste que estaría acostada en una cama de enfermo o algo?", "Why, should I be pining away?"),
             ("Parecía que él había estado ___.", "Parecía que él había estado enfermo.", "It seemed that he had been ill."),
         ],
         "enfocar": [
-            ("¿En qué te vas a ___?", "¿En qué te vas a enfocar?", "If decisions shape destiny, what determines it is three decisions. What will you focus on?"),
             ("Y no te puedes ___ en lo que debes hacer.", "Y no te puedes enfocar en lo que debes hacer.", "You can't focus on what you're supposed to do."),
             ("Y así la pintura también tiene una capacidad de ___.", "Y así la pintura también tiene una capacidad de enfocar.", "And yet, the painting is also incredibly focused."),
         ],
@@ -8260,8 +7941,6 @@ extension SeedData {
         ],
         "enojado": [
             ("Quién más, pero yo, estás tan ___?", "Quién más, pero yo, estás tan enojado?", "Quién más, pero yo, estás tan enojado?"),
-            ("їAsн de ___ estбs? їAh?", "їAsн de enojado estбs? їAh?", "So much got blindsided?"),
-            ("Enviaste a esos hombres a mi panaderнa, їAsн de ___ estбs?", "Enviaste a esos hombres a mi panaderнa, їAsн de enojado estбs?", "Sent those people to my oven. So much blinded?"),
         ],
         "enojar": [
             ("No quería que le dijera, no hacerlo ___.", "No quería que le dijera, no hacerlo enojar.", "I didn't want to tell him, not to make him angry."),
@@ -8310,7 +7989,6 @@ extension SeedData {
         ],
         "ensayo": [
             ("¿Qué trabajos? El gobierno británico hizo un ___ de teletrabajo.", "¿Qué trabajos? El gobierno británico hizo un ensayo de teletrabajo.", "Well the British government did a model of telecommuting."),
-            ("India: ___ fotográfico sobre madres trabajadoras", "India: Ensayo fotográfico sobre madres trabajadoras", "India: Photo Essay On Working Mothers · Global Voices"),
             ("Insertemos un loop sobre el ___ para que podamos repetirlo", "Insertemos un loop sobre el ensayo para que podamos repetirlo", "Let's insert a loop around the trial, so that we can repeat it."),
         ],
         "enseguida": [
@@ -8346,7 +8024,6 @@ extension SeedData {
         "entero": [
             ("¿Qué es este por 100, cuando 100 es un ___?", "¿Qué es este por 100, cuando 100 es un entero?", "What is this per 100, where 100 is a whole?"),
             ("Poderoso ser. Está detras del universo ___.", "Poderoso ser. Está detras del universo entero.", "It is behind this entire universe."),
-            ("Y luego, de repente, ¡bang! Aparece el Universo, el Universo ___.", "Y luego, de repente, ¡bang! Aparece el Universo, el Universo entero.", "And then suddenly, bang!"),
         ],
         "entrar": [
             ("¿Cómo podía ___ sin verlo?", "¿Cómo podía entrar sin verlo?", "How could he get inside without us seeing him?"),
@@ -8375,17 +8052,14 @@ extension SeedData {
         ],
         "entretenimiento": [
             ("¿Hay otros usos posibles aparte del ___/social?", "¿Hay otros usos posibles aparte del entretenimiento/social?", "Are there other possible uses other than entertainment/social?"),
-            ("żAsí que quieres estar en el ___?", "żAsí que quieres estar en el entretenimiento?", "So, you want to be on Dangertainment?"),
             ("Moda, ___, gráficos, y su vida privada….", "Moda, entretenimiento, gráficos, y su vida privada….", "Fashion, entertainment, graphics, and their private lives…."),
         ],
         "entrevista": [
             ("¿Es ético adelantarle las preguntas de la ___?", "¿Es ético adelantarle las preguntas de la entrevista?", "Is it ethical to give him the interview questions in advance?"),
             ("La tuitósfera de Bahréin retuiteó en vivo su ___.", "La tuitósfera de Bahréin retuiteó en vivo su entrevista.", "Bahrain's Twittersphere live-tweeted his interview."),
-            ("Zambia: ___ con el cofundador de BongoHive", "Zambia: Entrevista con el cofundador de BongoHive", "Zambia: Interview with BongoHive Co-Founder · Global Voices"),
         ],
         "entrevistar": [
             ("¿Quieres ir a ___ tú mismo a psicópatas empresariales?", "¿Quieres ir a entrevistar tú mismo a psicópatas empresariales?", "You want to go and interview yourself some corporate psychopaths.\""),
-            ("Periodista: ¿le podemos ___ ahora?", "Periodista: ¿le podemos entrevistar ahora?", "Journalist: Can we make an interview now?"),
             ("Tibet y empecé a ___ a gente allí, a tomar fotografías.", "Tibet y empecé a entrevistar a gente allí, a tomar fotografías.", "Tibet, and I started interviewing the people there, taking my photographs. That's what I do. I interview and do portraits."),
         ],
         "entrometido": [
@@ -8409,7 +8083,6 @@ extension SeedData {
             ("-¿Podemos ___ a buscar a sus parientes?", "-¿Podemos enviar a buscar a sus parientes?", "\"Can we send for any one you know?\""),
         ],
         "envidia": [
-            ("¿Curiosidad?, ¿___? en el pricipio del Bhagavatam dice:", "¿Curiosidad?, ¿envidia? en el pricipio del Bhagavatam dice:", "Curiosity? Envy?"),
             ("Negativa de no ser envidioso, ¿qué es la ___?", "Negativa de no ser envidioso, ¿qué es la envidia?", "Negative is not to be envious, what is envy?"),
             ("Steven Spielberg, ¡muérete de ___!", "Steven Spielberg, ¡muérete de envidia!", "So, Steven Spielberg, eat your heart out."),
         ],
@@ -8424,7 +8097,6 @@ extension SeedData {
         ],
         "enzima": [
             ("¿Qué es esto? Es una ___ defensiva antiviral.", "¿Qué es esto? Es una enzima defensiva antiviral.", "What is that? It's an antiviral defense enzyme."),
-            ("Porque todo esto esta ocurriendo en la ___ RuBisCo.", "Porque todo esto esta ocurriendo en la enzima RuBisCo.", "-"),
             ("Este segundo anticuerpo está conjugado con una ___ de manera covalente.", "Este segundo anticuerpo está conjugado con una enzima de manera covalente.", "This second antibody is covalently conjugated to an enzyme."),
         ],
         "enérgicamente": [
@@ -8529,7 +8201,6 @@ extension SeedData {
         ],
         "escanear": [
             ("PowerTRACE empieza a ___ la imagen de inmediato.", "PowerTRACE empieza a escanear la imagen de inmediato.", "Immediately 'Power TRACE' starts scanning the image."),
-            ("Empezamos con un libro y luego lo escaneamos. ___ un libro", "Empezamos con un libro y luego lo escaneamos. Escanear un libro", "(Laughter) So you start with a book and then you scan it."),
             ("Eludir el impresión, signo, ___, enviar tedio con QuickSign", "Eludir el impresión, signo, escanear, enviar tedio con QuickSign", "Sidestep the print, sign, scan, send tedium with QuickSign"),
         ],
         "escapar": [
@@ -8550,7 +8221,6 @@ extension SeedData {
         "escaso": [
             ("Hun Sen agregó: ‘¿Está el arroz ___ en Camboya?", "Hun Sen agregó: ‘¿Está el arroz escaso en Camboya?", "Hun Sen added: ‘Is Cambodia short of rice yet?"),
             ("El tiempo es ___, entonces ¿qué hacemos?", "El tiempo es escaso, entonces ¿qué hacemos?", "Time is scarce, so what do we do?"),
-            ("Está usando muy poco. Sí. Un atuendo muy ___.", "Está usando muy poco. Sí. Un atuendo muy escaso.", "What is he wearing here, in this photograph? &gt;&gt; He's wearing very little. &gt;&gt; Yes."),
         ],
         "escena": [
             ("¿Se acuerdan de aquella fantástica ___ en la balsa?", "¿Se acuerdan de aquella fantástica escena en la balsa?", "Remember that great scene on the raft, remember what Huck did?"),
@@ -8560,7 +8230,6 @@ extension SeedData {
         "escenario": [
             ("¿Por qué no puedes contemplar ___ positivos?", "¿Por qué no puedes contemplar escenario positivos?", "Why can you not contemplate positive scenarios?"),
             ("¿Qué rayos hacemos en ese ___?", "¿Qué rayos hacemos en ese escenario?", "What the hell are we doing up there on that stage?"),
-            ("Asн ahora, el ___ estб preparado.", "Asн ahora, el escenario estб preparado.", "So now, the stage was set."),
         ],
         "esclarecer": [
             ("Gracias por ___ el malentendido.", "Gracias por esclarecer el malentendido.", "Thank you for clearing up the misunderstanding."),
@@ -8643,7 +8312,6 @@ extension SeedData {
             ("Nuestra meta es ___ salvar la civilización, o al menos", "Nuestra meta es esencialmente salvar la civilización, o al menos", "So there are a bunch of people. One, two, three, four, five, six, seven, eight, nine, ten people."),
         ],
         "esfera": [
-            ("DB: La fabricación de esa ___ es perfecta, ¿no?", "DB: La fabricación de esa esfera es perfecta, ¿no?", "DB: And that sphere is so perfectly machined, right?"),
             ("Será una ___ alrededor del núcleo.", "Será una esfera alrededor del núcleo.", "It'll be a sphere around the nucleus."),
             ("Y realmente la ___ no tiene un límite específico.", "Y realmente la esfera no tiene un límite específico.", "And actually the sphere has no strict boundary."),
         ],
@@ -8663,7 +8331,6 @@ extension SeedData {
             ("Es campeona de ___.", "Es campeona de esgrima.", "She is a fencing champion."),
         ],
         "esmero": [
-            ("Me levanté y me vestí con el mayor ___ posible.", "Me levanté y me vestí con el mayor esmero posible.", "I rose; I dressed myself with care: obliged to be plain--for I had no article of attire that was not made with extreme simplicity--I was still by nature solicitous to be neat."),
             ("Dolly se había peinado y vestido con gran ___, casi con emoción.", "Dolly se había peinado y vestido con gran esmero, casi con emoción.", "Dolly, somewhat excited, had dressed and done her hair with care."),
             ("¡Hazlo con ___!", "¡Hazlo con esmero!", "Put some elbow grease in it."),
         ],
@@ -8679,7 +8346,6 @@ extension SeedData {
         ],
         "especial": [
             ("As? que tengo un milagro muy ___ de verdad.", "As? que tengo un milagro muy especial de verdad.", "So I have a very special miracle really."),
-            ("Alberto González: ¿Es un bloc de notas ___?", "Alberto González: ¿Es un bloc de notas especial?", "Alberto Gonzalez: This is a special legal pad?"),
             ("¿Soy una persona ___? Gracias. ;)", "¿Soy una persona especial? Gracias. ;)", "I'm a special person? Thanks. ;)"),
         ],
         "especialidad": [
@@ -8714,7 +8380,6 @@ extension SeedData {
         ],
         "espejo": [
             ("¿Pueden ver su reflejo sin un ___ que detenga la luz?", "¿Pueden ver su reflejo sin un espejo que detenga la luz?", "Can you see your reflection without a mirror to stop the light?"),
-            ("Ecuador: Eugenio ___, Precursor del movimiento de independencia", "Ecuador: Eugenio Espejo, Precursor del movimiento de independencia", "Ecuador: Eugenio Espejo, Precursor for the Independence Movement · Global Voices"),
             ("Durante el encuentro, estas neuronas ___ se activan.", "Durante el encuentro, estas neuronas espejo se activan.", "And during the encounter these mirror neurons become very alive."),
         ],
         "espejo retrovisor": [
@@ -8768,7 +8433,6 @@ extension SeedData {
         ],
         "esporádico": [
             ("El servicio de internet es ___ por momentos.", "El servicio de internet es esporádico por momentos.", "Internet service is still spotty at times."),
-            ("Libia: En medio de un internet ___, algunos envían misivas", "Libia: En medio de un internet esporádico, algunos envían misivas", "Libya: Amidst Spotty Internet, Some Send Missives · Global Voices"),
             ("Para el 27, el acceso a ambos sitios era ___.", "Para el 27, el acceso a ambos sitios era esporádico.", "By the 27th, access to both sites was sporadic."),
         ],
         "esposa": [
@@ -8782,7 +8446,6 @@ extension SeedData {
             ("Tengo un ___ maravilloso, dos buenos hijos, y tres lindos nietos.", "Tengo un esposo maravilloso, dos buenos hijos, y tres lindos nietos.", "I have a wonderful husband, two great children, and three beautiful grandchildren."),
         ],
         "espuma": [
-            ("-Con doble de ___ y extra caliente. -żQué?", "-Con doble de espuma y extra caliente. -żQué?", "Don't freak out."),
             ("está hecha de icopor-- o de ___ de uretano, creo.", "está hecha de icopor-- o de espuma de uretano, creo.", "made out of styrofoam--or urethane foam, I guess."),
             ("La denominamos estructura de ___ de celda cerrada.", "La denominamos estructura de espuma de celda cerrada.", "What we call this is a closed-cell foam structure."),
         ],
@@ -8792,7 +8455,6 @@ extension SeedData {
             ("Con un ___ de lucha, si es necesario.", "Con un espíritu de lucha, si es necesario.", "With fighting spirit, if need be."),
         ],
         "esqueleto": [
-            ("Está bien, ¿Quién colocó el ___ debajo del estante de libros?", "Está bien, ¿Quién colocó el esqueleto debajo del estante de libros?", "10 years later All right."),
             ("Utilizan un ___ llamado hidroestático o hidroesqueleto.", "Utilizan un esqueleto llamado hidroestático o hidroesqueleto.", "They use a skeleton that we call a hydrostatic skeleton."),
             ("Y un ___ hidroestático funciona con dos elementos.", "Y un esqueleto hidroestático funciona con dos elementos.", "And a hydrostatic skeleton uses two elements."),
         ],
@@ -8823,7 +8485,6 @@ extension SeedData {
         ],
         "estacionarse": [
             ("¿Cuánto tiempo ha de ___ en Suez? Preguntó Fix.", "¿Cuánto tiempo ha de estacionarse en Suez? Preguntó Fix.", "\"How long will she stop at Suez?\""),
-            ("Seсor, no puede ___ ahн", "Seсor, no puede estacionarse ahн", "Sir, you can not park here."),
             ("No hay donde más ___.", "No hay donde más estacionarse.", "There isn't anywhere else to park."),
         ],
         "estación": [
@@ -8832,7 +8493,6 @@ extension SeedData {
             ("¿Cual es tu ___ favorita?", "¿Cual es tu estación favorita?", "What's your favorite season?"),
         ],
         "estadio": [
-            ("México: ¿Un nuevo ___ para Monterrey?", "México: ¿Un nuevo estadio para Monterrey?", "Mexico: A New Stadium for Monterrey? · Global Voices"),
             ("¿Se le amputarán los dedos en el ___ Azadi?", "¿Se le amputarán los dedos en el estadio Azadi?", "Will his fingers be amputated in Azadi Stadium?"),
             ("Para la final, cada equipo trajo su bandera al ___.", "Para la final, cada equipo trajo su bandera al estadio.", "Each team carried their flag into the stadium for the finals."),
         ],
@@ -8852,18 +8512,15 @@ extension SeedData {
             ("Y no hablo solamente de ___ y simulaciones con computadoras.", "Y no hablo solamente de estadística y simulaciones con computadoras.", "And I'm not just talking here about statistics and computer simulations."),
         ],
         "estante": [
-            ("Está bien, ¿Quién colocó el esqueleto debajo del ___ de libros?", "Está bien, ¿Quién colocó el esqueleto debajo del estante de libros?", "10 years later All right."),
             ("¿Puedes, por favor, poner este libro en el ___ superior?", "¿Puedes, por favor, poner este libro en el estante superior?", "Could you please put this book on the top shelf?"),
             ("Pon el libro en el ___ de más arriba.", "Pon el libro en el estante de más arriba.", "Put the book on the top shelf."),
         ],
         "este": [
-            ("¿Qué tiene que ver el ser listo con ___ trabajo?", "¿Qué tiene que ver el ser listo con este trabajo?", "Oi, fucking wanker."),
             ("¿De dónde sacaste ___ dinero?", "¿De dónde sacaste este dinero?", "Hey, Han Young Jae."),
             ("¿Es correcto cobrar tanto por ___ producto?", "¿Es correcto cobrar tanto por este producto?", "Is it right that we should be charging so much for this product?"),
         ],
         "estereotipo": [
             ("¿Por qué votar? ¡para romper el ___!", "¿Por qué votar? ¡para romper el estereotipo!", "Why Vote? To break the stereotype!"),
-            ("Quiero decir... ¡En serio! ¿Falta algún ___?", "Quiero decir... ¡En serio! ¿Falta algún estereotipo?", "Putting Lafayette's character into the greater context of the True Blood universe there's no other Black men and no other Queer men on the main cast so he's really all we get in terms of alternative sexuality and as far as Black male masculinity."),
             ("Y eso lleva a una especie de ___ del atractivo físico.", "Y eso lleva a una especie de estereotipo del atractivo físico.", "And that leads to a kind of physical attractiveness stereotype."),
         ],
         "esterilizar": [
@@ -8882,7 +8539,6 @@ extension SeedData {
             ("Una caminata antes del desayuno es ___.", "Una caminata antes del desayuno es estimulante.", "A walk before breakfast is exhilarating."),
         ],
         "estirar": [
-            ("DH: ¿Podrías ___ tus piernas un poco más?", "DH: ¿Podrías estirar tus piernas un poco más?", "DH: Could you spread your legs a little bit?"),
             ("Y puedes ___ una goma de pelo, ¿verdad?", "Y puedes estirar una goma de pelo, ¿verdad?", "And you can stretch a scrunchie, right?"),
             ("Vamos. ŋNo es bueno ___ los músculos?", "Vamos. ŋNo es bueno estirar los músculos?", "Old ladies have such hot tempers. Hey, Officer Jo! About Choi Gyeonsook you know, CJ's girl."),
         ],
@@ -8909,7 +8565,6 @@ extension SeedData {
         "estrella": [
             ("Una ___ fugaz atravesó el cielo.", "Una estrella fugaz atravesó el cielo.", "A shooting star dashed through the sky."),
             ("Muy bien, así que ___ punto recuerde algo.", "Muy bien, así que estrella punto recuerde algo.", "Alright, so dot star remember is anything."),
-            ("Estados Unidos: Radio Martí presenta ___ porno cubana", "Estados Unidos: Radio Martí presenta estrella porno cubana", "United States: Radio Marti Features Cuban Porn Star · Global Voices"),
         ],
         "estreno": [
             ("Y por eso llegó el día del ___.", "Y por eso llegó el día del estreno.", "And that's why the day of the premiere came."),
@@ -8991,7 +8646,6 @@ extension SeedData {
             ("Para ver más reacciones, revisa la ___ #ChristmasMassacre en Twitter.", "Para ver más reacciones, revisa la etiqueta #ChristmasMassacre en Twitter.", "For more reactions, check out the hash tag #ChristmasMassacre on Twitter."),
         ],
         "etiquetar": [
-            ("Como resultado, voy a ___ los videos con la", "Como resultado, voy a etiquetar los videos con la", "You are not required to purchase these texts, Nor will you be tested on any material from them that was not also presented in lecture. However, they can be useful as supplements, so if you're interested, feel free to get them."),
             ("Lo voy a ___: menos 1 coma menos 1.", "Lo voy a etiquetar: menos 1 coma menos 1.", "I'll label it: negative 1 comma negative 1."),
             ("Considera enviar las tuyas y ___ las imágenes como “KenyaElection2007″", "Considera enviar las tuyas y etiquetar las imágenes como “KenyaElection2007″", "Consider sending yours in and tagging your images with “KenyaElection2007"),
         ],
@@ -9018,7 +8672,6 @@ extension SeedData {
         "eventualmente": [
             ("La campaña italiana empezó muy mal, pero ___, consigue vencer a", "La campaña italiana empezó muy mal, pero eventualmente, consigue vencer a", "The Italian Campaign had started very badly."),
             ("Yo me envejeceré y ___ moriré.", "Yo me envejeceré y eventualmente moriré.", "I'll just grow old and eventually I'll die."),
-            ("E outra forma, e elas são ___ todos iguais.", "E outra forma, e elas são eventualmente todos iguais.", "And another method, and they're seldom all the same way."),
         ],
         "evidencia": [
             ("¿Hay alguna ___ que apoye esta postura?", "¿Hay alguna evidencia que apoye esta postura?", "Is there any evidence that supports his position?"),
@@ -9036,7 +8689,6 @@ extension SeedData {
             ("Sólo deseaba consolarle, y eso, ___, lo conseguía.", "Sólo deseaba consolarle, y eso, evidentemente, lo conseguía.", "Cheered, as I have said, he was: and yet but by fits."),
         ],
         "evocar": [
-            ("Sólo está esmaltado. &amp;gt;&amp;gt; ¿Qué otra cosa ___?", "Sólo está esmaltado. &amp;gt;&amp;gt; ¿Qué otra cosa evocar?", "It's just glazed. &amp;gt;&amp;gt; What else does he evoke?"),
             ("¿Podemos aprovechar estas tecnologías para ___ emociones?", "¿Podemos aprovechar estas tecnologías para evocar emociones?", "Can we harness these same technologies for an emotionally sensitive output?"),
             ("Puedes hablar sobre el satsang, ___ el pasado, pero no brillarás.", "Puedes hablar sobre el satsang, evocar el pasado, pero no brillarás.", "They will spend a lot of time, they will even be in places which are called 'spiritual sites', and so on, but they have no shine, they have no radiance, their light is not there."),
         ],
@@ -9061,12 +8713,10 @@ extension SeedData {
             ("Para caer en el lugar ___", "Para caer en el lugar exacto", "So it would fall on the right place"),
         ],
         "exagerado": [
-            ("CA: ¿Entonces tal vez el caso es un poco ___?", "CA: ¿Entonces tal vez el caso es un poco exagerado?", "CA: So maybe the case is slightly overstated?"),
             ("Suena ___, pero es la verdad.", "Suena exagerado, pero es la verdad.", "It sounds dramatic, but it's true --"),
             ("Creo que es muy ___.", "Creo que es muy exagerado.", "Although I wouldn’t go that far."),
         ],
         "exagerar": [
-            ("(Risas) Pero no hay que ___, tampoco es arqueología.", "(Risas) Pero no hay que exagerar, tampoco es arqueología.", "(Laughter) But let's not exaggerate -- it's not archeology, either."),
             ("No lo tome literalmente. Él tiende a ___.", "No lo tome literalmente. Él tiende a exagerar.", "Don't take it literally. He is inclined to exaggerate."),
             ("Le da por ___ cada vez que tiene una nueva idea.", "Le da por exagerar cada vez que tiene una nueva idea.", "He's given to going overboard every time he gets a new idea."),
         ],
@@ -9175,12 +8825,10 @@ extension SeedData {
             ("Es un poco ___, así que sigan conmigo.", "Es un poco experimento, así que sigan conmigo.", "So this is a bit of an experiment, so bear with me."),
         ],
         "experto": [
-            ("Hay algun ___ creible que apoye el Mercadeo en Red?", "Hay algun experto creible que apoye el Mercadeo en Red?", "SKEPTlC/ NEGATlVE JERK: Are there any credible experts that support network marketing??"),
             ("Ah, ¿y qué sugiere el ___?", "Ah, ¿y qué sugiere el experto?", "Ah, and what does the expert suggest?"),
             ("¿En qué campo eres ___?", "¿En qué campo eres experto?", "What's your area of expertise?"),
         ],
         "explicar": [
-            ("¿Host: puede ___ lo que has hecho?", "¿Host: puede explicar lo que has hecho?", "Host: can you explain what you have done?"),
             ("¿Puede ___ lo que estás haciendo?", "¿Puede explicar lo que estás haciendo?", "Can you explain what you're doing?"),
             ("¿Te lo tengo que ___ con detalle?", "¿Te lo tengo que explicar con detalle?", "Do I have to spell this out for you?"),
         ],
@@ -9196,18 +8844,14 @@ extension SeedData {
         ],
         "exponer": [
             ("¿Podría por favor ___ en qué contexto ocurrió esto?", "¿Podría por favor exponer en qué contexto ocurrió esto?", "Could you please state in which context this took place?"),
-            ("India: Blogger recibe una notificación de baja por ___ la corrupción", "India: Blogger recibe una notificación de baja por exponer la corrupción", "India: Blogger Gets A Take Down Notice For Exposing Corruption · Global Voices"),
             ("Esto es sólo una manera algebraica de ___ nuestro problema.", "Esto es sólo una manera algebraica de exponer nuestro problema.", "This is just an algebraic way of stating our problem."),
         ],
         "exportación": [
             ("También estamos trabajando en una casita para la ___.", "También estamos trabajando en una casita para la exportación.", "We're also working on a little house for export."),
-            ("China: Debate sobre la ___ de tierras raras", "China: Debate sobre la exportación de tierras raras", "China: Debate on Rare Earths Export · Global Voices"),
             ("Estos no son entornos donde se puede construir manufactura de ___.", "Estos no son entornos donde se puede construir manufactura de exportación.", "These are not environments where you can build export manufacturing."),
         ],
         "exposición": [
             ("¿Fuiste a la ___ de arte?", "¿Fuiste a la exposición de arte?", "Did you go to the art exhibition?"),
-            ("GV: ¿Y qué puedes contarnos de la ___ «Generation Next»?", "GV: ¿Y qué puedes contarnos de la exposición «Generation Next»?", "GV: And what about the “Generation Next” exhibit?"),
-            ("China: ___ International de productos para adultos de Shanghai", "China: Exposición International de productos para adultos de Shanghai", "China: Shanghai International Adult Products Expo · Global Voices"),
         ],
         "expresar": [
             ("¿Lo podrías ___ en palabras más sencillas, por favor?", "¿Lo podrías expresar en palabras más sencillas, por favor?", "Will you please put that in simpler words?"),
@@ -9251,11 +8895,9 @@ extension SeedData {
         ],
         "extranjero": [
             ("Me gusta la idea de vivir en el ___ algún día.", "Me gusta la idea de vivir en el extranjero algún día.", "I like the idea of living abroad someday."),
-            ("En aquellos días, poca gente podía viajar al ___.", "En aquellos días, poca gente podía viajar al extranjero.", "In those days, few people could travel abroad."),
             ("Lamentablemente, ella vive en el ___.", "Lamentablemente, ella vive en el extranjero.", "Unfortunately, she lives abroad."),
         ],
         "extraordinario": [
-            ("5. ¿Presencia de un ser ___?", "5. ¿Presencia de un ser extraordinario?", "Chapter 5"),
             ("Todo el mundo pensaba que el acceso aquí fue ___.", "Todo el mundo pensaba que el acceso aquí fue extraordinario.", "Everybody thought the access here was extraordinary."),
             ("Es solo un combate, aunque ___.", "Es solo un combate, aunque extraordinario.", "It's just a wresting match, but a remarkable activity."),
         ],
@@ -9290,7 +8932,6 @@ extension SeedData {
             ("Es imposible ___ una bici mejor que esta ¿sabes?", "Es imposible fabricar una bici mejor que esta ¿sabes?", "I don't see how anybody can ever do any better than that, you know?"),
         ],
         "facilitar": [
-            ("Latinoamérica: ¿Los noticieros deberían ___ más contenido en inglés?", "Latinoamérica: ¿Los noticieros deberían facilitar más contenido en inglés?", "Latin America: Should News Broadcasters Provide More English Content? · Global Voices"),
             ("Y no tienen que hacer cualquier cosa menos ___ este comercio.", "Y no tienen que hacer cualquier cosa menos facilitar este comercio.", "And they didn't have to do anything but facilitate this trade."),
             ("Caótico tienen que ___ cuantitativamente.", "Caótico tienen que facilitar cuantitativamente.", "Chaotically they have to ease quantitatively."),
         ],
@@ -9305,7 +8946,6 @@ extension SeedData {
             ("Por favor, explícanos el proceso para ___ a los hospitales.", "Por favor, explícanos el proceso para facturar a los hospitales.", "Please tell us the process to invoice hospitals."),
         ],
         "falange": [
-            ("Hecho. żHas oído hablar de los ___ Vermelha?", "Hecho. żHas oído hablar de los Falange Vermelha?", "What about Cherry?"),
             ("Ésta es una membrana alar, también llamada ___.", "Ésta es una membrana alar, también llamada falange.", "This is a wing stub, call it a phalange or a wing stub."),
         ],
         "falda": [
@@ -9321,11 +8961,9 @@ extension SeedData {
         "fallido": [
             ("¿Saben cuál fue su ___ argumento de seducción?", "¿Saben cuál fue su fallido argumento de seducción?", "You know what his unsuccessful pickup line was?"),
             ("Empezaré con el ejemplo de autocontrol ___.", "Empezaré con el ejemplo de autocontrol fallido.", "I'll start with self-control failure here."),
-            ("Cuba: El intento ___ de Nyad", "Cuba: El intento fallido de Nyad", "Cuba: Nyad's Failed Attempt · Global Voices"),
         ],
         "falso": [
             ("A mí me parece obviamente ___.", "A mí me parece obviamente falso.", "It seems obviously false to me."),
-            ("Hoy quiero mostrarles que eso es ___. (Risas)", "Hoy quiero mostrarles que eso es falso. (Risas)", "And I want to suggest today that, in fact, that's wrong."),
             ("Hay una diferencia entre arrogancia, ego y ___ orgullo.", "Hay una diferencia entre arrogancia, ego y falso orgullo.", "There's a difference between hubris, and ego, and false pride."),
         ],
         "falta": [
@@ -9404,7 +9042,6 @@ extension SeedData {
             ("Jamie Holden (vía Facebook el 25 de ___):", "Jamie Holden (vía Facebook el 25 de febrero):", "Jamie Holden (via Facebook on 25 February):"),
         ],
         "fecha": [
-            ("Recauden todas las que están bajo la ___ de hoy.", "Recauden todas las que están bajo la fecha de hoy.", "- Yes."),
             ("Estaba tan irritado que no estableció ___ para la siguiente sesión.", "Estaba tan irritado que no estableció fecha para la siguiente sesión.", "He was so irritated that he didn't set a date for the next session."),
             ("Pero hubo otra ___ importante.", "Pero hubo otra fecha importante.", "But there was another big date."),
         ],
@@ -9420,7 +9057,6 @@ extension SeedData {
         ],
         "feminismo": [
             ("Y el ___ mal lo que hizo con nosotros?", "Y el feminismo mal lo que hizo con nosotros?", "And feminism bad what he did to us?"),
-            ("Puerto Rico: ___ y amistad", "Puerto Rico: Feminismo y amistad", "Puerto Rico: Feminism and Friendship · Global Voices"),
             ("Una creciente, hijas, increíble niñas, el ___ militante.", "Una creciente, hijas, increíble niñas, el feminismo militante.", "A growing, daughters, amazing. Girls, militant feminism."),
         ],
         "fenomenal": [
@@ -9449,18 +9085,14 @@ extension SeedData {
         ],
         "festejar": [
             ("Si es directo, a ___, porque algunos esperan mucho para celebrar.", "Si es directo, a festejar, porque algunos esperan mucho para celebrar.", "If it's right on, celebrate, because some people wait a lot to celebrate."),
-            ("Bangladesh: Volver a casa para ___ el Eid", "Bangladesh: Volver a casa para festejar el Eid", "Bangladesh: Coming Home For Eid · Global Voices"),
             ("Y ahí sí ___ todos juntos.", "Y ahí sí festejar todos juntos.", "And then enjoy it together."),
         ],
         "festejo": [
-            ("Irán: No hubo ___ por el Día de la mujer", "Irán: No hubo festejo por el Día de la mujer", "Iran: No Cake for Iranian Women on their Day · Global Voices"),
             ("Yo agito por un ___ permanente.", "Yo agito por un festejo permanente.", "I agitate for permanent revelry."),
             ("Y papá trajo al hermano Revels a nuestro ___ familiar de Navidad.", "Y papá trajo al hermano Revels a nuestro festejo familiar de Navidad.", "And daddy brought Elder Revels to the Christmas family celebration."),
         ],
         "festival de cine": [
             ("En Barcelona, en La Rambla para algún ___.", "En Barcelona, en La Rambla para algún festival de cine.", "In Barcelona, on Las Ramblas for some film festival,"),
-            ("México: ___ Chicano en el DF", "México: Festival de Cine Chicano en el DF", "Mexico: Chicano Film Festival in the Capital · Global Voices"),
-            ("Africa: El ___ de la Diáspora Africana", "Africa: El Festival de Cine de la Diáspora Africana", "Africa: The African Diaspora Film Festival · Global Voices"),
         ],
         "festivo": [
             ("¿La mente un día te dará un día ___?", "¿La mente un día te dará un día festivo?", "The mind one day is going to give you a holiday?"),
@@ -9474,12 +9106,10 @@ extension SeedData {
         ],
         "fiambrera": [
             ("El resultado: la ___ es el factor forma.", "El resultado: la fiambrera es el factor forma.", "Out comes this, a little lunch box -- form factor."),
-            ("Así que me da su ___ y me dice:", "Así que me da su fiambrera y me dice:", "(Laughter)"),
             ("Otro estudiante muestra una ___ y se queja de la calidad de la comida.", "Otro estudiante muestra una fiambrera y se queja de la calidad de la comida.", "Another student shows a tiffin box and complains about the quality of the food."),
         ],
         "fianza": [
             ("¿que cobra primero? El contrato, la ___.", "¿que cobra primero? El contrato, la fianza.", "The contract, the bond."),
-            ("Etiopía: Se le negó la ___ a Teddy Afro", "Etiopía: Se le negó la fianza a Teddy Afro", "Ethiopia: Teddy Afro denied bail · Global Voices"),
             ("Una ___ es un contrato.", "Una fianza es un contrato.", "A bond is a contract."),
         ],
         "fideicomiso": [
@@ -9536,9 +9166,7 @@ extension SeedData {
             ("¿Cómo ___ protestas? - Elija las herramientas correctas", "¿Cómo filmar protestas? - Elija las herramientas correctas", "How to Film Protests - Choose the right tools"),
         ],
         "filtrar": [
-            ("EUA: ¿Quieren los Mormones ___ Internet?", "EUA: ¿Quieren los Mormones filtrar Internet?", "USA: Do Mormons Want Internet Filtering? · Global Voices"),
             ("¿Cómo podemos ___ estos sitios en lista negra o lista blanca?", "¿Cómo podemos filtrar estos sitios en lista negra o lista blanca?", "How can we black list or white list these places?"),
-            ("Pakistán: Planes de ___ casi 1500 palabras en tráfico de SMS", "Pakistán: Planes de filtrar casi 1500 palabras en tráfico de SMS", "Pakistan: Plans to Filter Around 1,500 Words in SMS Traffic · Global Voices"),
         ],
         "filósofo": [
             ("Sam es un ___, ¿o no?", "Sam es un filósofo, ¿o no?", "Sam is a philosopher, isn't he?"),
@@ -9547,7 +9175,6 @@ extension SeedData {
         ],
         "fin de semana": [
             ("¿Qué vas a hacer este ___?", "¿Qué vas a hacer este fin de semana?", "What are you going to do this weekend?"),
-            ("¿Puedes venirte un ___?", "¿Puedes venirte un fin de semana?", "Haley: You could come for a weekend sometime?"),
             ("¿Fuiste de acampada el ___ pasado?", "¿Fuiste de acampada el fin de semana pasado?", "Did you go camping last weekend?"),
         ],
         "finalmente": [
@@ -9557,7 +9184,6 @@ extension SeedData {
         ],
         "financiar": [
             ("¿Hay suficiente dinero en el mundo para ___ estas cosas?", "¿Hay suficiente dinero en el mundo para financiar estas cosas?", "Now there's an obvious problem, which is, is there enough money in the world to fund this?"),
-            ("¿Cómo podremos ___ el balance que queda?", "¿Cómo podremos financiar el balance que queda?", "And the deficit?"),
             ("¿Pero como se la debe ___?", "¿Pero como se la debe financiar?", "Yes, but how can it be financed?"),
         ],
         "finanzas": [
@@ -9577,7 +9203,6 @@ extension SeedData {
         ],
         "firmar": [
             ("¿Podrías ___ el registro, por favor?", "¿Podrías firmar el registro, por favor?", "Could you please sign the register?"),
-            ("Mańana recogerán mi ropa. - żPuedo ___?", "Mańana recogerán mi ropa. - żPuedo firmar?", "Tomorrow I send for my stuff. - Do I have to sign?"),
             ("¿Me puedes ___ la gorra?", "¿Me puedes firmar la gorra?", "Can you sign my hat?"),
         ],
         "fiscal": [
@@ -9611,7 +9236,6 @@ extension SeedData {
             ("La membrana celular debe ser a la vez robusta y ___.", "La membrana celular debe ser a la vez robusta y flexible.", "A cell membrane must be both sturdy and flexible."),
         ],
         "flojo": [
-            ("# Que te convierten en Josй el ___?", "# Que te convierten en Josй el Flojo?", "# Que te convierten en Josй el Flojo?"),
             ("¿Puedes creerlo? Él es aún más ___ que yo.", "¿Puedes creerlo? Él es aún más flojo que yo.", "Can you believe it? He's even lazier than me."),
             ("Soy demasiado ___ como para hacer los deberes.", "Soy demasiado flojo como para hacer los deberes.", "I'm too lazy to do my homework."),
         ],
@@ -9643,7 +9267,6 @@ extension SeedData {
         "fobia": [
             ("Le tengo ___ a los payasos.", "Le tengo fobia a los payasos.", "I have coulrophobia."),
             ("Ella tiene ___ a los perros.", "Ella tiene fobia a los perros.", "She has a phobia of dogs."),
-            ("China: El fin de una ___ fubolística de 32 años", "China: El fin de una fobia fubolística de 32 años", "China: The end of 32-year-long football “Korea-phobia”? · Global Voices"),
         ],
         "foca": [
             ("Acaba de partir una ___ en tres con dos compañeros.", "Acaba de partir una foca en tres con dos compañeros.", "He had just finished tearing a seal into three pieces with two companions."),
@@ -9657,7 +9280,6 @@ extension SeedData {
         ],
         "folklore": [
             ("El ___ africano es muy interesante.", "El folklore africano es muy interesante.", "African folklore is very interesting."),
-            ("Venezuela: Infancia, danza, ___... y propaganda", "Venezuela: Infancia, danza, folklore... y propaganda", "Venezuela: Childhood, Dance, Folklore... and Propaganda · Global Voices"),
             ("lenguaje distinto, usted colecciona ___.", "lenguaje distinto, usted colecciona folklore.", "Even if you, want to focus on a nation or a part of a nation. It helps you to look at that, smaller constituency. Mm-hm."),
         ],
         "fomentar": [
@@ -9666,9 +9288,7 @@ extension SeedData {
             ("Por un lado, se debe ___ una pesca saludable.", "Por un lado, se debe fomentar una pesca saludable.", "On the one hand, it may prompt healthier fisheries."),
         ],
         "fonda": [
-            ("Jane ___: Sí, así es.", "Jane Fonda: Sí, así es.", "Jane Fonda: Yes we have."),
             ("Esta ___ da buen servicio.", "Esta fonda da buen servicio.", "This inn gives good service."),
-            ("Jane ___: Hola Pat. El placer es mío.", "Jane Fonda: Hola Pat. El placer es mío.", "Jane Fonda: Hi Pat. It's great to be with you."),
         ],
         "fondo": [
             ("¿Alguna vez han visto un pollo en el ___ del océano?", "¿Alguna vez han visto un pollo en el fondo del océano?", "Have you ever seen a chicken at the bottom of the ocean?"),
@@ -9701,7 +9321,6 @@ extension SeedData {
             ("Me dijeron que comer gelatina ayuda a ___ las uñas.", "Me dijeron que comer gelatina ayuda a fortalecer las uñas.", "I'm told that eating jelly helps grow strong nails."),
         ],
         "fortaleza": [
-            ("Brasil: Ciudadanos le dicen no a un acuario en ___", "Brasil: Ciudadanos le dicen no a un acuario en Fortaleza", "Brazil: Citizens Say No to Aquarium in Fortaleza · Global Voices"),
             ("- No, esto es como una ___ de todos modos.", "- No, esto es como una fortaleza de todos modos.", "- No, this is like a fortress anyway."),
             ("Si Dios me da la ___.", "Si Dios me da la fortaleza.", "If God gives me strength."),
         ],
@@ -9722,7 +9341,6 @@ extension SeedData {
         ],
         "foto de perfil": [
             ("¿Cambiaste tu ___?", "¿Cambiaste tu foto de perfil?", "Did you change your profile picture?"),
-            ("Sudáfrica: ___ en Facebook causa controversia", "Sudáfrica: Foto de perfil en Facebook causa controversia", "South African: Facebook Profile Picture Creates Controversy · Global Voices"),
             ("La ___ de Ibrahim Mothana en Twitter y Linkedin", "La foto de perfil de Ibrahim Mothana en Twitter y Linkedin", "Ibrahim Mothana's profile photo on Twitter and Linkedin"),
         ],
         "fotografiar": [
@@ -9742,8 +9360,6 @@ extension SeedData {
         ],
         "fotógrafo": [
             ("Hola amigo ___. ¿Cómo va todo?", "Hola amigo fotógrafo. ¿Cómo va todo?", "Hey fellow photographer how is it going?"),
-            ("Toma la cámara. żY bien, chico? żTú no eres ___?", "Toma la cámara. żY bien, chico? żTú no eres fotógrafo?", "Here he is. Take the camera. Well, kid?"),
-            ("(Música) (Aplausos) Chris Burkard: El ___ de surf, ¿verdad?", "(Música) (Aplausos) Chris Burkard: El fotógrafo de surf, ¿verdad?", "(Music) (Applause) Chris Burkard: So, surf photographer, right?"),
         ],
         "fotón": [
             ("Así que, como puedes ver, el ___ podría sentirse frustrado.", "Así que, como puedes ver, el fotón podría sentirse frustrado.", "So, as you can see, the photon might be getting frustrated."),
@@ -9787,7 +9403,6 @@ extension SeedData {
         ],
         "frasco": [
             ("Traía en la mano un ___ de sales. ¿Y bien?", "Traía en la mano un frasco de sales. ¿Y bien?", "He held a vial of salts in his hand."),
-            ("їCuando tomу Madame Crale la conicina del ___?", "їCuando tomу Madame Crale la conicina del frasco?", "їCuando tomу Madame Crale la conicina del frasco?"),
             ("Para empezar, atrapamos átomos en un ___ especial.", "Para empezar, atrapamos átomos en un frasco especial.", "First you trap atoms in a special bottle."),
         ],
         "frase": [
@@ -9841,12 +9456,10 @@ extension SeedData {
             ("Me paré en el ___.", "Me paré en el freno.", "I slammed on the brakes."),
         ],
         "frente": [
-            ("Azerbaiyán: Envían al ___ a hijo de líder de oposición", "Azerbaiyán: Envían al frente a hijo de líder de oposición", "Azerbaijan: Opposition leader's son sent to frontline · Global Voices"),
             ("Y tiene una ___ azul, pero no lo sabe.", "Y tiene una frente azul, pero no lo sabe.", "And he has a blue forehead. But he doesn't know it."),
             ("Tienen la navegación ___ a sus ojos.", "Tienen la navegación frente a sus ojos.", "The navigation will pop up in front of your eye."),
         ],
         "frente a": [
-            ("Azerbaiyán: Envían al ___ hijo de líder de oposición", "Azerbaiyán: Envían al frente a hijo de líder de oposición", "Azerbaijan: Opposition leader's son sent to frontline · Global Voices"),
             ("Tienen la navegación ___ sus ojos.", "Tienen la navegación frente a sus ojos.", "The navigation will pop up in front of your eye."),
             ("Si, bien, este tema... de momento estamos ___ una incognita", "Si, bien, este tema... de momento estamos frente a una incognita", "Yes now, this is... at present, we are facing some problem."),
         ],
@@ -9867,7 +9480,6 @@ extension SeedData {
         ],
         "freír": [
             ("El sartén sirve para ___.", "El sartén sirve para freír.", "The pan is used for frying."),
-            ("La usábamos en la cocina, para ___, para cocinar...", "La usábamos en la cocina, para freír, para cocinar...", "When we crush the seeds of that fruit, we extract an oil or a butter, and that butter was good for many things. We used it in the kitchen, for frying, for cooking."),
             ("No puedo ___ estos huevos. Están podridos.", "No puedo freír estos huevos. Están podridos.", "I cannot fry these eggs. They are rotten."),
         ],
         "frito": [
@@ -9882,7 +9494,6 @@ extension SeedData {
         ],
         "fronterizo": [
             ("Creo que es un animal ___.", "Creo que es un animal fronterizo.", "I think it is a border animal."),
-            ("Camboya, Tailandia: Tweets sobre el conflicto ___", "Camboya, Tailandia: Tweets sobre el conflicto fronterizo", "Cambodia, Thailand: Tweets about the border conflict · Global Voices"),
             ("Necesitamos un acuerdo ___ claro, que todavía no tenemos.", "Necesitamos un acuerdo fronterizo claro, que todavía no tenemos.", "We need a clear border agreement, which we still do not have."),
         ],
         "frotar": [
@@ -9902,7 +9513,6 @@ extension SeedData {
         ],
         "frustrar": [
             ("Bien podemos empezar por ___ este producto.", "Bien podemos empezar por frustrar este producto.", "Well we can begin by foiling this product out."),
-            ("738 00:59:28.700 --&gt; 00:59:32.200 Mamá por favor no ___ a mí.", "738 00:59:28.700 --&gt; 00:59:32.200 Mamá por favor no frustrar a mí.", "738 00:59:28,700 --&gt; 00:59:32,200 Mom please don't thwart me."),
             ("Lo que nosotros haremos, empezaremos por ___.", "Lo que nosotros haremos, empezaremos por frustrar.", "What we'll do, is we'll begin, by foiling."),
         ],
         "fruta": [
@@ -9948,12 +9558,10 @@ extension SeedData {
         "fuerte": [
             ("Beautiful crecer m?s ___ cada vez! Wow!", "Beautiful crecer m?s fuerte cada vez! Wow!", "Beautiful grow stronger every single time!"),
             ("¿Para dónde? -¡Para allá, creo! -¡No hables tan ___!", "¿Para dónde? -¡Para allá, creo! -¡No hables tan fuerte!", "Which way? That way, I think! Not so fucking loud."),
-            ("República Centroafricana: ¿Cuán ___ es el acuerdo de paz?", "República Centroafricana: ¿Cuán fuerte es el acuerdo de paz?", "Central African Republic: How Strong Is The Peace Deal? · Global Voices"),
         ],
         "fuerza": [
             ("¿Cómo? ¡Alef, ___! ¡Ilana (árbol) es un nombre maravilloso!", "¿Cómo? ¡Alef, fuerza! ¡Ilana (árbol) es un nombre maravilloso!", "You are blossoming, you're shade, your fruit, you're planted in your place"),
             ("Empujó al auto en pana con toda su ___.", "Empujó al auto en pana con toda su fuerza.", "He pushed the stalled car with all his might."),
-            ("Kuwait: Nuevo rol para las mujeres en la ___ policial", "Kuwait: Nuevo rol para las mujeres en la fuerza policial", "Kuwait: New Role for Women in Police Force · Global Voices"),
         ],
         "fugarse": [
             ("Los reclusos trataron de ___.", "Los reclusos trataron de fugarse.", "The prisoners were trying to escape."),
@@ -9976,12 +9584,9 @@ extension SeedData {
             ("Ahora mi objetivo es la ___ emocional de las cosas.", "Ahora mi objetivo es la funcionalidad emocional de las cosas.", "What I try to pursue now is the emotional functionality of things."),
         ],
         "funcionar": [
-            ("¿Cómo puede ___? Pero antes de eso veamos la cultura popular.", "¿Cómo puede funcionar? Pero antes de eso veamos la cultura popular.", "How would it work?"),
             ("¿Está seguro de que eso va a ___?", "¿Está seguro de que eso va a funcionar?", "Are you sure it'll work?"),
-            ("CA: Pero ¿cómo no podría ___?", "CA: Pero ¿cómo no podría funcionar?", "CA: But why couldn't it work?"),
         ],
         "fundación": [
-            ("CA: ¿O pueden participar en la ___?", "CA: ¿O pueden participar en la fundación?", "CA: Or they can get involved in the foundation."),
             ("Le solicitamos la patente, en la ___ Nacional para la Innovación.", "Le solicitamos la patente, en la Fundación Nacional para la Innovación.", "We filed the patent for her, the National Innovation Foundation."),
             ("El se ha ido para crear la ___ para su abdicación.", "El se ha ido para crear la fundación para su abdicación.", "His 'resting holiday' is a ruse to lay the groundwork."),
         ],
@@ -10008,7 +9613,6 @@ extension SeedData {
         "furioso": [
             ("Mira Si no vienes, mi padre se pondrá ___.", "Mira Si no vienes, mi padre se pondrá furioso.", "Look If you don't come, my father will be furious."),
             ("Ella no dijo nada que pudiera ponerlo ___.", "Ella no dijo nada que pudiera ponerlo furioso.", "She said nothing that would make him angry."),
-            ("El que estaba ___ era Pencroff, y con razón.", "El que estaba furioso era Pencroff, y con razón.", "Gideon Spilett shared his feelings in this respect, and the two conversed together in whispers of the inexplicable circumstance which baffled even their intelligence and experience."),
         ],
         "futuro": [
             ("¿Michael, cuál es tú ___ ?", "¿Michael, cuál es tú futuro ?", "What about the future for you, Michael?"),
@@ -10021,7 +9625,6 @@ extension SeedData {
             ("El siguiente pasaje es una cita de una bien conocida ___.", "El siguiente pasaje es una cita de una bien conocida fábula.", "The following passage is a quotation from a well-known fable."),
         ],
         "fácil": [
-            ("Es muy ___, żPor qué todas estas cosas están todavía aquí?", "Es muy fácil, żPor qué todas estas cosas están todavía aquí?", "It's too easy. Why is all this stuff still here?"),
             ("Pero es muy ___ escalar, ¿no es cierto?", "Pero es muy fácil escalar, ¿no es cierto?", "But it's very easy to climb up, is it not?"),
             ("No será tan ___ de hacer como crees.", "No será tan fácil de hacer como crees.", "It won't be as easy to do as you think."),
         ],
@@ -10033,7 +9636,6 @@ extension SeedData {
         "fémur": [
             ("las posibles fracturas de ___.", "las posibles fracturas de fémur.", "A passive straight leg raise should be performed to evaluate for lumbar radiculopathy."),
             ("Eso es sólo un pequeñito, pito ___ poco.", "Eso es sólo un pequeñito, pito fémur poco.", "Oh, let me remove the aluminum bar."),
-            ("Y aquí está el ___ de un elefante.", "Y aquí está el fémur de un elefante.", "You ready?"),
         ],
         "fértil": [
             ("¿Suelo ___ para artistas de las revistas de historietas?", "¿Suelo fértil para artistas de las revistas de historietas?", "Fertile ground for comic book artists?"),
@@ -10042,7 +9644,6 @@ extension SeedData {
         ],
         "física": [
             ("¿Qué hace fundamental a una ley de la ___?", "¿Qué hace fundamental a una ley de la física?", "What makes a physical law fundamental?"),
-            ("¿Cómo mantenernos en buena forma ___?", "¿Cómo mantenernos en buena forma física?", "There have been many countries that have shown tremendous reductions in HlV incidence. One is in Thailand, where transmission is strongly, linked to the, sexual contact and, and, commercial sex industry in that country."),
             ("Ahora, del mismo modo, puedo hacer preguntas sobre ___.", "Ahora, del mismo modo, puedo hacer preguntas sobre física.", "Now, the same way, I can ask a question about physics."),
         ],
         "físico": [
@@ -10063,10 +9664,8 @@ extension SeedData {
         "fútbol": [
             ("¿Son jugadores de ___ o soldados imperiales?", "¿Son jugadores de fútbol o soldados imperiales?", "Are these football players, or are they stormtroopers?"),
             ("¿Viste el partido de ___ por la tele?", "¿Viste el partido de fútbol por la tele?", "Did you watch the soccer game on television?"),
-            ("Egipto y Argelia: Mucho más que un partido de ___", "Egipto y Argelia: Mucho más que un partido de fútbol", "Egypt and Algeria: Much More Than a Football Match · Global Voices"),
         ],
         "galardón": [
-            ("Cuba: ___ para voz exiliada", "Cuba: Galardón para voz exiliada", "Cuba: Exiled Voice Awarded · Global Voices"),
             ("Reacciones al ___ de Al Gore/IPCC con el Premio Nobel de la Paz", "Reacciones al galardón de Al Gore/IPCC con el Premio Nobel de la Paz", "First reactions to the Al Gore/IPCC Nobel Peace Prize Win · Global Voices"),
         ],
         "galaxia": [
@@ -10096,11 +9695,8 @@ extension SeedData {
         ],
         "garage": [
             ("¿Por qué debo pagarte por poner mi auto en mi ___?", "¿Por qué debo pagarte por poner mi auto en mi garage?", "Why should I pay you to put my car in my garage?"),
-            ("(Risas) ¡Ustedes intenten rimar algo con ___!", "(Risas) ¡Ustedes intenten rimar algo con garage!", "(Laughter) You try rhyming with garage!"),
-            ("He's in the ___. Arrest him.hehehe he", "He's in the garage. Arrest him.hehehe he", "&gt;&gt;ESTÁ EN LA COCHERA, DETÉNGALO."),
         ],
         "garantizar": [
-            ("¿cómo ___ la seguridad de los niños?", "¿cómo garantizar la seguridad de los niños?", "(Laughter) So, how do we guarantee the safety of our kids?"),
             ("¿Cómo podemos ___ al 100% la seguridad de nuestros hijos?", "¿Cómo podemos garantizar al 100% la seguridad de nuestros hijos?", "How can we 100 percent guarantee the safety of our kids?"),
             ("@meiodabeirada : LA POLICÍA NO PUEDE ___ LA SEGURIDAD, ¿ACASO PUEDE?", "@meiodabeirada : LA POLICÍA NO PUEDE GARANTIZAR LA SEGURIDAD, ¿ACASO PUEDE?", "@meiodabeirada : THE POLICE CAN'T GUARANTEE SAFETY, CAN'T THEY?"),
         ],
@@ -10120,7 +9716,6 @@ extension SeedData {
             ("Pagamos mucho por la ___, ¿qué está pasando?", "Pagamos mucho por la gasolina, ¿qué está pasando?", "You're paying a lot for your gas, what's happening here?"),
         ],
         "gasolinera": [
-            ("- Sí. - żUd. está en una ___?", "- Sí. - żUd. está en una gasolinera?", "- You're in a gas station?"),
             ("¿Qué tan lejos está la próxima ___?", "¿Qué tan lejos está la próxima gasolinera?", "How far is the next gas station?"),
             ("¿Hay una ___ por aquí?", "¿Hay una gasolinera por aquí?", "Is there a gas station around here?"),
         ],
@@ -10150,9 +9745,7 @@ extension SeedData {
             ("Ven un ___. Hay varios genes que se enlazan a FOXO.", "Ven un gen. Hay varios genes que se enlazan a FOXO.", "You see one gene. There are lots of genes actually that bind on FOXO."),
         ],
         "general": [
-            ("Sí, señor. -¿Coronel Harrell? -Sí, ___.", "Sí, señor. -¿Coronel Harrell? -Sí, general.", "Yes, sir."),
             ("Ahora bien, ¿Qué es un proceso en ___?", "Ahora bien, ¿Qué es un proceso en general?", "That's a process. Well, what's a process in general?"),
-            ("TBL: Bueno, 2 preguntas, una pregunta ___. CA: ¿Ed, nos escuchas?", "TBL: Bueno, 2 preguntas, una pregunta general. CA: ¿Ed, nos escuchas?", "TBL: Well, two questions, a general question — CA: Ed, can you still hear us?"),
         ],
         "generalmente": [
             ("Esto ___ se llama un gráfico circular", "Esto generalmente se llama un gráfico circular", "So what they have given us This diagram --"),
@@ -10225,7 +9818,6 @@ extension SeedData {
             ("Él tiene la capacidad suficiente para ___ un negocio.", "Él tiene la capacidad suficiente para gestionar un negocio.", "He has enough ability to manage a business."),
         ],
         "geólogo": [
-            ("Ya sé. Soy ___ de formación; pero eso me encanta.", "Ya sé. Soy geólogo de formación; pero eso me encanta.", "(Laughter) I'm a geologist by training."),
             ("Esta es una foto de Henry Cadell, un ___ escocés del siglo XIX.", "Esta es una foto de Henry Cadell, un geólogo escocés del siglo XIX.", "So this is a picture of Henry Cadell, who was a Scottish geologist in the 19th century."),
             ("Si lo piensan, un ___ no puede decirte si una vacuna es segura.", "Si lo piensan, un geólogo no puede decirte si una vacuna es segura.", "So if you think about it, a geologist can't tell you whether a vaccine is safe."),
         ],
@@ -10242,7 +9834,6 @@ extension SeedData {
         "gira": [
             ("Si no, cuando giras a un lado, ___ al otro.", "Si no, cuando giras a un lado, gira al otro.", "Otherwise, you do it here, it goes and turns there."),
             ("Simplemente ___ e ingresa directamente.", "Simplemente gira e ingresa directamente.", "You just spin and go directly in."),
-            ("Kazajistán: Banda de etnorock hace ___ por EE.", "Kazajistán: Banda de etnorock hace gira por EE.", "Kazkahstan: Ethno-Rock Band Tours USA · Global Voices"),
         ],
         "girar": [
             ("¿ven al auto ___ por cinco?", "¿ven al auto girar por cinco?", "See the car turn by five here?"),
@@ -10264,13 +9855,7 @@ extension SeedData {
             ("Aparte de colaborar con ___ Voices tienes un trabajo estable, ¿no?", "Aparte de colaborar con Global Voices tienes un trabajo estable, ¿no?", "In addition to collaborate with Global Voices have you a stable job, don't you?"),
             ("Así que aquí está la cartera ___ de invariancia [inaudible].", "Así que aquí está la cartera global de invariancia [inaudible].", "So here's the global [inaudible] invariance portfolio."),
         ],
-        "glorieta": [
-            ("Bahréin: Retiro de la policía, manifestantes recuperan ___ Lulu", "Bahréin: Retiro de la policía, manifestantes recuperan Glorieta Lulu", "Bahrain: Withdrawal of Police as Protesters Reclaim Lulu Roundabout · Global Voices"),
-            ("Bahréin: Hospital principal lleno de heridos de la ___ Lulu", "Bahréin: Hospital principal lleno de heridos de la Glorieta Lulu", "Bahrain: Main Hospital Fills with Lulu Roundabout Wounded · Global Voices"),
-            ("@Maithams : ¡Han roto algunas farolas en la ___!", "@Maithams : ¡Han roto algunas farolas en la glorieta!", "@Maithams: #Sohar protester ruin the beauitful Globe Roundabout with spray paint #Oman http://twitpic.com/443qpz"),
-        ],
         "glorioso": [
-            ("Cierto?, lo interesante de todo eso que encontré un ___", "Cierto?, lo interesante de todo eso que encontré un glorioso", "I mean I enjoy it. ≫&amp;gt; Just, I mean, God. Are you kidding? ≫&amp;gt; ? More as a word processing."),
             ("Un mes por robo por arrebato. ¿Crees que es ___?", "Un mes por robo por arrebato. ¿Crees que es glorioso?", "A month for theft is pathetic!"),
             ("¿Qué podría ser más ___ que escuchar el Big Bang?", "¿Qué podría ser más glorioso que escuchar el Big Bang?", "I mean, what could be more glorious than listening to the Big Bang itself?"),
         ],
@@ -10295,9 +9880,7 @@ extension SeedData {
             ("Es un pueblo difícil de ___.", "Es un pueblo difícil de gobernar.", "It's a difficult country to govern."),
         ],
         "gobierno": [
-            ("њPor quй teme tanto el ___?", "њPor quй teme tanto el Gobierno?", "What is the government so afraid of?"),
             ("Nuevo ___ asume en Paraguay", "Nuevo gobierno asume en Paraguay", "Paraguay's New President is Sworn in · Global Voices"),
-            ("El ___ Federal era entonces pequeсo.", "El Gobierno Federal era entonces pequeсo.", "The federal government was small then."),
         ],
         "gol": [
             ("¿Quién marcó el primer ___?", "¿Quién marcó el primer gol?", "Who scored the first goal?"),
@@ -10322,7 +9905,6 @@ extension SeedData {
         "gordita": [
             ("—¿Layla es fea? —En realidad no, pero es algo ___.", "—¿Layla es fea? —En realidad no, pero es algo gordita.", "\"Is Layla ugly?\" \"Not really. But she's a bit fat.\""),
             ("Estaba ___ y rolliza - un derecho duende viejo y alegre;", "Estaba gordita y rolliza - un derecho duende viejo y alegre;", "He was chubby and plump--a right jolly old elf;"),
-            ("Por tu felicidad mi ___ bella.", "Por tu felicidad mi Gordita bella.", "-"),
         ],
         "gordo": [
             ("ABRAHAM ¿Te muerdes el dedo ___ en nosotros, señor?", "ABRAHAM ¿Te muerdes el dedo gordo en nosotros, señor?", "ABRAHAM Do you bite your thumb at us, sir?"),
@@ -10331,8 +9913,6 @@ extension SeedData {
         ],
         "gorila": [
             ("Koko no es un ___ común.", "Koko no es un gorila común.", "Koko is not an ordinary gorilla."),
-            ("Uganda: Misteriosa muerte de un ___", "Uganda: Misteriosa muerte de un gorila", "Uganda: Mysterious Gorilla Death · Global Voices"),
-            ("R.D. Congo: ___ bebé es rescatado en arresto a traficante", "R.D. Congo: Gorila bebé es rescatado en arresto a traficante", "DR Congo: Baby Gorilla Rescued in Trafficking Bust · Global Voices"),
         ],
         "gorra": [
             ("¿Me puedes firmar la ___?", "¿Me puedes firmar la gorra?", "Can you sign my hat?"),
@@ -10380,8 +9960,6 @@ extension SeedData {
         ],
         "grado": [
             ("Pero también hay familias con un ___ de cuatro años, ¿ok?", "Pero también hay familias con un grado de cuatro años, ¿ok?", "But there are also families with degree of four, okay?"),
-            ("Hallamos el acusado culpable de asesinato en primer ___.", "Hallamos el acusado culpable de asesinato en primer grado.", "JUROR: KlMBLE:"),
-            ("EEUU, Rusia: Gorby vs Yeltsin, perspectiva de examen de ___ multiestatal", "EEUU, Rusia: Gorby vs Yeltsin, perspectiva de examen de grado multiestatal", "US, Russia: Gorby vs Yeltsin, Multistate Bar Exam Scenario · Global Voices"),
         ],
         "gradual": [
             ("La ___ ruina de nuestro país debe ser detenida.", "La gradual ruina de nuestro país debe ser detenida.", "The gradual ruin of our country has to be stopped."),
@@ -10405,7 +9983,6 @@ extension SeedData {
         ],
         "grandioso": [
             ("¿No sería ___ que pudiéramos hacerlo más sistemáticamente?", "¿No sería grandioso que pudiéramos hacerlo más sistemáticamente?", "Wouldn't it be great if we could do that more systematically?"),
-            ("(Aplausos) Ahí está. Es ___. (Aplausos)", "(Aplausos) Ahí está. Es grandioso. (Aplausos)", "(Applause) There it is. That's great."),
             ("Nada es más ___ que el regalo de la vida.", "Nada es más grandioso que el regalo de la vida.", "Nothing is greater then the gift of life."),
         ],
         "granizo": [
@@ -10449,7 +10026,6 @@ extension SeedData {
             ("Pero su tono se volvió más ___, al decir:", "Pero su tono se volvió más grave, al decir:", "Then his tone becomes serious, saying:"),
         ],
         "gravedad": [
-            ("(Risas) (Aplausos) ¿Acaso la historia y la ___ eran opcionales allí?", "(Risas) (Aplausos) ¿Acaso la historia y la gravedad eran opcionales allí?", "(Laughter) (Applause) Was history and gravity optional over there?"),
             ("Siendo esta una fuerza espiritual, así como la ___", "Siendo esta una fuerza espiritual, así como la gravedad", "This being a spiritual strength, as well as gravity"),
             ("No entiendes la ___ de la situaciòn", "No entiendes la gravedad de la situaciòn", "Salih είναι ότι ο λόγος που ήρθε στο σπίτι;"),
         ],
@@ -10534,7 +10110,6 @@ extension SeedData {
             ("Como le sale de ___", "Como le sale de guayaba", "As he rolls guava"),
         ],
         "guerra": [
-            ("Did Antonia ___ pay you that much to not report you?he", "Did Antonia Guerra pay you that much to not report you?he", "POR LA GOLPlZA. &gt;&gt;YA LE DlJE QUE NO"),
             ("Desde Nuremberg esto es considerado un crimen de ___.", "Desde Nuremberg esto es considerado un crimen de guerra.", "Since Nuremberg this is considered a war crime."),
             ("Nací el año en que terminó la ___.", "Nací el año en que terminó la guerra.", "I was born the year the war ended."),
         ],
@@ -10544,9 +10119,8 @@ extension SeedData {
             ("Derartu Tulu no sigue el ___.", "Derartu Tulu no sigue el guion.", "Derartu Tulu ruins the script."),
         ],
         "guionista": [
-            ("En serio, ¿tan difícil es contratar a un ___ decente?", "En serio, ¿tan difícil es contratar a un guionista decente?", "Really, how hard is it to hire a decent script writer?\""),
+            ("En serio, ¿tan difícil es contratar a un ___ decente?”", "En serio, ¿tan difícil es contratar a un guionista decente?”", "Really, how hard is it to hire a decent script writer?\""),
             ("El ___ de dramas de televisión @xiangrenli expresó :", "El guionista de dramas de televisión @xiangrenli expresó :", "TV drama script writer @xiangrenli echoed :"),
-            ("¡Qué ahorrativa es! ___: V. Golovanov director:", "¡Qué ahorrativa es! Guionista: V. Golovanov director:", "How thrifty she is! screenwriter V. Golovanov director V Petkevich Art director A. Petrov"),
         ],
         "guitarra": [
             ("¿Ella sabe tocar la ___?", "¿Ella sabe tocar la guitarra?", "Can she play the guitar?"),
@@ -10559,7 +10133,6 @@ extension SeedData {
             ("Pero usted puede tener una línea de ___, un punteado", "Pero usted puede tener una línea de guión, un punteado", "line, a dash-dotted line, etc."),
         ],
         "gusano": [
-            ("Es como el ___ de seda, їno?", "Es como el gusano de seda, їno?", "Es como el gusano de seda, їno?"),
             ("¿Qué hay respecto al ___ normal?", "¿Qué hay respecto al gusano normal?", "So what about the normal worm?"),
             ("Pero ¿qué beneficio hay para el ___?", "Pero ¿qué beneficio hay para el gusano?", "But what good is this for the worm?"),
         ],
@@ -10575,7 +10148,6 @@ extension SeedData {
         ],
         "guía": [
             ("¿En realidad nos ___ bien?", "¿En realidad nos guía bien?", "Does it actually guide us well?"),
-            ("Rusia, Tayikistán: ¿A quién insulta la ___ del trabajador emigrante?", "Rusia, Tayikistán: ¿A quién insulta la Guía del trabajador emigrante?", "Russia, Tajikistan: Who is Insulted by the Migrant Worker's Guide? · Global Voices"),
             ("¿Dónde está la ___ telefónica?", "¿Dónde está la guía telefónica?", "Where's the telephone book?"),
         ],
         "güero": [
@@ -10588,7 +10160,7 @@ extension SeedData {
             ("El ___ practicaba 2000 tiros diarios, todos los días.", "El güey practicaba 2000 tiros diarios, todos los días.", "The dude practiced 2000 shots daily, every single day."),
         ],
         "habilidad": [
-            ("La ___ de utilizar lo que tienes es la cuestión, ¿No?", "La habilidad de utilizar lo que tienes es la cuestión, ¿No?", "Your ability to use what you want is the question, isnt it?"),
+            ("La ___ de utilizar lo que tienes es la cuestión, ¿No?", "La habilidad de utilizar lo que tienes es la cuestión, ¿No?", "Your ability to use what you want is the question, isn’t it?"),
             ("¿Cuál podría ser esa ___?", "¿Cuál podría ser esa habilidad?", "What could that skill be?"),
             ("¿Verdad? No fue tu ___, fue tu estado.", "¿Verdad? No fue tu habilidad, fue tu estado.", "It wasn't your ability; it was your state."),
         ],
@@ -10701,7 +10273,6 @@ extension SeedData {
             ("No piensen que esta carne va a ___ el reino.", "No piensen que esta carne va a heredar el reino.", "Don't think that this flesh is going to inherit the kingdom."),
         ],
         "heredero": [
-            ("¿Príncipe ___, te sientes enfermo?", "¿Príncipe Heredero, te sientes enfermo?", "Are you ill?"),
             ("¿Qué sucedió? ¿El Príncipe ___ se desmayó?", "¿Qué sucedió? ¿El Príncipe Heredero se desmayó?", "They tell me he fainted?"),
             ("¿Cómo está el Príncipe ___?", "¿Cómo está el Príncipe Heredero?", "His condition?"),
         ],
@@ -10742,7 +10313,6 @@ extension SeedData {
         ],
         "herrero": [
             ("En casa de ___, cuchillo de palo.", "En casa de herrero, cuchillo de palo.", "The cobbler's children go barefoot."),
-            ("Uzbekistán, Ucrania: El ___ de Taskent y sus niños", "Uzbekistán, Ucrania: El herrero de Taskent y sus niños", "Uzbekistan, Ukraine: Tashkent Blacksmith and His Children · Global Voices"),
             ("- Es un buen ___ embargo.", "- Es un buen herrero embargo.", "- He is a good smith though."),
         ],
         "hervir": [
@@ -10752,7 +10322,6 @@ extension SeedData {
         ],
         "hierba": [
             ("La ___ fresca que cortamos anoche.", "La hierba fresca que cortamos anoche.", "The fresh grass that we cut last night."),
-            ("922 01:15:53,900 --&gt; 01:15:58,900 venir aquí ___ enemigo, ¡ven!", "922 01:15:53,900 --&gt; 01:15:58,900 venir aquí hierba enemigo, ¡ven!", "922 01:15:53,900 --&gt; 01:15:58,900 Come here grass enemy, come!"),
             ("Hay un grillo entre la ___.", "Hay un grillo entre la hierba.", "There is a cricket in the grass."),
         ],
         "hierbabuena": [
@@ -10791,7 +10360,6 @@ extension SeedData {
             ("Este ___ de esta semana y dicen que hoy en día,", "Este himno de esta semana y dicen que hoy en día,", "This hymn of this week and say it today, 7 times and say that even the death on Thursday Bio Rabbi Shimon Bar Yochai"),
         ],
         "hincha": [
-            ("Marruecos: ___ del Barça preso por afirmación superlativa", "Marruecos: Hincha del Barça preso por afirmación superlativa", "Morocco: Barça Fan Jailed for Superlative Statement · Global Voices"),
             ("Parece que toda la ciudad se ha vuelto ___ de Rusia.", "Parece que toda la ciudad se ha vuelto hincha de Rusia.", "Seems all city became a fan of Russia."),
             ("Toda la CEI era ___ de Rusia.", "Toda la CEI era hincha de Rusia.", "All CIS was a fan or Russia."),
         ],
@@ -10808,7 +10376,6 @@ extension SeedData {
         "hip-hop": [
             ("¿Quién piensa en rap o ___? ¿Alguien?", "¿Quién piensa en rap o hip-hop? ¿Alguien?", "Who here thinks of freestyle rapping or hip-hop?"),
             ("¿Cuál es tu artista ___ preferido?", "¿Cuál es tu artista hip-hop preferido?", "Who's your favorite hip-hop artist?"),
-            ("Ecuador: El artista de ___ Equis", "Ecuador: El artista de Hip-Hop Equis", "Ecuador: Hip-Hop Artist Equis · Global Voices"),
         ],
         "hipopótamo": [
             ("¿Por qué será que nos duele tanto la muerte del ___?", "¿Por qué será que nos duele tanto la muerte del hipopótamo?", "Another 22 hippos still live in Hacienda Nápoles."),
@@ -10842,7 +10409,6 @@ extension SeedData {
         "historiador": [
             ("¿Cuál fue tu reacción como ___ al ver esto?", "¿Cuál fue tu reacción como historiador al ver esto?", "What's your reaction as a historian when you see this?"),
             ("No soy ___, damas y caballeros.", "No soy historiador, damas y caballeros.", "I am no historian, ladies and gentlemen."),
-            ("Un respetado ___, James Perloff, lo puso asн,", "Un respetado historiador, James Perloff, lo puso asн,", "As respected historian James Perloff put it,"),
         ],
         "historial clínico": [
             ("Entraremos en el ___ electrónico de Stanford.", "Entraremos en el historial clínico electrónico de Stanford.", "Let's go into the Stanford electronic medical record."),
@@ -10856,7 +10422,6 @@ extension SeedData {
         ],
         "histórico": [
             ("¿Cuál es tu personaje ___ favorito?", "¿Cuál es tu personaje histórico favorito?", "Who's your favorite historical person?"),
-            ("Rusia: Blogger reporta sobre el incendio que destruyó edificio ___", "Rusia: Blogger reporta sobre el incendio que destruyó edificio histórico", "Russia: Blogger Reports On Fire That Destroyed Historic Building · Global Voices"),
             ("Y la sensación es de algo ___.", "Y la sensación es de algo histórico.", "And it feels historic."),
         ],
         "hockey": [
@@ -10906,7 +10471,6 @@ extension SeedData {
         ],
         "hora": [
             ("¿Me prestarías tu bicicleta por una ___?", "¿Me prestarías tu bicicleta por una hora?", "Will you lend me your bicycle for an hour?"),
-            ("¿Quieres dormir un poco? - ¿Qué ___ es?", "¿Quieres dormir un poco? - ¿Qué hora es?", "Sleep a while?"),
             ("¿Podés esperar más o menos una ___?", "¿Podés esperar más o menos una hora?", "Can you wait about an hour?"),
         ],
         "hora pico": [
@@ -10935,7 +10499,6 @@ extension SeedData {
             ("No, se trata de una ___ llamada oxitocina.", "No, se trata de una hormona llamada oxitocina.", "No, it's a hormone called oxytocin."),
         ],
         "hornear": [
-            ("Chicas, deberes: bendecir, estar linda, comprarse un vestido y ___ masa.", "Chicas, deberes: bendecir, estar linda, comprarse un vestido y hornear masa.", "You will have. Girls - Homework: bless, be pretty, buy a dress and bake dough, but this week we have two great great saints"),
             ("Gracias por ___ esta deliciosa torta.", "Gracias por hornear esta deliciosa torta.", "Thank you for baking this delicious cake."),
             ("Se tiene que ___ durante el tiempo correcto, etc, etc.", "Se tiene que hornear durante el tiempo correcto, etc, etc.", "It has to bake it for the right amount of time, and so on, and so on."),
         ],
@@ -10946,17 +10509,14 @@ extension SeedData {
         ],
         "horrible": [
             ("Entonces -- es ___, ¿no?", "Entonces -- es horrible, ¿no?", "So you've -- it's crap, isn't it really? As we say."),
-            ("¿Alguna vez has ido a uno de esos lugares? Es ___", "¿Alguna vez has ido a uno de esos lugares? Es horrible", "It's sick, it's sick"),
             ("Pens?, soy s?lo una mujer ___.", "Pens?, soy s?lo una mujer horrible.", "He thought, I'm just a woman sucks."),
         ],
         "hospital": [
-            ("Take me to a ___?hehe I don't know.he", "Take me to a hospital?hehe I don't know.he", "EL CUADRO CADA VEZ ESTÁ PEOR. &gt;&gt;¿ENTONCES QUÉ DEMONlOS ESPERAN"),
             ("¿Qué pudo haber alterado tu estomago? vamos al ___.", "¿Qué pudo haber alterado tu estomago? vamos al hospital.", "What could have upset your tummy?"),
             ("¿Quieres transferirlo... ...a un ___ más grande en Seúl?", "¿Quieres transferirlo... ...a un hospital más grande en Seúl?", "Do you want to transfer him to a bigger hospital in Seoul or stay?"),
         ],
         "hostal": [
             ("Sí, señor, en el ___; incluso estamos muy inquietos.", "Sí, señor, en el hostal; incluso estamos muy inquietos.", "\"Yes, monsieur, in this house; and we are even a little uneasy--\""),
-            ("¿Está buscando un ___?", "¿Está buscando un hostal?", "A hostel?"),
         ],
         "hostil": [
             ("¿Por qué ser ___ a la naturaleza?", "¿Por qué ser hostil a la naturaleza?", "Why be hostile to nature?"),
@@ -10971,12 +10531,9 @@ extension SeedData {
         "hoy": [
             ("No venga a trabajar ya sea ___, ¿de acuerdo?", "No venga a trabajar ya sea hoy, ¿de acuerdo?", "Don't come to work either today, okay?"),
             ("De hecho, esto ya sucede ___.", "De hecho, esto ya sucede hoy.", "In fact, this is already happening today."),
-            ("Recauden todas las que están bajo la fecha de ___.", "Recauden todas las que están bajo la fecha de hoy.", "- Yes."),
         ],
         "huelga": [
-            ("España: ___ general a 100 días de gobierno", "España: Huelga general a 100 días de gobierno", "Spain: General Strike After Only 100 Days of Government · Global Voices"),
             ("GREGORY arte, pero tú no se movió rápidamente a la ___.", "GREGORY arte, pero tú no se movió rápidamente a la huelga.", "GREGORY But thou art not quickly moved to strike."),
-            ("Tailandia: Miles afectados por la ___ de trenes", "Tailandia: Miles afectados por la huelga de trenes", "Thailand: Thousands affected by train strike · Global Voices"),
         ],
         "huella": [
             ("Y dónde está la ___?", "Y dónde está la huella?", "Where is the footprint?"),
@@ -10986,11 +10543,9 @@ extension SeedData {
         "huella digital": [
             ("Dejamos esta ___ cuando nos comunicamos, sin darnos cuenta.", "Dejamos esta huella digital cuando nos comunicamos, sin darnos cuenta.", "We leave this fingerprint when we communicate, without realizing it."),
             ("Es básicamente una ___ para cada archivo o cada video.", "Es básicamente una huella digital para cada archivo o cada video.", "It's essentially a fingerprint for each file or each video."),
-            ("Japón: ___, ficha con fotografía, bienvenido a Japón", "Japón: Huella digital, ficha con fotografía, bienvenido a Japón", "Japan: Fingerprints, mugshot, welcome to Japan · Global Voices"),
         ],
         "hueso": [
             ("¿Por qué tienes un ___ fracturado?", "¿Por qué tienes un hueso fracturado?", "Why do you have a fractured bone?"),
-            ("(Risas) ¿Sienten el ___ aquí abajo?", "(Risas) ¿Sienten el hueso aquí abajo?", "(Laughter) You feel that bone under there?"),
             ("Tiene 80 000 muestras de animal, ___, mineral, plantas.", "Tiene 80 000 muestras de animal, hueso, mineral, plantas.", "It has 80,000 samples of animal, bone, mineral, plants."),
         ],
         "huevo": [
@@ -11011,7 +10566,6 @@ extension SeedData {
         "humano": [
             ("¿Sería un papel de ___ esta vez?", "¿Sería un papel de humano esta vez?", "Would it be a human role this time?"),
             ("¿del organismo ___ para expresar la violencia inevitablemente?", "¿del organismo humano para expresar la violencia inevitablemente?", "Older anthropological studies that have attempted to justify human violence would often compare humans to our earlier stages of evolution for their pattern recognition."),
-            ("Pero, żhan de tener todas las personas un cuerpo ___?", "Pero, żhan de tener todas las personas un cuerpo humano?", "But, most people have human-like bodies?"),
         ],
         "humedad": [
             ("Aún se sentía mucha ___.", "Aún se sentía mucha humedad.", "The outside world was still grey."),
@@ -11069,7 +10623,6 @@ extension SeedData {
             ("Las células del ___ tardan más que las del riñón, etc.", "Las células del hígado tardan más que las del riñón, etc.", "The liver cell is going on a bit longer, kidneys a bit shorter and so on."),
         ],
         "húmedo": [
-            ("Barbados: Crop Over 2011 - ¿Caluroso o ___?", "Barbados: Crop Over 2011 - ¿Caluroso o húmedo?", "Barbados: Crop Over 2011 - Hot or Wet? · Global Voices"),
             ("Dickon que no le importa th '___.", "Dickon que no le importa th 'húmedo.", "Dickon he doesn't mind th' wet."),
             ("El aire que se respiraba era triste, ___ y frío.", "El aire que se respiraba era triste, húmedo y frío.", "The air they breathed was heavy, damp, and cold."),
         ],
@@ -11160,8 +10713,6 @@ extension SeedData {
         ],
         "ilegalmente": [
             ("¿Pero entonces cuánto música realmente es adquirido ___?", "¿Pero entonces cuánto música realmente es adquirido ilegalmente?", "But then how much music is actually acquired illegally?"),
-            ("Lituania: Alcalde en un tanque aplasta auto ___ estacionado", "Lituania: Alcalde en un tanque aplasta auto ilegalmente estacionado", "Lithuania: Mayor in Tank Crushes Illegally Parked Car · Global Voices"),
-            ("Palestina: Viajeros dicen que Israel les niega el acceso ___", "Palestina: Viajeros dicen que Israel les niega el acceso ilegalmente", "Palestine: Travelers Say Israel is Illegally Denying Access · Global Voices"),
         ],
         "ilegítimo": [
             ("El hijo ___ del rey Ronald Muwenda Mutebi:", "El hijo ilegítimo del rey Ronald Muwenda Mutebi:", "King Ronald Muwenda Mutebi's Child Out of Wedlock:"),
@@ -11195,7 +10746,6 @@ extension SeedData {
         ],
         "imbatible": [
             ("Es ___ para atraer la mejor gente y juntarla.", "Es imbatible para atraer la mejor gente y juntarla.", "You cannot beat it for attracting the best people and bringing them together."),
-            ("Brasil: Recordando a Senna, el ___ campeón de F1", "Brasil: Recordando a Senna, el imbatible campeón de F1", "Brazil: Remembering Ayrton Senna, the unbeatable F1 champion · Global Voices"),
             ("Esto prueba, como digo, soy ___, crean mi palabra.", "Esto prueba, como digo, soy imbatible, crean mi palabra.", "I'm a debating champion, so take my word for it."),
         ],
         "imitar": [
@@ -11284,7 +10834,6 @@ extension SeedData {
             ("¿Cómo pudo ___ a la bella Sheila?", "¿Cómo pudo impresionar a la bella Sheila?", "How you impressed this lovely sheila."),
         ],
         "impresión 3D": [
-            ("Y mientras la ___", "Y mientras la impresión 3D", "And while 3D printing will give rise to plenty of trivial complaints, there will be judges in the American"),
             ("Luego está la fabricación aditiva, la ___.", "Luego está la fabricación aditiva, la impresión 3D.", "Then there's additive manufacturing, 3D printing."),
             ("Un lanzamiento a la Luna, potenciado por la ___.", "Un lanzamiento a la Luna, potenciado por la impresión 3D.", "A real moonshot, powered by 3D printing."),
         ],
@@ -11343,8 +10892,6 @@ extension SeedData {
             ("Es ___ si él vendrá o no.", "Es incierto si él vendrá o no.", "Whether or not he will come is doubtful."),
         ],
         "inclinar": [
-            ("¿Cómo podemos ___ nuestras cabezas ante un plebeyo?", "¿Cómo podemos inclinar nuestras cabezas ante un plebeyo?", "And us bowing to him?"),
-            ("Hans se contentó con ___ la cabeza en señal de asentimiento.", "Hans se contentó con inclinar la cabeza en señal de asentimiento.", "Hans merely nodded."),
             ("De principios del siglo XVIII, es ___ el equilibrio de poder.", "De principios del siglo XVIII, es inclinar el equilibrio de poder.", "By the early 1700s, the balance of power is tipping."),
         ],
         "inclinarse": [
@@ -11359,7 +10906,6 @@ extension SeedData {
         ],
         "inclusión": [
             ("La segunda regla es que la ___ crea crecimiento económico.", "La segunda regla es que la inclusión crea crecimiento económico.", "The second rule is that inclusion creates economic growth."),
-            ("Brasil: ___ socio-digital a través de la revolución del LAN House", "Brasil: Inclusión socio-digital a través de la revolución del LAN House", "Brazil: Socio-digital Inclusion through the Lan House Revolution · Global Voices"),
             ("Prioriza la ___, transparencia y fiabilidad.", "Prioriza la inclusión, transparencia y fiabilidad.", "It prioritizes inclusiveness, openness and reliability."),
         ],
         "incoherente": [
@@ -11402,8 +10948,6 @@ extension SeedData {
         ],
         "increíble": [
             ("Se incrementó la sensación de energía. ¡Es ___!, ¿no? ¡Fantástico!", "Se incrementó la sensación de energía. ¡Es increíble!, ¿no? ¡Fantástico!", "There was an increased sense of energy, right, it's exciting, it's amazing!"),
-            ("Manoush Zomorodi: Totalmente ___, ¿verdad?", "Manoush Zomorodi: Totalmente increíble, ¿verdad?", "Manoush Zomorodi: Totally awesome, right?"),
-            ("Se sentía como... (Aplausos) Sentía esta ___ validación.", "Se sentía como... (Aplausos) Sentía esta increíble validación.", "It felt like -- (Applause) It felt like this incredible validation."),
         ],
         "increíblemente": [
             ("Sus almendrados ojos oscuros eran ___ hermosos.", "Sus almendrados ojos oscuros eran increíblemente hermosos.", "Her dark, almond-shaped eyes were remarkably beautiful."),
@@ -11431,7 +10975,6 @@ extension SeedData {
         ],
         "independencia": [
             ("¿Qué piensan acerca de la ___ de Cataluña?", "¿Qué piensan acerca de la independencia de Cataluña?", "What do you think about Catalunya's independence?"),
-            ("Ecuador: Eugenio Espejo, Precursor del movimiento de ___", "Ecuador: Eugenio Espejo, Precursor del movimiento de independencia", "Ecuador: Eugenio Espejo, Precursor for the Independence Movement · Global Voices"),
             ("El rey padre de la ___, Norodom Sihanouk.", "El rey padre de la independencia, Norodom Sihanouk.", "Father king of independence Norodom Sihanouk. pic.twitter.com/11x8wRXD"),
         ],
         "independiente": [
@@ -11447,12 +10990,9 @@ extension SeedData {
         "indicio": [
             ("¿A qué ___ deben prestar atención?", "¿A qué indicio deben prestar atención?", "What cue do you pay attention to?"),
             ("- Y cualquier ___ muestra que lo haremos -", "- Y cualquier indicio muestra que lo haremos -", "AND THERE'S EVERY INDlCATlON WE WlLL--"),
-            ("El ___ del siglo The hint of the century", "El indicio del siglo The hint of the century", "Consider this"),
         ],
         "indie": [
             ("Quieres enviarle un saludo a la comunidad de Puerto Rico ___?", "Quieres enviarle un saludo a la comunidad de Puerto Rico Indie?", "Rita, do you want to say hi to the Puerto Rico Indie community?"),
-            ("Japón: Música ___ rockea contra las armas nucleares", "Japón: Música Indie rockea contra las armas nucleares", "Japan: Indie Music Rocks the Nukes · Global Voices"),
-            ("Mejor Blog Personal: ___ Berries", "Mejor Blog Personal: Indie Berries", "The Best Personal Blog: Indie Berries"),
         ],
         "indirectamente": [
             ("Intenté hacer indagaciones sobre su opinión ___.", "Intenté hacer indagaciones sobre su opinión indirectamente.", "I tried to investigate his opinion indirectly."),
@@ -11460,7 +11000,6 @@ extension SeedData {
             ("Ya sea directa o ___ todos dependemos de los océanos.", "Ya sea directa o indirectamente todos dependemos de los océanos.", "Either directly or indirectly, we all rely on the oceans."),
         ],
         "indispensable": [
-            ("(Risas) ¿Piensan que Google es ___?", "(Risas) ¿Piensan que Google es indispensable?", "(Laughter) Do you think Google is indispensable?"),
             ("Fui testigo de algo ___ para tu aprendizaje.", "Fui testigo de algo indispensable para tu aprendizaje.", "I absolutely witnessed something indispensable to your learning."),
             ("Esta noche, señor, estoy retenido en Paris por un asunto ___.", "Esta noche, señor, estoy retenido en Paris por un asunto indispensable.", "\"This evening, monsieur, I am detained in Paris by indispensable business.\""),
         ],
@@ -11486,11 +11025,9 @@ extension SeedData {
         ],
         "indulto": [
             ("¿Sabe el rey que anuló el ___?", "¿Sabe el rey que anuló el indulto?", "Is the King aware that he cancelled the pardon?"),
-            ("Chile: Controversia por propuesta de ___ de Iglesia Católica", "Chile: Controversia por propuesta de Indulto de Iglesia Católica", "Chile: Controversy Over Pardon Proposal by Catholic Church · Global Voices"),
             ("El ___ a un condutor kamikaze homicida indigna a España", "El indulto a un condutor kamikaze homicida indigna a España", "Commuted Sentence for Driver Who Killed Young Man Causes Outcry · Global Voices"),
         ],
         "ineficaz": [
-            ("TR: ¿En qué es ___ actualmente la comisión sirio-libanesa?", "TR: ¿En qué es ineficaz actualmente la comisión sirio-libanesa?", "TR: How is the current Lebanese-Syrian commission ineffective?"),
             ("Magaidi condena el ___ liderazgo de Kibaki:", "Magaidi condena el ineficaz liderazgo de Kibaki:", "Magaidi condemns Kibaki’s ineffective leadership:"),
             ("La oposición es ___ y no es interesante.", "La oposición es ineficaz y no es interesante.", "The opposition is toothless and not interesting."),
         ],
@@ -11505,7 +11042,6 @@ extension SeedData {
             ("No todos los observadores estuvieron ___ optimistas.", "No todos los observadores estuvieron inequívocamente optimistas.", "Not all observers were unequivocally optimistic."),
         ],
         "inestable": [
-            ("NB: Pudo haber sido más ___,", "NB: Pudo haber sido más inestable,", "NB: It could have been more unstable than it was."),
             ("Y donde hay identidad, siempre será ___.", "Y donde hay identidad, siempre será inestable.", "And where there's identity, it will always be unstable."),
             ("Es una dicotomía difícil, ___.", "Es una dicotomía difícil, inestable.", "This is a difficult, unstable binary."),
         ],
@@ -11541,7 +11077,6 @@ extension SeedData {
         ],
         "inflación": [
             ("¿La crisis inducirá a una ___ prolongada?", "¿La crisis inducirá a una inflación prolongada?", "Will the crisis induce prolonged inflation?"),
-            ("Argentina: Los bloggers discuten la ___", "Argentina: Los bloggers discuten la inflación", "Argentina: Bloggers Discuss Inflation · Global Voices"),
             ("La ___ es una vieja enfermedad de la economía argentina.", "La inflación es una vieja enfermedad de la economía argentina.", "High inflation is an old scourge of the Argentine economy."),
         ],
         "influir": [
@@ -11571,10 +11106,8 @@ extension SeedData {
         "ingeniero": [
             ("–¿Qué te ocurre, Nab? –le preguntó el ___.", "–¿Qué te ocurre, Nab? –le preguntó el ingeniero.", "\"What do you want to say, Neb?\" asked the engineer."),
             ("¿El señor Smith no es ___ de profesión?", "¿El señor Smith no es ingeniero de profesión?", "\"Well, is not the captain the best engineer in his profession?"),
-            ("Ja; ¿Cuál es su ocupación? diseñador industrial e ___ social", "Ja; ¿Cuál es su ocupación? diseñador industrial e ingeniero social", "The solutions he has presented for more than thirty years (maglev trains, self erecting buildings, self-sustaining houses) still haven't been widely adopted due to the monetary system's constraints."),
         ],
         "ingeniero de software": [
-            ("Yo soy un ___ en Dean &amp; Dean.", "Yo soy un ingeniero de software en Dean &amp; Dean.", "I'm a software engineer at Dean &amp; Dean."),
             ("por eso un ___ gana tanto dinero.", "por eso un ingeniero de software gana tanto dinero.", "That's why a software engineer makes so much money."),
             ("Alvin, ___ y cofundador, creó estas herramientas.", "Alvin, ingeniero de software y cofundador, creó estas herramientas.", "Alvin, our software engineer and co-founder, has built these tools."),
         ],
@@ -11610,7 +11143,6 @@ extension SeedData {
         ],
         "injustamente": [
             ("¿Por qué me acusas ___?", "¿Por qué me acusas injustamente?", "Why are you accusing me unfairly?"),
-            ("Muy ___, en mi opiniуn. їQuiйn mбs pudo hacerlo?", "Muy injustamente, en mi opiniуn. їQuiйn mбs pudo hacerlo?", "Muy injustamente, en mi opiniуn. їQuiйn mбs pudo hacerlo?"),
             ("Revela que el GeomGae fué acusado ___ en 1681.", "Revela que el GeomGae fué acusado injustamente en 1681.", "It says they know about the 1681 incident."),
         ],
         "injusto": [
@@ -11719,7 +11251,6 @@ extension SeedData {
             ("Hicimos la ___ de la línea de producción durante el verano.", "Hicimos la instalación de la línea de producción durante el verano.", "We did the line install over the summer."),
         ],
         "instalación artística": [
-            ("Colombia: Video de ___ y Performance en Bogotá", "Colombia: Video de instalación artística y Performance en Bogotá", "Colombia: Video of Art Installation and Performance in Bogotá · Global Voices"),
             ("___ por Colectivo Camiseta (La CoCa).", "Instalación artística por Colectivo Camiseta (La CoCa).", "Artistic installation by Colectivo Camiseta (La CoCa)."),
         ],
         "instalar": [
@@ -11749,7 +11280,6 @@ extension SeedData {
         ],
         "instrumento": [
             ("La ayuda es un mal ___, ¿y saben por qué?", "La ayuda es un mal instrumento, ¿y saben por qué?", "Aid is the bad instrument, and do you know why?"),
-            ("DB: Se necesita un ___ útil para eso, ¿no?", "DB: Se necesita un instrumento útil para eso, ¿no?", "DB: You need a pretty cool tool to do that, right?"),
             ("Tocas un ___ musical, ¿verdad?", "Tocas un instrumento musical, ¿verdad?", "You play a musical instrument, don't you?"),
         ],
         "insulina": [
@@ -11833,7 +11363,6 @@ extension SeedData {
             ("Para ello, vamos a ___ las y's y las x's.", "Para ello, vamos a intercambiar las y's y las x's.", "But then we'll just have to switch the ys and xs."),
         ],
         "intercambio": [
-            ("¿___, acabo de adquirir un auto nuevo? También, es similar.", "¿intercambio, acabo de adquirir un auto nuevo? También, es similar.", "Also, it's similar."),
             ("Se volvió para mí una transacción, una especie de ___.", "Se volvió para mí una transacción, una especie de intercambio.", "It became a transaction for me, became sort of a trade."),
             ("Participantes del Programa de ___ periodístico afgano-pakistaní 2012.", "Participantes del Programa de intercambio periodístico afgano-pakistaní 2012.", "Participants of Afghan-Pak Programme 2012."),
         ],
@@ -11844,7 +11373,6 @@ extension SeedData {
         ],
         "interesar": [
             ("Y quiero dejarles con algunos puntos que creo les pueden ___.", "Y quiero dejarles con algunos puntos que creo les pueden interesar.", "And I just want to leave you with the personal points that I think you might be interested in."),
-            ("llegar a ___ o no mis ideas.", "llegar a interesar o no mis ideas.", "That's it."),
             ("Pensé que le podría ___.", "Pensé que le podría interesar.", "I thought he might be interested."),
         ],
         "interfaz": [
@@ -11854,18 +11382,12 @@ extension SeedData {
         ],
         "intermitente": [
             ("¿Qué es esa lucecita ___?", "¿Qué es esa lucecita intermitente?", "What's that little blinking light?"),
-            ("C?mo cambiar reemplaza el tiempo ___, żalguien se acuerda?", "C?mo cambiar reemplaza el tiempo intermitente, żalguien se acuerda?", "How to change intermittent replaces the time, anyone remember?"),
-            ("Ancho de banda: Limitado, ___", "Ancho de banda: Limitado, intermitente", "Broadband: Limited, Intermittent"),
         ],
         "internacional": [
-            ("SD: ¿Qué debe hacer la comunidad ___ por Siria?", "SD: ¿Qué debe hacer la comunidad internacional por Siria?", "SD: What does the international community need to do for Syria?"),
-            ("Nepal: ¿Por qué no hay un Día ___ del Hombre?", "Nepal: ¿Por qué no hay un Día Internacional del Hombre?", "Nepal: Why There Is No International Men's Day? · Global Voices"),
             ("El espionaje es una práctica ___ aceptada.", "El espionaje es una práctica internacional aceptada.", "Espionage, you see, is an accepted international practice."),
         ],
         "internet": [
-            ("China: ¿Está ___ más libre que nunca?", "China: ¿Está internet más libre que nunca?", "China: The Internet is freer than ever? · Global Voices"),
             ("El año 2010 marcó unas tendencias muy importantes del ___ ruso.", "El año 2010 marcó unas tendencias muy importantes del internet ruso.", "2010 highlighted several important trends of Russian Internet."),
-            ("Nigeria: El papel de ___ en la difusión del humanismo", "Nigeria: El papel de internet en la difusión del humanismo", "Nigeria: Role of the Internet in Spreading Humanism · Global Voices"),
         ],
         "internista": [
             ("Ella era un pediatra, su marido era un ___.", "Ella era un pediatra, su marido era un internista.", "She was a pediatrician, her husband was an internist."),
@@ -11898,7 +11420,6 @@ extension SeedData {
             ("Es cobarde ___ a un pequeño medio de comunicación -", "Es cobarde intimidar a un pequeño medio de comunicación -", "It is cowardly to bully a small media organization -"),
         ],
         "intoxicación": [
-            ("Chile: Refinería reabre a pesar de ___ en una escuela", "Chile: Refinería reabre a pesar de intoxicación en una escuela", "Chile: Refinery Reopens in Spite of Intoxication in School · Global Voices"),
             ("Tal vez tienes una ___ alimentaria.", "Tal vez tienes una intoxicación alimentaria.", "Let's go to the hospital. Maybe you have a food poisoning."),
             ("La Religión es un tipo de ___.", "La Religión es un tipo de intoxicación.", "Religion is a sort of intoxication."),
         ],
@@ -11914,7 +11435,6 @@ extension SeedData {
         ],
         "introvertido": [
             ("La magia es algo muy ___.", "La magia es algo muy introvertido.", "So magic is a very introverted field."),
-            ("(Risas) Len es un ___.", "(Risas) Len es un introvertido.", "(Laughter) Len is an introvert."),
             ("Su hijo será ___, socialmente inepto, obsesivo, y sufrirá ansiedad.", "Su hijo será introvertido, socialmente inepto, obsesivo, y sufrirá ansiedad.", "Your child will be withdrawn, socially inept, obsessive, and have anxiety."),
         ],
         "intuición": [
@@ -11929,8 +11449,6 @@ extension SeedData {
         ],
         "inundación": [
             ("¿Cómo se puede retratar la realidad de la ___?", "¿Cómo se puede retratar la realidad de la inundación?", "How can you portray the reality of flood?"),
-            ("Tailandia: Mapas de la ___ y herramientas de seguimiento del desastre", "Tailandia: Mapas de la inundación y herramientas de seguimiento del desastre", "Thailand: Flood Maps and Disaster Monitoring Tools · Global Voices"),
-            ("Rusia: atrapado robando suministros para las víctimas de la ___", "Rusia: atrapado robando suministros para las víctimas de la inundación", "Russia: Caught Stealing Supplies from Flood Victims · Global Voices"),
         ],
         "inventar": [
             ("Pues, ¿cómo vamos a ___ algo si no tenemos ganas?", "Pues, ¿cómo vamos a inventar algo si no tenemos ganas?", "After all, are we likely to invent something if we have no desire to do so?"),
@@ -11948,7 +11466,6 @@ extension SeedData {
             ("Esa es la esencia de ___.", "Esa es la esencia de inversión.", "That is the notion of investment."),
         ],
         "invertir": [
-            ("GV: ¿Ves alguna manera de ___ esto?", "GV: ¿Ves alguna manera de invertir esto?", "GV: Do you see a way to reverse this?"),
             ("¿Pero en cuál deberían ___?", "¿Pero en cuál deberían invertir?", "Now, but which should you invest in?"),
             ("Y número cinco: ___ en mujeres, ¿de acuerdo?", "Y número cinco: invertir en mujeres, ¿de acuerdo?", "And number five: invest in women, all right?"),
         ],
@@ -11990,7 +11507,6 @@ extension SeedData {
         "involucrado": [
             ("¿Y quién más está ___ en este caso?", "¿Y quién más está involucrado en este caso?", "And who else are involved in this case?"),
             ("¿Qué es lo que le motiva a estar ___?", "¿Qué es lo que le motiva a estar involucrado?", "What motivates you to be so involved?"),
-            ("GV: ¿Quién está ___ en esta iniciativa?", "GV: ¿Quién está involucrado en esta iniciativa?", "GV: Who is involved in this initiative?"),
         ],
         "involucrar": [
             ("¿Y Susan sabía cómo ___ a sus empleados?", "¿Y Susan sabía cómo involucrar a sus empleados?", "And did Susan know how to engage her employees?"),
@@ -12084,8 +11600,6 @@ extension SeedData {
         ],
         "jalar": [
             ("Tengo que ___ una cuerda para encender mi podadora.", "Tengo que jalar una cuerda para encender mi podadora.", "I have to pull a ripcord to start my lawn mower."),
-            ("No pueden permitirse nunca ___ del gatillo.", "No pueden permitirse nunca jalar del gatillo.", "They can't ever pull the trigger. (Laughter)"),
-            ("(Risas) Los tomadores de decisiones tienen que ___ el gatillo.", "(Risas) Los tomadores de decisiones tienen que jalar el gatillo.", "Decision-makers have to pull the trigger."),
         ],
         "jarabe": [
             ("¿Qué cura el ___? ¿Para qué sirve?", "¿Qué cura el jarabe? ¿Para qué sirve?", "What does the syrup treat, and what is it for?"),
@@ -12108,7 +11622,6 @@ extension SeedData {
             ("¿Cuál es el valor de una ___ llena de peniques?", "¿Cuál es el valor de una jarra llena de peniques?", "What is the worth of a jar full of pennies?"),
         ],
         "jefa": [
-            ("¿Yo soy la ___ de las Señoras de Inspectoras de Auditoria?", "¿Yo soy la Jefa de las Señoras de Inspectoras de Auditoria?", "Inspector General?"),
             ("En cierto sentido, es la ___ del cerebro.", "En cierto sentido, es la jefa del cerebro.", "In some sense, it's your brain's boss."),
             ("A partir de ahora, yo soy la ___.", "A partir de ahora, yo soy la jefa.", "From now on, I'm the boss."),
         ],
@@ -12170,7 +11683,6 @@ extension SeedData {
         "juez": [
             ("¿Qué crees que dirá al ___?", "¿Qué crees que dirá al juez?", "What do you think he will say to the judge?"),
             ("Uno es el rey y el otro es el ___.", "Uno es el rey y el otro es el juez.", "One is the king and the other is the judge."),
-            ("___ saudita a activista encarcelado: ¿Necesitas un abogado?", "Juez saudita a activista encarcelado: ¿Necesitas un abogado?", "Saudi Judge to Jailed Activist: You Need a Lawyer?"),
         ],
         "jugador": [
             ("sea un amplificador de la imaginación del ___?", "sea un amplificador de la imaginación del jugador?", "How do we make the gameplay, you know, basically the player's imagination amplifier?"),
@@ -12195,11 +11707,9 @@ extension SeedData {
         "julio": [
             ("Mexicanos votando en Ciudad de México el 1 de ___.", "Mexicanos votando en Ciudad de México el 1 de julio.", "\"The vote is free and secret\". Mexicans voting in Mexico City on 1 July."),
             ("Foto de @pakinamamer ( 30 de ___ de 2011)", "Foto de @pakinamamer ( 30 de julio de 2011)", "Photo by @pakinamamer (July 30, 2011)"),
-            ("(Risas) Esto es el 4 de ___.", "(Risas) Esto es el 4 de julio.", "(Laughter) And this is on the Fourth of July."),
         ],
         "junio": [
             ("Estaré aquí para el 13 de ___, para el tribunal.", "Estaré aquí para el 13 de junio, para el tribunal.", "I'll be here for June 13th, for the trial."),
-            ("Editorial: Cleis Press (14 de ___ del 2007)", "Editorial: Cleis Press (14 de junio del 2007)", "Publisher: Cleis Press (June 14, 2007)"),
             ("Yumiko se casó en ___ con un amigo de la infancia.", "Yumiko se casó en junio con un amigo de la infancia.", "Yumiko married a childhood friend last June."),
         ],
         "junta": [
@@ -12230,7 +11740,6 @@ extension SeedData {
         "juvenil": [
             ("¿Necesita Malasia un Parlamento ___?", "¿Necesita Malasia un Parlamento Juvenil?", "Does Malaysia Need a Youth Parliament? · Global Voices"),
             ("Queremos enviarla a la televisión pública... ... a la sección ___.", "Queremos enviarla a la televisión pública... ... a la sección juvenil.", "We would like send it to the public television, children's division."),
-            ("Singapur: Proponen un parlamento ___", "Singapur: Proponen un parlamento juvenil", "Singapore: Proposed Youth Parliament · Global Voices"),
         ],
         "juzgado": [
             ("Podemos ir al ___ por favor? le dire todo de acuerdo?", "Podemos ir al juzgado por favor? le dire todo de acuerdo?", "Can we go to Justice, please? I'll tell you everything. Okay?"),
@@ -12248,7 +11757,6 @@ extension SeedData {
             ("El ___ bloquea y reacciona, eso es lo masculino.", "El karate bloquea y reacciona, eso es lo masculino.", "Karate blocks and reacts, that's masculine."),
         ],
         "kayak": [
-            ("(Risas) y mi hermano, ___.", "(Risas) y mi hermano, Kayak.", "(Laughter) And my brother, Kayak."),
             ("Y luego lo tercero - ¡bam!, ___.", "Y luego lo tercero - ¡bam!, Kayak.", "And then the third thing -- bam! -- Kayak. What?"),
             ("___ esquimotaje en las aguas bravas es un técnico avanzado.", "Kayak esquimotaje en las aguas bravas es un técnico avanzado.", "Rolling a kayak in white water is an advanced skill."),
         ],
@@ -12436,13 +11944,11 @@ extension SeedData {
             ("No tuvimos la oportunidad de su ___?", "No tuvimos la oportunidad de su lección?", "Didn't get your lesson?"),
         ],
         "leche": [
-            ("Hola. żMe puedes poner un descafeinado doble con ___ desnatada?", "Hola. żMe puedes poner un descafeinado doble con leche desnatada?", "- You are the one with a stalker. - Are the doors locked?"),
             ("¿Beberías la angustia de la ___ materna?", "¿Beberías la angustia de la leche materna?", "Would you drink the woes of your mother-like milk"),
             ("Él se echó ___ en el café.", "Él se echó leche en el café.", "He put milk in his coffee."),
         ],
         "lechuga": [
             ("¿A precio de tomate? ¿A precio de ___?", "¿A precio de tomate? ¿A precio de lechuga?", "As much as what we pay for tomato or for lettuce."),
-            ("BM: No. Empleado: ¿Un sándwich de ___ y tomate?", "BM: No. Empleado: ¿Un sándwich de lechuga y tomate?", "Office worker: BLT?BM: No."),
             ("¿El cajón donde ponen la ___?", "¿El cajón donde ponen la lechuga?", "The drawer that you put your lettuces in?"),
         ],
         "lechuza": [
@@ -12500,13 +12006,11 @@ extension SeedData {
             ("Se necesita un medio por el cual se pueda ___ la acción internacional.", "Se necesita un medio por el cual se pueda legitimar la acción internacional.", "It needs a means by which you can legitimize international action."),
         ],
         "legítimo": [
-            ("Al-Qahtani: ¿Es ___ encarcelar sin sentencia?", "Al-Qahtani: ¿Es legítimo encarcelar sin sentencia?", "Al-Qahtani: Is it legitimate to imprison without sentences?"),
             ("¿Cuál príncipe es el ___ sucesor al trono?", "¿Cuál príncipe es el legítimo sucesor al trono?", "Which prince is the legitimate heir to the throne?"),
             ("¿Es o no un ataque ___?", "¿Es o no un ataque legítimo?", "Is it a Lawful Attack or Not?"),
         ],
         "lejano": [
             ("¿O el estallido ___ de un trueno?", "¿O el estallido lejano de un trueno?", "Or the distant peel of thunder?"),
-            ("Y eso, por supuesto, sucede en un futuro ___.", "Y eso, por supuesto, sucede en un futuro lejano.", "Jonathan is twenty-four years old. How many years will it take for Salman to be exactly four times as old as Jonathan? Well, let's figure this one out."),
             ("Podrían ir a la India, o el ___ Oriente.", "Podrían ir a la India, o el Lejano Oriente.", "You might go to India, the Far East."),
         ],
         "lejos": [
@@ -12535,8 +12039,6 @@ extension SeedData {
             ("Espero que usas ___ cuando conduces.", "Espero que usas lentes cuando conduces.", "I hope you wear glasses when you're driving."),
         ],
         "lento": [
-            ("¿Por qué estas caminando tan ___? ¡Apúrate!", "¿Por qué estas caminando tan lento? ¡Apúrate!", "- Well?"),
-            ("TK: ¿Era un poco ___?", "TK: ¿Era un poco lento?", "TK: So it was a little slow?"),
             ("Un caso clásico y punto es el reconocimiento gruelingly ___", "Un caso clásico y punto es el reconocimiento gruelingly lento", "The weight of evidence is not itself a temporal event but a relation of implication between certain classes or types of propositions."),
         ],
         "letargo": [
@@ -12565,7 +12067,6 @@ extension SeedData {
             ("Así que, nuevamente, en la ___ no hace falta ser científico espaciale.", "Así que, nuevamente, en la lexicografía no hace falta ser científico espaciale.", "So again, lexicography is not rocket science."),
         ],
         "ley": [
-            ("La venganza es una ___ del wulin.", "La venganza es una ley del wulin.", "Did you meet Ms. Yoo, the counsel for the defendant, yesterday? What did you talk about? The prosecution's witness is a drug addict undergoing psychiatric therapy."),
             ("Ni las autoridades, ni quienes aplican la ___ reaccionan.", "Ni las autoridades, ni quienes aplican la ley reaccionan.", "Neither the authorities, nor the law enforcement react to it."),
             ("La ___ antidiscriminación de Corea del Sur versus el rechazo conservador", "La ley antidiscriminación de Corea del Sur versus el rechazo conservador", "South Korean Anti-Discrimination Law Faces Conservative Pushback · Global Voices"),
         ],
@@ -12587,7 +12088,6 @@ extension SeedData {
         "liberar": [
             ("-¿No es posible ___ al Nautilus vaciando sus depósitos para reequilibrarlo?", "-¿No es posible liberar al Nautilus vaciando sus depósitos para reequilibrarlo?", "\"But can't we float the Nautilus clear by emptying its ballast tanks, to regain our balance?\""),
             ("Sin embargo, hay una alternativa que puede ___ el conocimiento.", "Sin embargo, hay una alternativa que puede liberar el conocimiento.", "There is, however, an alternative that can set knowledge free."),
-            ("Grecia: Campaña en Twitter para ___ a reportero activista arrestado", "Grecia: Campaña en Twitter para liberar a reportero activista arrestado", "Greece: Twitter Campaign to Release Arrested Activist Reporter · Global Voices"),
         ],
         "libertad": [
             ("[Mooji:] ¿Tú obtuviste la ___?", "[Mooji:] ¿Tú obtuviste la libertad?", "[Mooji:] You got freedom?"),
@@ -12596,7 +12096,6 @@ extension SeedData {
         ],
         "libre": [
             ("- ¿Dejarías que le ___?", "- ¿Dejarías que le libre?", "- Would you let him free?"),
-            ("China: ¿Está internet más ___ que nunca?", "China: ¿Está internet más libre que nunca?", "China: The Internet is freer than ever? · Global Voices"),
             ("¿Qué te gusta hacer en tu tiempo ___?", "¿Qué te gusta hacer en tu tiempo libre?", "What do you like to do in your free time?"),
         ],
         "libremente": [
@@ -12606,7 +12105,6 @@ extension SeedData {
         ],
         "librero": [
             ("Pon el libro de vuelta en el ___.", "Pon el libro de vuelta en el librero.", "Put the book back in the bookcase."),
-            ("Hong Kong: La muerte de un ___", "Hong Kong: La muerte de un librero", "Hong Kong: The Death of a Bookseller · Global Voices"),
             ("Solo hay libros en el ___.", "Solo hay libros en el librero.", "There are only books on the bookshelf."),
         ],
         "libreto": [
@@ -12637,7 +12135,6 @@ extension SeedData {
         "liderar": [
             ("¿Estamos preparados para ___ con el ejemplo?", "¿Estamos preparados para liderar con el ejemplo?", "Are we prepared to truly lead by example?"),
             ("¿Qué podemos aprender de artistas y diseñadores para saber cómo ___?", "¿Qué podemos aprender de artistas y diseñadores para saber cómo liderar?", "What can we learn from artists and designers for how to lead?"),
-            ("¿___ con sus narices? &amp;gt;&amp;gt;, supongo.", "¿liderar con sus narices? &amp;gt;&amp;gt;, supongo.", "lead with their noses? &amp;gt;&amp;gt;, I suppose."),
         ],
         "lidiar": [
             ("¿Cómo puedo ___ con eso?", "¿Cómo puedo lidiar con eso?", "How do I deal with it?"),
@@ -12647,7 +12144,6 @@ extension SeedData {
         "liga": [
             ("¿Sosteniendo el trofeo de la ___ premier?", "¿Sosteniendo el trofeo de la liga premier?", "Raising the premier league trophy?"),
             ("La ___ de los Pelirrojos", "La Liga de los Pelirrojos", "THE RED-HEADED LEAGUE"),
-            ("Bangladesh: Victoria aplastante para la ___ Awami guiada por Gran Alianza", "Bangladesh: Victoria aplastante para la Liga Awami guiada por Gran Alianza", "Bangladesh: Landslide Victory For Awami League Led Grand Alliance · Global Voices"),
         ],
         "ligamento": [
             ("Pero ¿qué pasa cuando se necesita un ___ intacto?", "Pero ¿qué pasa cuando se necesita un ligamento intacto?", "But what happens for your ligament when I need an intact ligament?"),
@@ -12655,8 +12151,6 @@ extension SeedData {
             ("La prueba del cajón posterior busca un desgarro del ___ cruzado posterior.", "La prueba del cajón posterior busca un desgarro del ligamento cruzado posterior.", "The posterior drawer test assesses for a tear of the posterior cruciate ligament."),
         ],
         "ligar": [
-            ("Estou tentando dormir, nсo pode ___ para outro?", "Estou tentando dormir, nсo pode ligar para outro?", "Estou tentando dormir, nсo pode ligar para outro?"),
-            ("Vou ___ para a AssistЖncia Infantil.", "Vou ligar para a AssistЖncia Infantil.", "Vou ligar para a AssistЖncia Infantil."),
             ("Porque el objetivo de esto no es ___.", "Porque el objetivo de esto no es ligar.", "Because the point of this isn't swiping."),
         ],
         "ligero": [
@@ -12702,7 +12196,6 @@ extension SeedData {
         "lindo": [
             ("¿Sabes... por qué? él es totalmente ___, lo digo en serio", "¿Sabes... por qué? él es totalmente lindo, lo digo en serio", "You know... why? he is totally cute, I'm serious"),
             ("¿Qué tal un ___ sándwich hecho con pollo recién cocinado?", "¿Qué tal un lindo sándwich hecho con pollo recién cocinado?", "How about a nice chicken club sandwich made with fresh cooked chicken?"),
-            ("Qué ___, ¿sabes ser cortés?", "Qué lindo, ¿sabes ser cortés?", "SW: That's nice. Can you be polite?"),
         ],
         "lingüística": [
             ("Podemos pensar, ¿Cómo pueden utilizarse modelos en ___?", "Podemos pensar, ¿Cómo pueden utilizarse modelos en lingüística?", "So you might think, how can you use models in linguistics?"),
@@ -12730,7 +12223,6 @@ extension SeedData {
             ("¿Está ___ Francia para un presidente negro?", "¿Está lista Francia para un presidente negro?", "Is France ready for a black president? · Global Voices"),
         ],
         "listo": [
-            ("¿Qué tiene que ver el ser ___ con este trabajo?", "¿Qué tiene que ver el ser listo con este trabajo?", "Oi, fucking wanker."),
             ("Crees que eres muy ___, ¿no?", "Crees que eres muy listo, ¿no?", "You think you're pretty smart, don't you?"),
             ("Que sea ___ para que pueda llevarlo al hotel, ¿eh?", "Que sea listo para que pueda llevarlo al hotel, ¿eh?", "Que sea listo para que pueda llevarlo al hotel, ¿eh?"),
         ],
@@ -12747,7 +12239,6 @@ extension SeedData {
         "literario": [
             ("Francia: ¿Prestigioso premio ___ conlleva un “deber de reserva”?", "Francia: ¿Prestigioso premio literario conlleva un “deber de reserva”?", "France: Does Prestigious Literary Award Entail a \"Duty of Restraint\" ? · Global Voices"),
             ("Este autor tiene un hermoso estilo ___.", "Este autor tiene un hermoso estilo literario.", "The author has a beautiful style."),
-            ("Mauricio: Tikoulou, éxito ___ infantil", "Mauricio: Tikoulou, éxito literario infantil", "Mauritius: Tikoulou, Children’s Literature Success Story · Global Voices"),
         ],
         "litografía": [
             ("Permitió la escritura caligráfica sin las complicaciones de la ___.", "Permitió la escritura caligráfica sin las complicaciones de la litografía.", "It allowed calligraphic writing without the problems of lithography."),
@@ -12834,8 +12325,6 @@ extension SeedData {
             ("El 70% de los chicos no supo ___", "El 70% de los chicos no supo localizar", "70 percent of the kids couldn't find"),
         ],
         "loco": [
-            ("żEstás ___? No eres más que un nińo.", "żEstás loco? No eres más que un nińo.", "Can't you see you're wrecking your life with that maniac and a bunch of trigger-happy fools?"),
-            ("(Aplausos) ¿Algún libanés? Sí. Oriente Medio se está volviendo ___.", "(Aplausos) ¿Algún libanés? Sí. Oriente Medio se está volviendo loco.", "(Cheering) Lebanese, yeah."),
             ("¿Qué tan ___ tienes que estar para seguir una idea así?", "¿Qué tan loco tienes que estar para seguir una idea así?", "How crazy do you have to be in order to pursue such an idea?"),
         ],
         "locutor": [
@@ -12851,12 +12340,10 @@ extension SeedData {
         "logro": [
             ("Y, por supuesto que es un gran ___.", "Y, por supuesto que es un gran logro.", "And of course it's a huge achievement."),
             ("Es un ___ notable para la humanidad.", "Es un logro notable para la humanidad.", "And that's a remarkable achievement for humanity."),
-            ("SW: Yeah. En especial le gusta su ___ más reciente, SpaceShipOne.", "SW: Yeah. En especial le gusta su logro más reciente, SpaceShipOne.", "SW: Yeah. She especially likes his latest achievement, SpaceShipOne."),
         ],
         "loma": [
             ("Vista del centro de Medellín desde La ___.", "Vista del centro de Medellín desde La Loma.", "Vista of Downtown Medellin from La Loma"),
             ("Así que aquí vamos a nuestra ___ axón, Tenemos más puertas.", "Así que aquí vamos a nuestra Loma axón, Tenemos más puertas.", "So as we go right here to our axon hillock, we have more gates."),
-            ("Colombia: El camino hacia La ___ en Medellín", "Colombia: El camino hacia La Loma en Medellín", "Colombia: The Road to La Loma in Medellín · Global Voices"),
         ],
         "longitud de onda": [
             ("Cuando la frecuencia crece, la ___ baja.", "Cuando la frecuencia crece, la longitud de onda baja.", "When the frequency goes up, the wavelength comes down."),
@@ -12866,16 +12353,12 @@ extension SeedData {
         "loro": [
             ("El ___ puede imitar la voz de la gente.", "El loro puede imitar la voz de la gente.", "A parrot can mimic a person's voice."),
             ("A mi ___ no le gustan las semillas de girasol.", "A mi loro no le gustan las semillas de girasol.", "My parrot doesn't like sunflower seeds."),
-            ("(Risas) Veamos el pez ___.", "(Risas) Veamos el pez loro.", "Take parrotfish."),
         ],
         "loseta": [
-            ("DJ: Ahora mismo estoy mirando una ___, pero...", "DJ: Ahora mismo estoy mirando una loseta, pero...", "DJ: Right now, I'm looking at a tile, but ..."),
             ("La ___, como la vieron antes, enciende una luz en ella.", "La loseta, como la vieron antes, enciende una luz en ella.", "The slab, as you saw previously, has a light in it."),
             ("Así fue como probamos un millón de pasos en una ___ Pavegen.", "Así fue como probamos un millón de pasos en una loseta Pavegen.", "This is how we tested a million footsteps on a Pavegen slab."),
         ],
         "lucha libre": [
-            ("(Risas) Crecí mirando ___ profesional con mi papá.", "(Risas) Crecí mirando lucha libre profesional con mi papá.", "(Laughter) I grew up watching professional wrestling with my dad."),
-            ("Rusia: Explican éxito del Sistema Nacional de ___", "Rusia: Explican éxito del Sistema Nacional de Lucha Libre", "Russia: Success of National Wrestling System Explained · Global Voices"),
             ("Y a propósito, a ella no le gusta la ___.", "Y a propósito, a ella no le gusta la lucha libre.", "And by the way -- she does not like pro wrestling."),
         ],
         "luchador": [
@@ -12910,12 +12393,9 @@ extension SeedData {
         ],
         "luminoso": [
             ("Como ___, yo quiero...¿Yo, quién? ¿quién?", "Como luminoso, yo quiero...¿Yo, quién? ¿quién?", "Like a highlighter you know. 'I want to' Who, who, who?' Not every time 'I' is used."),
-            ("Perú: ¿Sendero ___ en la Universidad de San Marcos?", "Perú: ¿Sendero Luminoso en la Universidad de San Marcos?", "Peru: Shining Path at the University of San Marcos? · Global Voices"),
             ("Ejecutadas estas órdenes, la fragata se alejó rápidamente del foco ___.", "Ejecutadas estas órdenes, la fragata se alejó rápidamente del foco luminoso.", "These orders were executed, and the frigate swiftly retreated from this core of light."),
         ],
         "luna": [
-            ("(Video) John F. Kennedy: Algunos preguntan, ¿por qué la ___?", "(Video) John F. Kennedy: Algunos preguntan, ¿por qué la Luna?", "(Video) John F. Kennedy: But why, some say, the moon?"),
-            ("Esteban: De la ___, te lo juro.", "Esteban: De la luna, te lo juro.", "Stephano: Out of the moon, I do assure thee."),
             ("La ___ brilla con fuerza.", "La luna brilla con fuerza.", "The moon is shining brightly."),
         ],
         "lunes": [
@@ -12964,7 +12444,6 @@ extension SeedData {
             ("Quiero que siga la ___.", "Quiero que siga la lógica.", "I want you to follow the"),
         ],
         "lógicamente": [
-            ("Bueno, ¿qué quiere decir eso, ___?", "Bueno, ¿qué quiere decir eso, lógicamente?", "[laughs]"),
             ("Pero después de pensarlo ___,", "Pero después de pensarlo lógicamente,", "At first, I thought it was a strange idea.] [But after thinking logically about it, ]"),
             ("Y ___ seguía yo pensando cómo es que para pasar esto.", "Y lógicamente seguía yo pensando cómo es que para pasar esto.", "And logically I kept thinking how is this going to happen."),
         ],
@@ -12975,7 +12454,6 @@ extension SeedData {
         ],
         "lúcido": [
             ("Es posible escuchar que estaba completamente ___ durante la conversación.", "Es posible escuchar que estaba completamente lúcido durante la conversación.", "It is possible to hear that he was completely lucid during the conversation."),
-            ("(Risas) Estaba completamente ___, pero severamente congelado.", "(Risas) Estaba completamente lúcido, pero severamente congelado.", "(Laughter) So he was completely lucid, but he was very severely frostbitten."),
             ("Es un escritor muy ___ y un altavoz de acoplamiento.", "Es un escritor muy lúcido y un altavoz de acoplamiento.", "He's the author of the book, Why Evolution Is True."),
         ],
         "lúgubre": [
@@ -12986,12 +12464,9 @@ extension SeedData {
         "macabro": [
             ("Esto parece, sin duda, una escena surrealista de un teatro ___.", "Esto parece, sin duda, una escena surrealista de un teatro macabro.", "This was, undoubtedly, a surreal scene from the theatre of the macabre."),
             ("El tanatorio es un espectáculo ___.", "El tanatorio es un espectáculo macabro.", "The morgue is a macabre spectacle."),
-            ("Tailandia: Sobre el ___ descubrimiento de dos mil fetos en un templo budista", "Tailandia: Sobre el macabro descubrimiento de dos mil fetos en un templo budista", "Thailand: Two Thousand Dead Fetuses in Buddhist Temple · Global Voices"),
         ],
         "machismo": [
             ("¿Tanto dinero da el ___?", "¿Tanto dinero da el machismo?", "Is machismo such a money maker?"),
-            ("Francia: testimonios de ___ cotidiano", "Francia: testimonios de machismo cotidiano", "France: Stories of Everyday Sexism · Global Voices"),
-            ("Brasil: Escándalo sexual en Gran Hermano provoca un debate sobre ___", "Brasil: Escándalo sexual en Gran Hermano provoca un debate sobre machismo", "Brazil: Sex Scandal on Big Brother Provokes Debate on Machismo · Global Voices"),
         ],
         "madera": [
             ("¿Qué, no utilizar la ___ en absoluto?", "¿Qué, no utilizar la madera en absoluto?", "What, do not use wood at all?"),
@@ -13000,7 +12475,6 @@ extension SeedData {
         ],
         "madre": [
             ("Lo que se dice en ?l que, Mi ___?", "Lo que se dice en ?l que, Mi madre?", "What is said about it that,"),
-            ("Mira, es igual a su ___. ŋCrees que puede conseguirlo?", "Mira, es igual a su madre. ŋCrees que puede conseguirlo?", "As you can see, the witness is a drug addict undergoing psychiatric therapy, just as the counsel said. The witness is not credible, and therefore any evidence gathered or statements made based on his interview with the counsel are not also credible."),
             ("¿Quedarse en casa con ella, con su ___ y sus hermanas?", "¿Quedarse en casa con ella, con su madre y sus hermanas?", "Stay at home with her and her mother and sisters?"),
         ],
         "madrina": [
@@ -13067,12 +12541,10 @@ extension SeedData {
             ("Amigo, qué ___.", "Amigo, qué mala onda.", "Dude. Not cool."),
         ],
         "malabarista": [
-            ("Jean Robert-Houdin: Un mago no es un ___.", "Jean Robert-Houdin: Un mago no es un malabarista.", "Jean Robert-Houdin: A conjurer is not a juggler."),
             ("Tengo catorce años: voy a ser ___.", "Tengo catorce años: voy a ser malabarista.", "I'm 14; I'm becoming a juggler."),
             ("Un mago no es un ___.", "Un mago no es un malabarista.", "A conjurer is not a juggler."),
         ],
         "maldad": [
-            ("Corea del Sur: Samsung, ¿campeón nacional o ___ corporativa?", "Corea del Sur: Samsung, ¿campeón nacional o maldad corporativa?", "South Korea: Samsung, National Champion or Corporate Evil? · Global Voices"),
             ("¡Cuánta ___ y cuánto dolor hay en el mundo!", "¡Cuánta maldad y cuánto dolor hay en el mundo!", "There is much sorrow and evil in the world, and to-day I am terribly worried.'"),
             ("Probablemente esté momificado por su propia ___.", "Probablemente esté momificado por su propia maldad.", "He's probably mummified by his own evil."),
         ],
@@ -13082,7 +12554,6 @@ extension SeedData {
             ("No digo que tragar y tragar, por ejemplo, insultar, ___", "No digo que tragar y tragar, por ejemplo, insultar, maldecir", "I do not say I swallow and swallow, say, curse, will curse"),
         ],
         "malestar": [
-            ("Santa Lucía: El críquet - ¿símbolo de un ___ mayor?", "Santa Lucía: El críquet - ¿símbolo de un malestar mayor?", "St. Lucia: Cricket - Symbol of Wider Malaise? · Global Voices"),
             ("¿Cómo llegar al fin del ___?", "¿Cómo llegar al fin del malestar?", "Getting to the end of unrest?"),
             ("¿Cuál es la evidencia de su ___ social?", "¿Cuál es la evidencia de su malestar social?", "What's the evidence of wiping out?"),
         ],
@@ -13137,13 +12608,11 @@ extension SeedData {
         ],
         "mandar": [
             ("¿Te acordaste de ___ mi carta?", "¿Te acordaste de mandar mi carta?", "Did you remember to send my letter?"),
-            ("30 horas después de ___ un frenético SMS: “¿Estás bien?”", "30 horas después de mandar un frenético SMS: “¿Estás bien?”", "30 hours after I send a frantic SMS: “Are you ok?”"),
             ("Podríamos ___ un mensaje, por ejemplo.", "Podríamos mandar un mensaje, por ejemplo.", "We could send a message, for example."),
         ],
         "mandato": [
             ("¿George W. Bush hubiera sido elegido para un segundo ___?", "¿George W. Bush hubiera sido elegido para un segundo mandato?", "Would George W. Bush still be elected for a second term?"),
             ("El presidente boliviano en búsqueda del segundo (¿o tercer?) ___", "El presidente boliviano en búsqueda del segundo (¿o tercer?) mandato", "Bolivia's President to Seek a Second (or Third?)"),
-            ("Nepal: ¿Funcionará el ___ presidencial?", "Nepal: ¿Funcionará el mandato presidencial?", "Nepal: Will Presidential Rule Work? · Global Voices"),
         ],
         "mandíbula": [
             ("¿Cómo puede la ___ afectar al cuerpo entero?", "¿Cómo puede la mandíbula afectar al cuerpo entero?", "How can the jaw affect the entire body? --"),
@@ -13156,7 +12625,6 @@ extension SeedData {
             ("Estoy buscando algún ___ fácil de leer, con furigana.", "Estoy buscando algún manga fácil de leer, con furigana.", "I'm looking for an easy-to-read manga with furigana."),
         ],
         "manglar": [
-            ("Bangladesh: ¿Una central eléctrica junto al ___ más grande del mundo?", "Bangladesh: ¿Una central eléctrica junto al manglar más grande del mundo?", "Bangladesh's Planned Coal Power Plant Threatens Sundarbans Mangrove Forest · Global Voices"),
             ("Hordas de turistas destrozan el mayor ___ del mundo", "Hordas de turistas destrozan el mayor manglar del mundo", "Tourist Hordes Trashing World's Largest Mangrove Forest · Global Voices"),
         ],
         "mango": [
@@ -13199,7 +12667,6 @@ extension SeedData {
             ("Yo trato de ___ mi propio rostro un tanto desapasionado.", "Yo trato de mantener mi propio rostro un tanto desapasionado.", "I try to keep my own face somewhat dispassionate."),
         ],
         "mantequilla": [
-            ("Japón: ¿A dónde se ha ido toda la ___?", "Japón: ¿A dónde se ha ido toda la mantequilla?", "Japan: Where has all the butter gone? · Global Voices"),
             ("¿Cuántas calorías hay en 100 gramos de ___?", "¿Cuántas calorías hay en 100 gramos de mantequilla?", "How many calories are in 100 grams of butter?"),
             ("¿Hay ___ en el frigorífico?", "¿Hay mantequilla en el frigorífico?", "Is there any butter in the refrigerator?"),
         ],
@@ -13231,7 +12698,6 @@ extension SeedData {
         "maratón": [
             ("¿Impedirá el huracán Sandy la ___ de Nueva York?", "¿Impedirá el huracán Sandy la Maratón de Nueva York?", "Will Hurricane Sandy Stop the New York Marathon? · Global Voices"),
             ("Musulmanes lloran a víctimas de la ___ de Boston", "Musulmanes lloran a víctimas de la maratón de Boston", "Muslims Mourn Boston Marathon Victims · Global Voices"),
-            ("Equipos caninos y el ___ utilizado como un evento de entrenamiento.", "Equipos caninos y el maratón utilizado como un evento de entrenamiento.", "It's all there."),
         ],
         "maravilloso": [
             ("¿Cómo? ¡Alef, fuerza! ¡Ilana (árbol) es un nombre ___!", "¿Cómo? ¡Alef, fuerza! ¡Ilana (árbol) es un nombre maravilloso!", "You are blossoming, you're shade, your fruit, you're planted in your place"),
@@ -13300,7 +12766,6 @@ extension SeedData {
         ],
         "martes": [
             ("¿Alguien sabe por qué votamos los ___? Entrevistador: ¿Lo sabe?", "¿Alguien sabe por qué votamos los martes? Entrevistador: ¿Lo sabe?", "Anybody knows why we vote on Tuesdays?"),
-            ("¿Sabe por casualidad por qué votamos los ___?", "¿Sabe por casualidad por qué votamos los martes?", "JS:"),
             ("Pero, ¿cómo voy a ser feliz un ___ al mediodía?", "Pero, ¿cómo voy a ser feliz un martes al mediodía?", "But how could I be happy on a Tuesday at noon? We have to recover from this."),
         ],
         "martillo": [
@@ -13325,7 +12790,6 @@ extension SeedData {
         ],
         "masticar": [
             ("¡No puede hablar, pero puede ___!", "¡No puede hablar, pero puede masticar!", "He can't talk, but he can chew!"),
-            ("Y notarán que empecé a ___ chicle", "Y notarán que empecé a masticar chicle", "(Music continues) Keith Bellows: And you'll note I started chewing gum because I was around this camel all day."),
             ("Pero para nosotros, ___ hojas de coca es una tradición ancestral.", "Pero para nosotros, masticar hojas de coca es una tradición ancestral.", "But for us the chewing of coca leaf is an ancestral custom."),
         ],
         "mate": [
@@ -13349,7 +12813,6 @@ extension SeedData {
             ("Y la ___ no es la excepción.", "Y la materia oscura no es la excepción.", "And dark matter is no exception."),
         ],
         "material": [
-            ("GV: ¿Cómo reúnen el ___?", "GV: ¿Cómo reúnen el material?", "GV: How do you collect materials?"),
             ("Está en el libro de texto, en ___ avanzado.", "Está en el libro de texto, en material avanzado.", "It's in the textbook, in advanced material."),
             ("Nosotros publicamos ___ que es de importancia pública.", "Nosotros publicamos material que es de importancia pública.", "We publish material that is in the public interest."),
         ],
@@ -13361,7 +12824,6 @@ extension SeedData {
         "matrícula": [
             ("¿Cuál es su número de ___?", "¿Cuál es su número de matrícula?", "What is your registration number?"),
             ("Al hacerlo, se fijaron en la ___ que se alejaba.", "Al hacerlo, se fijaron en la matrícula que se alejaba.", "And when you did, you focused in on that one license plate as it sped by."),
-            ("Mientras que la Federación pedía el congelamiento del costo de ___.", "Mientras que la Federación pedía el congelamiento del costo de matrícula.", "While this nightly protest And rockets protest continued to embarrassed the government of jean charest they garden international media attention and there is no sign of them slowing down any time peter all right dane thanks very much"),
         ],
         "maximizar": [
             ("Entonces, ¿cómo sería ___ el valor combinado?", "Entonces, ¿cómo sería maximizar el valor combinado?", "So how would we maximize the combined value?"),
@@ -13371,7 +12833,6 @@ extension SeedData {
         "mayo": [
             ("Dana informa sobre la tarde del 5 de ___ 2011:", "Dana informa sobre la tarde del 5 de mayo 2011:", "Dana reported on the evening of May 5, 2011:"),
             ("Al año siguiente, el 11 de ___ de 1956", "Al año siguiente, el 11 de mayo de 1956", "The following year, May 11, 1956,"),
-            ("Argentina: Las 'Madres de la Plaza de ___' cumplen 35 años", "Argentina: Las 'Madres de la Plaza de Mayo' cumplen 35 años", "Argentina: The 'Mothers of Plaza de Mayo' Turn 35 · Global Voices"),
         ],
         "mayor": [
             ("Si, correcto esto es el ___ propósito, la razón principal.", "Si, correcto esto es el mayor propósito, la razón principal.", "Yes, that's right that is the main purpose, the main reason."),
@@ -13384,18 +12845,15 @@ extension SeedData {
             ("Las mujeres tienen retazos ___ femeninos y algunos masculinos.", "Las mujeres tienen retazos mayormente femeninos y algunos masculinos.", "Women have mostly female patches and a few male patches."),
         ],
         "maíz": [
-            ("Y hay Kellee ___, haciendo lo suyo???", "Y hay Kellee maíz, haciendo lo suyo???", "[Kellee Maize]"),
             ("El copo de ___ no había sido inventado", "El copo de maíz no había sido inventado", "The cornflake hadn't been invented."),
             ("Como todos, nosotros sembrábamos ___.", "Como todos, nosotros sembrábamos maíz.", "Like everyone else, we grew maize."),
         ],
         "maña": [
             ("Clase, hay una prueba ___.", "Clase, hay una prueba maña.", "Class, there is a quiz tomorrow. You all need to study."),
-            ("Si,si mujer mía &lt;i&gt;Eh Robin..ven aqui,date ___!&lt;/i&gt;", "Si,si mujer mía &lt;i&gt;Eh Robin..ven aqui,date maña!&lt;/i&gt;", "Yes, my wife. Robin, let's go, quick!"),
             ("Oren por mí y hasta ___... hasta pronto: nos vemos pronto.", "Oren por mí y hasta maña... hasta pronto: nos vemos pronto.", "Pray for me and until tom.... until soon: see you soon."),
         ],
         "mañana": [
             ("Y ___, oh, no, tengo tantas ataduras...¿Qué tengo que hacer?", "Y mañana, oh, no, tengo tantas ataduras...¿Qué tengo que hacer?", "Then tomorrow: 'Oh, I'm so bound. What do I have to do?'"),
-            ("Baila, baila, baila... ...y ___, ah, ¿pero qué pasa con...?", "Baila, baila, baila... ...y mañana, ah, ¿pero qué pasa con...?", "Dance, dance, dance... Tomorrow: 'Ah, you know, but what about...?'"),
             ("@ghassandhaif: ¿Creemos que ___ será mejor que hoy?", "@ghassandhaif: ¿Creemos que mañana será mejor que hoy?", "@ghassandhaif: Do we think that tomorrow will better than today?"),
         ],
         "mecenas": [
@@ -13409,7 +12867,6 @@ extension SeedData {
             ("En la parte curvada está el equipo ___.", "En la parte curvada está el equipo mecánico.", "In the curved part there's all the mechanical equipment."),
         ],
         "medalla": [
-            ("Puedo hacer algo m?s? Obtener una ___ por eso.", "Puedo hacer algo m?s? Obtener una medalla por eso.", "Get a medal for it."),
             ("La ___ tenía una inscripción.", "La medalla tenía una inscripción.", "The medal had an inscription."),
             ("Él ganó una ___ de bronce.", "Él ganó una medalla de bronce.", "He won a bronze medal."),
         ],
@@ -13456,7 +12913,6 @@ extension SeedData {
         "medio ambiente": [
             ("El entorno de nivel superior es generalmente el ___ mundial.", "El entorno de nivel superior es generalmente el medio ambiente mundial.", "The top level environment is usually the global environment."),
             ("¡Sería muy irresponsable! #___ #Cambio climático #Uganda", "¡Sería muy irresponsable! #Medio ambiente #Cambio climático #Uganda", "That will be very irresponsible! #Environment #ClimateChange #Uganda"),
-            ("(Risas) Y tenemos el ___.", "(Risas) Y tenemos el medio ambiente.", "(Laughter) And there's the environment."),
         ],
         "mediodía": [
             ("Pero, ¿cómo voy a ser feliz un martes al ___?", "Pero, ¿cómo voy a ser feliz un martes al mediodía?", "But how could I be happy on a Tuesday at noon? We have to recover from this."),
@@ -13489,12 +12945,10 @@ extension SeedData {
         ],
         "mejor": [
             ("¿Y cuál es el ___ momento para empezar?", "¿Y cuál es el mejor momento para empezar?", "And what is the best time to start it?"),
-            ("(Risas) (Aplausos) Un poquito ___ que la Naturaleza.", "(Risas) (Aplausos) Un poquito mejor que la Naturaleza.", "(Laughter) (Applause) A little better than nature."),
             ("Podemos modelar ese comportamiento ___ como fluído, si lo miran.", "Podemos modelar ese comportamiento mejor como fluído, si lo miran.", "We can actually model that behavior better as a fluid, if you look at it."),
         ],
         "mejora": [
             ("¿Cómo podemos afinar esta ___ para nuestra salud general?", "¿Cómo podemos afinar esta mejora para nuestra salud general?", "How can we finesse this best for our general health?"),
-            ("MZ: Pero para medir realmente cualquier ___, necesitamos datos, ¿verdad?", "MZ: Pero para medir realmente cualquier mejora, necesitamos datos, ¿verdad?", "MZ: OK, but to really measure any improvement, we needed data, right?"),
             ("Su condición ___ y empeora.", "Su condición mejora y empeora.", "His condition goes up and down."),
         ],
         "mejorar": [
@@ -13508,12 +12962,10 @@ extension SeedData {
             ("Cómo puede ___ la situación.", "Cómo puede mejorarse la situación.", "How can this be made better?"),
         ],
         "melancólico": [
-            ("(Música) Bueno, esto suena muy ___, ¿verdad?", "(Música) Bueno, esto suena muy melancólico, ¿verdad?", "(Music) Well this sounds very melancholic, doesn't it?"),
             ("¿Por qué estás tan ___?", "¿Por qué estás tan melancólico?", "Why are you so gloomy?"),
             ("En un ___? El negro mama serie colegiado? Puedo cambiarlo?", "En un melancólico? El negro mama serie colegiado? Puedo cambiarlo?", "On a melancholic son? on a mother whom only sees the black from 'black and white' can I change her?can I make her happy?"),
         ],
         "melodía": [
-            ("(Música) Conocemos la ___, ¿no?", "(Música) Conocemos la melodía, ¿no?", "(Music) We know this tune, right? We know it?"),
             ("La ___ de ese vals siempre me hipnotiza.", "La melodía de ese vals siempre me hipnotiza.", "This waltz's melody always hypnotizes me."),
             ("Yo terminé creándole una ___.", "Yo terminé creándole una melodía.", "I ended up creating a melody out of it."),
         ],
@@ -13527,9 +12979,7 @@ extension SeedData {
             ("Esta calabaza huele a ___.", "Esta calabaza huele a melón.", "This squash smells like melon."),
         ],
         "meme": [
-            ("Bahréin: El ___ del tipo de TAKBEEER", "Bahréin: El meme del tipo de TAKBEEER", "Bahrain: The TAKBEER Guy Meme · Global Voices"),
             ("Esto es de un ___ de Internet llamado Doomba.", "Esto es de un meme de Internet llamado Doomba.", "This is from an Internet meme called Doomba."),
-            ("Fuente: página Lebanese ___ en Facebook", "Fuente: página Lebanese Meme en Facebook", "Source: Lebanese Meme page on Facebook"),
         ],
         "memorable": [
             ("¿Qué ocurrió durante ese día ___?", "¿Qué ocurrió durante ese día memorable?", "What happened on that memorable day?"),
@@ -13581,7 +13031,6 @@ extension SeedData {
         ],
         "mentir": [
             ("¿Cómo puedes ___ así a la gente?", "¿Cómo puedes mentir así a la gente?", "How can you lie to people like that?"),
-            ("(Aplausos) KKM: Y no puedo ___: Es muy, muy difícil.", "(Aplausos) KKM: Y no puedo mentir: Es muy, muy difícil.", "(Applause) KKM: And I can't lie: it is really, really hard."),
             ("No vi ninguna razón para ___.", "No vi ninguna razón para mentir.", "I saw no reason to lie."),
         ],
         "mentira": [
@@ -13600,7 +13049,6 @@ extension SeedData {
             ("¿Te mareas a ___ si te levantas rápidamente de la cama?", "¿Te mareas a menudo si te levantas rápidamente de la cama?", "Do you often become dizzy if you get up from bed quickly?"),
         ],
         "mercado libre": [
-            ("Cartel, induce a que ___", "Cartel, induce a que mercado libre", "Tammy!"),
             ("Tanto por la mano Invisible del ___...", "Tanto por la mano Invisible del mercado libre...", "So much for the Invisible Hand of the Free Market..."),
             ("No hay ___ para el petróleo.", "No hay mercado libre para el petróleo.", "There is no free market for oil."),
         ],
@@ -13615,7 +13063,6 @@ extension SeedData {
             ("¿Cuál es mi balance de este ___ en el banco?", "¿Cuál es mi balance de este mes en el banco?", "What's my bank balance this month?"),
         ],
         "mesera": [
-            ("Profesor de Derecho chino: Violar a una ___ es menos dañino", "Profesor de Derecho chino: Violar a una mesera es menos dañino", "China Law Professor: Raping Bargirl Does Less Harm · Global Voices"),
             ("Nos atendió una ___ bonita.", "Nos atendió una mesera bonita.", "A pretty waitress waited on us."),
             ("La ___ me saludó con una sonrisa.", "La mesera me saludó con una sonrisa.", "The waitress greeted me with a smile."),
         ],
@@ -13630,7 +13077,6 @@ extension SeedData {
             ("Vamos a hacer un dibujo de una ___.", "Vamos a hacer un dibujo de una meseta.", "Let's draw a picture of a plateau."),
         ],
         "mesura": [
-            ("Trinidad y Tobago: Llaman a la ___ a los magistrados", "Trinidad y Tobago: Llaman a la mesura a los magistrados", "Trinidad & Tobago: Magistrates called to Measure · Global Voices"),
             ("El temor sin ___ siempre causa torpeza.", "El temor sin mesura siempre causa torpeza.", "Measureless fear makes always to act clumsily."),
         ],
         "meta": [
@@ -13671,7 +13117,6 @@ extension SeedData {
         "metáfora": [
             ("¿Cuál es la nueva ___ apropiada para el envejecimiento?", "¿Cuál es la nueva metáfora apropiada para el envejecimiento?", "What is the appropriate new metaphor for aging?"),
             ("Y si me permiten elevar el nivel de la ___", "Y si me permiten elevar el nivel de la metáfora", "And if you'll allow me to ascend to metaphorical heights,"),
-            ("(Risas) Y ahora no puedo... no puedo quitarme la ___.", "(Risas) Y ahora no puedo... no puedo quitarme la metáfora.", "(Laughter) And now I can't get -- I can't shake the metaphor."),
         ],
         "metódico": [
             ("Así que, también soy muy ___ en cierto sentido.", "Así que, también soy muy metódico en cierto sentido.", "So, I'm very methodical in a sense, too. And..."),
@@ -13683,8 +13128,6 @@ extension SeedData {
             ("A continuación, ___ bien todos los ingredientes en el cazo.", "A continuación, mezclar bien todos los ingredientes en el cazo.", "Now, mix all ingredients together in your sauce pan thoroughly."),
         ],
         "mezquino": [
-            ("Y tú estás siendo muy ___. żTienes un folleto para eso?", "Y tú estás siendo muy mezquino. żTienes un folleto para eso?", "And you're being really mean."),
-            ("El Dios del Antiguo Testamento puede ser tan ___. ♫", "El Dios del Antiguo Testamento puede ser tan mezquino. ♫", "I know. ♫ The explorers slaughtered the braves. ♫ Sweeney: Horribly. ♫ Sobule: The Old Testament God can be so petty. ♫"),
             ("-No querría hacer nada ___ -respondió él-.", "-No querría hacer nada mezquino -respondió él-.", "\"I would not wish to do any thing mean,\" he replied."),
         ],
         "meñique": [
@@ -13704,7 +13147,6 @@ extension SeedData {
         "micrófono": [
             ("¿El dolor desaparecerá cuando el ___ lo haga?", "¿El dolor desaparecerá cuando el micrófono lo haga?", "Will the pain leave when the microphone does?"),
             ("El escenario, el ___, todo era con dinero público.", "El escenario, el micrófono, todo era con dinero público.", "That stage, that microphone, everything was with public money."),
-            ("Se acercó al ___ y comenzó:", "Se acercó al micrófono y comenzó:", "(Laughter) He leaned into the microphone, and began:"),
         ],
         "miedo": [
             ("Primero identifica claramente - ¿acerca de qué es el ___?", "Primero identifica claramente - ¿acerca de qué es el miedo?", "First identify clearly - what is the fear about?"),
@@ -13732,14 +13174,11 @@ extension SeedData {
             ("Por supuesto, la ___ cobrará aún más importancia.", "Por supuesto, la migración cobrará aún más importancia.", "Of course, migration will become even more important."),
         ],
         "migrante": [
-            ("Tayikistán: Consideran insultante la 'Guía rusa del trabajador ___'", "Tayikistán: Consideran insultante la 'Guía rusa del trabajador migrante'", "Tajikistan: Russian 'Migrant Guide' Deemed Insulting · Global Voices"),
-            ("China: Experiencia de una trabajadora rural ___", "China: Experiencia de una trabajadora rural migrante", "China: Experience of Rural Migrant Worker · Global Voices"),
             ("Imagen de 'La guía del trabajador ___' publicada en San Petersburgo.", "Imagen de 'La guía del trabajador migrante' publicada en San Petersburgo.", "Image from 'The Migrant Worker's Guide' published in St. Petersburg."),
         ],
         "mil": [
             ("Que pena por él, una y ___ veces (?).", "Que pena por él, una y mil veces (?).", "Shame on him, a thousand times (?)."),
             ("Pueden imaginar ___ usos posibles, estoy seguro.", "Pueden imaginar mil usos posibles, estoy seguro.", "You could think of a thousand possible uses, I'm sure."),
-            ("CA: Cinco ___ niños mueren cada día.", "CA: Cinco mil niños mueren cada día.", "CA: Five thousand fewer children dying every day."),
         ],
         "milagro": [
             ("As? que tengo un ___ muy especial de verdad.", "As? que tengo un milagro muy especial de verdad.", "So I have a very special miracle really."),
@@ -13758,7 +13197,6 @@ extension SeedData {
         ],
         "mineral": [
             ("¿Quién hizo el petróleo, el carbón o el ___ de hierro?", "¿Quién hizo el petróleo, el carbón o el mineral de hierro?", "Who made oil in the ground? Coal or iron ore?"),
-            ("Brasil: Niobio, riqueza ___ del país a un precio ¿demasiado bajo?", "Brasil: Niobio, riqueza mineral del país a un precio ¿demasiado bajo?", "Brazil: Niobium, National Mineral Wealth at Knock Off Prices? · Global Voices"),
             ("- ¿Tienes agua? - ¿___ o grifal?", "- ¿Tienes agua? - ¿Mineral o grifal?", "- Water? - Bottled or tap?"),
         ],
         "minifalda": [
@@ -13784,7 +13222,6 @@ extension SeedData {
         "minuto": [
             ("La sacudida duró mucho tiempo, por lo menos un ___.", "La sacudida duró mucho tiempo, por lo menos un minuto.", "The shaking lasted a long time too, at least a minute."),
             ("Y eso dura alrededor de un ___.", "Y eso dura alrededor de un minuto.", "And that lasted for about a minute."),
-            ("Déjame salir de aquí.- Un ___.", "Déjame salir de aquí.- Un minuto.", "A minute"),
         ],
         "misa": [
             ("Según ___, “las leyes arcaicas no tienen lugar en la democracia”.", "Según MISA, “las leyes arcaicas no tienen lugar en la democracia”.", "According to Misa, “archaic laws have no role to play in a democracy”."),
@@ -13839,7 +13276,6 @@ extension SeedData {
         "modelar": [
             ("Problema número uno es en realidad, ¿cómo ___ estos conmutadores?", "Problema número uno es en realidad, ¿cómo modelar estos conmutadores?", "Issue number one is really how do we model these switches?"),
             ("¿Cómo podemos ___ una en la otra?", "¿Cómo podemos modelar una en la otra?", "How we might shape that in each other?"),
-            ("Voy a hablar de nuestra primera manera de ___ personas.", "Voy a hablar de nuestra primera manera de modelar personas.", "After I do that I'll talk about, you know, give an example where. Sort of breaks down. Let's talk about sort of why I think the [inaudible] is a really useful thing to have in your pocket."),
         ],
         "moderado": [
             ("El ejercicio ___ es necesario para tener buena salud.", "El ejercicio moderado es necesario para tener buena salud.", "Moderate exercise is necessary for good health."),
@@ -13854,7 +13290,6 @@ extension SeedData {
         "moderno": [
             ("En muchos países africanos, el sector ___ está perdido.", "En muchos países africanos, el sector moderno está perdido.", "In many African countries the modern sector is lost."),
             ("Seamos francos y honestos. Bien, el estilo de vida ___.", "Seamos francos y honestos. Bien, el estilo de vida moderno.", "Let's be frank and honest."),
-            ("Chile: ___ Día de los Derechos Humanos para los mapuches", "Chile: Moderno Día de los Derechos Humanos para los mapuches", "Chile: Modern Day Human Rights for the Mapuche · Global Voices"),
         ],
         "modesto": [
             ("Crecí en un edificio ___ del núcleo urbano pobre.", "Crecí en un edificio modesto del núcleo urbano pobre.", "I grew up in tenement buildings in the inner city."),
@@ -13884,7 +13319,6 @@ extension SeedData {
         "molino": [
             ("Y no supieran acerca de su ___ de viento, ¿saben?", "Y no supieran acerca de su molino de viento, ¿saben?", "And you didn't know about the windmill, you know?"),
             ("¿Estaréis en el bosque del ___?", "¿Estaréis en el bosque del molino?", "Varenka!' she exclaimed. 'You will be in the wood by the mill?"),
-            ("CA: ¿Un ___ de viento?", "CA: ¿Un molino de viento?", "CA: A windmill?"),
         ],
         "molusco": [
             ("¿Qué era lo que irritaba al ___?", "¿Qué era lo que irritaba al molusco?", "What was irritating this mollusk?"),
@@ -13897,7 +13331,6 @@ extension SeedData {
             ("La ___ azul que recorre el ADN está leyendo el gen.", "La molécula azul que recorre el ADN está leyendo el gen.", "The blue molecule racing along the DNA is reading the gene."),
         ],
         "momento": [
-            ("Está bien. - ¿Por dónde empezamos? - Espere un ___.", "Está bien. - ¿Por dónde empezamos? - Espere un momento.", "Off you go to eat."),
             ("¿Y cuál es el mejor ___ para empezar?", "¿Y cuál es el mejor momento para empezar?", "And what is the best time to start it?"),
             ("Este no es el ___ de estar descansando.", "Este no es el momento de estar descansando.", "Now's not the time."),
         ],
@@ -13918,7 +13351,6 @@ extension SeedData {
         ],
         "monje": [
             ("Anciano ___, ¿volveré a verte?", "Anciano monje, ¿volveré a verte?", "Elder monk, shall I ever see you again?"),
-            ("Con ellos va un ___. ¿Quién más?", "Con ellos va un monje. ¿Quién más?", "Who else?"),
             ("¿Por qué se hizo ___?", "¿Por qué se hizo monje?", "Why did you become a monk?"),
         ],
         "mono": [
@@ -13927,12 +13359,10 @@ extension SeedData {
             ("el ___ número cuatro, comerá mucho.", "el mono número cuatro, comerá mucho.", "Monkey number four will eat [a lot]."),
         ],
         "monopolio": [
-            ("Rusia: ¿Retorno al ___ estatal de la violencia?", "Rusia: ¿Retorno al monopolio estatal de la violencia?", "Russia: Returning to a State Monopoly on Violence? · Global Voices"),
             ("Uno es internacional, que tiene el ___ de los diamantes.", "Uno es internacional, que tiene el monopolio de los diamantes.", "One is an international one, the DeBeers diamond monopoly."),
             ("En su momento, Netscape tenía el ___ de vendedores de navegadores.", "En su momento, Netscape tenía el monopolio de vendedores de navegadores.", "Netscape at one time had been the almost monopoly browser vendor."),
         ],
         "montaje": [
-            ("México: Florence Cassez, ¿culpable de secuestro o víctima de ___?", "México: Florence Cassez, ¿culpable de secuestro o víctima de montaje?", "Mexico: Florence Cassez, Guilty of Kidnapping or Victim of a Staged Process? · Global Voices"),
             ("@ranoadidas: twitpic.com/4thu4v ¿¿Entonces el robo fue un ___??", "@ranoadidas: twitpic.com/4thu4v ¿¿Entonces el robo fue un montaje??", "@ranoadidas: twitpic.com/4thu4v So the robbery was staged?? @d3x: Worrying trends.twitpic.com/4thvct"),
             ("Asistente del Director - V. Shilobreev ___ - V. Gokke", "Asistente del Director - V. Shilobreev Montaje - V. Gokke", "Director's Assistant - V. Shilobreev Cutter - V. Gokke"),
         ],
@@ -13957,7 +13387,6 @@ extension SeedData {
             ("Ella quiere un abrigo ___.", "Ella quiere un abrigo morado.", "She wants a purple coat."),
         ],
         "moral": [
-            ("(Risas) Ahora, iniciar una revolución ___ debe de ser difícil, ¿no?", "(Risas) Ahora, iniciar una revolución moral debe de ser difícil, ¿no?", "(Laughter) Now, launching a moral revolution has got to be hard, right?"),
             ("¿A dónde dibujar la línea ___?", "¿A dónde dibujar la línea moral?", "In the words of Richard A. Gabriel in a text called 'A Short History of War'"),
             ("¡¿No son los funcionarios corruptos que arruinan la ___?!", "¡¿No son los funcionarios corruptos que arruinan la moral?!", "Isn’t it corrupt officials that ruin morality?!"),
         ],
@@ -13979,7 +13408,6 @@ extension SeedData {
         "moreno": [
             ("¿Pálido de tez y ___ de pelo?", "¿Pálido de tez y moreno de pelo?", "\"Of complexion and brown hair?\""),
             ("Imagen de Diana ___ para Demotix.", "Imagen de Diana Moreno para Demotix.", "Image from Diana Moreno for Demotix."),
-            ("Colombia: Arresto del ex Alcalde de Bogotá Samuel ___ genera debate", "Colombia: Arresto del ex Alcalde de Bogotá Samuel Moreno genera debate", "Colombia: Incarceration of Bogota’s Former Mayor Stirs Debate · Global Voices"),
         ],
         "moretón": [
             ("No, te darás un ___ en el ojo.", "No, te darás un moretón en el ojo.", "No, you'll give yourself a black eye."),
@@ -14002,13 +13430,11 @@ extension SeedData {
             ("Pero nunca le hubiera hecho eso a una ___ viva.", "Pero nunca le hubiera hecho eso a una mosca viva.", "But I would never do it to a living fly."),
         ],
         "mosquitero": [
-            ("Si las personas deben pagar por un ___,", "Si las personas deben pagar por un mosquitero,", "One is:"),
             ("en Vietnam dormíamos con un ___ porque hay muchos mosquitos.", "en Vietnam dormíamos con un mosquitero porque hay muchos mosquitos.", "We will enrich the number of gathas here."),
             ("Gastas una cantidad determinada por cada ___.", "Gastas una cantidad determinada por cada mosquitero.", "You spend a certain amount per bed net."),
         ],
         "mosquito": [
             ("¿Qué podemos hacerle al ___?", "¿Qué podemos hacerle al mosquito?", "What can we do to the mosquito?"),
-            ("(Zumbido de ___ a un tono más bajo) GG: ¡Guau!", "(Zumbido de mosquito a un tono más bajo) GG: ¡Guau!", "(Mosquito buzzing, lower pitch) GG: Wow."),
             ("Pero desde luego, el animal más peligroso es el ___.", "Pero desde luego, el animal más peligroso es el mosquito.", "But of course the most dangerous animal is the mosquito."),
         ],
         "mostrar": [
@@ -14078,7 +13504,6 @@ extension SeedData {
         ],
         "multa": [
             ("¿A cuántos de Uds. les han puesto una ___ por estacionamiento?", "¿A cuántos de Uds. les han puesto una multa por estacionamiento?", "How many of you have ever gotten a parking ticket in your life?"),
-            ("Tsivinyuk: ¿Una ___ por un trozo de papel?", "Tsivinyuk: ¿Una multa por un trozo de papel?", "Tsivinyuk: A fine for the piece of paper?"),
             ("¿Cuánto es la ___ por exceso de velocidad?", "¿Cuánto es la multa por exceso de velocidad?", "How much is the fine for speeding?"),
         ],
         "multilateral": [
@@ -14108,7 +13533,6 @@ extension SeedData {
         ],
         "mural": [
             ("Otro ___ interesantísimo en la Calle Cerra.", "Otro mural interesantísimo en la Calle Cerra.", "Another interesting mural on Calle Cerra."),
-            ("Filipinas: Artistas protestan por censura en ___ alterado", "Filipinas: Artistas protestan por censura en mural alterado", "Philippines: Artists Cry Censorship Over Altered Mural · Global Voices"),
             ("De acuerdo al Blue Pencil Chronicles, el ___ original era:", "De acuerdo al Blue Pencil Chronicles, el mural original era:", "According to Blue Pencil Chronicles, the original mural was:"),
         ],
         "murmullo": [
@@ -14143,8 +13567,6 @@ extension SeedData {
         ],
         "mutación": [
             ("¿Qué tal esta ___ aleatoria?", "¿Qué tal esta mutación aleatoria?", "How about this random mutation stuff?"),
-            ("żEs posible traer una ___ a lo que ya es?", "żEs posible traer una mutación a lo que ya es?", "Is it possible, to totally bring about a mutation in what is?"),
-            ("(Risas) ¿Qué tal la ___ no aleatoria?", "(Risas) ¿Qué tal la mutación no aleatoria?", "(Laughter) How about non-random mutation?"),
         ],
         "mutuamente": [
             ("¿Qué es una relación de intercambio ___ beneficioso?", "¿Qué es una relación de intercambio mutuamente beneficioso?", "What is a mutually beneficial exchange ratio?"),
@@ -14194,7 +13616,6 @@ extension SeedData {
         "móvil": [
             ("Esta es uno de las principales problemas de malware ___ ¿Correcto?", "Esta es uno de las principales problemas de malware móvil ¿Correcto?", "This is one of main mobile malware problems right."),
             ("¿Hace lo mismo que puede hacer un teléfono ___?", "¿Hace lo mismo que puede hacer un teléfono móvil?", "Does is do the things that your cell phone can do?"),
-            ("Tailandia: Aplicación ___ para autistas", "Tailandia: Aplicación móvil para autistas", "Thailand: Mobile App for Autistic · Global Voices"),
         ],
         "músculo": [
             ("¿Lo ven? Y yo estoy retirando este ___.", "¿Lo ven? Y yo estoy retirando este músculo.", "And I'm peeling that muscle away."),
@@ -14202,7 +13623,6 @@ extension SeedData {
             ("Yo estoy hablando sobre la fuerza del ___.", "Yo estoy hablando sobre la fuerza del músculo.", "I'm talking about muscle strength."),
         ],
         "música": [
-            ("(Aplausos) (___) Gogo bek' umthwalo Kunin' uhlupheka?", "(Aplausos) (Música) Gogo bek' umthwalo Kunin' uhlupheka?", "(Applause) (Music) Gogo bek' umthwalo Kunin' uhlupheka?"),
             ("La letra de su ___ describe la situación:", "La letra de su música describe la situación:", "The lyrics of his music describes the situation:"),
             ("Y sólo podía ver la regla del cociente. [___]", "Y sólo podía ver la regla del cociente. [MÚSICA]", "And you could just look up the quotient rule."),
         ],
@@ -14218,13 +13638,11 @@ extension SeedData {
         ],
         "nacional": [
             ("¿Están marginados los jóvenes yemenís en el diálogo ___?", "¿Están marginados los jóvenes yemenís en el diálogo nacional?", "Are Yemen Youth Marginalized in the National Dialogue? · Global Voices"),
-            ("Syria Deeply: ¿Apoya oficialmente la Coalición ___ Siria?", "Syria Deeply: ¿Apoya oficialmente la Coalición Nacional Siria?", "SD: Are you officially backing the Syrian National Coalition?"),
             ("Le solicitamos la patente, en la Fundación ___ para la Innovación.", "Le solicitamos la patente, en la Fundación Nacional para la Innovación.", "We filed the patent for her, the National Innovation Foundation."),
         ],
         "nada": [
             ("Por lo tanto, primera copia cuadrado no regresó ___.", "Por lo tanto, primera copia cuadrado no regresó nada.", "So, answer square print did not return anything."),
             ("No quedaría ___ para alimentar un automóvil o cargar un teléfono.", "No quedaría nada para alimentar un automóvil o cargar un teléfono.", "There wouldn't be any left over to power a car or charge a phone."),
-            ("TT: No pasa ___, somos profesionales.", "TT: No pasa nada, somos profesionales.", "TT: This is fine, we're professionals."),
         ],
         "nadar": [
             ("Por la puta madre, ¿no pueden ___?", "Por la puta madre, ¿no pueden nadar?", "They can't even swim?"),
@@ -14264,7 +13682,6 @@ extension SeedData {
         "narco": [
             ("La MODELO ___ bajando las escaleras de Tribunales..", "La MODELO NARCO bajando las escaleras de Tribunales..", "#irritante esperar en los call center"),
             ("México: Critica de la cobertura mediática a la “___ Guerra”", "México: Critica de la cobertura mediática a la “Narco Guerra”", "Mexico: Critique of the Media Coverage of the \"Narco War\" · Global Voices"),
-            ("Mexico: Luchando contra el ___ con 'varitas mágicas'", "Mexico: Luchando contra el narco con 'varitas mágicas'", "Mexico: Fighting Drug Trafficking With 'Magic Wands' · Global Voices"),
         ],
         "nariz": [
             ("¿Podrían imaginarse haber nacido con una ___-herramienta?", "¿Podrían imaginarse haber nacido con una nariz-herramienta?", "Could you imagine being born with a tool for a nose?"),
@@ -14272,8 +13689,6 @@ extension SeedData {
             ("No puedo parar mi sangrado por la ___.", "No puedo parar mi sangrado por la nariz.", "I can't stop my nosebleed."),
         ],
         "narrador": [
-            ("(___) 2. Usar símbolos significativos.", "(Narrador) 2. Usar símbolos significativos.", "(Sound) Narrator: Number two, use meaningful symbolism."),
-            ("(___): 3. Usar dos o tres colores básicos.", "(Narrador): 3. Usar dos o tres colores básicos.", "Narrator: Number three, use two to three basic colors."),
             ("En la mente del ___ hay una contradicción de moralidades.", "En la mente del narrador hay una contradicción de moralidades.", "In a storyteller's mind, it's a contradiction of moralities."),
         ],
         "narrar": [
@@ -14294,7 +13709,6 @@ extension SeedData {
         "natural": [
             ("¿Qué tiene que decir el mundo ___ al respecto?", "¿Qué tiene que decir el mundo natural al respecto?", "What does the natural world have to say about that?"),
             ("¿Tiene eso mucho sentido si pensamos en nuestra economía ___?", "¿Tiene eso mucho sentido si pensamos en nuestra economía natural?", "Does that make a lot of sense when we think about our natural economy?"),
-            ("Venezuela: ¿Se avecina un desastre ___ en Mata Redonda?", "Venezuela: ¿Se avecina un desastre natural en Mata Redonda?", "Venezuela: Is a Natural Disaster Looming Over Mata Redonda? · Global Voices"),
         ],
         "naturaleza": [
             ("Y ¿qué tiene la ___ que decir al respecto?", "Y ¿qué tiene la naturaleza que decir al respecto?", "And what does nature have to say about this?"),
@@ -14324,7 +13738,6 @@ extension SeedData {
         "nebulosa": [
             ("Aquí está una vista ampliada de la ___.", "Aquí está una vista ampliada de la nebulosa.", "Here's a magnified view of the nebula."),
             ("Y se expande, convirtiéndose en una ___ planetaria.", "Y se expande, convirtiéndose en una nebulosa planetaria.", "It expands to become a planetary nebula."),
-            ("Y la ___ exterior antes de la t", "Y la nebulosa exterior antes de la t", "How do we actually understand what's going to happen in something complicated like the solar system, which is at the very least a nine body problem?"),
         ],
         "necesariamente": [
             ("¿está nublado, es ___ lluvias?", "¿está nublado, es necesariamente lluvias?", "If it's cloudy, is it necessarily rainy?"),
@@ -14397,7 +13810,6 @@ extension SeedData {
             ("Nada repuso John Ferrier, ocupado en juguetear ___ con su fusta.", "Nada repuso John Ferrier, ocupado en juguetear nerviosamente con su fusta.", "John Ferrier ne répondit pas, mais il se mit a tordre nerveusement son fouet de chasse entre ses mains."),
         ],
         "nervioso": [
-            ("Yemen: ¿Utilizó el gobierno gas ___ contra manifestantes?", "Yemen: ¿Utilizó el gobierno gas nervioso contra manifestantes?", "Yemen: Did Government Use Nerve Gas on Protesters?"),
             ("Por qué estás tan ___?", "Por qué estás tan nervioso?", "What are you so nervous about?"),
             ("¿Cómo puede el sistema ___ equivocarse así?", "¿Cómo puede el sistema nervioso equivocarse así?", "How can the nervous system get this so wrong?"),
         ],
@@ -14424,7 +13836,6 @@ extension SeedData {
         "neutral": [
             ("¿Así que si estás riesgo ___ cuánto pagarías jugar este juego?", "¿Así que si estás riesgo neutral cuánto pagarías jugar este juego?", "So if you are risk neutral how much would you pay to play this game?"),
             ("Es hora de ir a la zona ___.", "Es hora de ir a la zona neutral.", "It's time to start walking to the neutral zone."),
-            ("Azerbaiyán: Fuente ___ de carbono", "Azerbaiyán: Fuente neutral de carbono", "Azerbaijan: Carbon Neutral Resort · Global Voices"),
         ],
         "neutrón": [
             ("Chadwick, en 1932, Descubre el ___.", "Chadwick, en 1932, Descubre el neutrón.", "Chadwick, in 1932, discovers the neutron."),
@@ -14496,7 +13907,6 @@ extension SeedData {
             ("De ___, siempre imaginé que un día escaparía de casa.", "De niña, siempre imaginé que un día escaparía de casa.", "As a little girl, I always imagined I would one day run away."),
         ],
         "niñez": [
-            ("¿Qué? Casa de Dong Yi en su ___.", "¿Qué? Casa de Dong Yi en su niñez.", "What? &lt;Dong Yi's Childhood Home&gt;"),
             ("Cuando era adolescente, tenía mucha curiosidad sobre mi ___ en prisión.", "Cuando era adolescente, tenía mucha curiosidad sobre mi niñez en prisión.", "And I was a teenager, and I became very curious about my childhood imprisonment."),
             ("11/9 debió ser un momento definitorio de su ___.", "11/9 debió ser un momento definitorio de su niñez.", "9/11 must have been the defining moment of their childhood."),
         ],
@@ -14517,7 +13927,6 @@ extension SeedData {
         "noche": [
             ("¿Por qué no cenas conmigo esta ___?", "¿Por qué no cenas conmigo esta noche?", "Why don't you have dinner with me tonight?"),
             ("Lo encontraremos antes que llegue la ___", "Lo encontraremos antes que llegue la noche", "Ons find the man until the afternoon"),
-            ("Próspera: Por decir eso, tendrás calambres esta ___.", "Próspera: Por decir eso, tendrás calambres esta noche.", "Prospera: For this, be sure, tonight thou shalt have cramps."),
         ],
         "noche buena": [
             ("Las Posadas son el acontecimiento más significativo de ___.", "Las Posadas son el acontecimiento más significativo de Noche Buena.", "Las Posadas are the remarkable buildup to Christmas Eve."),
@@ -14530,9 +13939,7 @@ extension SeedData {
             ("El pensamiento correcto no es algo ___,", "El pensamiento correcto no es algo nocivo,", "The right-thinking is not something harmful,"),
         ],
         "nombre": [
-            ("Vamos alma. żCu?l es su ___?", "Vamos alma. żCu?l es su nombre?", "Let's soul. What is your name?"),
             ("¿Bajo qué ___ trabajaste como agente?", "¿Bajo qué nombre trabajaste como agente?", "Under what name did you work as agent?"),
-            ("El derecho, eres incre?ble. żCu?l es su ___?", "El derecho, eres incre?ble. żCu?l es su nombre?", "Come on sweetheart. The right, you're amazing."),
         ],
         "nominación": [
             ("Más confirmación (todavía no oficialmente) de la ___ de Blair.", "Más confirmación (todavía no oficialmente) de la nominación de Blair.", "More confirmation (unofficially, still) of the Blair nomination."),
@@ -14594,9 +14001,7 @@ extension SeedData {
             ("Estos son mejillones y, como pueden ___, cubren las rocas.", "Estos son mejillones y, como pueden notar, cubren las rocas.", "So these are mussels, and you'll notice they're covering the rocks."),
         ],
         "notario": [
-            ("- No. - żEres ___?", "- No. - żEres notario?", "- Are you a lawyer?"),
             ("La pareja feliz son actores. Charlie es un ___.", "La pareja feliz son actores. Charlie es un notario.", "Charlie is a registrar."),
-            ("Lo primero que haremos maсana es ir a la oficina del ___.", "Lo primero que haremos maсana es ir a la oficina del notario.", "When you open the notary tomorrow, this will end."),
         ],
         "noticia": [
             ("Oh, espero que sea una buena ___.", "Oh, espero que sea una buena noticia.", "Oh, hope it's good news."),
@@ -14626,17 +14031,14 @@ extension SeedData {
         "novia": [
             ("Te ves hermosa de ___.", "Te ves hermosa de novia.", "You look beautiful as a bride."),
             ("¡Y encima ya tienes ___!", "¡Y encima ya tienes novia!", "And you even have a girlfriend!"),
-            ("India: El lado de la ___", "India: El lado de la novia", "India: Bride's side · Global Voices"),
         ],
         "noviembre": [
             ("Entre ___ y mayo, Río está completamente repleto.", "Entre noviembre y mayo, Río está completamente repleto.", "Between November and May, Rio's completely packed."),
-            ("El día después del primer lunes de ___.", "El día después del primer lunes de noviembre.", "JS:"),
             ("Si lo hicieran, no votaríamos un martes de ___.", "Si lo hicieran, no votaríamos un martes de noviembre.", "If they did, we wouldn't vote on a Tuesday in November."),
         ],
         "novio": [
             ("¿Supongamos que Lila esconde a un ___ de nosotros?", "¿Supongamos que Lila esconde a un novio de nosotros?", "Do you suppose Lila is hiding a boyfriend from us?"),
             ("¿Por qué no tienes ___?", "¿Por qué no tienes novio?", "Why don't you have a boyfriend?"),
-            ("Sam? Йl es su ___.", "Sam? Йl es su novio.", "Sam, he's your fiancé."),
         ],
         "nube": [
             ("¿Por qué un edificio que se parece a una ___?", "¿Por qué un edificio que se parece a una nube?", "Why a building that looks like a cloud?"),
@@ -14650,7 +14052,6 @@ extension SeedData {
         ],
         "nuca": [
             ("Luego, hay otro que respira sobre tu ___.", "Luego, hay otro que respira sobre tu nuca.", "Then there's another one that breathes on your neck."),
-            ("India: Protestando con el agua en la ___", "India: Protestando con el agua en la nuca", "India: Standing Neck Deep in Water to Protest · Global Voices"),
             ("Y tú tienes una encantadora y delicada ___.", "Y tú tienes una encantadora y delicada nuca.", "And you have a darned cute nape."),
         ],
         "nuera": [
@@ -14676,7 +14077,6 @@ extension SeedData {
         "nulo": [
             ("¿Ahora mi espacio ___ de la A, que incluye?", "¿Ahora mi espacio nulo de la A, que incluye?", "Now my null space of A, what does it include?"),
             ("Esto es equivalente al espacio ___, ¿no?", "Esto es equivalente al espacio nulo, ¿no?", "This is equivalent to the null space, right?"),
-            ("Bolivia: Campaña del voto ___ para las próximas elecciones judiciales", "Bolivia: Campaña del voto nulo para las próximas elecciones judiciales", "Bolivia: Spoil Vote Campaign for Upcoming Judicial Elections · Global Voices"),
         ],
         "nutria": [
             ("Era una magnífica ___ de mar, el único cuadrúpedo exclusivamente marino.", "Era una magnífica nutria de mar, el único cuadrúpedo exclusivamente marino.", "It was a magnificent sea otter from the genus Enhydra, the only exclusively marine quadruped."),
@@ -14725,8 +14125,6 @@ extension SeedData {
         ],
         "obispo": [
             ("¿como ___ argumentan, que esto fue ordenar?", "¿como obispo argumentan, que esto fue ordenar?", "like Bishop argue, that this was sorting? Welp."),
-            ("Paraguay: Ex ___ se convierte en el Próximo Presidente", "Paraguay: Ex Obispo se convierte en el Próximo Presidente", "Paraguay: Ex-Bishop Becomes Next President · Global Voices"),
-            ("Sri Lanka: Nuestra Señora de Madhu y el ___", "Sri Lanka: Nuestra Señora de Madhu y el Obispo", "Sri Lanka: Our Lady of Madhu and the Bishop · Global Voices"),
         ],
         "objetivamente": [
             ("¿Puede el Ser ser percibido ___?", "¿Puede el Ser ser percibido objetivamente?", "Can the Self be perceived objectively?"),
@@ -14741,12 +14139,10 @@ extension SeedData {
         "objeto": [
             ("¿Podrías entonces afirmar que este ___ está hecho de hierro?", "¿Podrías entonces afirmar que este objeto está hecho de hierro?", "Can you then say that this object is made from iron?"),
             ("Es obvio que era ___ de tu abuso físico y emocional.", "Es obvio que era objeto de tu abuso físico y emocional.", "Well, it's obvious that the boy was subject... to emotional and physical abuse."),
-            ("Bahréin: #NickKristof, ___ de Críticas en Twitter", "Bahréin: #NickKristof, Objeto de Críticas en Twitter", "Bahrain: #NickKristof Bullied on Twitter · Global Voices"),
         ],
         "obligación": [
             ("–¿Es ___ ir al concierto?", "–¿Es obligación ir al concierto?", "'Duties to go to a concert...'"),
             ("En este caso, ¿cuál es la ___ moral de Jim?", "En este caso, ¿cuál es la obligación moral de Jim?", "In the Jim case, what is Jim morally obliged to do?"),
-            ("Japón: Drinkommunication, cuando beber alcohol es una ___ social", "Japón: Drinkommunication, cuando beber alcohol es una obligación social", "Japan: Drinkommunication, when drinking alcohol is a social obligation · Global Voices"),
         ],
         "obligado": [
             ("Restaurante de Bombay ___ a retirar facturas políticas", "Restaurante de Bombay obligado a retirar facturas políticas", "Mumbai Restaurant Forced to Pull Political Food Bills · Global Voices"),
@@ -14761,12 +14157,10 @@ extension SeedData {
         "obligatorio": [
             ("¿Necesitamos reclutamiento ___ para lograrlo?", "¿Necesitamos reclutamiento obligatorio para lograrlo?", "Do we need a draft to pull this off?"),
             ("¿El culto religioso es algo moralmente ___?", "¿El culto religioso es algo moralmente obligatorio?", "Is religious worship something that's morally mandatory?"),
-            ("(Risas) Entonces intentó hacerlo ___.", "(Risas) Entonces intentó hacerlo obligatorio.", "(Laughter) So, actually, he tried making it compulsory."),
         ],
         "obra": [
             ("Si tuviera que reducir la ___, ¿qué imagen mantendría el concepto?", "Si tuviera que reducir la obra, ¿qué imagen mantendría el concepto?", "What, if I were to boil it down, would be the one image that I could hang my hat on for this?"),
             ("Nuestro invitado dijo inmediatamente: “Esto fue ___ de Osama Bin Laden”.", "Nuestro invitado dijo inmediatamente: “Esto fue obra de Osama Bin Laden”.", "Our guest immediately said: “This was Osama Bin Laden’s work”."),
-            ("Mozambique: La ___ de Mia Couto recibe prestigioso premio", "Mozambique: La obra de Mia Couto recibe prestigioso premio", "Mozambique: Mia Couto's 30 Years of Literature Honored with Prestigious Prize · Global Voices"),
         ],
         "observar": [
             ("¿Desde dónde está teniendo lugar este ___?", "¿Desde dónde está teniendo lugar este observar?", "From where is this looking taking place?"),
@@ -14859,8 +14253,6 @@ extension SeedData {
         ],
         "odio": [
             ("Vaya un pedazo de mierda ¿Sabéis lo que ___?", "Vaya un pedazo de mierda ¿Sabéis lo que odio?", "What a piece of shit."),
-            ("Armenia: ¿Una nueva respuesta al crimen de ___?", "Armenia: ¿Una nueva respuesta al crimen de odio?", "Armenia: A New Response to Hate Crime? · Global Voices"),
-            ("Armenia: ___ por nacionalismo ciego", "Armenia: Odio por nacionalismo ciego", "Armenia: Blind nationalist hatred · Global Voices"),
         ],
         "oeste": [
             ("¿Cómo puedo ir a la parte ___ de la ciudad?", "¿Cómo puedo ir a la parte oeste de la ciudad?", "How can I go to the west part of the city?"),
@@ -14874,7 +14266,6 @@ extension SeedData {
         ],
         "ofensivo": [
             ("Ven ¿lo ___ qué es eso?", "Ven ¿lo ofensivo qué es eso?", "See how offensive is that?"),
-            ("(Risas) ¿Creerían que algunas personas lo ven ___?", "(Risas) ¿Creerían que algunas personas lo ven ofensivo?", "(Laughter) Now, would you believe, would you believe that some people find that offensive?"),
             ("¿Ven cómo es esto de ___?", "¿Ven cómo es esto de ofensivo?", "You see how offensive?"),
         ],
         "oferta": [
@@ -14884,7 +14275,6 @@ extension SeedData {
         ],
         "oficial": [
             ("¿El Señor ___ del Gobierno? Si.", "¿El Señor Oficial del Gobierno? Si.", "- Inspector Shim?"),
-            ("El logotipo ___ de África: ¿Cuál es tu historia?", "El logotipo oficial de África: ¿Cuál es tu historia?", "The official logo of Africa: What's Your Story?"),
             ("¿Cómo puede ser ___ de las fuerzas del orden?", "¿Cómo puede ser oficial de las fuerzas del orden?", "How can he be an officer of law enforcement."),
         ],
         "oficialmente": [
@@ -14924,13 +14314,10 @@ extension SeedData {
         ],
         "ola": [
             ("¿El nuevo poder está en la cresta de la ___?", "¿El nuevo poder está en la cresta de la ola?", "Is new power kind of just riding the wave to glory?"),
-            ("Trinidad y Tobago: ¿___ de cambio?", "Trinidad y Tobago: ¿Ola de cambio?", "Trinidad & Tobago: Wave of Change? · Global Voices"),
-            ("China: Otra ___ de protesta contra Japón", "China: Otra ola de protesta contra Japón", "China: Another Waves of Anti-Japan Protest · Global Voices"),
         ],
         "oleada": [
             ("¿Detendrá Brasil la nueva ___ de inmigración?", "¿Detendrá Brasil la nueva oleada de inmigración?", "Will Brazil Stem New Tide of Immigration? · Global Voices"),
             ("La Gran Depresión disparó un gran ___ de crímenes.", "La Gran Depresión disparó un gran oleada de crímenes.", "The Great Depression triggered a great surge in crime."),
-            ("Zimbabue: ___ de muertes por el cólera", "Zimbabue: Oleada de muertes por el cólera", "Zimbabwe: A Surge In Cholera Deaths · Global Voices"),
         ],
         "oler": [
             ("¿Alguien quiere ___ el polen de estas flores?", "¿Alguien quiere oler el polen de estas flores?", "We've got lots of flowers."),
@@ -14940,11 +14327,9 @@ extension SeedData {
         "olfatear": [
             ("Este perro está entrenado para ___ la droga.", "Este perro está entrenado para olfatear la droga.", "This dog is trained to smell out drugs."),
             ("Los pastores alemanes son buenos para ___ drogas.", "Los pastores alemanes son buenos para olfatear drogas.", "German Shepherds are good at sniffing out drugs."),
-            ("Empecй a ___ una trama de dinero sucio...", "Empecй a olfatear una trama de dinero sucio...", "Empecй a olfatear una trama de dinero sucio..."),
         ],
         "olimpiadas": [
             ("¿Deberíamos llevarnos las ___ de Londres bien lejos de Londres?", "¿Deberíamos llevarnos las olimpiadas de Londres bien lejos de Londres?", "Should we take the London Olympics away from London?"),
-            ("China: ¿Quién está ganando las ___ hasta ahora?", "China: ¿Quién está ganando las Olimpiadas hasta ahora?", "China: Who's winning the Olympics so far? · Global Voices"),
             ("Por cierto, todo en las ___ Especiales.", "Por cierto, todo en las Olimpiadas Especiales.", "By the way, all that is through Special Olympics."),
         ],
         "olla": [
@@ -15042,7 +14427,6 @@ extension SeedData {
             ("Algunos son distópica, oscuro y ___.", "Algunos son distópica, oscuro y opresivo.", "Some are dystopian, dark and oppressive."),
         ],
         "optar": [
-            ("(Risas) Ahora se puede ___ por un funeral ecológico.", "(Risas) Ahora se puede optar por un funeral ecológico.", "(Laughter) You can now opt for an eco-funeral."),
             ("Tenemos que ___ por utilizar el autobús.", "Tenemos que optar por utilizar el autobús.", "We have to switch to riding bus."),
             ("elegimos guardar silencio. Estamos comunicando algo al ___ por el silencio.", "elegimos guardar silencio. Estamos comunicando algo al optar por el silencio.", "Even if we choose to be silent, we chose to be silent, and we're communicating something by choosing to be silent."),
         ],
@@ -15102,7 +14486,6 @@ extension SeedData {
             ("¿Cuántas veces al año les gustaría ___ este evento?", "¿Cuántas veces al año les gustaría organizar este evento?", "How many times a year would you like to hold the event?"),
         ],
         "orgullo": [
-            ("Brasil: ¿___ heterosexual o intolerancia homosexual?", "Brasil: ¿Orgullo heterosexual o intolerancia homosexual?", "Brazil: Hetero Pride or Homo Intolerance? · Global Voices"),
             ("¿No dijiste que sostendrías mi ___?", "¿No dijiste que sostendrías mi orgullo?", "Didn't you say you'd uphold my pride?"),
             ("Es un gran ___ para mí estar con Uds.", "Es un gran orgullo para mí estar con Uds.", "I'm proud that I can stand here and be here today with you."),
         ],
@@ -15148,7 +14531,6 @@ extension SeedData {
         "oro": [
             ("¿Cuál es más pesado, el plomo o el ___?", "¿Cuál es más pesado, el plomo o el oro?", "Which is heavier, lead or gold?"),
             ("¿Tengo ___? y si es así ¿dónde está?", "¿Tengo oro? y si es así ¿dónde está?", "Do I have any gold, and if so, where is it?"),
-            ("њA dуnde se fue el ___ en Fort Knox?", "њA dуnde se fue el Oro en Fort Knox?", "Where did America's gold in Fort Knox go?"),
         ],
         "orquídea": [
             ("Vista aérea de Isla ___, Taiwán.", "Vista aérea de Isla Orquídea, Taiwán.", "Birds eye view of Orchid Island, Taiwan."),
@@ -15171,7 +14553,6 @@ extension SeedData {
         ],
         "oscuro": [
             ("Está ___ en esa pieza.", "Está oscuro en esa pieza.", "It is dark in that room."),
-            ("Pero habнa un lado ___ en toda esta prosperidad.", "Pero habнa un lado oscuro en toda esta prosperidad.", "But there was a dark side to all this prosperity."),
             ("Aslan Bey quería que su traje azul marino ___ al hotel.", "Aslan Bey quería que su traje azul marino oscuro al hotel.", "Aslan Bey quería que su traje azul marino oscuro al hotel."),
         ],
         "oso": [
@@ -15261,7 +14642,6 @@ extension SeedData {
         "pacífico": [
             ("Fue un hermoso país, un país hermoso, ___.", "Fue un hermoso país, un país hermoso, pacífico.", "It was a beautiful country, beautiful, peaceful country."),
             ("El océano ___ es uno de los cinco océanos.", "El océano Pacífico es uno de los cinco océanos.", "The Pacific Ocean is one of the five oceans."),
-            ("Sudán: Felices fiestas y un referéndum ___", "Sudán: Felices fiestas y un referéndum pacífico", "Sudan: Happy holidays and a peaceful referendum · Global Voices"),
         ],
         "padecer": [
             ("Verán, lo que no entiendo es por qué ___ todo esto.", "Verán, lo que no entiendo es por qué padecer todo esto.", "So you see what I don't understand is why I have to go through all this pain."),
@@ -15276,7 +14656,6 @@ extension SeedData {
         "padrino": [
             ("Recibí un reloj de pulsera como regalo de mi ___.", "Recibí un reloj de pulsera como regalo de mi padrino.", "I received a watch as a gift from my godfather."),
             ("Esto... es para quien lo quiera, el ___ o mi gamberro.", "Esto... es para quien lo quiera, el padrino o mi gamberro.", "This... is for whoever wants it, the godfather or my thug."),
-            ("Bloguero a Ahmadinejad: Vea 'El ___'", "Bloguero a Ahmadinejad: Vea 'El padrino'", "Blogger to Ahmadinejad: Watch 'The Godfather' · Global Voices"),
         ],
         "pagar": [
             ("Sólo dime cuanto puedes ___.", "Sólo dime cuanto puedes pagar.", "Just tell me how much you can pay."),
@@ -15309,7 +14688,6 @@ extension SeedData {
             ("Cogió la ___ y empezó a trabajar.", "Cogió la paleta y empezó a trabajar.", "He took his palette and commenced working."),
         ],
         "palma": [
-            ("Indonesia: Aplicaciones para producción sustentable de ___ aceitera", "Indonesia: Aplicaciones para producción sustentable de palma aceitera", "Indonesia: Apps for Sustainable Palm Oil Production · Global Voices"),
             ("Hay una demanda global creciente de aceite de ___.", "Hay una demanda global creciente de aceite de palma.", "The global demand for palm oil is just increasing."),
             ("Es la ___ de mi mano.", "Es la Palma de mi mano.", "That's the palm of my hand."),
         ],
@@ -15344,7 +14722,6 @@ extension SeedData {
         "pantalla": [
             ("¿Viajará a donde están o ellas saldrán de la ___?", "¿Viajará a donde están o ellas saldrán de la pantalla?", "Will he travel to them or will they come out of the screen for him?"),
             ("¿Lo ven en la ___?", "¿Lo ven en la pantalla?", "You see that in the screen?"),
-            ("Brasil: Capoeira en la ___ grande", "Brasil: Capoeira en la pantalla grande", "Brazil: Capoeira on the big screen · Global Voices"),
         ],
         "pantalón": [
             ("¿Qué me pongo, ___ o falda?", "¿Qué me pongo, pantalón o falda?", "What shall I put on: trousers or a skirt?"),
@@ -15387,7 +14764,6 @@ extension SeedData {
             ("Una ___ de estos últimos son como un poco más avanzados.", "Una par de estos últimos son como un poco más avanzados.", "A couple of these last ones are a little bit more kind of advanced."),
         ],
         "para nada": [
-            ("PJ: ¿___? Hombre: No.", "PJ: ¿Para nada? Hombre: No.", "PJ: Not at all? Man: No."),
             ("O sea, que nuestros esfuerzos fueron ___.", "O sea, que nuestros esfuerzos fueron para nada.", "In short, all our efforts resulted in nothing."),
             ("Pero no es sobre dar y tomar, ___.", "Pero no es sobre dar y tomar, para nada.", "But it is not about giving and taking at all."),
         ],
@@ -15398,7 +14774,6 @@ extension SeedData {
         ],
         "paracaídas": [
             ("¿Y si el ___ no se abre?", "¿Y si el paracaídas no se abre?", "What if the parachute doesn't open?"),
-            ("Brasil: Abuela centenaria realiza sueño de ___", "Brasil: Abuela centenaria realiza sueño de paracaídas", "Brazil: 100-year-old grandma realises parachute dream · Global Voices"),
             ("Debemos tener apertura de ___ alrededor de Mach 1.7", "Debemos tener apertura de paracaídas alrededor de Mach 1.7", "We should have parachute deploy at around Mach 1.7"),
         ],
         "paradero": [
@@ -15419,10 +14794,8 @@ extension SeedData {
         "paraguas": [
             ("Este es su ___, ¿verdad?", "Este es su paraguas, ¿verdad?", "This is his umbrella, isn't it?"),
             ("Fuiste descuidado al dejarte tu ___ en el tren.", "Fuiste descuidado al dejarte tu paraguas en el tren.", "You were careless to leave your umbrella on the train."),
-            ("Japón: Esos ordinarios ___ de vinil", "Japón: Esos ordinarios paraguas de vinil", "Japan: Those Commonplace, Vinyl Umbrellas · Global Voices"),
         ],
         "parar": [
-            ("(Risas) Entonces, ¿cómo vamos a ___ esto?", "(Risas) Entonces, ¿cómo vamos a parar esto?", "(Laughter) So how are we going to stop this?"),
             ("¿Es capaz de ___ las ruedas?", "¿Es capaz de parar las ruedas?", "And the brakes lock the wheels?"),
             ("¿Dónde fue todo eso a ___?", "¿Dónde fue todo eso a parar?", "Where did that all end?"),
         ],
@@ -15449,7 +14822,6 @@ extension SeedData {
         "parcialmente": [
             ("O podría ser ___ verdad", "O podría ser parcialmente verdad", "Or it may be partially true."),
             ("No puedo ayudar pero me siento ___ responsable.", "No puedo ayudar pero me siento parcialmente responsable.", "I can't help but feel partly responsible."),
-            ("Y un 10% de ___ libres a no libres.", "Y un 10% de parcialmente libres a no libres.", "Now, the reason they're so close is because I estimated by transition probabilities from the actual data. So it's likely it would be really close like this."),
         ],
         "pared": [
             ("Pon el pupitre contra la ___.", "Pon el pupitre contra la pared.", "Put the desk against the wall."),
@@ -15469,7 +14841,6 @@ extension SeedData {
         "parlamento": [
             ("¿Estoy realmente más interesado en quien es diputado en el ___?", "¿Estoy realmente más interesado en quien es diputado en el parlamento?", "Am I really more interested on who is the deputy in the parliament"),
             ("¿Por qué no hubo condena del bloqueo del ___?", "¿Por qué no hubo condena del bloqueo del Parlamento?", "Why no condemnation of the blockade of Parliament?"),
-            ("Preguntas al ___: ¡lo destacado!", "Preguntas al Parlamento: ¡lo destacado!", "Questions to parliament: the highlights!"),
         ],
         "parque": [
             ("¿Ves la entrada del ___?", "¿Ves la entrada del parque?", "Do you see the entrance of the park?"),
@@ -15477,12 +14848,10 @@ extension SeedData {
             ("Fue divertido jugar en el ___.", "Fue divertido jugar en el parque.", "It was fun playing in the park."),
         ],
         "parquímetro": [
-            ("(Aplausos) El ___, fue inventado en la ciudad de Oklahoma.", "(Aplausos) El parquímetro, fue inventado en la ciudad de Oklahoma.", "(Applause) The parking meter, invented in Oklahoma City."),
             ("Es como una docella de ___.", "Es como una docella de parquímetro.", "He's like a meter maid."),
             ("Me llevé por delante un ___ la semana pasada.", "Me llevé por delante un parquímetro la semana pasada.", "I ran into a parking meter last week."),
         ],
         "parrilla": [
-            ("Empleado: ¿Queso a la ___?", "Empleado: ¿Queso a la parrilla?", "Office worker: Grilled cheese?BM: No."),
             ("- Abi, ¿sabes dónde ponemos la ___?", "- Abi, ¿sabes dónde ponemos la parrilla?", "- Abi, do you know where we put the grill?"),
             ("¿Queso a la ___? BM:", "¿Queso a la parrilla? BM:", "Grilled cheese?BM:"),
         ],
@@ -15542,7 +14911,6 @@ extension SeedData {
             ("Pero tuve una muy buena ___, una mujer llamada Michaela Kobsa-Mark.", "Pero tuve una muy buena pasante, una mujer llamada Michaela Kobsa-Mark.", "And I did, though, have a really great intern, a woman named Michaela Kobsa-Mark."),
         ],
         "pasaporte": [
-            ("CS: Quizá deberíamos comprar un ___ a Shondalandia, ¿no?", "CS: Quizá deberíamos comprar un pasaporte a Shondalandia, ¿no?", "CS: I think we should buy a passport to Shondaland. Right?"),
             ("¿Eres todavía el de la foto del ___?", "¿Eres todavía el de la foto del pasaporte?", "Are you still the one on the passport photo?"),
             ("¿A hacer visar su ___?", "¿A hacer visar su pasaporte?", "\"To have his passport visaed?\""),
         ],
@@ -15568,11 +14936,10 @@ extension SeedData {
         ],
         "pastilla": [
             ("¿Quieres la ___ roja o la blanca, Neo?", "¿Quieres la pastilla roja o la blanca, Neo?", "Would you like the red pill or the white pill, Neo?"),
-            ("Esta ___, qué es, sólo sustancia química, ¿No?", "Esta pastilla, qué es, sólo sustancia química, ¿No?", "This pill is what? Just a little bit of chemicals, isnt it?"),
+            ("Esta ___, qué es, sólo sustancia química, ¿No?", "Esta pastilla, qué es, sólo sustancia química, ¿No?", "This pill is what? Just a little bit of chemicals, isn’t it?"),
             ("Toma esta ___. Te ayudará a dormir.", "Toma esta pastilla. Te ayudará a dormir.", "Take this pill. It will help you sleep."),
         ],
         "patear": [
-            ("ĄEstoy aquí para ___ traseros! żLos de quién?", "ĄEstoy aquí para patear traseros! żLos de quién?", "ĄEstoy aquí para patear traseros! żLos de quién?"),
             ("Tienes que ___ el doble de fuerte.", "Tienes que patear el doble de fuerte.", "You have to swim twice as hard."),
             ("Y hay muchas maneras distintas de ___ el sistema.", "Y hay muchas maneras distintas de patear el sistema.", "And there's lots of different ways to kick the system."),
         ],
@@ -15594,7 +14961,6 @@ extension SeedData {
         "patriótico": [
             ("¿Algun ___ podría recordarle a M7 que los ugandéses están hartos?", "¿Algun patriótico podría recordarle a M7 que los ugandéses están hartos?", "Will anyone patriotic remind M7 that Ugadans are fed up?"),
             ("¿Qué puede ser más ___?", "¿Qué puede ser más patriótico?", "What can be more patriotic?"),
-            ("Hong Kong: Registro ___ de estudiantes", "Hong Kong: Registro patriótico de estudiantes", "Hong Kong: Students' Patriotic Record · Global Voices"),
         ],
         "patrocinador": [
             ("¿No es usted un socio ___ de la FIFA?", "¿No es usted un socio patrocinador de la FIFA?", "Not an official marketing partner of FIFA?"),
@@ -15627,7 +14993,6 @@ extension SeedData {
         ],
         "paz": [
             ("¿Cómo puede estar dejando a esa muchacha en ___?", "¿Cómo puede estar dejando a esa muchacha en paz?", "How could you let this happen?"),
-            ("Más ___, más espacio para tu Ser.", "Más paz, más espacio para tu Ser.", "This thinning out of the attraction for what has no no real beauty, no nutrition, no vitamins in it at all, you see? More peace, more space for your Self"),
             ("Por fin estoy en ___ con el hombre.", "Por fin estoy en paz con el hombre.", "I am finally quits with the man."),
         ],
         "país": [
@@ -15642,13 +15007,10 @@ extension SeedData {
         ],
         "peaje": [
             ("¿Tenemos que coger una autopista de ___? No tenemos ninguna prisa.", "¿Tenemos que coger una autopista de peaje? No tenemos ninguna prisa.", "Do we need to take a toll road? We're not in a hurry."),
-            ("Con cada vez menos humano ___ necesario en el tiempo.", "Con cada vez menos humano peaje necesario en el tiempo.", "I've got to get back."),
             ("Compara eso con mi puesto de ___ local.", "Compara eso con mi puesto de peaje local.", "Compare that to my local toll plaza."),
         ],
         "pecado": [
-            ("¿una vez más, creo que es un ___?", "¿una vez más, creo que es un pecado?", "Do I have to tell you one more time, I think it's a sin? I'm gonna let you down, [Other three sing] Let you down."),
             ("HERMANO Dios perdonar el ___! fuiste con Rosalina?", "HERMANO Dios perdonar el pecado! fuiste con Rosalina?", "FRlAR God pardon sin! wast thou with Rosaline?"),
-            ("Jordi: ¿Qué paso, ___? ¿Vas a arrugar ahorita?", "Jordi: ¿Qué paso, pecado? ¿Vas a arrugar ahorita?", "-"),
         ],
         "pecho": [
             ("No el ___ blanco suficiente traicionarlo?", "No el pecho blanco suficiente traicionarlo?", "Did not his white breast enough betray him?"),
@@ -15781,7 +15143,6 @@ extension SeedData {
         "percepción": [
             ("Primero, ¿cómo controla la atención nuestra ___?", "Primero, ¿cómo controla la atención nuestra percepción?", "First, how does attention control our perception?"),
             ("¿Qué provocó este cambio radical en la ___?", "¿Qué provocó este cambio radical en la percepción?", "What brought about this radical change in perception?"),
-            ("Pero es cuestión de ___", "Pero es cuestión de percepción", "But it's a question of perception, and if that's what you're thinking, if that's what you think I mean when I say,"),
         ],
         "percibir": [
             ("¿Y ___, que para pagarle dinero, está bien?", "¿Y percibir, que para pagarle dinero, está bien?", "And I perceive, that for paying you money, okay?"),
@@ -15836,7 +15197,6 @@ extension SeedData {
         "perfecto": [
             ("Lance Armstrong es un ejemplo ___.", "Lance Armstrong es un ejemplo perfecto.", "Lance Armstrong is a perfect one."),
             ("Es decir, es ___ para relaciones románticas.", "Es decir, es perfecto para relaciones románticas.", "In other words, it's perfect for romantic matching."),
-            ("Bueno, vamos a asumir que este es un conductor ___", "Bueno, vamos a asumir que este es un conductor perfecto", "And why is that?"),
         ],
         "perfil": [
             ("¿Cambiaste tu foto de ___?", "¿Cambiaste tu foto de perfil?", "Did you change your profile picture?"),
@@ -15844,9 +15204,7 @@ extension SeedData {
             ("Entonces, rapidamente, ¿cual es el ___ temporal óptimo?", "Entonces, rapidamente, ¿cual es el perfil temporal óptimo?", "So, very quickly, what is the optimal time profile?"),
         ],
         "performance": [
-            ("How would you rate Antonia's ___ as club president? e", "How would you rate Antonia's performance as club president? e", "PREGUNTA."),
             ("¿Qué hay acerca de la ___?.", "¿Qué hay acerca de la performance?.", "What about the performance?"),
-            ("Puerto Rico: ___ y raíces", "Puerto Rico: Performance y raíces", "Puerto Rico: Performance and Roots · Global Voices"),
         ],
         "pericia": [
             ("Emocionantes relatos de tunecinos ofreciendo su ayuda, hospitalidad y ___.", "Emocionantes relatos de tunecinos ofreciendo su ayuda, hospitalidad y pericia.", "Moving accts Tunisians offering help, hospitality + expertise"),
@@ -15925,22 +15283,18 @@ extension SeedData {
         "personaje": [
             ("Irán: ¿El candidato presidencial más creíble es un ___ de ficción?", "Irán: ¿El candidato presidencial más creíble es un personaje de ficción?", "Is Iran's Most Believable Presidential Candidate a Fictional Character? · Global Voices"),
             ("Los gusanos estaban bien, ¿pero tu ___ favorito?", "Los gusanos estaban bien, ¿pero tu personaje favorito?", "The sandworms were fine, but your favorite character?"),
-            ("AS: ¿Cómo hacer simpático a un ___ egoísta?", "AS: ¿Cómo hacer simpático a un personaje egoísta?", "AS: So how do you make a selfish character likable?"),
         ],
         "personalidad": [
             ("El nuevo tutor terminó de esculpir la ___ del Zurdo", "El nuevo tutor terminó de esculpir la personalidad del Zurdo", "You haven't got a lighter, have you?"),
             ("Ese vocabulario no encaja con su ___.", "Ese vocabulario no encaja con su personalidad.", "Such language doesn't harmonize with his character."),
-            ("(Risas) Podemos darles ___ a las cosas.", "(Risas) Podemos darles personalidad a las cosas.", "(Laughter) We can give things a personality."),
         ],
         "personalmente": [
             ("¿Le conocéis vos ___? preguntó el gobernador.", "¿Le conocéis vos personalmente? preguntó el gobernador.", "\"Do you know him personally?\" asked the governor."),
             ("Yo ___ no tengo la fe suficiente para ser un ateista.", "Yo personalmente no tengo la fe suficiente para ser un ateista.", "I don't personally have enough faith to be an atheist."),
-            ("(Risas) Cuando alguien nos llamaba o escribía, yo ___ le respondía.", "(Risas) Cuando alguien nos llamaba o escribía, yo personalmente le respondía.", "(Laughter) When somebody called and wrote, I responded personally."),
         ],
         "perspectiva": [
             ("Desde esta ___, la próxima elección es un no evento.", "Desde esta perspectiva, la próxima elección es un no evento.", "From this perspective, the forthcoming election is a non event."),
             ("Y, de repente, cambia la ___ de la audiencia.", "Y, de repente, cambia la perspectiva de la audiencia.", "And all of a sudden, the audience's perspective changes."),
-            ("EEUU, Rusia: Gorby vs Yeltsin, ___ de examen de grado multiestatal", "EEUU, Rusia: Gorby vs Yeltsin, perspectiva de examen de grado multiestatal", "US, Russia: Gorby vs Yeltsin, Multistate Bar Exam Scenario · Global Voices"),
         ],
         "perspicacia": [
             ("Aquí está la brillante ___ de BMW, en una campaña publicitaria.", "Aquí está la brillante perspicacia de BMW, en una campaña publicitaria.", "Here was BMW's brilliant insight, which they embodied into an ad campaign."),
@@ -15988,7 +15342,6 @@ extension SeedData {
             ("Por eso les aconsejo la ___ Discusión.", "Por eso les aconsejo la pestaña Discusión.", "So I recommend the Discussion tab, you see, people fight fiercely."),
         ],
         "pesticida": [
-            ("India: Kerala quiere la prohibición del ___ Endosulfan", "India: Kerala quiere la prohibición del pesticida Endosulfan", "India: Kerala’s Debate On Endosulfan · Global Voices"),
             ("Esta mujer desarrolló una fórmula de ___ natural.", "Esta mujer desarrolló una fórmula de pesticida natural.", "This lady, she developed a herbal pesticide formulation."),
             ("FMC se reúne con Conservacionistas en Nairobi debido al ___ Furadan", "FMC se reúne con Conservacionistas en Nairobi debido al pesticida Furadan", "FMC Meets with Conservationists in Nairobi over Furadan · Global Voices"),
         ],
@@ -16032,7 +15385,6 @@ extension SeedData {
             ("Bueno, ___... en realidad yo...", "Bueno, Pie... en realidad yo...", "Well, Pie...actually, I.."),
         ],
         "piedad": [
-            ("Nada de ___. їY cuбndo regresas?", "Nada de piedad. їY cuбndo regresas?", "This deserves my bro. When are you coming back?"),
             ("Pensaba tenerte ___, pero... ?Qué diablos fue eso?", "Pensaba tenerte piedad, pero... ?Qué diablos fue eso?", "I was planning on showing you some mercy, but... (EXCLAlMS) What the hell was that?"),
             ("¿Pensáis que es por ___ que de mí tiene?", "¿Pensáis que es por piedad que de mí tiene?", "Think ye it is because of the affection she bears me?"),
         ],
@@ -16062,17 +15414,14 @@ extension SeedData {
             ("Este es un diseño ___ de este pequeña de tres ruedas,", "Este es un diseño piloto de este pequeña de tres ruedas,", "This is an early design for this little three-wheel."),
         ],
         "pingüino": [
-            ("BS: ¿Serías mi ___ personal?", "BS: ¿Serías mi pingüino personal?", "BS: Can you be my personal penguin?"),
             ("Ella no podía creer que yo no podía comer este ___.", "Ella no podía creer que yo no podía comer este pingüino.", "Because she can't believe I can't eat this penguin."),
             ("Y este es el ___ Turbo.", "Y este es el pingüino Turbo.", "This is Turbo the Penguin."),
         ],
         "pino": [
-            ("Podemos encontrar una tercera espiral en este cono de ___? Seguro!", "Podemos encontrar una tercera espiral en este cono de pino? Seguro!", "21 - a Fibonacci number."),
             ("Todos parecen iguales excepto el que está haciendo el ___.", "Todos parecen iguales excepto el que está haciendo el pino.", "Everyone looks the same, except the one standing on his head."),
             ("-Si pudieras conocer el ___, ve hacia él.- Nada más.", "-Si pudieras conocer el pino, ve hacia él.- Nada más.", "\"If you would know the pine tree, go to the pine tree.\""),
         ],
         "pintado": [
-            ("Vi un cuadro ___ por su padre en la galerнa Tate.", "Vi un cuadro pintado por su padre en la galerнa Tate.", "Vi un cuadro pintado por su padre en la galerнa Tate."),
             ("El fondo de la cúpula estaba ___ de color azul,", "El fondo de la cúpula estaba pintado de color azul,", "In a dome of heaven motifs."),
             ("En su blog personal, Steisha ___ escribe:", "En su blog personal, Steisha Pintado escribe:", "On her personal blog, Steisha Pintado says:"),
         ],
@@ -16099,7 +15448,6 @@ extension SeedData {
         "pinzas": [
             ("Nombre due?os de elegir las ___ de experiencia.", "Nombre due?os de elegir las pinzas de experiencia.", "Name owners choose the experience tweezers."),
             ("Aquí tenemos nuestras ___ de la ropa.", "Aquí tenemos nuestras pinzas de la ropa.", "Here we have our clothespins."),
-            ("(Risas) Usan el endoscopio para quitar semillas usando unas pequeñas ___,", "(Risas) Usan el endoscopio para quitar semillas usando unas pequeñas pinzas,", "(Laughter) They use this scope to remove seeds using a little tweezer."),
         ],
         "pionero": [
             ("Multics era un sistema interactivo ___ de tiempo compartido.", "Multics era un sistema interactivo pionero de tiempo compartido.", "Multics was a trailblazing interactive time-sharing system."),
@@ -16127,7 +15475,6 @@ extension SeedData {
             ("¿Bien? ¿Podrías responder de nuevo usando el ejemplo del ___?", "¿Bien? ¿Podrías responder de nuevo usando el ejemplo del pizarrón?", "Can you just do that answer again using that example on the board?"),
         ],
         "piña": [
-            ("¿Te importa? Estoy tratando de ver el desfile de la ___.", "¿Te importa? Estoy tratando de ver el desfile de la piña.", "Do you mind?"),
             ("¿Le gusta el refresco de ___?", "¿Le gusta el refresco de piña?", "Do you like pineapple drinks?"),
             ("¿Cuánto cuesta el kilo de ___?", "¿Cuánto cuesta el kilo de piña?", "How much is the kilo of pineapple?"),
         ],
@@ -16137,14 +15484,11 @@ extension SeedData {
             ("Quiero ir a comprar una ___ de mi personaje de anime favorito.", "Quiero ir a comprar una piñata de mi personaje de anime favorito.", "I want to go buy a piñata of my favorite anime character."),
         ],
         "placentero": [
-            ("No hay nada más ___ que viajar para mí.", "No hay nada más placentero que viajar para mí.", "Nothing is more delightful to me than travelling."),
             ("Nada es más ___ que viajar.", "Nada es más placentero que viajar.", "Nothing is more pleasant than traveling."),
             ("El fumar se presentaba como un acto ___ y liberador.", "El fumar se presentaba como un acto placentero y liberador.", "Smoking was presented as something pleasurable and liberating."),
         ],
         "plagio": [
             ("Salió en mi defensa cuando fui acusado de ___.", "Salió en mi defensa cuando fui acusado de plagio.", "She came to my defence when I was accused of plagiarism."),
-            ("Puerto Rico: ___ y medios de comunicación", "Puerto Rico: Plagio y medios de comunicación", "Puerto Rico: Plagiarism and Mainstream Media · Global Voices"),
-            ("Puerto Rico: ___ revelado en la red", "Puerto Rico: Plagio revelado en la red", "Puerto Rico: Plagiarism Revealed Through the Net · Global Voices"),
         ],
         "plancha": [
             ("Me quemé la mano con una ___.", "Me quemé la mano con una plancha.", "I burned my hand with an iron."),
@@ -16164,10 +15508,8 @@ extension SeedData {
         "planear": [
             ("¿Pueden ser espontáneos y no tener que ___ cada detalle?", "¿Pueden ser espontáneos y no tener que planear cada detalle?", "Can you be spontaneous, and not have to plan every single thing down to the last detail."),
             ("¿Como puedo ___, monitorear y evaluar mis activdades/proyectos?", "¿Como puedo planear, monitorear y evaluar mis activdades/proyectos?", "How can I plan, monitor, and evaluate my activities/projects?"),
-            ("Franklin: ¡Shhh!...[?] Hay que ___ que todo termine en la trasacción.", "Franklin: ¡Shhh!...[?] Hay que planear que todo termine en la trasacción.", "-"),
         ],
         "planificar": [
-            ("(Risas) Mientras tanto, podemos... (Risas) podemos ___ pensando en ella.", "(Risas) Mientras tanto, podemos... (Risas) podemos planificar pensando en ella.", "(Laughter) Meanwhile, we can -- (Laughter) We can design towards it."),
             ("no se puede ___ o controlar:", "no se puede planificar o controlar:", "It cannot be programmed or controlled."),
             ("Teníamos que ___ un evento llamado", "Teníamos que planificar un evento llamado", "We were going to plan an event called"),
         ],
@@ -16189,7 +15531,6 @@ extension SeedData {
         "plantear": [
             ("Digamos que yo estoy aquí. Voy a ___ dos supuestos.", "Digamos que yo estoy aquí. Voy a plantear dos supuestos.", "Let's say I'm over here I'm going to do two scenarios."),
             ("Quiero dar un paso atrás y ___ dos simples preguntas.", "Quiero dar un paso atrás y plantear dos simples preguntas.", "So I want to take a step back and ask two very basic questions."),
-            ("(Risas) Y tengo por costumbre ___ preguntas difíciles.", "(Risas) Y tengo por costumbre plantear preguntas difíciles.", "(Laughter) And I have a habit of asking difficult questions."),
         ],
         "plasma": [
             ("Realmente se realiza en el ___ de la sangre.", "Realmente se realiza en el plasma de la sangre.", "It actually is carried in the plasma of the blood."),
@@ -16222,7 +15563,6 @@ extension SeedData {
             ("¿Esto te parece una ___?", "¿Esto te parece una playa?", "You call this a beach?"),
         ],
         "playera": [
-            ("La seguridad es una necesidad y no una opción. &lt;___&gt;, &lt;polo&gt;", "La seguridad es una necesidad y no una opción. &lt;playera&gt;, &lt;polo&gt;", "Security is a need, not an option. &lt;T-shirt&gt;, &lt;jersey&gt;"),
             ("Lavé mi ___.", "Lavé mi playera.", "I washed my t-shirt."),
         ],
         "plazo": [
@@ -16280,9 +15620,7 @@ extension SeedData {
             ("¿Por qué existe la ___?", "¿Por qué existe la pobreza?", "Why does poverty exist?"),
         ],
         "poco": [
-            ("Tambor: Un ___ de diversión, ¿eh, Bambi?", "Tambor: Un poco de diversión, ¿eh, Bambi?", "Thumper: Some fun, huh, Bambi?"),
             ("Por favor, comé un ___ de torta.", "Por favor, comé un poco de torta.", "Please eat some cake."),
-            ("(Aplausos)(Vítores) Ahora, vamos a deslizarnos un ___ más al fondo.", "(Aplausos)(Vítores) Ahora, vamos a deslizarnos un poco más al fondo.", "(Applause and cheers) Now we're going to slide down a little further."),
         ],
         "poco confiable": [
             ("Ella es descuidada y ___.", "Ella es descuidada y poco confiable.", "She is an absent-minded and unreliable person."),
@@ -16297,17 +15635,13 @@ extension SeedData {
         "podcast": [
             ("Global Voices ___, el mundo habla, ¿estás escuchando?", "Global Voices podcast, el mundo habla, ¿estás escuchando?", "The Global Voices podcast, the world is talking, I hope you’ve been listening."),
             ("¿Quién mejor para acompañarnos en esta edición del ___?", "¿Quién mejor para acompañarnos en esta edición del podcast?", "Who better to accompany us through this edition of the podcast?"),
-            ("Kazajistán: ___ entrevista con Joanna Lillis", "Kazajistán: Podcast entrevista con Joanna Lillis", "Kazakhstan: Podcast Interview with Joanna Lillis · Global Voices"),
         ],
         "poderoso": [
             ("¿Conduciremos un auto más ___?", "¿Conduciremos un auto más poderoso?", "Shall we drive a more powerful car"),
-            ("CA: Es muy ___, es extrañamente lento en un nivel.", "CA: Es muy poderoso, es extrañamente lento en un nivel.", "CA: It's so powerful, it's weirdly slow at one level."),
             ("Aun así, este es un resultado ___.", "Aun así, este es un resultado poderoso.", "Still, this is an empowering result."),
         ],
         "podio": [
-            ("(Risas) Lyne bajó del ___", "(Risas) Lyne bajó del podio", "(Laughter) Lyne steps off the podium."),
             ("Y me subo al ___.", "Y me subo al podio.", "And I go on the podium."),
-            ("(Aplausos) Chris Anderson: Mientras retiran el ___, una pregunta rápida.", "(Aplausos) Chris Anderson: Mientras retiran el podio, una pregunta rápida.", "(Applause) Chris Anderson: While they're taking the podium away, just a quick question."),
         ],
         "poema": [
             ("Escribe un ___ de cuatro estrofas de tres líneas cada una.", "Escribe un poema de cuatro estrofas de tres líneas cada una.", "Write a poem with four three-line stanzas."),
@@ -16335,7 +15669,6 @@ extension SeedData {
             ("Esto es ___ de tanques en South Hamptons.", "Esto es polo de tanques en South Hamptons.", "This is tank polo in the South Hamptons."),
         ],
         "polémico": [
-            ("Brasil: ¿Asesinato o suicidio de un ___ bloguero?", "Brasil: ¿Asesinato o suicidio de un polémico bloguero?", "Brazil: Murder or Suicide of Controversial Blogger? · Global Voices"),
             ("¿Y dónde está lo ___ en eso?", "¿Y dónde está lo polémico en eso?", "And where is the controversy in that?"),
             ("Captura de pantalla del ___ comercial de pañales", "Captura de pantalla del polémico comercial de pañales", "Screenshot of the controversial diaper ad"),
         ],
@@ -16370,7 +15703,6 @@ extension SeedData {
             ("Sí, es mejor ___ algo más lejos.", "Sí, es mejor ponerse algo más lejos.", "Yes, it's better to look at it a bit further away."),
         ],
         "popular": [
-            ("¿Cómo puede funcionar? Pero antes de eso veamos la cultura ___.", "¿Cómo puede funcionar? Pero antes de eso veamos la cultura popular.", "How would it work?"),
             ("¿Crees que eso hace ___ a Jennie?", "¿Crees que eso hace popular a Jennie?", "Do you think that makes Jennie popular?"),
             ("Balonmano es un deporte muy ___ en Dinamarca.", "Balonmano es un deporte muy popular en Dinamarca.", "Handball is a very popular sport in Denmark."),
         ],
@@ -16420,7 +15752,6 @@ extension SeedData {
             ("Los cigarrillos fuera del ___ de la fábrica son muy baratos.", "Los cigarrillos fuera del portón de la fábrica son muy baratos.", "Now, cigarettes out the factory gate are very cheap."),
         ],
         "posada": [
-            ("¿Pero va a ser en una ___?", "¿Pero va a ser en una posada?", "An inn?"),
             ("Aquello de allá creo que es la ___ del pueblo, ¿no?", "Aquello de allá creo que es la posada del pueblo, ¿no?", "I believe that that is the village inn over there?\""),
             ("Llegaron, pues, a ella; preguntaron al huésped si había ___.", "Llegaron, pues, a ella; preguntaron al huésped si había posada.", "They reached it, and asked the landlord if they could put up there."),
         ],
@@ -16461,7 +15792,6 @@ extension SeedData {
         ],
         "postergar": [
             ("Pero no van a ___ el pago de la deuda.", "Pero no van a postergar el pago de la deuda.", "But they won't postpone the debt payment."),
-            ("Brasil: Vuelven a ___ voto de Carta de Derechos", "Brasil: Vuelven a postergar voto de Carta de Derechos", "Brazil: Internet Bill of Rights Vote Postponed Again · Global Voices"),
             ("No hubo ninguna respuesta aconsejandola ___ su renuncia.", "No hubo ninguna respuesta aconsejandola postergar su renuncia.", "There was no response advising Ms Gumbs-Sandiford to defer her resignation."),
         ],
         "posteriormente": [
@@ -16471,8 +15801,6 @@ extension SeedData {
         ],
         "postre": [
             ("¿Qué fruta te gustaría tener de ___?", "¿Qué fruta te gustaría tener de postre?", "What fruit would you like to have for dessert?"),
-            ("Mesera: ¿Le gustaría algún ___?", "Mesera: ¿Le gustaría algún postre?", "Server: Would you like any desserts, sir?"),
-            ("PM: ¿Eso es para el aperitivo o el ___, Mark?", "PM: ¿Eso es para el aperitivo o el postre, Mark?", "PM: Is that for appetizer or dessert, Mark?"),
         ],
         "postulado": [
             ("Cual fue el problema original que habia ___?", "Cual fue el problema original que habia postulado?", "So what was the original problem I said?"),
@@ -16511,7 +15839,6 @@ extension SeedData {
         ],
         "precario": [
             ("Lo más ___ -- es de 2,6 trillones.", "Lo más precario -- es de 2,6 trillones.", "Hand-to-mouth is 2.6 trillion."),
-            ("Nicaragua: El ___ estado de las calles en Nueva Guinea", "Nicaragua: El precario estado de las calles en Nueva Guinea", "Nicaragua: The Poor State of Roads in Nueva Guinea · Global Voices"),
             ("Todo parecía muy ___.", "Todo parecía muy precario.", "Everything felt so precarious."),
         ],
         "precavido": [
@@ -16532,7 +15859,6 @@ extension SeedData {
         "precisar": [
             ("»––¿No puede ___ lo que era?", "»––¿No puede precisar lo que era?", "\"'You cannot say what it was?'"),
             ("¿Dónde lo encontraste? En algún sitio del bosque. No podría ___.", "¿Dónde lo encontraste? En algún sitio del bosque. No podría precisar.", "Where did you find it? Somewhere in the forest. I couldn't say precisely."),
-            ("Yo quiero ___ una cosa.", "Yo quiero precisar una cosa.", "I want to clarify one thing."),
         ],
         "preciso": [
             ("—¿Será, sin duda, ___ esperar a que crezca la marea?", "—¿Será, sin duda, preciso esperar a que crezca la marea?", "\"No doubt we must wait for the tide.\""),
@@ -16560,7 +15886,6 @@ extension SeedData {
             ("de educar desde la ed. ___ hasta los 12 años.", "de educar desde la ed. preescolar hasta los 12 años.", "Robots like this can really change the way we do K-12 education."),
         ],
         "preferencia": [
-            ("Perú: La ___ por Afro-Peruanos para los funerales", "Perú: La preferencia por Afro-Peruanos para los funerales", "Peru: The Preference for Afro-Peruvians at Funeral Services · Global Voices"),
             ("Señora Coquenard, os daba ___.", "Señora Coquenard, os daba preferencia.", "\"Madame Coquenard, I gave you the preference."),
             ("Tomamos esa decisión basados en la ___ de los clientes.", "Tomamos esa decisión basados en la preferencia de los clientes.", "We made that decision based on customer preference."),
         ],
@@ -16582,7 +15907,6 @@ extension SeedData {
         "prejuicio": [
             ("Bloguera española critica el ___ anticatalán en video viral", "Bloguera española critica el prejuicio anticatalán en video viral", "Spanish Blogger Goes After Anti-Catalan Prejudice in Viral Video · Global Voices"),
             ("El ___ y la violencia también.", "El prejuicio y la violencia también.", "Prejudice is a disease. Violence is a disease."),
-            ("Brasil: ___ en contra de Paraguay en los medios", "Brasil: Prejuicio en contra de Paraguay en los medios", "Brazil: Prejudice against Paraguay in the Media · Global Voices"),
         ],
         "prematuro": [
             ("Por ahora, es todavía ___ para que un desinformado haga predicciones.", "Por ahora, es todavía prematuro para que un desinformado haga predicciones.", "As yet it’s too early for an uninformed being to make predictions."),
@@ -16596,7 +15920,6 @@ extension SeedData {
         ],
         "prensa": [
             ("Entonces, la gente construye por su cuenta la ___ de ladrillos.", "Entonces, la gente construye por su cuenta la prensa de ladrillos.", "Then people are building independently the compress earth brick press."),
-            ("Hong Kong: Las dobles normas de la ___ tabloide", "Hong Kong: Las dobles normas de la prensa tabloide", "Hong Kong: tabloid press' double standards · Global Voices"),
             ("La ___ reportó que entre 12 y 16 manifestantes fueron arrestados.", "La prensa reportó que entre 12 y 16 manifestantes fueron arrestados.", "Press reports say that between 12 and 16 demonstrators were arrested."),
         ],
         "preocupar": [
@@ -16617,7 +15940,6 @@ extension SeedData {
         "preparado": [
             ("¿Estás ___ para lo peor?", "¿Estás preparado para lo peor?", "Are you prepared for the worst?"),
             ("Estoy ___ ¡Vamos! ¿Este tipo no va a morir?", "Estoy preparado ¡Vamos! ¿Este tipo no va a morir?", "Come on, is this guy gonna die?"),
-            ("Asн ahora, el escenario estб ___.", "Asн ahora, el escenario estб preparado.", "So now, the stage was set."),
         ],
         "preparar": [
             ("¿Que debería de ___... que necesito hacer? ¡Dime acerca de eso!", "¿Que debería de preparar... que necesito hacer? ¡Dime acerca de eso!", "What to prepare, how to act?"),
@@ -16635,7 +15957,6 @@ extension SeedData {
             ("Es, es una ___.", "Es, es una preposición.", "It's, is a preposition."),
         ],
         "prepotente": [
-            ("(Risa) No, no porque sea algún ___ gourmet 'goody-two shoes'.", "(Risa) No, no porque sea algún prepotente gourmet 'goody-two shoes'.", "(Laughter) No, not because I'm some self-righteous, goody-two shoes foodie."),
             ("Sus amigos estaban incómodos con su actitud ___.", "Sus amigos estaban incómodos con su actitud prepotente.", "His friends were uncomfortable with his high-handed attitude."),
             ("No, no porque sea algún ___ gourmet 'goody-two shoes'.", "No, no porque sea algún prepotente gourmet 'goody-two shoes'.", "No, not because I'm some self-righteous, goody-two shoes foodie."),
         ],
@@ -16690,9 +16011,7 @@ extension SeedData {
             ("¿Cómo se tiene ___ baja en la piel?", "¿Cómo se tiene presión arterial baja en la piel?", "How do you have low blood pressure in your skin?"),
         ],
         "preso": [
-            ("Marruecos: Estudiante ___ por insultar al rey en un video", "Marruecos: Estudiante preso por insultar al rey en un video", "Morocco: Student Jailed for Insulting King in Video · Global Voices"),
             ("Nunca le dije a nadie que mi padre está ___.", "Nunca le dije a nadie que mi padre está preso.", "I've never told anyone that my father is in prison."),
-            ("Irán: Bloguero ___ en huelga de hambre", "Irán: Bloguero preso en huelga de hambre", "Iran: Jailed Blogger on Hunger Strike · Global Voices"),
         ],
         "prestar": [
             ("¿Por qué es tan difícil ___ atención?", "¿Por qué es tan difícil prestar atención?", "So why is it so hard to pay attention?"),
@@ -16735,7 +16054,6 @@ extension SeedData {
             ("(Sonidos ___ grabados en un looper)", "(Sonidos previamente grabados en un looper)", "(Layers of recorded sound on loop station)"),
         ],
         "prima": [
-            ("¿___ de riesgo fue 5%, está bien? Así que comencemos.", "¿prima de riesgo fue 5%, está bien? Así que comencemos.", "So let's get started."),
             ("Su ___ vive en Europa.", "Su prima vive en Europa.", "Her cousin lives in Europe."),
             ("Si usted deja de pagar la ___, su política desaparecerá.", "Si usted deja de pagar la prima, su política desaparecerá.", "If you stop paying premium, your policy will go away."),
         ],
@@ -16745,12 +16063,10 @@ extension SeedData {
             ("Las matemáticas de la ___ son suficientes para resolver este problema.", "Las matemáticas de la primaria son suficientes para resolver este problema.", "Elementary school mathematics is sufficient to solve this problem."),
         ],
         "primavera": [
-            ("Malawí ¿se expande la ___ árabe al sur del Sahara?", "Malawí ¿se expande la primavera árabe al sur del Sahara?", "Malawi: Arab Spring Spreading South of the Sahara? · Global Voices"),
             ("¿Pero dónde podemos encontrar la ___, la felicidad, el nirvana?", "¿Pero dónde podemos encontrar la primavera, la felicidad, el nirvana?", "But where can we find the spring, the happiness, nirvana?"),
             ("La ___, ¿Y la tuya In-su?", "La primavera, ¿Y la tuya In-su?", "Spring. What about you, ln-su?"),
         ],
         "primero": [
-            ("Luego está el concepto del Efecto Pasa ___.", "Luego está el concepto del Efecto Pasa Primero.", "Now, in this situation, you could actually argue that this is an example of topical drug delivery, but not really. So, even though you inhale the drug, then you do dilate the airways directly in the drug, it would directly in the lung. You also get systemic, systemic absorption of the drug to enhance that local effect."),
             ("Y tal vez sea eso lo ___ que debemos pensar.", "Y tal vez sea eso lo primero que debemos pensar.", "And maybe that's the first thing we should think about."),
             ("Entonces, echemos un vistado al Efecto Pasa ___.", "Entonces, echemos un vistado al Efecto Pasa Primero.", "So. Let's take a little break here and see how we're doing in terms of your understanding. How many methods of drug administration can you remember?"),
         ],
@@ -16795,12 +16111,9 @@ extension SeedData {
             ("¿Que esta haciendo Dr. Baek, demonos ___ y vamonos?", "¿Que esta haciendo Dr. Baek, demonos prisa y vamonos?", "What are you doing Doctor Baek, let's hurry and go."),
         ],
         "prisión": [
-            ("Taxi... Puede llevarme a la ___? EyVallah ( seguro) !!!", "Taxi... Puede llevarme a la prisión? EyVallah ( seguro) !!!", "A Prison"),
             ("La gran juez en la ___?", "La gran juez en la prisión?", "A procurator came to prison!"),
-            ("Arabia Saudita: ¿Arwa Baghdadi dará a luz en ___?", "Arabia Saudita: ¿Arwa Baghdadi dará a luz en prisión?", "Saudi Arabia: Will Arwa Baghdadi Have Her Baby in Prison? · Global Voices"),
         ],
         "privacidad": [
-            ("Bermudas: ¿Seguridad en el riesgo de la ___?", "Bermudas: ¿Seguridad en el riesgo de la privacidad?", "Bermuda: Safety at the Risk of Privacy? · Global Voices"),
             ("¿La ___ de los famosos que visitan Santa Lucía?", "¿La privacidad de los famosos que visitan Santa Lucía?", "The privacy of celebrities who visit St Lucia?"),
             ("¿Quién va a proteger la ___ de los estudiantes?", "¿Quién va a proteger la privacidad de los estudiantes?", "Who will protect the privacy of the students?"),
         ],
@@ -16817,7 +16130,6 @@ extension SeedData {
         "privado": [
             ("Deja todo lo que significa, ma?ana vamos a un m?dico ___.", "Deja todo lo que significa, ma?ana vamos a un m?dico privado.", "I mean Leave all, tomorrow we are going to a private doctor."),
             ("Sólo para descubrir ahora que se celebran en ___.", "Sólo para descubrir ahora que se celebran en privado.", "Just to find out now that they celebrated it in privately."),
-            ("Pero esa admisiуn fue solamente para el consumo ___.", "Pero esa admisiуn fue solamente para el consumo privado.", "But that admission was for private consumption only."),
         ],
         "privilegiado": [
             ("Fotografío desde un punto fijo, ___, y nunca me muevo.", "Fotografío desde un punto fijo, privilegiado, y nunca me muevo.", "I photograph from a fixed vantage point, and I never move."),
@@ -16835,7 +16147,6 @@ extension SeedData {
             ("¿Cuál es la ___ de un resultado positivo?", "¿Cuál es la probabilidad de un resultado positivo?", "What is the probability of a positive test result?"),
         ],
         "probable": [
-            ("CA: ¿Qué tan ___ crees que sea?", "CA: ¿Qué tan probable crees que sea?", "CA: I mean, in your mind, how big might that possibility space be?"),
             ("Entonces, podemos preguntarnos esto, ¿qué es más ___?", "Entonces, podemos preguntarnos esto, ¿qué es más probable?", "So again, we can ask this: what's more likely?"),
             ("Por lo tanto es más ___ para regalar electrones.", "Por lo tanto es más probable para regalar electrones.", "So you're more likely to give away electrons."),
         ],
@@ -16845,7 +16156,6 @@ extension SeedData {
             ("Me volví loco. ___ podéis recordar Tiburón, solía tener este aspecto.", "Me volví loco. Probablemente podéis recordar Tiburón, solía tener este aspecto.", "You can probably remember Tiburon, it used to look like this."),
         ],
         "probar": [
-            ("Host: ¿quieres ___ y configurarlo?", "Host: ¿quieres probar y configurarlo?", "Host: want to try and set it up?"),
             ("Pero ¿cómo podríamos realmente ___ tal teoría?", "Pero ¿cómo podríamos realmente probar tal teoría?", "But how would you actually go about testing such a theory?"),
             ("Dios, ¿cómo podemos ___ que él estaba aquí?", "Dios, ¿cómo podemos probar que él estaba aquí?", "God, how can we prove that he was here?"),
         ],
@@ -16885,10 +16195,8 @@ extension SeedData {
         "productividad": [
             ("Pero no aportó mucho a la ___.", "Pero no aportó mucho a la productividad.", "But it hasn't done much for productivity."),
             ("Esto impulsará la ___ fabril en más de un tercio.", "Esto impulsará la productividad fabril en más de un tercio.", "They will boost industrial productivity by more than a third."),
-            ("Una: tienen un potencial menor para la ___ de la planta.", "Una: tienen un potencial menor para la productividad de la planta.", "One: degraded soils have diminished potential to support plant productivity."),
         ],
         "productivo": [
-            ("¿Qué necesitan si van a construir un ecosistema ___?", "¿Qué necesitan si van a construir un ecosistema productivo?", "It releases a lot of carbon. Prof: It releases a lot of carbon, right?"),
             ("No hay conocimiento ___ en la universidad para mí.", "No hay conocimiento productivo en la universidad para mí.", "There's no productive knowledge in university for me."),
             ("Así el proceso es muy ___.", "Así el proceso es muy productivo.", "So the process is very productive."),
         ],
@@ -16909,11 +16217,9 @@ extension SeedData {
         ],
         "profecía": [
             ("¿Cuáles son las posibilidades de que un texto oculte una ___?", "¿Cuáles son las posibilidades de que un texto oculte una profecía?", "So what are the chances of a text concealing a prophecy?"),
-            ("żEl bebé de la ___? żEl que os destruirá?", "żEl bebé de la profecía? żEl que os destruirá?", "- The baby's sick. - [ Bawling ]"),
             ("Bueno, mi hija, donde la ___?", "Bueno, mi hija, donde la profecía?", "Well, my daughter where prophecy?"),
         ],
         "profesional": [
-            ("Trinidad y Tobago: ¿Sentencia de muerte para la fotógrafía ___?", "Trinidad y Tobago: ¿Sentencia de muerte para la fotógrafía profesional?", "Trinidad & Tobago: Death Knell for Professional Photography? · Global Voices"),
             ("¿Es el smartphone la sentencia de muerte para la fotografía ___?", "¿Es el smartphone la sentencia de muerte para la fotografía profesional?", "Is the smartphone the death knell for professional photography?"),
             ("¿Qué opina un dermatólogo ___ de Physio Radiance?", "¿Qué opina un dermatólogo profesional de Physio Radiance?", "What does a professional dermatologist say about Physio Radiance?"),
         ],
@@ -16940,11 +16246,9 @@ extension SeedData {
         "programa": [
             ("Es un ___ de comedia.", "Es un programa de comedia.", "It's a comedy show."),
             ("Esta semana en Texas, comenzó un ___ llamado,", "Esta semana en Texas, comenzó un programa llamado,", "Similarly, Texas this week, started a so called,"),
-            ("Truthloader: nuevo ___ de You Tube sobre periodismo ciudadano", "Truthloader: nuevo programa de You Tube sobre periodismo ciudadano", "Truthloader: New YouTube Show on Citizen Journalism · Global Voices"),
         ],
         "programación": [
             ("¿Qué es un lenguaje de ___?", "¿Qué es un lenguaje de programación?", "What is a programming language?"),
-            ("Por qué aprender ___ ?", "Por qué aprender programación ?", "Those are programs for editing photos, creating spreadsheets, doing 3D animation or making music."),
             ("Esta es una manera diferente de pensar sobre ___. De acuerdo.", "Esta es una manera diferente de pensar sobre programación. De acuerdo.", "This is a fundamentally different way of thinking about programming."),
         ],
         "programador": [
@@ -17085,7 +16389,6 @@ extension SeedData {
         "protagonista": [
             ("Así que, ¿qué pasa al final con el ___?", "Así que, ¿qué pasa al final con el protagonista?", "So what happens to the protagonist at the end?"),
             ("A?o Seraj es el ___ de la historia.", "A?o Seraj es el protagonista de la historia.", "Year- Serach is the star of the story."),
-            ("El verdadero ___ de todo esto, ¿es su jefe?", "El verdadero protagonista de todo esto, ¿es su jefe?", "What do you think?"),
         ],
         "proteger": [
             ("Cuales son los activos que estamos intentando ___?", "Cuales son los activos que estamos intentando proteger?", "So what are the assets we're trying to protect?"),
@@ -17103,9 +16406,7 @@ extension SeedData {
             ("Después la vigilia se convirtió más bien en una ___.", "Después la vigilia se convirtió más bien en una protesta.", "Later the vigil became much more of a protest."),
         ],
         "protestar": [
-            ("Brasil: ¿___ por la calidad del transporte es un crimen?", "Brasil: ¿Protestar por la calidad del transporte es un crimen?", "Brazil: Protest for quality transportation is a crime? · Global Voices"),
             ("@mkalkhalifa: Pueden ___ todo lo que quieran....", "@mkalkhalifa: Pueden protestar todo lo que quieran....", "@mkalkhalifa: You can protest all you want ...."),
-            ("Azerbaiyán: Una rara oportunidad de ___ para los jóvenes de oposición", "Azerbaiyán: Una rara oportunidad de protestar para los jóvenes de oposición", "Azerbaijan: A Rare Opportunity for Opposition Youth to Protest · Global Voices"),
         ],
         "proteína": [
             ("¿Es una buena fuente de ___?", "¿Es una buena fuente de proteína?", "Is it a good source of protein?"),
@@ -17123,7 +16424,6 @@ extension SeedData {
             ("¿Quieres un ___ que haga eso?", "¿Quieres un proveedor que haga eso?", "Do you really want an ISP that does that?"),
         ],
         "proveer": [
-            ("CA: Entonces, ¿podrá ___ de irrigación a toda la comunidad?", "CA: Entonces, ¿podrá proveer de irrigación a toda la comunidad?", "CA: So that would produce irrigation for the entire village?"),
             ("Entonces, ¿podrá ___ de irrigación a toda la comunidad?", "Entonces, ¿podrá proveer de irrigación a toda la comunidad?", "So that would produce irrigation for the entire village?"),
             ("La convención en Python es ___ una descripción aquí.", "La convención en Python es proveer una descripción aquí.", "Python convention is to provide a description here of what this does."),
         ],
@@ -17133,8 +16433,6 @@ extension SeedData {
             ("¿O podríamos acaso pensar sobre la sabiduría del viejo ___?", "¿O podríamos acaso pensar sobre la sabiduría del viejo proverbio?", "Or could we possibly think about the wisdom of this old proverb?"),
         ],
         "provincia": [
-            ("Tayikistán: Tropas abren fuego contra manifestantes en inestable ___", "Tayikistán: Tropas abren fuego contra manifestantes en inestable provincia", "Tajikistan: Troops Open Fire on Protesters in Volatile Province · Global Voices"),
-            ("Afganistán: Viajando por la ___ de Balkh", "Afganistán: Viajando por la provincia de Balkh", "Afghanistan: Travelling around Balkh province · Global Voices"),
             ("Invierno en el distrito Behsud de la ___ de Maidan Wardak.", "Invierno en el distrito Behsud de la provincia de Maidan Wardak.", "Winter in Behsud District of Maidan Wardak Province."),
         ],
         "provisional": [
@@ -17154,7 +16452,6 @@ extension SeedData {
         ],
         "proyectar": [
             ("¿O es posible encontrar algo mas inspirador para ___?", "¿O es posible encontrar algo mas inspirador para proyectar?", "Or is it possible to find something a little bit more inspiring to work towards?"),
-            ("de producir y ___ el sonido. ¿No es genial?", "de producir y proyectar el sonido. ¿No es genial?", "Isn't that cool?"),
             ("Pensar en ___ el gráfico sobre la y eje.", "Pensar en proyectar el gráfico sobre la y eje.", "Think of projecting the graph onto the y axis."),
         ],
         "prudente": [
@@ -17179,7 +16476,6 @@ extension SeedData {
         ],
         "préstamo": [
             ("Entonces, ¿cuánto pagará el ___?", "Entonces, ¿cuánto pagará el préstamo?", "So how much will you repay the loan?"),
-            ("¿el ___ es inferior, derecha?", "¿el préstamo es inferior, derecha?", "Okay."),
             ("Ellos vinieron a pedirnos un ___.", "Ellos vinieron a pedirnos un préstamo.", "They come to us with a request for a loan."),
         ],
         "prójimo": [
@@ -17234,7 +16530,6 @@ extension SeedData {
         ],
         "psiquiatra": [
             ("¿Los psiquiatras necesitan un ___?", "¿Los psiquiatras necesitan un psiquiatra?", "Do psychiatrists need psychiatrists?"),
-            ("Egipto: Nidal Hassan - ¿___ o psicótico?", "Egipto: Nidal Hassan - ¿psiquiatra o psicótico?", "Egypt: Nidal Hassan - Psychiatrist or Psychotic? · Global Voices"),
             ("Usted me está enviando a un ___?", "Usted me está enviando a un psiquiatra?", "You are sending me to a shrink?"),
         ],
         "publicación": [
@@ -17248,7 +16543,6 @@ extension SeedData {
             ("¿Qué pasaría si tuviéramos que ___ todo abiertamente en Internet?", "¿Qué pasaría si tuviéramos que publicar todo abiertamente en Internet?", "What if we were to publish it all openly on the internet?"),
         ],
         "publicidad": [
-            ("Siento lo de la ___ pero... (Aplausos)", "Siento lo de la publicidad pero... (Aplausos)", "Sorry for the commercial, but you know... (Applause)"),
             ("Hicimos ___ pagada y ganada.", "Hicimos publicidad pagada y ganada.", "We didn't earn and paid media."),
             ("Otra estrategia de fuentes de ingresos podría ser la ___.", "Otra estrategia de fuentes de ingresos podría ser la publicidad.", "Another strategy for revenue stream could be adverting."),
         ],
@@ -17304,11 +16598,9 @@ extension SeedData {
         "pulpo": [
             ("¿Cuál es el nombre científico del ___ gigante?", "¿Cuál es el nombre científico del pulpo gigante?", "What is the scientific name of the giant squid?"),
             ("¿No es un ___ de verdad, no?", "¿No es un pulpo de verdad, no?", "This is not a real octopus, right?"),
-            ("Global: Paul el ___ alemán pronostica otro partido", "Global: Paul el pulpo alemán pronostica otro partido", "Global: Paul the German Octopus Calls Another Match · Global Voices"),
         ],
         "pulsera": [
             ("¿Cuál de esas es la ___ real y cuál la control?", "¿Cuál de esas es la pulsera real y cuál la control?", "And one of those is our real band and the other is our control? Which is which?"),
-            ("¿Crees que ahora sabes qué ___ estás usando? ¿Sientes algún efecto?", "¿Crees que ahora sabes qué pulsera estás usando? ¿Sientes algún efecto?", "(WHlSTLE)"),
             ("Los adolescentes no usan relojes de ___.", "Los adolescentes no usan relojes de pulsera.", "Teenagers do not wear wristwatches."),
         ],
         "pulso": [
@@ -17353,7 +16645,6 @@ extension SeedData {
         ],
         "pupila": [
             ("Pues con la ___ dilatada y con la luz azul cobalto.", "Pues con la pupila dilatada y con la luz azul cobalto.", "With a dilated pupil and a cobalt blue filtered light."),
-            ("PC: Su ___ no miente.", "PC: Su pupila no miente.", "PC: Your pupil doesn't lie."),
             ("Cuanto más brillante es la luz, más se contrae tu ___.", "Cuanto más brillante es la luz, más se contrae tu pupila.", "The brighter the light is, the more your pupil contracts."),
         ],
         "purgatorio": [
@@ -17427,7 +16718,6 @@ extension SeedData {
             ("Otra lección es ___ debes dar gracias.", "Otra lección es que debes dar gracias.", "Another lesson is that thou shalt give thanks."),
         ],
         "quebrada": [
-            ("Uganda: ¿Está Uganda mental, intelectual y creativamente ___?", "Uganda: ¿Está Uganda mental, intelectual y creativamente quebrada?", "Uganda: Is Uganda mentally, intellectually and creatively broke? · Global Voices"),
             ("(Voz ___) Porque el vecindario no había muerto.", "(Voz quebrada) Porque el vecindario no había muerto.", "(Voice breaking) Because the neighborhood hadn't died."),
             ("¡Oh, pobre mujer, pobre mujer! murmuraba Athos con la voz ___.", "¡Oh, pobre mujer, pobre mujer! murmuraba Athos con la voz quebrada.", "\"Oh, poor woman, poor woman!\" murmured Athos, in a broken voice."),
         ],
@@ -17469,7 +16759,6 @@ extension SeedData {
         "queso": [
             ("¿Me podrían dar un trozo de tarta de ___?", "¿Me podrían dar un trozo de tarta de queso?", "Could I have a piece of cheesecake?"),
             ("Yo no serviría este ___ a mis invitados.", "Yo no serviría este queso a mis invitados.", "I would not serve this cheese to my guests."),
-            ("A los piratas les gustan los sándwiches de ___.", "A los piratas les gustan los sándwiches de queso.", "Child: What? RS: Pirates really like cheese sandwiches."),
         ],
         "quietud": [
             ("Y la profundidad importa tanto como la ___ y el agua.", "Y la profundidad importa tanto como la quietud y el agua.", "And the deep matters as much as the stillness and the water do."),
@@ -17543,7 +16832,6 @@ extension SeedData {
         ],
         "racismo": [
             ("¿Mencioné que esto del ___ puede causar polémicas?", "¿Mencioné que esto del racismo puede causar polémicas?", "Did I mention that this race stuff can be kind of divisive?"),
-            ("Israel: ¿Violación por engaño o por ___?", "Israel: ¿Violación por engaño o por racismo?", "Israel: Rape by Deceit or Racism? · Global Voices"),
             ("¿Fue un caso de ___ o de demencia?", "¿Fue un caso de racismo o de demencia?", "Was this a case of racism or insanity?"),
         ],
         "radical": [
@@ -17588,7 +16876,6 @@ extension SeedData {
         "rap": [
             ("¿Cómo estudiar el ___ de manera científica?", "¿Cómo estudiar el rap de manera científica?", "So how do you study rap scientifically?"),
             ("¿Quién piensa en ___ o hip-hop? ¿Alguien?", "¿Quién piensa en rap o hip-hop? ¿Alguien?", "Who here thinks of freestyle rapping or hip-hop?"),
-            ("Entonces: ¿qué sucede? Los usuarios crean el ___.", "Entonces: ¿qué sucede? Los usuarios crean el rap.", "So what happens? Rap music is created by the users."),
         ],
         "raramente": [
             ("Los analgésicos son ___ usados.", "Los analgésicos son raramente usados.", "Painkillers are rarely used."),
@@ -17647,7 +16934,6 @@ extension SeedData {
         ],
         "reaccionar": [
             ("Entonces, ¿cómo vamos a ___ a eso?", "Entonces, ¿cómo vamos a reaccionar a eso?", "So, how are we to react to that?"),
-            ("Sri Lanka: ¿Cómo ___ ante los mendigos?", "Sri Lanka: ¿Cómo reaccionar ante los mendigos?", "Sri Lanka: How Should We React To Beggars? · Global Voices"),
             ("¿Por qué necesitaban ___ en la red y dejar comentarios?", "¿Por qué necesitaban reaccionar en la red y dejar comentarios?", "Why did they need to react online and leave comments?"),
         ],
         "reacción": [
@@ -17661,8 +16947,6 @@ extension SeedData {
             ("Una ___ ocurre en uno o más pasos.", "Una reacción química ocurre en uno o más pasos.", "A chemical reaction takes place in one or more steps."),
         ],
         "reactivo": [
-            ("Entonces el hidrocarburo es el ___ limitante.", "Entonces el hidrocarburo es el reactivo limitante.", "Now let's figure out how many moles of water we have. So I could do the exact same thing over-- let's see, where should I do that. Let me write it over here."),
-            ("Y todos vinieron de este ___ aqui.", "Y todos vinieron de este reactivo aqui.", "But they tell us in the problem that the molecular mass is 86 grams per mole. So they're saying that the mass is twice as much as this. We must have twice as many atoms in the same ratio."),
             ("Este es el ___ limitante.", "Este es el reactivo limitante.", "So this is the limiting reagent."),
         ],
         "realidad": [
@@ -17727,7 +17011,6 @@ extension SeedData {
         "receta": [
             ("¿Me puedes dar la ___?", "¿Me puedes dar la receta?", "Can you give me the recipe?"),
             ("¿Cuál es la ___ para un cóctel específico?", "¿Cuál es la receta para un cóctel específico?", "What's the recipe for a certain cocktail?"),
-            ("Desde Nika's Culinaria: ___ de Tamales Colombianos", "Desde Nika's Culinaria: Receta de Tamales Colombianos", "From Nika's Culinaria: Colombian Tamales How-To Guide"),
         ],
         "recetar": [
             ("¿No deberíamos ___ píldoras y tratamientos y enfocarnos en nuestra tarea?", "¿No deberíamos recetar píldoras y tratamientos y enfocarnos en nuestra tarea?", "Shouldn't we just provide pills and procedures and just make sure we focus on the task at hand?\""),
@@ -17749,19 +17032,16 @@ extension SeedData {
             ("- Aún tiene el ___?", "- Aún tiene el recibo?", "Still got the receipt?"),
         ],
         "reciclaje": [
-            ("CA: Al estar en el negocio del ___", "CA: Al estar en el negocio del reciclaje", "CA: You're in the recycling business."),
             ("Le dimos un sentido lúdico al ___.", "Le dimos un sentido lúdico al reciclaje.", "We've gamified recycling."),
             ("Porque en la Naturaleza los hongos son el sistema de ___.", "Porque en la Naturaleza los hongos son el sistema de reciclaje.", "Because in nature, mushrooms are the recycling system."),
         ],
         "reciclar": [
-            ("Global: Basura electrónica - ¿___ o reutilizar?", "Global: Basura electrónica - ¿Reciclar o reutilizar?", "Global: e-Waste - Recycle or Reuse? · Global Voices"),
             ("Los plásticos son difíciles de ___.", "Los plásticos son difíciles de reciclar.", "Plastics are also hard to recycle."),
             ("Todos sabemos que tenemos que ___ más.", "Todos sabemos que tenemos que reciclar más.", "We all know we need to recycle more."),
         ],
         "reciente": [
             ("Mesozoico, la vida media; y el Cenozoico, la vida ___.", "Mesozoico, la vida media; y el Cenozoico, la vida reciente.", "Mesozoic, the middle life, and the Cenozoic, the recent life."),
             ("Por ejemplo, piense en un episodio ___ en torno a YouTube.", "Por ejemplo, piense en un episodio reciente en torno a YouTube.", "For example, think about a recent episode around YouTube."),
-            ("Japón: ___ encuesta sobre pobreza destruye el mito de la prosperidad", "Japón: Reciente encuesta sobre pobreza destruye el mito de la prosperidad", "Japan: Latest survey on poverty destroys the prosperity myth · Global Voices"),
         ],
         "recientemente": [
             ("Recuerdo haber visto ___ un gráfico actualizado cuyo título era:", "Recuerdo haber visto recientemente un gráfico actualizado cuyo título era:", "Now, I remember recently seeing an updated pie chart."),
@@ -17770,7 +17050,6 @@ extension SeedData {
         ],
         "recio": [
             ("Por su parte, la profesora e investigadora cubana Milena ___, consideró:", "Por su parte, la profesora e investigadora cubana Milena Recio, consideró:", "Meanwhile, Cuban professor and researcher Milena Recio considered :"),
-            ("Quiero que sea ridículamente ___ y", "Quiero que sea ridículamente recio y", "The Father's House, where they're going through so much they can't find one reason to praise God. They don't need the Christian to be like, oh, come on! Christian, all creation speaks of God's glory!"),
             ("Llegó la noche, y cenó el gobernador, con licencia del señor doctor ___.", "Llegó la noche, y cenó el gobernador, con licencia del señor doctor Recio.", "Night came, and with the permission of Doctor Pedro Recio, the governor had supper."),
         ],
         "recipiente": [
@@ -17780,7 +17059,6 @@ extension SeedData {
         ],
         "recitar": [
             ("¿Entonces puedes ___ el verso del capitulo nueve en este momento?", "¿Entonces puedes recitar el verso del capitulo nueve en este momento?", "Perhaps you'll illuminate us with your test question?"),
-            ("żQué diablos pasó ahí arriba? Empezaste a ___ poesía. - żPoesía?", "żQué diablos pasó ahí arriba? Empezaste a recitar poesía. - żPoesía?", "Deceiver!"),
             ("Permítanme a ___ lo que la historia enseña.", "Permítanme a recitar lo que la historia enseña.", "Let me recite what history teaches."),
         ],
         "recogedor": [
@@ -17839,7 +17117,6 @@ extension SeedData {
         "rector": [
             ("Y el caballo de nuestro ___?", "Y el caballo de nuestro Rector?", "Where is the horse?"),
             ("—¡El ___! —repitió este último—.", "—¡El rector! —repitió este último—.", "\"The rector,\" repeated the Professor."),
-            ("Eslovaquia: El caro auto del ___", "Eslovaquia: El caro auto del rector", "Mercedes for President of Dilapidated Slovak University · Global Voices"),
         ],
         "rectángulo": [
             ("Si rotar este ___ alrededor del eje x, ¿qué acabar con?", "Si rotar este rectángulo alrededor del eje x, ¿qué acabar con?", "If I were to rotate this rectangle around the x-axis, what do I end up with?"),
@@ -17867,8 +17144,7 @@ extension SeedData {
             ("Mi ___ está justo arriba.", "Mi recámara está justo arriba.", "My bedroom is just above."),
         ],
         "recíproco": [
-            ("Voy a preguntar si a - c es ___?", "Voy a preguntar si a - c es recíproco?", "I'm going to ask is aÃ¢ÂÂc reciprocal?"),
-            ("Una vez más, nos tomamos el ___ de dos, y decimos", "Una vez más, nos tomamos el recíproco de dos, y decimos", "2 to the -5."),
+            ("Voy a preguntar si a - c es ___?", "Voy a preguntar si a - c es recíproco?", "I'm going to ask is aÃ¢Â†Â’c reciprocal?"),
             ("El signo negativo y el exponente significa que tomamos el ___.", "El signo negativo y el exponente significa que tomamos el recíproco.", "The negative sign and the exponent means that we take the reciprocal."),
         ],
         "red": [
@@ -17887,9 +17163,7 @@ extension SeedData {
             ("Pero estaba seguro de que persistiríamos hasta la ___.", "Pero estaba seguro de que persistiríamos hasta la redención.", "But I was certain that we were going to see this through to redemption."),
         ],
         "redondo": [
-            ("(Risas) Pero al final aceptamos el mundo como ___, ¿verdad?", "(Risas) Pero al final aceptamos el mundo como redondo, ¿verdad?", "(Laughter) But eventually we accepted the world as round, right?"),
             ("Pero Eros no es ___, es forma de una patata.", "Pero Eros no es redondo, es forma de una patata.", "But Eros is not round, it's shaped like a potato."),
-            ("los pocillos de fondo ___.", "los pocillos de fondo redondo.", "This causes the beads to clump and to form large aggregates that sink to the bottom of the round bottom wells."),
         ],
         "reducido": [
             ("¿Cuál es la gracia de verse ___ a cuatro casas?", "¿Cuál es la gracia de verse reducido a cuatro casas?", "What's funny about being down to four houses?"),
@@ -17909,7 +17183,6 @@ extension SeedData {
         "referencia": [
             ("¿Cuál es el punto de ___?", "¿Cuál es el punto de referencia?", "What's the benchmark?"),
             ("¿Pero cuál es el punto de ___ aquí?", "¿Pero cuál es el punto de referencia aquí?", "So what is the point of reference here?"),
-            ("Ruanda: Kigali será el primer punto de ___ de ciudades africanas", "Ruanda: Kigali será el primer punto de referencia de ciudades africanas", "Rwanda: Kigali to become first hot spot African city · Global Voices"),
         ],
         "referirse": [
             ("¿Pueden ___ a tu ver actual?", "¿Pueden referirse a tu ver actual?", "Can it relate to your present seeing?"),
@@ -17928,7 +17201,6 @@ extension SeedData {
         ],
         "reflexivo": [
             ("Tafetán de luz, ___, ¿qué has.", "Tafetán de luz, reflexivo, ¿qué has.", "Reflective light, taffeta, what have you."),
-            ("VIDEO: ___ niño brasileño no quiere comer carne", "VIDEO: Reflexivo niño brasileño no quiere comer carne", "VIDEO: Brazilian Toddler's Vegetarian Wisdom Goes Viral · Global Voices"),
             ("Pero si estamos de ánimo ___ podemos preguntar", "Pero si estamos de ánimo reflexivo podemos preguntar", "But if we are in a reflective mood, we can ask,"),
         ],
         "reforestación": [
@@ -17937,8 +17209,6 @@ extension SeedData {
             ("Ayer escuchamos a Willie Smiths hablar sobre la ___ de Indonesia.", "Ayer escuchamos a Willie Smiths hablar sobre la reforestación de Indonesia.", "Yesterday we heard Willie Smits talk about re-foresting in Indonesia."),
         ],
         "reforma": [
-            ("Barbados, Granada: ¿___ del Financiamiento de Campaña?", "Barbados, Granada: ¿Reforma del Financiamiento de Campaña?", "Barbados, Grenada: Campaign Finance Reform? · Global Voices"),
-            ("China: Lo qué está deteniendo la ___ económica china", "China: Lo qué está deteniendo la reforma económica china", "China: What's Stopping Chinese Economic Reform · Global Voices"),
             ("El proyecto dará paso a un nuevo intento de ___ social.", "El proyecto dará paso a un nuevo intento de reforma social.", "The project shall give way to a new approach to social reform."),
         ],
         "reformar": [
@@ -18106,7 +17376,6 @@ extension SeedData {
         ],
         "relámpago": [
             ("So Oksoon, el golpe del ___.", "So Oksoon, el golpe del relámpago.", "Find that bastard! He's still nearby."),
-            ("Así que ella no pudo usar su fatal golpe del ___.", "Así que ella no pudo usar su fatal golpe del relámpago.", "Hey!"),
             ("No podemos olvidar el ___ que hubo por primera vez.", "No podemos olvidar el relámpago que hubo por primera vez.", "We cannot forget Lightning striking for the first time."),
         ],
         "remo": [
@@ -18161,7 +17430,6 @@ extension SeedData {
         ],
         "renuncia": [
             ("Reveló las razones de su ___.", "Reveló las razones de su renuncia.", "He disclosed the reasons for his resignation."),
-            ("Colombia: Maratón de tuiteos para exigir la ___ de un senador", "Colombia: Maratón de tuiteos para exigir la renuncia de un senador", "Colombia: Tweeting Marathon to Demand Senator's Resignation · Global Voices"),
             ("Si tienes la ___ de Ruth", "Si tienes la renuncia de Ruth", "If you get the waiver of Ruth"),
         ],
         "renunciar": [
@@ -18194,7 +17462,6 @@ extension SeedData {
             ("¿___ tienen un nuevo pensamiento?", "¿Repentinamente tienen un nuevo pensamiento?", "Are you struck by a new thought? I was."),
         ],
         "repentino": [
-            ("¿El futuro matrimonio del Príncipe Yeoning? ¿Por qué esto tan ___...?", "¿El futuro matrimonio del Príncipe Yeoning? ¿Por qué esto tan repentino...?", "Why now, all of a sudden?"),
             ("¿No hay razón para tan ___ empeoramiento de su condición...?", "¿No hay razón para tan repentino empeoramiento de su condición...?", "Is this all happening for no reason..?"),
             ("¿O que murió de un ___ infarto al corazón?", "¿O que murió de un repentino infarto al corazón?", "Or that he died of a sudden heart attack?"),
         ],
@@ -18209,7 +17476,6 @@ extension SeedData {
             ("Y disculpen si soy ___ pero es importantísimo esto.", "Y disculpen si soy repetitivo pero es importantísimo esto.", "I'm sorry if I'm being repetitive, but this is extremely important."),
         ],
         "reportaje": [
-            ("¿De qué es el ___?&lt;/i&gt;", "¿De qué es el reportaje?&lt;/i&gt;", "Oh, look, I just need half an hour."),
             ("A continuación se presentan los datos destacados del ___ –", "A continuación se presentan los datos destacados del reportaje –", "Here are the highlight of the report -"),
             ("Un ___ en Túnez de Alexandre Habay, editado por Sylvain Michel,", "Un reportaje en Túnez de Alexandre Habay, editado por Sylvain Michel,", "The caller's hopelessness perfectly comes through and unfortunately, this call is also rather unclear, actually."),
         ],
@@ -18217,11 +17483,6 @@ extension SeedData {
             ("Pero cuando se encuentra con el océano, ¿puede ___ el encuentro?", "Pero cuando se encuentra con el océano, ¿puede reportar el encuentro?", "But when it meets the ocean, can it report about this meeting?"),
             ("¿Quiere ___ una grave injusticia?", "¿Quiere reportar una grave injusticia?", "Want to report a grave injustice?"),
             ("¿No dijiste que había algo más que ___ también?", "¿No dijiste que había algo más que reportar también?", "Was there something else?"),
-        ],
-        "reportero": [
-            ("Habló con el ___ Lama Ferreira. żLa guerra continúa?", "Habló con el reportero Lama Ferreira. żLa guerra continúa?", "Manuel Machado, aka Knockout Ned, was hospitalized after being wounded by Liíl Ze's gang. Our reporter interviewed him."),
-            ("China: ___ ciudadano asesinado - pero ¿por quién?", "China: Reportero ciudadano asesinado - pero ¿por quién?", "China: Citizen reporter killed—by who? · Global Voices"),
-            ("Niño: No. ___: ¿Y hacia adelante y hacia atrás?", "Niño: No. Reportero: ¿Y hacia adelante y hacia atrás?", "Interviewer: And not forwards and backwards? Boy: No."),
         ],
         "representar": [
             ("¿Cómo podría ___ mi--digamos quiero ¿no t menos 3?", "¿Cómo podría representar mi--digamos quiero ¿no t menos 3?", "How would I represent my-- let's say I want to do t minus 3?"),
@@ -18334,7 +17595,6 @@ extension SeedData {
         "respaldar": [
             ("¿Acaso no suena como algo que todos podríamos ___?", "¿Acaso no suena como algo que todos podríamos respaldar?", "Doesn't that sound like something we could all support?"),
             ("Debería ___ al evento, no convertirse en él.", "Debería respaldar al evento, no convertirse en él.", "It should support the event, not make the event."),
-            ("China: ___ con firmeza al Comité Central del PCCh", "China: Respaldar con firmeza al Comité Central del PCCh", "China: Firmly support CCP Central Committee · Global Voices"),
         ],
         "respectivamente": [
             ("Tengo tres ofertas de tres compradores, ___.", "Tengo tres ofertas de tres compradores, respectivamente.", "I got three bids from three buyers, respectively."),
@@ -18344,7 +17604,6 @@ extension SeedData {
         "respetar": [
             ("Que normas de seguridad, en otras palabras, queremos hacer ___?", "Que normas de seguridad, en otras palabras, queremos hacer respetar?", "What security policy, in other words are we trying to enforce?"),
             ("¿Por qué no pueden ___ la religión de los demás?", "¿Por qué no pueden respetar la religión de los demás?", "Why cant they respect other religion as well kan?!!"),
-            ("¿Nosotras debemos cumplir con nuestro deber y ___ esa posición, no?", "¿Nosotras debemos cumplir con nuestro deber y respetar esa posición, no?", "We must respect that."),
         ],
         "respeto": [
             ("¿O sería una falta de ___?", "¿O sería una falta de respeto?", "Or is it one of disrespect?"),
@@ -18399,7 +17658,6 @@ extension SeedData {
         "resuelto": [
             ("–... ___ que me tomará tal como soy, ¿verdad?", "–... Resuelto que me tomará tal como soy, ¿verdad?", "'It is settled that you will have me, whatever I may be..."),
             ("¿Quiere decir esto que el problema está ___?", "¿Quiere decir esto que el problema está resuelto?", "Does it mean the problem is over? The answer is no."),
-            ("Quiero saberlo todo, porque todo está ya ___...", "Quiero saberlo todo, porque todo está ya resuelto...", "Now it's settled...'"),
         ],
         "resultado": [
             ("¿Cuál es la probabilidad de un ___ positivo?", "¿Cuál es la probabilidad de un resultado positivo?", "What is the probability of a positive test result?"),
@@ -18412,7 +17670,6 @@ extension SeedData {
             ("Podría ___ que lo descubriéramos.", "Podría resultar que lo descubriéramos.", "It could mean that we would have to find out."),
         ],
         "resumen": [
-            ("En ___, dice, pap?, żqu? dices a eso?", "En resumen, dice, pap?, żqu? dices a eso?", "In short, he says, Dad, what do you say to that?"),
             ("en ___, tengo una muy buena estudiante de doctorado de Sudáfrica.", "en resumen, tengo una muy buena estudiante de doctorado de Sudáfrica.", "So all in all I have a very good Ph.D. student from South Africa."),
             ("Hagamos un ___ rápido de lo que aprendimos la última vez.", "Hagamos un resumen rápido de lo que aprendimos la última vez.", "Let's do a quick recap of what we learned last time."),
         ],
@@ -18469,7 +17726,6 @@ extension SeedData {
         "retroceso": [
             ("¿Por qué solamente un pequeño movimiento en ___?", "¿Por qué solamente un pequeño movimiento en retroceso?", "Why only one little move in reverse?"),
             ("Un empujón, un ___, apesta ¿no?", "Un empujón, un retroceso, apesta ¿no?", "A pushing down, a pushing back, it sucked, okay."),
-            ("Egipto: Internet limitado es ___ ilimitado", "Egipto: Internet limitado es retroceso ilimitado", "Egypt: Limited Internet is Unlimited Backwardness · Global Voices"),
         ],
         "retórica": [
             ("El ecologista Dong Liangjie publicó una pregunta ___:", "El ecologista Dong Liangjie publicó una pregunta retórica:", "Environmentalist Dong Liangjie posed a rhetorical question:"),
@@ -18477,7 +17733,6 @@ extension SeedData {
             ("Ese era el grado de ___.", "Ese era el grado de retórica.", "That was the level of rhetoric."),
         ],
         "reunir": [
-            ("@UnitedArabs: ¿Humpty Hosni Dumpty piensa que aún puede ___ los trocitos?", "@UnitedArabs: ¿Humpty Hosni Dumpty piensa que aún puede reunir los trocitos?", "@UnitedArabs: Humpty Hosni Dumpty thinks he can still put the pieces together again? time to go while the going is good"),
             ("Debe haber ido al campo a ___ flores para Nowruz.", "Debe haber ido al campo a reunir flores para Nowruz.", "He must have gone to the field to gather some flowers for Nowruz."),
             ("Para comenzar a responder esta pregunta, quería ___ información.", "Para comenzar a responder esta pregunta, quería reunir información.", "So to start answering this question, I wanted to gather some information."),
         ],
@@ -18513,8 +17768,6 @@ extension SeedData {
         ],
         "revista": [
             ("Bueno, ¿qué encontramos en esta ___?", "Bueno, ¿qué encontramos en esta revista?", "So what can you find in this journal?"),
-            ("¿Por qué la ___ tuvo un impacto tan grande?", "¿Por qué la revista tuvo un impacto tan grande?", "CA: Why did that make so much impact?"),
-            ("Corea del Sur: ___ a cadetes por exdictador despierta ira pública", "Corea del Sur: revista a cadetes por exdictador despierta ira pública", "South Korea: Former Dictator's Cadet Review Sparks Public Anger · Global Voices"),
         ],
         "revolucionario": [
             ("¿es este un momento ___?", "¿es este un momento revolucionario?", "So... is this a revolutionary moment?"),
@@ -18567,13 +17820,11 @@ extension SeedData {
             ("Pero la justicia es un standard más ___ que la caridad.", "Pero la justicia es un standard más riguroso que la caridad.", "But justice is a tougher standard than charity."),
         ],
         "rima": [
-            ("¿Y qué no ___ con obediencia?", "¿Y qué no rima con obediencia?", "Doug: When all you have is an counterfeit conscience, well, you can always ignore your conscience."),
             ("En la India, mojorojo compartió una ___:", "En la India, mojorojo compartió una rima:", "In India, mojorojo had a limerick to share:"),
             ("Hay una ___ interna. las estanterías están llenas de perfumes.", "Hay una rima interna. las estanterías están llenas de perfumes.", "There's an internal rhyme. The shelves are crowded with perfumes."),
         ],
         "rinoceronte": [
             ("El ___ negro... estaban casi extintos en 1982.", "El rinoceronte negro... estaban casi extintos en 1982.", "The black rhino -- they were almost extinct in 1982."),
-            ("Medio ambiente: Día Mundial del ___", "Medio ambiente: Día Mundial del Rinoceronte", "Environment: World Rhino Day · Global Voices"),
             ("Sabes, ése es el mejor momento para darle a un ___.", "Sabes, ése es el mejor momento para darle a un rinoceronte.", "You know, that's the best time to bag a rhino."),
         ],
         "riqueza": [
@@ -18601,7 +17852,6 @@ extension SeedData {
             ("Tengo el pelo ___ por naturaleza.", "Tengo el pelo rizado por naturaleza.", "My hair is naturally curly."),
         ],
         "robar": [
-            ("¡Olle! ¿tan siquiera tienes idea de lo que acabas de ___?", "¡Olle! ¿tan siquiera tienes idea de lo que acabas de robar?", "Mine! Twilight: Hey!"),
             ("Está intentando ___ mi rebaño.", "Está intentando robar mi rebaño.", "Oh, he's trying to steal my flock... -- I'm not..."),
             ("Muestro cómo robaron, cuándo y qué usaron cuando tenían que ___.", "Muestro cómo robaron, cuándo y qué usaron cuando tenían que robar.", "I show you how you stole it and when, or what you used what you had stolen to do."),
         ],
@@ -18621,7 +17871,6 @@ extension SeedData {
             ("Esto hace al cerebro inherentemente ___.", "Esto hace al cerebro inherentemente robusto.", "It makes the brain inherently robust."),
         ],
         "robótica": [
-            ("(Risas) No puedo hablar de esto sin hablar de ___, ¿sí?", "(Risas) No puedo hablar de esto sin hablar de robótica, ¿sí?", "(Laughter) Can't talk about this without talking about robotics. OK?"),
             ("¿Recuerdan cuando pensaban que la ___ era genial?", "¿Recuerdan cuando pensaban que la robótica era genial?", "Remember when you thought robotics were cool?"),
             ("Bienvenido al curso Inteligencia artificial en ___.", "Bienvenido al curso Inteligencia artificial en robótica.", "So welcome to Artificial Intelligence for Robotics."),
         ],
@@ -18666,9 +17915,7 @@ extension SeedData {
             ("Internet puede ___ o hacer cosas.", "Internet puede romper o hacer cosas.", "Internet can break or make things."),
         ],
         "romántico": [
-            ("Viajar debe haber sido algo ___ entonces.", "Viajar debe haber sido algo romántico entonces.", "Traveling must have been romantic then."),
             ("No hay nada ___ entre nosotros.", "No hay nada romántico entre nosotros.", "There's nothing romantic between us."),
-            ("Argentina: Fallece el legendario cantante ___ Sandro", "Argentina: Fallece el legendario cantante romántico Sandro", "Argentina: Romantic Singing Legend Sandro Passes Away · Global Voices"),
         ],
         "ropa": [
             ("¿Venden ustedes ___ de etiqueta?", "¿Venden ustedes ropa de etiqueta?", "Do you sell formal wear?"),
@@ -18687,7 +17934,6 @@ extension SeedData {
         ],
         "rosario": [
             ("-Claro que se va a poner bien, Srta. ___, ¿verdad?", "-Claro que se va a poner bien, Srta. Rosario, ¿verdad?", "Of course he will. Rosario, isn't it?"),
-            ("Paraguay: Experiencias de una Inmigrante en ___, Argentina", "Paraguay: Experiencias de una Inmigrante en Rosario, Argentina", "Paraguay: Experiences of an Immigrant in Rosario, Argentina · Global Voices"),
             ("Jueves yo hago el ___,", "Jueves yo hago el rosario,", "On Thursday I pray the rosary,"),
         ],
         "roto": [
@@ -18717,7 +17963,6 @@ extension SeedData {
         ],
         "rudeza": [
             ("Es la falta de respeto, la ___.", "Es la falta de respeto, la rudeza.", "It's disrespect or rudeness."),
-            ("¡Porfavor perdone la ___ del Oficial Militar Cha!", "¡Porfavor perdone la rudeza del Oficial Militar Cha!", "Please forgive him."),
             ("¡Porfavor castigue mi crimen de ___ severamente, su Majestad!", "¡Porfavor castigue mi crimen de rudeza severamente, su Majestad!", "I submit to your just punishment."),
         ],
         "rudimentario": [
@@ -18733,12 +17978,9 @@ extension SeedData {
         "rueda": [
             ("El desequilibrio mantendría la ___ girando para siempre.", "El desequilibrio mantendría la rueda girando para siempre.", "The imbalance would keep the wheel turning forever."),
             ("Un monociclo tiene una ___.", "Un monociclo tiene una rueda.", "A unicycle has one wheel."),
-            ("AS: Esto es una ___ dentada.", "AS: Esto es una rueda dentada.", "It's a toothed wheel."),
         ],
         "rugby": [
-            ("Sudáfrica: El ___ juega su parte en la transformación", "Sudáfrica: El rugby juega su parte en la transformación", "South Africa: Rugby Playing Its Part in Transformation · Global Voices"),
             ("Monumento conmemorativo en el Club de ___ Kyaddondo.", "Monumento conmemorativo en el Club de Rugby Kyaddondo.", "The Memorial stone at Kyaddondo Rugby Club"),
-            ("Kenia: El torneo de ___ siete Safari entusiasmó a los fans", "Kenia: El torneo de rugby siete Safari entusiasmó a los fans", "Kenya: Safari 7s Rugby Tournament Excites Fans · Global Voices"),
         ],
         "ruido": [
             ("Es un problema señal ___, ok?", "Es un problema señal ruido, ok?", "It's a signal-to-noise problem. Okay?"),
@@ -18836,7 +18078,6 @@ extension SeedData {
         ],
         "sagaz": [
             ("Ella es una ___ lingüista.", "Ella es una sagaz lingüista.", "She's a cunning linguist."),
-            ("Horowitz era un fenуmeno, Creo que era muy ___.", "Horowitz era un fenуmeno, Creo que era muy sagaz.", "Horowitz era un fenуmeno, Creo que era muy sagaz."),
             ("Hace poco un ___ teórico de los medios twiteó:", "Hace poco un sagaz teórico de los medios twiteó:", "Recently, a wise media theorist Tweeted,"),
         ],
         "sagrado": [
@@ -18896,7 +18137,6 @@ extension SeedData {
         ],
         "salto de altura": [
             ("Él batió el récord mundial de ___.", "Él batió el récord mundial de salto de altura.", "He bettered the world record in the high jump."),
-            ("En el ___: el hombre rompe el récord.", "En el salto de altura: el hombre rompe el récord.", "The High Jump: the man broke the record."),
         ],
         "salud": [
             ("Eso luego también se relaciona con nuestra ___.", "Eso luego también se relaciona con nuestra salud.", "This is of course linked to our health."),
@@ -18976,7 +18216,6 @@ extension SeedData {
         "santo": [
             ("¿Cómo le va a nuestro ___ bebedor?", "¿Cómo le va a nuestro santo bebedor?", "And how's our sacred drinker doing?"),
             ("Él no necesita de la confirmación de ___ Tomás.", "Él no necesita de la confirmación de Santo Tomás.", "He is not a doubting Thomas."),
-            ("ЎPor Dios ___, se acabу!", "ЎPor Dios santo, se acabу!", "ЎPor Dios santo, se acabу!"),
         ],
         "santuario": [
             ("Ellos profanaron el ___ de Dios.", "Ellos profanaron el santuario de Dios.", "They desecrated God's sanctuary."),
@@ -19031,7 +18270,6 @@ extension SeedData {
         "seco": [
             ("Así que, ¿cuál es la importancia de este líquido ___?", "Así que, ¿cuál es la importancia de este líquido seco?", "So what's the significance of this dry liquid?"),
             ("Este cuadro me hizo parar en ___ por tres razones:", "Este cuadro me hizo parar en seco por tres razones:", "This painting made me stop in my tracks for three reasons:"),
-            ("Voy a tratar de limpieza en ___ ella.", "Voy a tratar de limpieza en seco ella.", "I'll try dry cleaning it."),
         ],
         "secretamente": [
             ("¿esto...esto? Cierto. Haz traido medicinas dentro del palacio ___.", "¿esto...esto? Cierto. Haz traido medicinas dentro del palacio secretamente.", "You've brought medicine into the palace secretly."),
@@ -19044,7 +18282,6 @@ extension SeedData {
             ("La ___ preparando una pancarta para colgar frente a la universidad.", "La secretaría preparando una pancarta para colgar frente a la universidad.", "The secretariat preparing to hang a banner in front of the university."),
         ],
         "secreto": [
-            ("Si sera preperado en ___, entonces ¿Quién no debe saberlo?", "Si sera preperado en secreto, entonces ¿Quién no debe saberlo?", "From whom?"),
             ("Explica la verdad AGS gran ___:", "Explica la verdad AGS gran secreto:", "Explains the Sfas Emet a great principle:"),
             ("Ella admite saber el ___.", "Ella admite saber el secreto.", "She admits knowing the secret."),
         ],
@@ -19054,8 +18291,6 @@ extension SeedData {
             ("¿Estás seguro que esto no és un ___?", "¿Estás seguro que esto no és un secuestro?", "You're sure he wasn't kidnapped from the palace?"),
         ],
         "secundaria": [
-            ("- Sí. - ¿Eres un estudiante de ___? - ¿Eh?", "- Sí. - ¿Eres un estudiante de secundaria? - ¿Eh?", "- Yes."),
-            ("Entonces, żcómo se prueba a patología ___ endoncrine? We daría ACTH.", "Entonces, żcómo se prueba a patología secundaria endoncrine? We daría ACTH.", "So how would we test a secondary endoncrine pathology?"),
             ("Se trata de la escuela ___ de Boeun.", "Se trata de la escuela secundaria de Boeun.", "It's Boeun's high school."),
         ],
         "secundario": [
@@ -19084,8 +18319,6 @@ extension SeedData {
             ("Y alterna con un ___ que se parce a esto.", "Y alterna con un sedimento que se parce a esto.", "And that alternates with a sediment that looks like this."),
         ],
         "seguidor": [
-            ("(Risas) (Aplausos) Y aquí viene un segundo ___.", "(Risas) (Aplausos) Y aquí viene un segundo seguidor.", "(Laughter) (Applause) And here comes a second follower."),
-            ("Es otro gran ___ del Mercadeo en Red", "Es otro gran seguidor del Mercadeo en Red", "PAWZ: He is also a big supporter of network marketing."),
             ("Y aquí viene un segundo ___.", "Y aquí viene un segundo seguidor.", "And here comes a second follower."),
         ],
         "seguidores": [
@@ -19096,7 +18329,6 @@ extension SeedData {
         "seguir": [
             ("Empec? a ___ el a?o Sab?tico ago", "Empec? a seguir el a?o Sab?tico ago", "I began to keep the Sabbath year ago"),
             ("¿Vas a ___ dejando a Hyung In de esa manera entonces?", "¿Vas a seguir dejando a Hyung In de esa manera entonces?", "Yeah right. You going to keep leaving Hyung In like that then?"),
-            ("No creo que pueda ___ viéndote o voy a lamentarlo.", "No creo que pueda seguir viéndote o voy a lamentarlo.", "Hello?"),
         ],
         "segundo": [
             ("Y ___, ¿qué podemos hacer para solucionarlo?", "Y segundo, ¿qué podemos hacer para solucionarlo?", "And second, what can we do to fix it?"),
@@ -19104,7 +18336,6 @@ extension SeedData {
             ("El a?o pasado, y en ___ lugar, s?lo los costos.", "El a?o pasado, y en segundo lugar, s?lo los costos.", "Last year, a second, it costs just."),
         ],
         "seguro": [
-            ("Taxi... Puede llevarme a la prisión? EyVallah ( ___) !!!", "Taxi... Puede llevarme a la prisión? EyVallah ( seguro) !!!", "A Prison"),
             ("Quedar a Taylor en la habitación sola no es ___.", "Quedar a Taylor en la habitación sola no es seguro.", "Keeping Taylor in the room alone is not safe."),
             ("Porque uno está ___ de lo que hace.", "Porque uno está seguro de lo que hace.", "Because you are sure of what you do."),
         ],
@@ -19130,7 +18361,6 @@ extension SeedData {
         ],
         "selectivo": [
             ("Me diagnosticaron Asperger, TOC y mutismo ___,", "Me diagnosticaron Asperger, TOC y mutismo selectivo,", "Later on, I was diagnosed with Asperger syndrome, OCD and selective mutism."),
-            ("Inhibidor ___ de la recaptación de serotonina SSRI's.", "Inhibidor selectivo de la recaptación de serotonina SSRI's.", "Now the recreational drugs are not necessarily drugs of abuse. a very familiar recreational drug is caffeine, and I may be partaking of this recreational drug from time to time during our course. I'll have a little sip now. in addition we'll be talking about LSD, morphine and heroin, tetrahydrocannabinol, THC, cocaine, PCP or phencyclidine and of course nicotine, the topic of my research."),
             ("No es invasivo, es sensible y ___.", "No es invasivo, es sensible y selectivo.", "It's non invasible. It's sensitive and selective."),
         ],
         "selfie": [
@@ -19150,7 +18380,6 @@ extension SeedData {
         ],
         "semana santa": [
             ("¿Adónde fuiste en las vacaciones de ___?", "¿Adónde fuiste en las vacaciones de Semana Santa?", "Where did you go for the holidays?"),
-            ("Nicaragua: ___ en el campo", "Nicaragua: Semana santa en el campo", "Nicaragua: Holy Week in the Countryside · Global Voices"),
             ("Por titoalfredo de ___ (BY-NC-SA)", "Por titoalfredo de Semana Santa (BY-NC-SA)", "By titoalfredo de Semana Santa (BY-NC-SA)"),
         ],
         "sembrar": [
@@ -19205,7 +18434,6 @@ extension SeedData {
         ],
         "senderismo": [
             ("Quería a alguien dispuesto a tomar la mochila y hacer ___.", "Quería a alguien dispuesto a tomar la mochila y hacer senderismo.", "I wanted somebody who was ready to strap on a backpack and get out and hike around."),
-            ("Taiwán: ___ en las montañas", "Taiwán: Senderismo en las montañas", "Taiwan: Hiking in the mountains · Global Voices"),
             ("Incluso cuando voy de ___, me alejo de los bordes como este", "Incluso cuando voy de senderismo, me alejo de los bordes como este", "Even when I go hiking, I stay away from edges like this"),
         ],
         "sensato": [
@@ -19224,17 +18452,14 @@ extension SeedData {
             ("¿dinero en efectivo, más bien ___?", "¿dinero en efectivo, más bien sentarse?", "Somewhere earning money, right?"),
         ],
         "sentencia": [
-            ("Trinidad y Tobago: ¿___ de muerte para la fotógrafía profesional?", "Trinidad y Tobago: ¿Sentencia de muerte para la fotógrafía profesional?", "Trinidad & Tobago: Death Knell for Professional Photography? · Global Voices"),
             ("¿Es el smartphone la ___ de muerte para la fotografía profesional?", "¿Es el smartphone la sentencia de muerte para la fotografía profesional?", "Is the smartphone the death knell for professional photography?"),
             ("Tener VIH ya no es una ___ de muerte.", "Tener VIH ya no es una sentencia de muerte.", "Having HIV is no longer a death sentence."),
         ],
         "sentido": [
-            ("Hace ___ esperar o descuidar una gran salvacion?", "Hace sentido esperar o descuidar una gran salvacion?", "You can visit our website at http://www.CrossAllegiance.org or send us a message on YouTube, but regardless, God loves you and wants a relationship with you!"),
             ("Que tipo de debe tener ___ intuitivamente. x menos y.", "Que tipo de debe tener sentido intuitivamente. x menos y.", "Which kind of should make sense intuitively. x minus y."),
             ("En algún ___ abstracto, eso es lo que es un racional.", "En algún sentido abstracto, eso es lo que es un racional.", "In some sense, abstractly, that's what a rational number is really."),
         ],
         "sentimiento": [
-            ("Pero ¿quién sabe eso? Imagínense el ___ de derrota cuando consigues", "Pero ¿quién sabe eso? Imagínense el sentimiento de derrota cuando consigues", "But who knows that?"),
             ("Creo que todos tenemos ese ___.", "Creo que todos tenemos ese sentimiento.", "I think we all have that feeling."),
             ("7anna7inno habla de sus ___:", "7anna7inno habla de sus sentimiento:", "7anna7inno speaks of her feelings: شخصيا..ما أدري ليش..بس ضاق خلقي ."),
         ],
@@ -19326,7 +18551,6 @@ extension SeedData {
         "sexismo": [
             ("Nafissatou Diallo, ¿víctima del ___?", "Nafissatou Diallo, ¿víctima del sexismo?", "Nafissatou Diallo, a victim of sexism?"),
             ("Lev Sharansky (un anónimo personaje satírico) bromeó con abierto ___:", "Lev Sharansky (un anónimo personaje satírico) bromeó con abierto sexismo:", "Lev Sharansky (a satirist personality run anonymously) quipped with open-ended sexism:"),
-            ("Kazajistán: Paradojas económicas, ___ y el declive de la ciencia", "Kazajistán: Paradojas económicas, sexismo y el declive de la ciencia", "Kazakhstan: economic paradoxes, sexism and the decline of science · Global Voices"),
         ],
         "señal": [
             ("¿ Que es actualmente una ___ ?", "¿ Que es actualmente una señal ?", "What is actually a signal?"),
@@ -19336,7 +18560,6 @@ extension SeedData {
         "señalar": [
             ("¿impuestos? Voy a ___ en rojo.", "¿impuestos? Voy a señalar en rojo.", "I'm going to draw that in red."),
             ("Entonces decidimos ___ un precio objetivo de 10 centavos por página.", "Entonces decidimos señalar un precio objetivo de 10 centavos por página.", "And we sort of picked the price point of 10 cents a page."),
-            ("(Aplausos) Quiero ___ en esta foto a otras personas excepcionales.", "(Aplausos) Quiero señalar en esta foto a otras personas excepcionales.", "(Applause) I want to point out a few other exceptional people in this picture."),
         ],
         "siembra": [
             ("o un príncipe enajenado que ___ el caos en la corte?", "o un príncipe enajenado que siembra el caos en la corte?", "Or a mad prince creating courtly chaos?"),
@@ -19379,7 +18602,6 @@ extension SeedData {
             ("En esas semanas el valor del servicio crece ___.", "En esas semanas el valor del servicio crece significativamente.", "During those days, the price of sexual services rises notoriously."),
         ],
         "significativo": [
-            ("BF: ¿Te refieres a ___?", "BF: ¿Te refieres a significativo?", "BF: Meaning, meaningful?"),
             ("Las Posadas son el acontecimiento más ___ de Noche Buena.", "Las Posadas son el acontecimiento más significativo de Noche Buena.", "Las Posadas are the remarkable buildup to Christmas Eve."),
             ("pero es, en realidad, muy ___.", "pero es, en realidad, muy significativo.", "Turns out, it's actually significant."),
         ],
@@ -19434,7 +18656,6 @@ extension SeedData {
             ("¿Eso dices? Y entre ___ y el canario Tweetie, ¿quién?", "¿Eso dices? Y entre Silvestre y el canario Tweetie, ¿quién?", "Pick between Tweetie and Sylvester."),
         ],
         "similar": [
-            ("¿intercambio, acabo de adquirir un auto nuevo? También, es ___.", "¿intercambio, acabo de adquirir un auto nuevo? También, es similar.", "Also, it's similar."),
             ("Cuales traingulos deben ser ___. Los dos triangulos obtusos.", "Cuales traingulos deben ser similar. Los dos triangulos obtusos.", "Which triangles must be similar?"),
             ("Así que esto es esencialmente ___ a la", "Así que esto es esencialmente similar a la", "So this is essentially similar to the"),
         ],
@@ -19445,11 +18666,9 @@ extension SeedData {
         ],
         "simplificar": [
             ("Nosotros podríamos ___ esto un poco.", "Nosotros podríamos simplificar esto un poco.", "We could simplify this a little bit."),
-            ("Entonces podemos ___ (lo pondré en azul)", "Entonces podemos simplificar (lo pondré en azul)", "So we can simplify"),
             ("Ahora, parece que podemos ___ esto un poco", "Ahora, parece que podemos simplificar esto un poco", "Now this looks like we can do a little bit of simplifying"),
         ],
         "simpático": [
-            ("AS: ¿Cómo hacer ___ a un personaje egoísta?", "AS: ¿Cómo hacer simpático a un personaje egoísta?", "AS: So how do you make a selfish character likable?"),
             ("¿Cómo hacer ___ a un personaje egoísta?", "¿Cómo hacer simpático a un personaje egoísta?", "So how do you make a selfish character likable?"),
             ("¿Cómo de ___ es cada candidato?", "¿Cómo de simpático es cada candidato?", "So now, here's my model of how people vote."),
         ],
@@ -19539,7 +18758,6 @@ extension SeedData {
             ("El liderazgo inclusivo es crítico para ___ a las personas en primer lugar.", "El liderazgo inclusivo es crítico para situar a las personas en primer lugar.", "Inclusive leadership is critical to putting people first."),
         ],
         "ska": [
-            ("MMT: Himnos, ___, baladas y marchas.", "MMT: Himnos, ska, baladas y marchas.", "MTT: Anthems, dance crazes, ballads and marches."),
             ("Si alguien no lo sabe, esto es ___.", "Si alguien no lo sabe, esto es Ska.", "If they would have asked us in August 2003"),
         ],
         "snowboard": [
@@ -19549,11 +18767,9 @@ extension SeedData {
         "soborno": [
             ("¿ Crees que aceptará un ___?", "¿ Crees que aceptará un soborno?", "Do you think she'll accept a bribe?"),
             ("¿Aceptaste o no el ___?", "¿Aceptaste o no el soborno?", "Did you or did you not accept the bribe?"),
-            ("China: El problema de Rio Tinto - ¿___ empresarial o espionaje?", "China: El problema de Rio Tinto - ¿Soborno empresarial o espionaje?", "China: Rio Tinto's trouble - commerical bribery or espionage? · Global Voices"),
         ],
         "sobrar": [
             ("¡prepárense porque es lo que va a ___!", "¡prepárense porque es lo que va a sobrar!", "Get ready because that's what will be left!"),
-            ("E se ___ algum trocado, comprarei algo pro meu filho.", "E se sobrar algum trocado, comprarei algo pro meu filho.", "E se sobrar algum trocado, comprarei algo pro meu filho."),
         ],
         "sobre": [
             ("Hey, ¿Tienes alguna prenda que te ___?", "Hey, ¿Tienes alguna prenda que te sobre?", "The bastards are fucking around."),
@@ -19588,7 +18804,6 @@ extension SeedData {
         "socialmente": [
             ("Pregúntense: ¿se comporta esta compañía de manera ___ responsable?", "Pregúntense: ¿se comporta esta compañía de manera socialmente responsable?", "Ask yourself, is this company behaving in a socially responsible way?"),
             ("Pero, ¿cómo difunden esta historia ___ para que llegue a todos?", "Pero, ¿cómo difunden esta historia socialmente para que llegue a todos?", "But how do you spread this story socially, so that it reaches everyone?"),
-            ("¿No me gusta ser pobre y ___ inmóvil?", "¿No me gusta ser pobre y socialmente inmóvil?", "And my hope is that those of you out there who identify with this play, will begin to understand the seriousness of this societal struggle, and work to help redeem this epidemic of intellectual belligerence known as the zeitgeist we endure."),
         ],
         "sociedad": [
             ("¿Queremos diseñar una ___ abierta o cerrada en el espacio digital?", "¿Queremos diseñar una sociedad abierta o cerrada en el espacio digital?", "Do we want to design an either open or closed society for the digital space?"),
@@ -19657,7 +18872,6 @@ extension SeedData {
         "solidaridad": [
             ("Yo siempre digo que la ___ no se enseña.", "Yo siempre digo que la solidaridad no se enseña.", "I always say that solidarity is not something that is taught."),
             ("Ningún estudio sistemático en economía supone la ___.", "Ningún estudio sistemático en economía supone la solidaridad.", "No systematical study in economics assumes solidarity."),
-            ("Jordania: Muestra de ___ en la Embajada Libia", "Jordania: Muestra de solidaridad en la Embajada Libia", "Jordan: Show of Solidarity at Libyan Embassy · Global Voices"),
         ],
         "solidario": [
             ("Pero ¿Qué es Canal ___? leámoslo en sus propias palabras:", "Pero ¿Qué es Canal Solidario? leámoslo en sus propias palabras:", "So, what is Canal Solidario? Let's hear it in their own words:"),
@@ -19719,7 +18933,6 @@ extension SeedData {
             ("Y, en el tercer movimiento de esta ___", "Y, en el tercer movimiento de esta sonata", "And in the third movement of that sonata"),
         ],
         "sonido": [
-            ("E: (___ de nave espacial) SW: ¿Aunque no tenga un láser?", "E: (Sonido de nave espacial) SW: ¿Aunque no tenga un láser?", "E: [Spaceship noise] SW: Even if it doesn't have a laser?"),
             ("¿cuántos canales de ___ pueden escuchar?", "¿cuántos canales de sonido pueden escuchar?", "listen in the coffee bar to how many channels of sound can I hear?"),
             ("Están prediseñados para ser luz, ___, motores y sensores.", "Están prediseñados para ser luz, sonido, motores y sensores.", "They're pre-engineered to be light, sound, motors and sensors."),
         ],
@@ -19809,7 +19022,6 @@ extension SeedData {
         ],
         "storyboard": [
             ("Dirección: Leon Estrin Direccción Artística: Polina Novikova ___:", "Dirección: Leon Estrin Direccción Artística: Polina Novikova Storyboard:", "Directed by Leon Estrin Art director polina Novikova Storyboard Oleg Uzhinov"),
-            ("Y, si sabes una cosa de los ___,", "Y, si sabes una cosa de los storyboard,", "And by the end of the storyboard you'll want to show how they accomplished what their goal was, or, in some other way, have a satisfactory outcome at the end of the storyboard. And as a mall shows, even with a really simple visual language, there's a whole lot you can do to get your point across."),
             ("la pieza a entender es que el ___ es todo sobre las tareas.", "la pieza a entender es que el storyboard es todo sobre las tareas.", "So, storyboards should accomplish three things: First, it should accomplish the setting: Who are the people involved? what's the environment? and what tasks are they trying to do?"),
         ],
         "suave": [
@@ -19869,7 +19081,6 @@ extension SeedData {
         ],
         "sudadera": [
             ("Resulta que depende del tipo de ___ que estén vistiendo.", "Resulta que depende del tipo de sudadera que estén vistiendo.", "It turns out it depends on what kind of sweatshirt they're wearing."),
-            ("(Risas) Con una ___ atada a la cintura.", "(Risas) Con una sudadera atada a la cintura.", "(Laughter) With a sweatshirt there tied around his waist."),
             ("Empezó a cachearme la ___.", "Empezó a cachearme la sudadera.", "He was going through my sweater."),
         ],
         "suegra": [
@@ -19985,11 +19196,8 @@ extension SeedData {
         "supuestamente": [
             ("Tenía todo lo que ___ quería.", "Tenía todo lo que supuestamente quería.", "I had everything I was supposed to have wanted."),
             ("Sí... la décima es la última, que ___ tiene que llegar.", "Sí... la décima es la última, que supuestamente tiene que llegar.", "So... the 10th one is the last one, not come yet supposedly."),
-            ("En este caso, ___ estos mensajes están escondidos en fenómenos", "En este caso, supuestamente estos mensajes están escondidos en fenómenos", "(Laughter) In this case, supposedly, these messages are hidden in electronic phenomena."),
         ],
         "sur": [
-            ("Malawí ¿se expande la primavera árabe al ___ del Sahara?", "Malawí ¿se expande la primavera árabe al sur del Sahara?", "Malawi: Arab Spring Spreading South of the Sahara? · Global Voices"),
-            ("Corea del ___: revista a cadetes por exdictador despierta ira pública", "Corea del Sur: revista a cadetes por exdictador despierta ira pública", "South Korea: Former Dictator's Cadet Review Sparks Public Anger · Global Voices"),
             ("Él debe ser del ___.", "Él debe ser del Sur.", "He must be from the South."),
         ],
         "sureño": [
@@ -20010,7 +19218,6 @@ extension SeedData {
         "suspender": [
             ("Porque no solo ___ el pago de la deuda?", "Porque no solo suspender el pago de la deuda?", "Why doesn't it just default on its debt?"),
             ("¡Gente como esa debería ___ sus examen de Civil!", "¡Gente como esa debería suspender sus examen de Civil!", "Men like them should fail their civil examinations!"),
-            ("Parece que debemos ___ momentaneamente nuestro próximo objetivo.", "Parece que debemos suspender momentaneamente nuestro próximo objetivo.", "There's a change in plans."),
         ],
         "sustantivo": [
             ("Por lo tanto, empatía es un ___.", "Por lo tanto, empatía es un sustantivo.", "So, empathy is a noun."),
@@ -20029,7 +19236,6 @@ extension SeedData {
         ],
         "sustituir": [
             ("¿bueno, ___ un bien que consumes en lugar de tomates?", "¿bueno, sustituir un bien que consumes en lugar de tomates?", "What would be a change of the, the affect of a change in the price of a substitute good, a good that you consume instead of tomatoes? Let's look at that next."),
-            ("¿Cómo sé lo que voy a ___?", "¿Cómo sé lo que voy a sustituir?", "PROFESSOR: How do I know what I'm going to substitute?"),
             ("Si usted ___ esto porque seno de pi es 0.", "Si usted sustituir esto porque seno de pi es 0.", "If you substituted this because sine of pi is 0."),
         ],
         "susurrar": [
@@ -20059,7 +19265,6 @@ extension SeedData {
         ],
         "sábado": [
             ("Véase la pila de platos en la noche del ___.", "Véase la pila de platos en la noche del sábado.", "See the pile of dishes on Saturday night. they are so sad"),
-            ("El ___, en la tienda militar compré agua mineral fría.", "El sábado, en la tienda militar compré agua mineral fría.", "Doctor?"),
             ("Antes del ___ me capella.", "Antes del sábado me capella.", "Before Saturday I capella."),
         ],
         "sábana": [
@@ -20092,7 +19297,6 @@ extension SeedData {
             ("Pongan una ___ bajo el árbol, tenemos los cimientos.", "Pongan una tabla bajo el árbol, tenemos los cimientos.", "Put a plank underneath the tree, we have the foundation."),
         ],
         "tabla de surf": [
-            ("Israel/Palestina: Viajar con una ___", "Israel/Palestina: Viajar con una tabla de surf", "Israel/Palestine: Travels With A Surfboard · Global Voices"),
             ("Y este está diseñado para usar con una ___,", "Y este está diseñado para usar con una tabla de surf,", "And this one's configured to go with a surfboard."),
             ("Se moría de ganas de probar su nueva ___.", "Se moría de ganas de probar su nueva tabla de surf.", "He couldn't wait to try out his new surfboard."),
         ],
@@ -20108,7 +19312,6 @@ extension SeedData {
         ],
         "taekwondo": [
             ("Me encanta hacer ___ y fui campeona nacional una vez.", "Me encanta hacer taekwondo y fui campeona nacional una vez.", "So, I love doing Taekwondo and was once a national champion."),
-            ("Irán: Título mundial en ___", "Irán: Título mundial en Taekwondo", "Iran: World Taekwondo Top Title · Global Voices"),
             ("Está a la altura de los tiros de ___ de Zlatan .", "Está a la altura de los tiros de taekwondo de Zlatan .", "It's worthy of the taekwondo kicks of Zlatan ."),
         ],
         "tajantemente": [
@@ -20151,13 +19354,11 @@ extension SeedData {
             ("El blogger bangladesí ___ Anwar lista veintiún maneras de promover tu música.", "El blogger bangladesí Tamal Anwar lista veintiún maneras de promover tu música.", "Bangladeshi blogger Tamal Anwar lists twenty one ways to promote your music."),
         ],
         "tamarindo": [
-            ("Costa Rica: Nuevo Programa de Reciclaje en Playa ___", "Costa Rica: Nuevo Programa de Reciclaje en Playa Tamarindo", "Costa Rica: New Recycling Program in Playa Tamarindo · Global Voices"),
             ("Mi fruta favorita es el ___.", "Mi fruta favorita es el tamarindo.", "My favorite fruit is tamarind."),
             ("Espera... tienes la piedra verde en forma de ___!", "Espera... tienes la piedra verde en forma de tamarindo!", "Wait! You have the green tamarid-shaped stone! Wait!"),
         ],
         "tambor": [
             ("la investigación? Redoble de ___, por favor: Falso.", "la investigación? Redoble de tambor, por favor: Falso.", "Drum roll please: false."),
-            ("Trinidad y Tobago: Cultura del ___", "Trinidad y Tobago: Cultura del tambor", "Trinidad & Tobago: Drum Culture · Global Voices"),
             ("El ___ es, esencialmente, un instrumento muy sensual.", "El tambor es, esencialmente, un instrumento muy sensual.", "Essentially, the drum is a very sensual instrument."),
         ],
         "tanque": [
@@ -20168,7 +19369,6 @@ extension SeedData {
         "tapa": [
             ("Toma otro marcador. y quítale la ___. ¿No es divertido?", "Toma otro marcador. y quítale la tapa. ¿No es divertido?", "And pick up another marker for me and take off the cap. Isn't this fun?"),
             ("Luego dice, ___ a Abraham lo que estoy haciendo?", "Luego dice, tapa a Abraham lo que estoy haciendo?", "Then he says, lid from Abraham what I am doing?"),
-            ("Sуlo tenнamos esa foto de la ___.", "Sуlo tenнamos esa foto de la tapa.", "Sуlo tenнamos esa foto de la tapa."),
         ],
         "tapir": [
             ("El ___ es una mamífero de América del Sur", "El tapir es una mamífero de América del Sur", "Now, the tapir is a mammal from South America."),
@@ -20177,7 +19377,6 @@ extension SeedData {
         ],
         "taquilla": [
             ("Aquellas de gran éxito de ___ fueron mucho menos.", "Aquellas de gran éxito de taquilla fueron mucho menos.", "Blockbusters were a lot less."),
-            ("Kazajistán: Película de gángsters es un éxito de ___", "Kazajistán: Película de gángsters es un éxito de taquilla", "Kazakhstan: Gangster Movie Hits Box Office · Global Voices"),
             ("Vaya, tu ___ está al lado de la mía.", "Vaya, tu taquilla está al lado de la mía.", "Wow, your locker is next to mine."),
         ],
         "tardar": [
@@ -20261,12 +19460,10 @@ extension SeedData {
         ],
         "telenovela": [
             ("Lección número 3 de ___: La evolución es real.", "Lección número 3 de telenovela: La evolución es real.", "Soap opera lesson three: evolution is real."),
-            ("Bahréin: Obsesionados con una ___ turca", "Bahréin: Obsesionados con una telenovela turca", "Bahrain: Obsessed with a Turkish soap opera · Global Voices"),
             ("“Tenemos que regresar a la casa o nos perderemos la ___.”", "“Tenemos que regresar a la casa o nos perderemos la telenovela.”", "\"We have to be back home or we will miss the soap opera.\""),
         ],
         "televisión": [
             ("¿Por qué ocupas tanto tiempo viendo ___?", "¿Por qué ocupas tanto tiempo viendo televisión?", "Why do you spend so much time watching TV?"),
-            ("Aparecí en todos los programas de ___.", "Aparecí en todos los programas de televisión.", "(Laughter) I wound up on every television show."),
             ("Lo que ves en la ___.", "Lo que ves en la televisión.", "What you see on the television."),
         ],
         "temerario": [
@@ -20336,7 +19533,6 @@ extension SeedData {
         ],
         "tendón": [
             ("Utilizaron una parte de su ___ para formar dos ligamentos.", "Utilizaron una parte de su tendón para formar dos ligamentos.", "She had a piece of her hamstring fashioned into two ligaments."),
-            ("China: Gran pena por el ___ de Aquiles de Liu", "China: Gran pena por el tendón de Aquiles de Liu", "China: Great pity for Liu's Achilles tendon · Global Voices"),
             ("Separa el ___ del hueso utilizando la punta del pulgar", "Separa el tendón del hueso utilizando la punta del pulgar", "Separate the tendon from the bone using the tip of the thumb"),
         ],
         "tenedor": [
@@ -20352,7 +19548,6 @@ extension SeedData {
         "tenis de mesa": [
             ("Suecia tenía un gran poder en el ___.", "Suecia tenía un gran poder en el tenis de mesa.", "Sweden is a great power in table tennis."),
             ("Al ping pong también se le llama ___.", "Al ping pong también se le llama tenis de mesa.", "Ping pong is also called table tennis."),
-            ("El ___ en China es deporte nacional.", "El Tenis de mesa en China es deporte nacional.", "Woman: Table tennis is Chinas national sport."),
         ],
         "tenso": [
             ("Trate de no ponerse tan ___.", "Trate de no ponerse tan tenso.", "Try not to be so tense."),
@@ -20367,7 +19562,6 @@ extension SeedData {
         "teoría": [
             ("Pero ¿cómo podríamos realmente probar tal ___?", "Pero ¿cómo podríamos realmente probar tal teoría?", "But how would you actually go about testing such a theory?"),
             ("¿Qué tal algo de ___ musical?", "¿Qué tal algo de teoría musical?", "That's not really music theory."),
-            ("(Risas) Es difícil descartar esta ___, creo que estarán de acuerdo.", "(Risas) Es difícil descartar esta teoría, creo que estarán de acuerdo.", "(Laughter) It's a difficult theory to discount, I think you'll agree."),
         ],
         "terapeuta": [
             ("¿Realmente crees que debería ver a un ___?", "¿Realmente crees que debería ver a un terapeuta?", "Do you really think I should see a therapist?"),
@@ -20384,7 +19578,6 @@ extension SeedData {
             ("Simplemente diga, tenemos ___ el miércoles a las 4.", "Simplemente diga, tenemos terapia de pareja el miércoles a las 4.", "Just say, we have marriage counseling on Wednesday at 4."),
         ],
         "tercero": [
-            ("(Risas) Y ___, él es una persona tan extrovertida como ninguno.", "(Risas) Y tercero, él es una persona tan extrovertida como ninguno.", "(Laughter) And thirdly, he's as extroverted a person as you could find."),
             ("Y ___, reduciré gastos del gobierno.", "Y tercero, reduciré gastos del gobierno.", "And third, I'm going to reduce government spending."),
             ("Y ___, querrán cambiar su relación con las ideas.", "Y tercero, querrán cambiar su relación con las ideas.", "And third, you want to change your relationship with ideas."),
         ],
@@ -20420,7 +19613,6 @@ extension SeedData {
         ],
         "tesis": [
             ("¿Que pasó? ¿No ibas a trabajar en tu ___ hoy?", "¿Que pasó? ¿No ibas a trabajar en tu tesis hoy?", "What is going on We will work on the thesis you today?"),
-            ("China: ¿___ de grado o entrenamiento práctico?", "China: ¿Tesis de grado o entrenamiento práctico?", "China: Graduate thesis or practical training? · Global Voices"),
             ("¿Cuál fue la ___ de este libro?", "¿Cuál fue la tesis de este libro?", "What was your thesis in this book?"),
         ],
         "testamento": [
@@ -20469,7 +19661,6 @@ extension SeedData {
             ("Desafortunadamente, la sopa sólo está ___.", "Desafortunadamente, la sopa sólo está tibia.", "Unfortunately, the soup is only lukewarm."),
         ],
         "tibio": [
-            ("Bob Dylan era ___ comparado con este tipo. їGanу dinero?", "Bob Dylan era tibio comparado con este tipo. їGanу dinero?", "Bob Dylan era tibio comparado con este tipo. їGanу dinero?"),
             ("La cría de canguro se acurrucó en el ___ marsupio de su madre.", "La cría de canguro se acurrucó en el tibio marsupio de su madre.", "The joey snuggled down into the warm kangaroo pouch of his mother."),
             ("Ni siquiera está ___.", "Ni siquiera está tibio.", "It's not even warm."),
         ],
@@ -20504,12 +19695,10 @@ extension SeedData {
             ("¿Si un ___ se saliera de la jaula, qué harías?", "¿Si un tigre se saliera de la jaula, qué harías?", "If a tiger should come out of the cage, what would you do?"),
         ],
         "tilde": [
-            ("Esta ___ representa una medida no normalizada (unnormalized).", "Esta tilde representa una medida no normalizada (unnormalized).", "Okay?"),
             ("Así que aquí tengo ___ y x.", "Así que aquí tengo tilde y x.", "So here, I've got y tilde x."),
             ("Más bien, es ___ de P de ABCD, que corresponde a la medida no normalizada.", "Más bien, es tilde de P de ABCD, que corresponde a la medida no normalizada.", "Which is the, unnormalized measure."),
         ],
         "timbre": [
-            ("¿Y por qué tenemos un ___?", "¿Y por qué tenemos un timbre?", "We already seen this in schools starting to experiment or moving this direction is, if you take lecture out of the classroom there's no longer the need for everyone to move together at the same pace."),
             ("¿Voy a obtener una curva de ___ agradable, correcta?", "¿Voy a obtener una curva de timbre agradable, correcta?", "I'm going to get a nice bell curve, right?"),
             ("¿Es un ___ de restaurante?", "¿Es un timbre de restaurante?", "Is this a restaurant buzzer?"),
         ],
@@ -20520,7 +19709,6 @@ extension SeedData {
         ],
         "tipo de cambio": [
             ("¿A cuánto está el ___ para los dólares ahora?", "¿A cuánto está el tipo de cambio para los dólares ahora?", "What is the exchange rate for dollars now?"),
-            ("BG: ¿Qué ___ prevés?", "BG: ¿Qué tipo de cambio prevés?", "BG: What kind of change are you foreseeing?"),
             ("Y ahora ¿cuál es el ___?", "Y ahora ¿cuál es el tipo de cambio?", "And now what's the exchange rate?"),
         ],
         "tirantes": [
@@ -20544,7 +19732,6 @@ extension SeedData {
             ("Es así exactamente como su ___ trabaja en su cuerpo.", "Es así exactamente como su tiroides trabaja en su cuerpo.", "That's exactly how your thyroid works in your body."),
         ],
         "titular": [
-            ("Entonces, espera, żquién consiguió el puesto de profesor ___?", "Entonces, espera, żquién consiguió el puesto de profesor titular?", "So, wait a minute, who ended up getting the tenure position?"),
             ("Es un buen ___, ¿no?", "Es un buen titular, ¿no?", "It's a good headline, right?"),
             ("Siete periódicos usaron el mismo ___ el mismo día.", "Siete periódicos usaron el mismo titular el mismo día.", "Seven different newspapers had the same headline on the same day."),
         ],
@@ -20559,7 +19746,6 @@ extension SeedData {
             ("¿Ella sabe ___ la guitarra?", "¿Ella sabe tocar la guitarra?", "Can she play the guitar?"),
         ],
         "todavía": [
-            ("Es muy fácil, żPor qué todas estas cosas están ___ aquí?", "Es muy fácil, żPor qué todas estas cosas están todavía aquí?", "It's too easy. Why is all this stuff still here?"),
             ("Hay algo ___ peor que la calumnia, la verdad.", "Hay algo todavía peor que la calumnia, la verdad.", "There's something even worse than calumny, it's truth."),
             ("Una de ellas es ___ largo y complicado.", "Una de ellas es todavía largo y complicado.", "One way is still long and complicated."),
         ],
@@ -20599,7 +19785,6 @@ extension SeedData {
             ("Es una ___ diferente de verde...", "Es una tonalidad diferente de verde...", "It's a different shade of green."),
         ],
         "tonto": [
-            ("¡Estúpido! iIdiota! ¿Estás haciendo el ___?", "¡Estúpido! iIdiota! ¿Estás haciendo el tonto?", "Fucking cunt!"),
             ("¿Por qué cometí un error tan ___?", "¿Por qué cometí un error tan tonto?", "Why did I make such a stupid mistake?"),
             ("¿Me cagas y te haces el ___?", "¿Me cagas y te haces el tonto?", "You betray me and act all innocent?"),
         ],
@@ -20643,7 +19828,6 @@ extension SeedData {
             ("que es puerto en este mar de mi ___,", "que es puerto en este mar de mi tormento,", "That welcome haven in my sea of woe,"),
         ],
         "tornado": [
-            ("CA: Entonces es como un ___ gigante.", "CA: Entonces es como un tornado gigante.", "CA: So, it's like a giant tornado."),
             ("Somalia se había ___ una anarquía.", "Somalia se había tornado una anarquía.", "Somalia had disintegrated into anarchy."),
             ("El ___ destruyó toda la aldea.", "El tornado destruyó toda la aldea.", "The tornado destroyed the whole village."),
         ],
@@ -20658,7 +19842,6 @@ extension SeedData {
             ("¡Ese tipo tiene suelto un ___!", "¡Ese tipo tiene suelto un tornillo!", "That guy has a screw loose!"),
         ],
         "toro": [
-            ("(Música) O incluso Tauro, el ___.", "(Música) O incluso Tauro, el toro.", "(Music) Or even Taurus, the bull."),
             ("Un ___ no és atraído solo por la fuerza.", "Un toro no és atraído solo por la fuerza.", "A bull isn't lured by strength alone."),
             ("Él es fuerte como un ___.", "Él es fuerte como un toro.", "He's very strong."),
         ],
@@ -20702,14 +19885,11 @@ extension SeedData {
             ("Este es mi ___.", "Este es mi tostador.", "And this is my roaster."),
         ],
         "totalmente": [
-            ("Manoush Zomorodi: ___ increíble, ¿verdad?", "Manoush Zomorodi: Totalmente increíble, ¿verdad?", "Manoush Zomorodi: Totally awesome, right?"),
             ("Es stoo, estaba ___ vacía.", "Es stoo, estaba totalmente vacía.", "That's stoo, stood totally empty."),
             ("Estoy ___ de acuerdo en dividir la cuenta,", "Estoy totalmente de acuerdo en dividir la cuenta,", "I am totally down with splitting the bill."),
         ],
         "trabajador": [
-            ("Rusia, Tayikistán: ¿A quién insulta la Guía del ___ emigrante?", "Rusia, Tayikistán: ¿A quién insulta la Guía del trabajador emigrante?", "Russia, Tajikistan: Who is Insulted by the Migrant Worker's Guide? · Global Voices"),
             ("¿También dirías «bueno, no era un ___»?", "¿También dirías «bueno, no era un trabajador»?", "Will you still say \"so, he was not a worker\"?"),
-            ("- Es un ___. - żY qué?", "- Es un trabajador. - żY qué?", "What's the matter?"),
         ],
         "trabajador social": [
             ("Soy un ___ tratando de darle sentido a su sintaxis.", "Soy un trabajador social tratando de darle sentido a su sintaxis.", "I am his social worker attempting to make sense of his syntax."),
@@ -20729,10 +19909,8 @@ extension SeedData {
         "tradicional": [
             ("¿es la familia ___ aquella donde papá y mamá están divorciados?", "¿es la familia tradicional aquella donde papá y mamá están divorciados?", "Is traditional family where papa and mama are divorced?"),
             ("De hecho, descuidamos los sectores informal y ___.", "De hecho, descuidamos los sectores informal y tradicional.", "As a matter of fact, we neglected the informal and the traditional sectors."),
-            ("Irán: Hajji Firouz, el mensajero ___ del Noruz", "Irán: Hajji Firouz, el mensajero tradicional del Noruz", "Iran: Haji Firouz,the traditional herald of the Norouz · Global Voices"),
         ],
         "tradición": [
-            ("One Latinas blog escribe sobre: Las Posadas: ___ mejicana", "One Latinas blog escribe sobre: Las Posadas: Tradición mejicana", "One Latinas Blog writes about Las Posadas: A Mexican Tradition"),
             ("La ___ democrática senegalesa corre peligro", "La tradición democrática senegalesa corre peligro", "Senegal's Democratic Tradition Takes Worrisome Turn · Global Voices"),
             ("Podemos usar nuestra ___ para navegar el cambio.", "Podemos usar nuestra tradición para navegar el cambio.", "We can use our tradition to navigate change."),
         ],
@@ -20749,10 +19927,8 @@ extension SeedData {
         "traer": [
             ("¿qué te va a ___ a este instante... a este momento?", "¿qué te va a traer a este instante... a este momento?", "[Laughter] Then, the dress maker. [Cutting sound]"),
             ("Usted puede ___ a la Moshiko si te parece bien?", "Usted puede traer a la Moshiko si te parece bien?", "You can bring the Moshiko if it's okay?"),
-            ("CA: ¿Podemos ___ el micrófono aquí, por favor, para Andrew?", "CA: ¿Podemos traer el micrófono aquí, por favor, para Andrew?", "CA: Can we have the microphone here, please, to Andrew?"),
         ],
         "tragar": [
-            ("Trinidad y Tobago: ¿Más de lo que puede ___?", "Trinidad y Tobago: ¿Más de lo que puede tragar?", "Trinidad & Tobago: More Than She Can Chew? · Global Voices"),
             ("Y no podía entender, ¿Por qué había que ___ a alguien?", "Y no podía entender, ¿Por qué había que tragar a alguien?", "And he can't understand, why to swallow anyone?"),
             ("Me frustraste demasiado, ¿Crees que pueda ___ el arroz?", "Me frustraste demasiado, ¿Crees que pueda tragar el arroz?", "You frustrate me so much, do you think I can swallow rice?"),
         ],
@@ -20787,11 +19963,9 @@ extension SeedData {
         ],
         "tranquilamente": [
             ("¿Qué dice el abate a esto? preguntó ___ Athos.", "¿Qué dice el abate a esto? preguntó tranquilamente Athos.", "\"What says the abbe?\" asked Athos, quietly."),
-            ("¿Podría ser... la Reina exiliada viviendo ___ en la casa humilde?", "¿Podría ser... la Reina exiliada viviendo tranquilamente en la casa humilde?", "Not... not on Inhyun?"),
             ("Los Banqueros ___ decidieron moverse a la pista dos,", "Los Banqueros tranquilamente decidieron moverse a la pista dos,", "The bankers quietly decided to move to track two, the Democratic alternative."),
         ],
         "tranquilizar": [
-            ("¡No! Para ___ a Frieda.", "¡No! Para tranquilizar a Frieda.", "No: to reassure Frieda."),
             ("A veces, estos intentos de ___ suenan algo forzados :", "A veces, estos intentos de tranquilizar suenan algo forzados :", "Sometimes these attempts to reassure sound a bit strained :"),
             ("Ahora Dimistri tiene la oportunidad de ___ y calmar a Milo.", "Ahora Dimistri tiene la oportunidad de tranquilizar y calmar a Milo.", "Now's a chance for Dimitri to kind of reassure and calm Milo down."),
         ],
@@ -20826,7 +20000,6 @@ extension SeedData {
             ("Quiero personalmente invitarlos a la ___ por la Web.", "Quiero personalmente invitarlos a la transmisión por la Web.", "I want to personally invite your for the webcast."),
         ],
         "transmisión en vivo": [
-            ("Rusia: Parlamentario detenido usa ___ móvil", "Rusia: Parlamentario detenido usa transmisión en vivo móvil", "Russia: Detained Member of Parliament Uses Live Mobile Broadcasting · Global Voices"),
             ("Yo no podía esperarla porque tenía la ___.", "Yo no podía esperarla porque tenía la transmisión en vivo.", "I couldn't wait because I had the live broadcast."),
             ("(___, tanto en texto como en video, aquí).", "(Transmisión en vivo, tanto en texto como en video, aquí).", "(Live broadcasting in both text and video here.)"),
         ],
@@ -20846,7 +20019,6 @@ extension SeedData {
             ("¿Cuantos aquí girarían el ___ hacia esa vía paralela?", "¿Cuantos aquí girarían el tranvía hacia esa vía paralela?", "How many would save the five now as the doctor? How many would save the one? Very few people, just a handful of people."),
         ],
         "trap": [
-            ("Dado: ___ (ya eso me empieza a preocupar)", "Dado: TRAP (ya eso me empieza a preocupar)", "Given, TRAP, that already makes me worried."),
             ("Así que permítanme escribir la forma ___ completa.", "Así que permítanme escribir la forma TRAP completa.", "So let me actually write the whole TRAP."),
             ("___ Boy (ar)", "Trap Boy (ar)", "Trap Boy (ar)"),
         ],
@@ -20913,7 +20085,6 @@ extension SeedData {
         "tregua": [
             ("¿Por qué no darle vida a la ___?", "¿Por qué no darle vida a la tregua?", "Why don't we bring truce to life?"),
             ("Incómoda ___ ahora que Mba Obame deja el edificio", "Incómoda tregua ahora que Mba Obame deja el edificio", "Uneasy truce as Mba Obame leaves the building"),
-            ("Etiopía: Iglesias Copta y Etíope Ortodoxas firman ___", "Etiopía: Iglesias Copta y Etíope Ortodoxas firman tregua", "Ethiopia: Coptic and Ethiopian Orthodoxy churches sign truce · Global Voices"),
         ],
         "treinta": [
             ("¿Pueden empezar otra vez desde el compás ___?", "¿Pueden empezar otra vez desde el compás treinta?", "Can you start again from bar thirty?"),
@@ -20927,7 +20098,6 @@ extension SeedData {
         ],
         "tren ligero": [
             ("Tiene un coche sofisticado, ___ y sueña con ser una novia.", "Tiene un coche sofisticado, tren ligero y sueña con ser una novia.", "It has a sophisticated car, light rail and she dreams to be a bride."),
-            ("Te encanta viajar en el metro (MRT) y el ___ (LRT)...", "Te encanta viajar en el metro (MRT) y el tren ligero (LRT)...", "You love riding the MRT and LRT..."),
             ("Usen ___.", "Usen tren ligero.", "Use light rail."),
         ],
         "trepar": [
@@ -20998,7 +20168,6 @@ extension SeedData {
         "trompeta": [
             ("Este es un gato entrenado para responder a una ___.", "Este es un gato entrenado para responder a una trompeta.", "This is a cat that's been trained to respond to a trumpet for food."),
             ("(___) pero se pone en marcha a la llamada del deber.", "(Trompeta) pero se pone en marcha a la llamada del deber.", "(Trumpet) But she jumps to action when called to duty!"),
-            ("(___) CL: No estoy sugiriendo que el gato escucha como nosotros.", "(Trompeta) CL: No estoy sugiriendo que el gato escucha como nosotros.", "(Trumpet) CL: Now I'm not suggesting that the cat is hearing that trumpet the way we're hearing it."),
         ],
         "tronar": [
             ("Lo escuché ___ en la distancia.", "Lo escuché tronar en la distancia.", "I heard it thunder in the distance."),
@@ -21022,7 +20191,6 @@ extension SeedData {
         "tropical": [
             ("Recuerdo aquella casa ___ con la piscina abandonada llena de renacuajos.", "Recuerdo aquella casa tropical con la piscina abandonada llena de renacuajos.", "I remember the tropical house with its neglected swimming pool full of tadpoles."),
             ("Fuerte tormenta ___ golpea el sur de Filipinas", "Fuerte tormenta tropical golpea el sur de Filipinas", "Tropical Storm Pablo Leaves Trail of Devastation in Southern Philippines · Global Voices"),
-            ("Madagascar: Ciclón ___ Fanele produce deslaves al suroeste de la región", "Madagascar: Ciclón tropical Fanele produce deslaves al suroeste de la región", "Madagascar: Tropical cyclone Fanele makes landfall in the Southwest Region · Global Voices"),
         ],
         "trotar": [
             ("¿Que prefieres, ___ o andar en bicicleta?", "¿Que prefieres, trotar o andar en bicicleta?", "Which do you like better, cycling or jogging?"),
@@ -21076,11 +20244,8 @@ extension SeedData {
         "turbulento": [
             ("Un flujo ___ es autosimilar si hay una cascada de energía.", "Un flujo turbulento es autosimilar si hay una cascada de energía.", "A turbulent flow is self-similar if there is an energy cascade."),
             ("El ___ Pasado de Burkina Faso", "El Turbulento Pasado de Burkina Faso", "The troubled pasts of Burkina Faso · Global Voices"),
-            ("Cambiaron las reglas de laminado a ___. Todas las reglas desaparecieron.", "Cambiaron las reglas de laminado a turbulento. Todas las reglas desaparecieron.", "All the rules are gone."),
         ],
         "turismo": [
-            ("Hong Kong: ¿Cómo detener el ___ natal proveniente de China?", "Hong Kong: ¿Cómo detener el turismo natal proveniente de China?", "Hong Kong: What Can Be Done to Stop Birth Tourism from China? · Global Voices"),
-            ("Maldivas: Condena a menor violada desencadena campaña contra el ___", "Maldivas: Condena a menor violada desencadena campaña contra el turismo", "Maldives Rape Victim's Flogging Sentence Touches Off Anti-Tourism Campaign · Global Voices"),
             ("En Bután, el ___ es frenado para proteger la cultura.", "En Bután, el turismo es frenado para proteger la cultura.", "In Bhutan tourism is discouraged to protect the culture."),
         ],
         "turista": [
@@ -21090,12 +20255,10 @@ extension SeedData {
         ],
         "turquesa": [
             ("Este es el Lago ___.", "Este es el Lago Turquesa.", "This is a turquoise lake."),
-            ("(Risas) Este es el Lago ___.", "(Risas) Este es el Lago Turquesa.", "(Laughter) This is a turquoise lake."),
             ("Es decir, ¿a quién le hace falta el ___ teniendo Ultra Sheen?", "Es decir, ¿a quién le hace falta el turquesa teniendo Ultra Sheen?", "I mean, who needs turquoise when you have Ultra Sheen?"),
         ],
         "tutela": [
             ("3) ¿___ de los niños?", "3) ¿Tutela de los niños?", "3) Accompaniment of children?"),
-            ("No. Significa: menos presencia estatal, menos ___ y husmeo, menos burocracia.", "No. Significa: menos presencia estatal, menos tutela y husmeo, menos burocracia.", "It means a less powerful state - less spying, less paternalism and less bureaucracy."),
             ("Entonces yo le daba, por lo que bajo la ___ de mi arte,", "Entonces yo le daba, por lo que bajo la tutela de mi arte,", "Then gave I her, so tutored by my art,"),
         ],
         "té": [
@@ -21231,7 +20394,6 @@ extension SeedData {
         "usar": [
             ("¿Por qué debería comprar algo que no voy a ___ nunca?", "¿Por qué debería comprar algo que no voy a usar nunca?", "Why should I buy something I'll never use?"),
             ("¿Por qué no podemos ___ la ira por el bien común?", "¿Por qué no podemos usar la ira por el bien común?", "Why can't we convert our anger for the larger good of society?"),
-            ("Ahora es bueno ___, si usan un... (Risas)", "Ahora es bueno usar, si usan un... (Risas)", "Now it's good to use -- if you use a -- (Laughter)"),
         ],
         "usuario": [
             ("El ___ de Twitter @ssyoon66 escribió :", "El usuario de Twitter @ssyoon66 escribió :", "Twitter user @ssyoon66 wrote :"),
@@ -21265,13 +20427,10 @@ extension SeedData {
         ],
         "vaciar": [
             ("¿Cómo puede uno ___ el corazón de las ambiciones mezquinas?", "¿Cómo puede uno vaciar el corazón de las ambiciones mezquinas?", "How does one empty the heart of petty ambitions?"),
-            ("Señor, ¿podría ___ sus bolsillos, por favor?", "Señor, ¿podría vaciar sus bolsillos, por favor?", "(Laughter) Sir, do you want to empty your pockets, please, sir?"),
             ("Surge al ___ la conciencia de todo contenido.", "Surge al vaciar la conciencia de todo contenido.", "It comes from emptying consciousness of all content."),
         ],
         "vacuna": [
-            ("Salud Global: ¿Descubren ___ contra el VIH?", "Salud Global: ¿Descubren Vacuna contra el VIH?", "Global Health: HIV Vaccine Breakthrough? · Global Voices"),
             ("¿Muerte por distribuir la ___ de la polio en Pakistán?", "¿Muerte por distribuir la vacuna de la polio en Pakistán?", "Why Death for Distributing Polio Vaccine in Pakistan? · Global Voices"),
-            ("CA: Y ¿sucede lo mismo con la ___ antigripal universal?", "CA: Y ¿sucede lo mismo con la vacuna antigripal universal?", "CA: And that's the same with universal flu vaccine, the same kind of thing?"),
         ],
         "vacunar": [
             ("Por ejemplo, ¿dónde están los niños que faltan por ___?", "Por ejemplo, ¿dónde están los niños que faltan por vacunar?", "For example, where are the children who are missing from immunization?"),
@@ -21319,8 +20478,6 @@ extension SeedData {
             ("Mi ___ joven, voy a romperos la cabeza.", "Mi valiente joven, voy a romperos la cabeza.", "\"My brave young man, I will blow out your brains."),
         ],
         "valles": [
-            ("Por qué ___ de ríos?", "Por qué valles de ríos?", "They're flat, they're well watered, and when they flood, they deposit nutrient-rich silt."),
-            ("Marte tiene el gran cañón del Sistema Solar: ___ Marineris.", "Marte tiene el gran cañón del Sistema Solar: Valles Marineris.", "Mars has the Grand Canyon of the solar system, Valles Marineris."),
             ("Empezaba a hablar de montañas, terrenos, ríos y ___.", "Empezaba a hablar de montañas, terrenos, ríos y valles.", "She starts talking about mountains, terrain, rivers and valleys."),
         ],
         "valor": [
@@ -21366,7 +20523,6 @@ extension SeedData {
         "vecindad": [
             ("-¿Conoce a alguna persona de la ___ que necesite criada?", "-¿Conoce a alguna persona de la vecindad que necesite criada?", "\"Did she know of any place in the neighbourhood where a servant was wanted?\""),
             ("Uno es el método de ___.", "Uno es el método de vecindad.", "One is neighborhood method."),
-            ("Sн, aquн en la ___.", "Sн, aquн en la vecindad.", "A live one? - En Tepoztlán. - Near here."),
         ],
         "vecino": [
             ("¿Quién quiere vivir en continua tensión con su ___?", "¿Quién quiere vivir en continua tensión con su vecino?", "Who wants to live in continuous tension with his neighbour?"),
@@ -21385,7 +20541,6 @@ extension SeedData {
         ],
         "veinte": [
             ("¿Puedo volverte a llamar en ___ minutos?", "¿Puedo volverte a llamar en veinte minutos?", "Can I call you back in twenty minutes?"),
-            ("Pelo oscuro, poco más de ___ años? Cara de enojado", "Pelo oscuro, poco más de veinte años? Cara de enojado", "Drop your guns"),
             ("Descuento por uno más rendimiento al vencimiento, elevado a potencia ___.", "Descuento por uno más rendimiento al vencimiento, elevado a potencia veinte.", "Discounted by one plus yield to maturity, raised to power twenty."),
         ],
         "veintiuno": [
@@ -21410,12 +20565,10 @@ extension SeedData {
         ],
         "velar": [
             ("¿Cuándo volverá a ___ conmigo otra vez?", "¿Cuándo volverá a velar conmigo otra vez?", "Jane, when will you watch with me again?\""),
-            ("Cuba: Un guardabosques para ___ por los espacios verdes", "Cuba: Un guardabosques para velar por los espacios verdes", "Cuba: Guardians of Urban Green Spaces · Global Voices"),
             ("Reşat Bey me envió a ___ por ti.", "Reşat Bey me envió a velar por ti.", "Reşat Bey sent me to watch over you."),
         ],
         "velero": [
             ("¿Por qué no en las celdas de un ___?", "¿Por qué no en las celdas de un velero?", "Why not the cell of a sail boat?"),
-            ("(Risas) Bueno, soy yo en mi ___.", "(Risas) Bueno, soy yo en mi velero.", "(Laughter) Well, it's me on my sailing boat."),
             ("La idea es la misma que construir mi ___.", "La idea es la misma que construir mi velero.", "This idea is the same as that of building my sailing boat."),
         ],
         "velocidad": [
@@ -21440,7 +20593,6 @@ extension SeedData {
         ],
         "venda": [
             ("¿Hay manera de ver a través de esta ___?", "¿Hay manera de ver a través de esta venda?", "Now, is there any way to see through this blindfold?"),
-            ("KB: ¿No? SJ: No, no puedo ver con la ___.", "KB: ¿No? SJ: No, no puedo ver con la venda.", "SJ: No, I can't see through it. KB: Excellent."),
             ("¿Realmente me está diciendo que vaya y ___ esto?", "¿Realmente me está diciendo que vaya y venda esto?", "Wait... you want me to sell these?"),
         ],
         "vendaje": [
@@ -21451,7 +20603,6 @@ extension SeedData {
         "vender": [
             ("Mira lo que te conviene antes de comprar o ___", "Mira lo que te conviene antes de comprar o vender", "Oh traveler, I give you a piece of advice to follow right away"),
             ("Esto no significa que no se puedan ___.", "Esto no significa que no se puedan vender.", "This doesn't mean it can't be sold on."),
-            ("(Risas) Esta información se puede ___ al mejor postor.", "(Risas) Esta información se puede vender al mejor postor.", "(Laughter) It can then sell this information on to the highest bidder."),
         ],
         "venir": [
             ("¿No le gustaría ___ a sentarse con nosotros?", "¿No le gustaría venir a sentarse con nosotros?", "Won't you come sit with us?"),
@@ -21516,7 +20667,6 @@ extension SeedData {
         "verdaderamente": [
             ("El retorno comenzaba ___ ahora.", "El retorno comenzaba verdaderamente ahora.", "And now we had actually started our return journey."),
             ("El llanto del bebé me traspasó, ___, como madre.", "El llanto del bebé me traspasó, verdaderamente, como madre.", "And the baby's cry really penetrated me, as a mother."),
-            ("estamos en un paнs ___ democrаtico...", "estamos en un paнs verdaderamente democrаtico...", "we are in a democratic country..."),
         ],
         "verdadero": [
             ("De hecho Tomás es su ___ nombre.", "De hecho Tomás es su verdadero nombre.", "Actually, Tom is his real name."),
@@ -21536,10 +20686,8 @@ extension SeedData {
         "veredicto": [
             ("¿Cuál es el ___ de la canción de independencia de Uganda?", "¿Cuál es el veredicto de la canción de independencia de Uganda?", "What's the Verdict on Uganda@50 Independence Song? · Global Voices"),
             ("Tengo mis dudas al respecto ¿Qué pienso del ___?", "Tengo mis dudas al respecto ¿Qué pienso del veredicto?", "That is where I have my doubts. What do I think about the verdict?"),
-            ("Pero no pensaba limitarme a aceptar el ___ de los demбs.", "Pero no pensaba limitarme a aceptar el veredicto de los demбs.", "Pero no pensaba limitarme a aceptar el veredicto de los demбs."),
         ],
         "vergonzoso": [
-            ("¿Usted ha visto, es ___? &amp;gt;&amp;gt; Sí.", "¿Usted ha visto, es vergonzoso? &amp;gt;&amp;gt; Sí.", "You've seen it, is it embarrassing? &amp;gt;&amp;gt; Yeah."),
             ("¡Esto es ___ y fuera de lugar!", "¡Esto es vergonzoso y fuera de lugar!", "This is so shameful and inappropriate!"),
             ("Es ___ tratar tan cruelmente a un niño.", "Es vergonzoso tratar tan cruelmente a un niño.", "It's shameful to treat a child so cruelly."),
         ],
@@ -21604,8 +20752,6 @@ extension SeedData {
         ],
         "viajar": [
             ("¿Te gusta ___? A mí también.", "¿Te gusta viajar? A mí también.", "Do you like to travel? Me too."),
-            ("Vamos a ___ a Estonia a principios del mes que viene.", "Vamos a viajar a Estonia a principios del mes que viene.", "We're going to travel to Estonia at the beginning of next month."),
-            ("Vamos a ___ a Estonia el próximo mes.", "Vamos a viajar a Estonia el próximo mes.", "We're going to travel to Estonia next month."),
         ],
         "viaje": [
             ("¿Ella puede soportar un ___ largo?", "¿Ella puede soportar un viaje largo?", "Can she endure a long trip?"),
@@ -21633,7 +20779,6 @@ extension SeedData {
             ("Había problemas técnicos con la ___.", "Había problemas técnicos con la videollamada.", "There were technical difficulties with the video call."),
         ],
         "vidrio": [
-            ("Haití: ¿Dispararon o cortaron con ___ a Wyclef?", "Haití: ¿Dispararon o cortaron con vidrio a Wyclef?", "Haiti: Was Wyclef Shot or Cut by Glass? · Global Voices"),
             ("*En la culata de su revólver tiene una bolita de ___*", "*En la culata de su revólver tiene una bolita de vidrio*", "They made up the facts."),
             ("La ventana está hecha de ___.", "La ventana está hecha de vidrio.", "The window is made of glass."),
         ],
@@ -21698,11 +20843,8 @@ extension SeedData {
         ],
         "violencia": [
             ("¿del organismo humano para expresar la ___ inevitablemente?", "¿del organismo humano para expresar la violencia inevitablemente?", "Older anthropological studies that have attempted to justify human violence would often compare humans to our earlier stages of evolution for their pattern recognition."),
-            ("Argelia: ___ sectaria en Berraine", "Argelia: Violencia sectaria en Berraine", "Algeria: Sectarian Violence in Berraine · Global Voices"),
-            ("Angola: Videos virales provocan reflexión sobre la ___ de Estado", "Angola: Videos virales provocan reflexión sobre la violencia de Estado", "State-Sponsored Violence in Angola · Global Voices"),
         ],
         "violento": [
-            ("Caribe: ¿Un mundo más ___?", "Caribe: ¿Un mundo más violento?", "Caribbean: A More Violent World? · Global Voices"),
             ("¿Estamos viviendo en un mundo más ___?", "¿Estamos viviendo en un mundo más violento?", "Are we living in a more violent world?"),
             ("A las tres de la mañana me despertó un choque ___.", "A las tres de la mañana me despertó un choque violento.", "At three o'clock in the morning, I was awakened by a violent collision."),
         ],
@@ -21723,7 +20865,6 @@ extension SeedData {
         ],
         "virtualmente": [
             ("Esto es una reducción de 94 por ciento -- ___ limpio.", "Esto es una reducción de 94 por ciento -- virtualmente limpio.", "I mean, a 94 percent reduction -- virtually clean."),
-            ("Significa que podríamos, ___, eliminar todo esto.", "Significa que podríamos, virtualmente, eliminar todo esto.", "Yes, 92%. That means &lt;br/&gt;we could virtually eliminate these things."),
             ("Podríamos, ___, eliminar estas muertes.", "Podríamos, virtualmente, eliminar estas muertes.", "We could virtually eliminate these deaths."),
         ],
         "virtud": [
@@ -21743,7 +20884,6 @@ extension SeedData {
         ],
         "visa": [
             ("¿Cómo tramitar la ___ rusa si eres mexicano?", "¿Cómo tramitar la visa rusa si eres mexicano?", "How can you apply for a Russian visa if you're Mexican?"),
-            ("Yemen: ¿Debería Estados Unidos concederle ___ a Saleh?", "Yemen: ¿Debería Estados Unidos concederle visa a Saleh?", "Yemen: Should the US Grant Saleh a Visa? · Global Voices"),
             ("¿Por cuánto tiempo es válida esta ___?", "¿Por cuánto tiempo es válida esta visa?", "How long is this visa valid?"),
         ],
         "visceral": [
@@ -21783,7 +20923,6 @@ extension SeedData {
         ],
         "visualizar": [
             ("¿Cómo podemos ___ este espacio?", "¿Cómo podemos visualizar este espacio?", "How can we visualize this space?"),
-            ("¿Y creo que se pueden ___, derecho?", "¿Y creo que se pueden visualizar, derecho?", "Right now, the difference between these two, and this is just the numerator when you take the difference, or how fast we're changing from this vector to that vector in terms of t, and it's hard to visualize here."),
             ("Por ejemplo, esto es simplemente cómo ___.", "Por ejemplo, esto es simplemente cómo visualizar.", "For example, this is just how I visualize it."),
         ],
         "vitalidad": [
@@ -21819,7 +20958,6 @@ extension SeedData {
         "volcán": [
             ("¿Nos hallamos en la chimenea de un ___ en actividad?", "¿Nos hallamos en la chimenea de un volcán en actividad?", "Do you mean to affirm that we are running up the shaft of a volcano?\""),
             ("Aquí está una foto de un ___.", "Aquí está una foto de un volcán.", "Here's a picture of a volcano."),
-            ("Marte tiene el ___ más grande del Sistema Solar: Monte Olimpo.", "Marte tiene el volcán más grande del Sistema Solar: Monte Olimpo.", "Mars has the largest volcano in the solar system, Olympus Mons."),
         ],
         "voleibol": [
             ("¿A usted le gusta jugar al ___?", "¿A usted le gusta jugar al voleibol?", "Do you like playing volleyball?"),
@@ -21878,7 +21016,6 @@ extension SeedData {
         ],
         "voz": [
             ("¿Anhelarían mi aprobación, mi amor, mi ___?", "¿Anhelarían mi aprobación, mi amor, mi voz?", "Would they yearn for my approval, my love, my voice?"),
-            ("(___ en off) Woody: ¿Qué estás haciendo?", "(Voz en off) Woody: ¿Qué estás haciendo?", "(Voice Over) Woody: What do you think you're doing?"),
             ("¿Ese es todo el potencial de tu ___?", "¿Ese es todo el potencial de tu voz?", "Got it. Is that the loudest your voice gets?"),
         ],
         "vuelo": [
@@ -21926,7 +21063,6 @@ extension SeedData {
             ("Esta forma de ___ no funciona muy bien; se incendió tres veces.", "Esta forma de wok no funciona muy bien; se incendió tres veces.", "This shaped wok doesn't work very well; this caught fire three times."),
         ],
         "y": [
-            ("(Risas) Al poco tiempo, conoció a Rich ___ se enamoró.", "(Risas) Al poco tiempo, conoció a Rich y se enamoró.", "(Laughter) Soon afterwards, she met Rich and fell in love."),
             ("Tenía el corazón destrozado, ___ ahora debía enfrentar otra recuperación.", "Tenía el corazón destrozado, y ahora debía enfrentar otra recuperación.", "Her heart was truly broken, and she now faced yet another recovery."),
             ("O sea, una puerta ___ luego una cerradura.", "O sea, una puerta y luego una cerradura.", "I mean a door and then a lock."),
         ],
@@ -21966,7 +21102,6 @@ extension SeedData {
         "zapato": [
             ("¿Un trozo de ropa? ¿Un ___?", "¿Un trozo de ropa? ¿Un zapato?", "A scrap of cloth, a sole from his shoe?"),
             ("Aquí viene mi pregunta: ¿le puedo lanzar mi ___?", "Aquí viene mi pregunta: ¿le puedo lanzar mi zapato?", "Here comes my question, can I throw my shoe at you?"),
-            ("¿Los cordones del ___ no se soltarán? &lt;i&gt;JANG Hae-joo&lt;/i&gt;", "¿Los cordones del zapato no se soltarán? &lt;i&gt;JANG Hae-joo&lt;/i&gt;", "Your shoe laces won't get loose? &lt;i&gt;JANG Hae-joo&lt;/i&gt;"),
         ],
         "zarpar": [
             ("Nos preparamos inmediatamente para ___ pero no levamos anclas esa noche.", "Nos preparamos inmediatamente para zarpar pero no levamos anclas esa noche.", "We prepared immediately to sail, but did not weigh that night."),
@@ -21979,7 +21114,6 @@ extension SeedData {
             ("Hagamos que cada ___ geopolítica tenga y opere una refinería.", "Hagamos que cada zona geopolítica tenga y opere una refinería.", "Have each geo-political zone own and operate a refinery."),
         ],
         "zorrillo": [
-            ("SW: ¿Y qué me dices del ___?", "SW: ¿Y qué me dices del zorrillo?", "(Laughter) SW: What about a skunk?"),
             ("¡Fuchi! ¡Huele a ___ el sótano de la casa de mi tío!", "¡Fuchi! ¡Huele a zorrillo el sótano de la casa de mi tío!", "Ew! My uncle's basement smells of skunk!"),
         ],
         "zorro": [
@@ -21989,7 +21123,6 @@ extension SeedData {
         ],
         "Óscar": [
             ("¿Vieron la pose de Angelina Jolie en los ___?", "¿Vieron la pose de Angelina Jolie en los Óscar?", "Did you see Angelina Jolie Oscar?"),
-            ("India: Slumdog Millionaire arrasa con los Premios ___", "India: Slumdog Millionaire arrasa con los Premios Óscar", "India: Slumdog Millionaire Sweeps The Oscar Awards · Global Voices"),
             ("Ganadora del ___ a los mejores efectos visuales", "Ganadora del Óscar a los mejores efectos visuales", "[\"Academy Award Winner for Visual Effects\"]"),
         ],
         "ácido": [
@@ -22010,7 +21143,6 @@ extension SeedData {
         "ándale": [
             ("___, te daré un aventón.", "Ándale, te daré un aventón.", "Come on, I'll give you a lift."),
             ("___, ¿cómo se llama?", "Ándale, ¿cómo se llama?", "Come on, what's her name?"),
-            ("¡___! (Risas) HP: En realidad, ni siquiera sé por qué estoy hablando así.", "¡Ándale! (Risas) HP: En realidad, ni siquiera sé por qué estoy hablando así.", "(Laughter) HP: Actually, I don't know why I am even talking like this."),
         ],
         "ángel": [
             ("A que tengo cara de ___?", "A que tengo cara de ángel?", "See? I have an angelís face."),
@@ -22025,7 +21157,6 @@ extension SeedData {
         "ánimo": [
             ("Lo sentimos, no significaba que arruinar su estado de ___.", "Lo sentimos, no significaba que arruinar su estado de ánimo.", "Sorry, didn't mean to ruin your mood."),
             ("Más, al fin, pude recuperar mi presencia de ___.", "Más, al fin, pude recuperar mi presencia de ánimo.", "Alas, this isolation--this banishment from my kind!"),
-            ("Iraq: Sin ___ para Eid ni ocasiones especiales", "Iraq: Sin ánimo para Eid ni ocasiones especiales", "Iraq: Not in the Mood for Eid and Special Occasions · Global Voices"),
         ],
         "árbitro": [
             ("- ¿El ___ también tiene una pistola?", "- ¿El árbitro también tiene una pistola?", "- Does the referee have a gun, too?"),
@@ -22048,7 +21179,6 @@ extension SeedData {
             ("Y hay ruidos en el ___.", "Y hay ruidos en el ático.", "And there are noises from the attic."),
         ],
         "átomo": [
-            ("¿Bien? Por ejemplo, este ___ de Al+ cedería tres electrones.", "¿Bien? Por ejemplo, este átomo de Al+ cedería tres electrones.", "Right?"),
             ("¿Bien? Por ejemplo, este ___ de Al+ cedería tres electrones. ¿Bien?", "¿Bien? Por ejemplo, este átomo de Al+ cedería tres electrones. ¿Bien?", "So the actual atoms-- so this would be an aluminum plus, and maybe we would have donated three electrons."),
             ("Un ___ de carbono 12 es ¿qué?", "Un átomo de carbono 12 es ¿qué?", "One carbon 12 atom is what?"),
         ],
@@ -22072,14 +21202,12 @@ extension SeedData {
             ("Intenté persuadirle sin demasiado ___.", "Intenté persuadirle sin demasiado éxito.", "I tried in vain to persuade them."),
         ],
         "índice": [
-            ("¿Cuál es el ___ de eficiencia de la sociedad?", "¿Cuál es el índice de eficiencia de la sociedad?", "Now what do you feel that description may lack, at least compressed or other things we talk about? Man: It doesn't contain any.. its like studying economics or political science."),
             ("¿Ese ___ de conversión alimenticia?", "¿Ese índice de conversión alimenticia?", "That feed conversion ratio? 2.5 to one,\" he said."),
             ("El ___ de reincidencia es muestra de ello.", "El índice de reincidencia es muestra de ello.", "Recidivism rates support this point."),
         ],
         "íntimo": [
             ("No conozco a hombre... ¿No es ese tipo de ___?", "No conozco a hombre... ¿No es ese tipo de íntimo?", "I don't know man.. Isn't that kind of intimate?"),
             ("- ¿Es un amigo ___ de usted?", "- ¿Es un amigo íntimo de usted?", "- Is he an intimate friend of yours?"),
-            ("¿Mm-hm. &amp;gt;&amp;gt; Dave? &amp;gt;&amp;gt; Es algo más ___ a mí.", "¿Mm-hm. &amp;gt;&amp;gt; Dave? &amp;gt;&amp;gt; Es algo más íntimo a mí.", "Mm-hm. &amp;gt;&amp;gt; Dave? &amp;gt;&amp;gt; It's little more intimate to me."),
         ],
         "óleo": [
             ("¿La gente qué utilizaba ante del ___?", "¿La gente qué utilizaba ante del óleo?", "-What did people use before oil?"),
@@ -22108,7 +21236,6 @@ extension SeedData {
         ],
         "único": [
             ("Por ahora, lo ___ que parece verdaderamente perpetuo es nuestra búsqueda.", "Por ahora, lo único que parece verdaderamente perpetuo es nuestra búsqueda.", "For now, the one thing that seems truly perpetual is our search."),
-            ("Heukbong era el ___ que podría hacerlo.", "Heukbong era el único que podría hacerlo.", "Please..."),
             ("Ganar no es lo ___ que importa.", "Ganar no es lo único que importa.", "Winning isn't the only thing that matters."),
         ],
         "útero": [
