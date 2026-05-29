@@ -13,12 +13,18 @@ struct HomeView: View {
     private var totalWords: Int { allWords.count }
     private var learnedCount: Int { store.learnedCount(in: allWords) }
     private var inProgressCount: Int { store.inProgressCount(in: allWords) }
-    private var hasWordsLeft: Bool { learnedCount < totalWords }
+    private var skippedCount: Int { store.skippedCount(in: allWords) }
+    private var learnableTotal: Int { totalWords - skippedCount }
+    private var hasWordsLeft: Bool {
+        allWords.contains(where: { !store.isEffectivelyLearned($0.spanish) && !store.isPermanentlySkipped($0.spanish) })
+    }
 
     // The level (0–9) the user is actively working in
     private var activeLevel: Int {
         for lvl in 0..<10 {
-            if SeedData.wordsInLevel(lvl).contains(where: { !store.isEffectivelyLearned($0.spanish) }) {
+            if SeedData.wordsInLevel(lvl).contains(where: {
+                !store.isEffectivelyLearned($0.spanish) && !store.isPermanentlySkipped($0.spanish)
+            }) {
                 return lvl
             }
         }
@@ -27,10 +33,12 @@ struct HomeView: View {
 
     private var activeLevelWords: [Word] { SeedData.wordsInLevel(activeLevel) }
     private var activeLevelLearned: Int { activeLevelWords.filter { store.isEffectivelyLearned($0.spanish) }.count }
+    private var activeLevelSkipped: Int { activeLevelWords.filter { store.isPermanentlySkipped($0.spanish) }.count }
+    private var activeLevelLearnable: Int { activeLevelWords.count - activeLevelSkipped }
     private var activeLevelInProgress: Int {
         activeLevelWords.filter {
             let p = store.progressFor($0.spanish)
-            return !p.effectivelyLearned && p.sessionCorrectCount > 0
+            return !p.permanentlySkipped && !p.effectivelyLearned && p.sessionCorrectCount > 0
         }.count
     }
 
@@ -80,7 +88,7 @@ struct HomeView: View {
                     .font(.headline)
                 Spacer()
                 VStack(alignment: .trailing, spacing: 2) {
-                    Text("\(learnedCount) / \(totalWords) learned")
+                    Text("\(learnedCount) / \(learnableTotal) learned")
                         .font(.headline)
                         .foregroundStyle(.secondary)
                     if inProgressCount > 0 {
@@ -88,30 +96,41 @@ struct HomeView: View {
                             .font(.caption)
                             .foregroundStyle(.orange)
                     }
+                    if skippedCount > 0 {
+                        Text("\(skippedCount) skipped")
+                            .font(.caption)
+                            .foregroundStyle(.red.opacity(0.7))
+                    }
                 }
             }
 
-            // Stacked bar: learned (green) + in-progress (orange)
+            // Segmented bar: [learned][in-progress][remaining][skipped]
             GeometryReader { geo in
+                let total = CGFloat(max(totalWords, 1))
+                let greenW   = geo.size.width * CGFloat(learnedCount) / total
+                let orangeW  = geo.size.width * CGFloat(inProgressCount) / total
+                let redW     = geo.size.width * CGFloat(skippedCount) / total
                 ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 5).fill(Color(.systemFill))
-                        .frame(height: 14)
-                    // in-progress layer (wider, dimmer)
-                    RoundedRectangle(cornerRadius: 5)
-                        .fill(Color.orange.opacity(0.45))
-                        .frame(width: totalWords == 0 ? 0 :
-                               geo.size.width * CGFloat(learnedCount + inProgressCount) / CGFloat(totalWords),
-                               height: 14)
-                    // learned layer
-                    RoundedRectangle(cornerRadius: 5)
-                        .fill(Color.green)
-                        .frame(width: totalWords == 0 ? 0 :
-                               geo.size.width * CGFloat(learnedCount) / CGFloat(totalWords),
-                               height: 14)
+                    RoundedRectangle(cornerRadius: 5).fill(Color(.systemFill)).frame(height: 14)
+                    if skippedCount > 0 {
+                        HStack {
+                            Spacer()
+                            Color.red.opacity(0.45).frame(width: redW, height: 14)
+                        }
+                    }
+                    if learnedCount > 0 || inProgressCount > 0 {
+                        HStack(spacing: 0) {
+                            Color.green.frame(width: greenW, height: 14)
+                            Color.orange.frame(width: orangeW, height: 14)
+                        }
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                    }
                 }
             }
             .frame(height: 14)
             .animation(.spring(response: 0.5), value: learnedCount)
+            .animation(.spring(response: 0.5), value: inProgressCount)
+            .animation(.spring(response: 0.5), value: skippedCount)
         }
         .padding()
         .background(.regularMaterial)
@@ -132,24 +151,49 @@ struct HomeView: View {
                         .foregroundStyle(.secondary)
                 }
                 Spacer()
-                Text("\(activeLevelLearned) / \(activeLevelWords.count)")
-                    .font(.headline)
-                    .foregroundStyle(.secondary)
+                VStack(alignment: .trailing, spacing: 2) {
+                    Text("\(activeLevelLearned) / \(activeLevelLearnable)")
+                        .font(.headline)
+                        .foregroundStyle(.secondary)
+                    if activeLevelSkipped > 0 {
+                        Text("\(activeLevelSkipped) skipped")
+                            .font(.caption)
+                            .foregroundStyle(.red.opacity(0.7))
+                    }
+                }
             }
 
             // Word-dot bar showing status of each word in this level
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 6).fill(Color(.systemFill))
-                        .frame(height: 22)
+                    let total = CGFloat(max(activeLevelWords.count, 1))
+                    let learnedW  = geo.size.width * CGFloat(activeLevelLearned) / total
+                    let inProgW   = geo.size.width * CGFloat(inProgressCount) / total
+                    let skippedW  = geo.size.width * CGFloat(activeLevelSkipped) / total
 
-                    // Learned fill (gradient)
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(LinearGradient(colors: [.blue, .teal], startPoint: .leading, endPoint: .trailing))
-                        .frame(width: activeLevelWords.isEmpty ? 0 :
-                               geo.size.width * CGFloat(activeLevelLearned) / CGFloat(activeLevelWords.count),
-                               height: 22)
-                        .animation(.spring(response: 0.5), value: activeLevelLearned)
+                    // Gray background
+                    RoundedRectangle(cornerRadius: 6).fill(Color(.systemFill)).frame(height: 22)
+
+                    // Skipped fill (red from right)
+                    if activeLevelSkipped > 0 {
+                        HStack {
+                            Spacer()
+                            Color.red.opacity(0.35).frame(width: skippedW, height: 22)
+                        }
+                        .animation(.spring(response: 0.5), value: skippedW)
+                    }
+
+                    // Learned (blue/teal) + in-progress (orange) from left
+                    if activeLevelLearned > 0 || inProgressCount > 0 {
+                        HStack(spacing: 0) {
+                            LinearGradient(colors: [.blue, .teal], startPoint: .leading, endPoint: .trailing)
+                                .frame(width: learnedW, height: 22)
+                            Color.orange.frame(width: inProgW, height: 22)
+                        }
+                        .clipShape(RoundedRectangle(cornerRadius: 6))
+                        .animation(.spring(response: 0.5), value: learnedW)
+                        .animation(.spring(response: 0.5), value: inProgW)
+                    }
 
                     // Per-word dots (only when few enough to be visible)
                     if activeLevelWords.count <= 50 {
@@ -170,9 +214,10 @@ struct HomeView: View {
 
             // Legend
             HStack(spacing: 16) {
-                legendDot(.green, "Learned")
+                legendDot(.teal, "Learned")
                 legendDot(.orange, "In progress")
-                legendDot(.white.opacity(0.3), "Not started")
+                legendDot(Color(.systemFill), "Not started")
+                legendDot(.red.opacity(0.5), "Skipped")
                 Spacer()
             }
             .font(.caption2)
@@ -183,6 +228,7 @@ struct HomeView: View {
     }
 
     private func dotColor(for progress: WordProgress) -> Color {
+        if progress.permanentlySkipped { return .red.opacity(0.5) }
         if progress.effectivelyLearned { return .white.opacity(0.7) }
         if progress.sessionCorrectCount > 0 { return .orange.opacity(0.8) }
         return .white.opacity(0.2)

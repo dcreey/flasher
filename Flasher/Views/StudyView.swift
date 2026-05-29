@@ -33,7 +33,8 @@ struct StudyView: View {
                         sessionCorrectCount: vm.currentCardSessionCorrectCount,
                         wasIncorrectThisSession: vm.currentCardWasIncorrectThisSession,
                         onSubmit: { vm.submit() },
-                        onLearn: { vm.learnWord() }
+                        onLearn: { vm.learnWord() },
+                        onSkip: { vm.skipWord() }
                     )
                     .transition(.opacity)
                 }

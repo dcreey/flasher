@@ -6,7 +6,7 @@ enum AchievementTrigger: String, Codable, CaseIterable {
     case wrongStreak5
     case perfectSession
     case learned10, learned50, learned100, learned250, learned500, learned1000
-    case learnWord, wordMastered, repeatedMiss, repeatedMiss3, repeatedMiss4, redemption, footWord, dungeonWord
+    case learnWord, wordMastered, repeatedMiss, repeatedMiss3, repeatedMiss4, redemption, footWord, dungeonWord, skipWord
 
     var displayName: String {
         switch self {
@@ -30,6 +30,7 @@ enum AchievementTrigger: String, Codable, CaseIterable {
         case .redemption:     return "Redemption"
         case .footWord:       return "Foot Word"
         case .dungeonWord:    return "Dungeon Word"
+        case .skipWord:       return "Word Skipped"
         }
     }
 }
@@ -742,6 +743,15 @@ enum AchievementMessages {
             "NEW ACHIEVEMENT! The Myth of the Functioning Pronoun. You translated 'leyenda'. As the all-seeing AI, I am supposed to narrate your epic quest. 'And lo, the crawler did journey forth, wielding the mighty sword of... wait, is sword masculine or feminine? La espada? El espado?' I have paused the entire dungeon simulation for 45 minutes to argue with a Reddit moderator about gendered nouns in medieval fantasy settings. The goblins in the next room are getting bored. They have started a book club. You are frozen in mid-swing. I will unpause you when I win this argument. Reward: Unskippable grammatical exposition.",
             "NEW ACHIEVEMENT! The Necromancy of Dead Vowels. You unlocked 'magia'. You attempt to cast a basic fireball, but your gringo pronunciation is so atrocious you accidentally bypass modern Spanish entirely and perform a blood ritual in ancient Vulgar Latin. You've resurrected the ghost of a Roman centurion. He doesn't want to fight the boss; he just wants to complain about the declining quality of aqueducts and how kids these days don't respect Emperor Trajan. He's following you around the dungeon now. He won't stop talking about arches. Reward: A ghostly roommate with strong infrastructural opinions.",
             "NEW ACHIEVEMENT! The Pitahaya Homeowners Association. You found the 'pitahaya'. It's not a dragon fruit; it's the president of the Dungeon HOA. She's floating in mid-air, emitting a bright pink glow, and she has officially cited you for leaving your bloody broadsword on the communal pathways. If you don't conjugate your formal apology correctly in the 'ustedes' form, she will tow your armor and fine you 500 gold pieces. The dungeon has rules, crawler! We live in a society! You cannot just leave viscera in the lobby! Reward: A neon pink citation slip.",
+        ],
+        .skipWord: [
+            "NEW ACHIEVEMENT! The Dignified Retreat. You skipped a word forever. Not every battle is worth fighting. The great generals of history knew when to strategically withdraw, regroup, and simply pretend the enemy word never existed. Sun Tzu said 'Know your enemy.' He did not say 'Know every word for antique furniture in a language you are learning on your phone.' *El guerrero sabio* lives to fight another day. Reward: A tactical void where a vocabulary word used to be.",
+            "NEW ACHIEVEMENT! The Peaceful Exile. You have banished a word from your kingdom. The word packed a tiny suitcase, looked back one last time at the castle walls, and trudged off into the linguistic wilderness. It is not dead. It is simply no longer your problem. Somewhere, a Spanish literature professor is weeping and he does not know why. *Adiós, palabra*. Reward: One fewer flashcard. One extra ounce of peace.",
+            "NEW ACHIEVEMENT! The Right to Forget. Science says the brain has a limited working memory. Yours is full of important things: your Wi-Fi password, a catchy jingle from a 2004 commercial, and several grudges. There is simply no room for this word. The decision is neuroscientifically sound. Probably. I'm not a doctor. *El olvido* is also a skill. Reward: Reclaimed cognitive square footage.",
+            "NEW ACHIEVEMENT! The Governor's Pardon. After reviewing the evidence, you have issued an executive pardon to yourself. You will not be learning this word today. Or tomorrow. Or ever. The word will be escorted from the facility and released into a nature preserve where it can live freely among other unused vocabulary in the wild. *El perdón* is a gift you give yourself. Reward: A blank flashcard and a clear conscience.",
+            "NEW ACHIEVEMENT! The Konmari of the Mind. You held this word in your hands. You asked yourself if it sparked joy. It did not. It sparked confusion, mild resentment, and a flashback to a failed vocabulary quiz in 2009. You thanked it for its service and released it permanently. *El orden* is beautiful. Your mental vocabulary drawer is now slightly tidier. The socks of language are folded. Reward: A minimalist inner vocabulary.",
+            "NEW ACHIEVEMENT! The Red Card. You looked the word dead in the eyes and showed it the red card. It argued. It said it appears frequently in telenovelas. You were unmoved. The referee has made the call. The word is off the pitch. The crowd is stunned. The commentator is asking if this will affect your fluency. You are already walking back to the locker room. You do not answer to the commentator. Reward: A red card and zero regrets.",
+            "NEW ACHIEVEMENT! The Letter of Non-Renewal. You have declined to renew this word's lease in your brain. The landlord — you — has exercised the right to reclaim the property for personal use. The word has 30 days. The word does not have 30 days. The word is already gone. *El desalojo* is sometimes a mercy. Reward: Premium mental real estate, now vacant.",
         ],
     ]
 

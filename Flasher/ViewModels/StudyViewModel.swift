@@ -85,7 +85,7 @@ final class StudyViewModel {
 
     private func selectSessionWords() -> [Word] {
         let prevSession = store.currentSessionNumber - 1
-        let allAvailable = allWords.filter { !store.isEffectivelyLearned($0.spanish) }
+        let allAvailable = allWords.filter { !store.isEffectivelyLearned($0.spanish) && !store.isPermanentlySkipped($0.spanish) }
         // Prefer words not answered correctly in the immediately preceding session
         let cooledDown = allAvailable.filter {
             store.progressFor($0.spanish).lastCorrectSession != prevSession
@@ -187,6 +187,15 @@ final class StudyViewModel {
             }
         }
         return false
+    }
+
+    func skipWord() {
+        guard let card = currentCard else { return }
+        store.permanentlySkip(wordID: card.word.spanish)
+        queue.removeAll { $0.word.spanish == card.word.spanish }
+        sessionResolvedIDs.insert(card.word.spanish)
+        fireAchievement(.skipWord)
+        advance()
     }
 
     func learnWord() {

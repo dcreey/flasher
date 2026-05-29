@@ -109,6 +109,21 @@ final class ProgressStore {
         save()
     }
 
+    func permanentlySkip(wordID: String) {
+        var p = progressFor(wordID)
+        p.permanentlySkipped = true
+        progress[wordID] = p
+        save()
+    }
+
+    func isPermanentlySkipped(_ wordID: String) -> Bool {
+        progressFor(wordID).permanentlySkipped
+    }
+
+    func skippedCount(in words: [Word]) -> Int {
+        words.filter { isPermanentlySkipped($0.spanish) }.count
+    }
+
     func markLearned(wordID: String, sentenceIdx: Int) {
         var p = progressFor(wordID)
         p.sessionCorrectCount = SeedData.neededSessions

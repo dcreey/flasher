@@ -10,6 +10,7 @@ struct WordProgress: Codable {
     var learnWordCount: Int
     var lastReviewDate: Date      // updated whenever word is answered wrong or learn word is clicked
 
+    var permanentlySkipped: Bool
     var learned: Bool { sessionCorrectCount >= SeedData.neededSessions }
     var effectivelyLearned: Bool { learned || placementPassed }
 
@@ -19,6 +20,7 @@ struct WordProgress: Codable {
         self.placementPassed = false
         self.lastSentenceIdx = -1
         self.lastCorrectSession = -99
+        self.permanentlySkipped = false
         self.totalWrongCount = 0
         self.learnWordCount = 0
         self.lastReviewDate = .distantPast
@@ -31,6 +33,7 @@ struct WordProgress: Codable {
         placementPassed = try c.decode(Bool.self, forKey: .placementPassed)
         lastSentenceIdx = try c.decode(Int.self, forKey: .lastSentenceIdx)
         lastCorrectSession = try c.decode(Int.self, forKey: .lastCorrectSession)
+        permanentlySkipped = try c.decodeIfPresent(Bool.self, forKey: .permanentlySkipped) ?? false
         totalWrongCount = try c.decodeIfPresent(Int.self, forKey: .totalWrongCount) ?? 0
         learnWordCount = try c.decodeIfPresent(Int.self, forKey: .learnWordCount) ?? 0
         lastReviewDate = try c.decodeIfPresent(Date.self, forKey: .lastReviewDate) ?? .distantPast

@@ -9,6 +9,7 @@ struct FlashcardView: View {
     let wasIncorrectThisSession: Bool
     let onSubmit: () -> Void
     let onLearn: () -> Void
+    let onSkip: () -> Void
 
     var body: some View {
         VStack(spacing: 20) {
@@ -119,6 +120,13 @@ struct FlashcardView: View {
                 .disabled(userInput.trimmingCharacters(in: .whitespaces).isEmpty)
             }
             .padding(.horizontal)
+
+            Button(role: .destructive, action: onSkip) {
+                Label("Skip Forever", systemImage: "xmark.circle")
+                    .font(.footnote)
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(.secondary)
         }
         .padding(.vertical)
         .animation(.spring(response: 0.3), value: synonymHint != nil)

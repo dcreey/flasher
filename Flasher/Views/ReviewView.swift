@@ -14,6 +14,7 @@ struct ReviewView: View {
         case learning    = "Learning"
         case learned     = "Learned"
         case alreadyKnow = "Already Know"
+        case skipped     = "Skipped"
         var id: String { rawValue }
     }
 
@@ -25,9 +26,10 @@ struct ReviewView: View {
             let hasStruggled = p.totalWrongCount > 0 || p.learnWordCount > 0
             let matchesFilter: Bool = {
                 switch filter {
-                case .learning:    return hasStruggled && !p.effectivelyLearned
-                case .learned:     return hasStruggled && p.effectivelyLearned
-                case .alreadyKnow: return p.effectivelyLearned && !hasStruggled
+                case .learning:    return !p.permanentlySkipped && hasStruggled && !p.effectivelyLearned
+                case .learned:     return !p.permanentlySkipped && hasStruggled && p.effectivelyLearned
+                case .alreadyKnow: return !p.permanentlySkipped && p.effectivelyLearned && !hasStruggled
+                case .skipped:     return p.permanentlySkipped
                 }
             }()
             guard matchesFilter else { return nil }
