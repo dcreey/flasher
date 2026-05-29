@@ -19,7 +19,7 @@ struct StudyView: View {
                 )
             } else if let card = vm.currentCard {
                 if vm.isShowingResult, let result = vm.lastResult {
-                    ResultView(card: card, result: result, userInput: vm.userInput) {
+                    ResultView(card: card, result: result, userInput: vm.userInput, achievementShowing: vm.pendingAchievement != nil) {
                         vm.next()
                         inputFocused = true
                     }
@@ -55,6 +55,12 @@ struct StudyView: View {
             }
         }
         .animation(.easeInOut(duration: 0.3), value: vm.pendingAchievement != nil)
+        .onChange(of: vm.pendingAchievement != nil) { _, isShowing in
+            if isShowing {
+                inputFocused = false
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            }
+        }
     }
 }
 

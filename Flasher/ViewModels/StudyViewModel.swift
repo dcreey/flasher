@@ -66,8 +66,7 @@ final class StudyViewModel {
     init(store: ProgressStore = .shared) {
         self.store = store
         self.allWords = SeedData.words
-        let sentences = SeedData.buildSentences()
-        self.sentencesByWord = Dictionary(grouping: sentences) { $0.wordID }
+        self.sentencesByWord = SeedData.sentencesByWord
         store.beginSession()
         buildQueue()
         advance()

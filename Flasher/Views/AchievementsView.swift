@@ -6,15 +6,12 @@ struct AchievementsView: View {
     private var unlocked: Int { store.unlockedAchievements.count }
     private var total: Int { AchievementMessages.all.count }
 
-    // Group definitions by trigger (nil = random)
-    private var byTrigger: [(trigger: AchievementTrigger, defs: [AchievementDefinition])] {
+    private static let byTrigger: [(trigger: AchievementTrigger, defs: [AchievementDefinition])] =
         AchievementTrigger.allCases.map { trigger in
             (trigger, AchievementMessages.all.filter { $0.trigger == trigger })
         }
-    }
-    private var randomDefs: [AchievementDefinition] {
+    private static let randomDefs: [AchievementDefinition] =
         AchievementMessages.all.filter { $0.trigger == nil }
-    }
 
     var body: some View {
         List {
@@ -34,7 +31,7 @@ struct AchievementsView: View {
                 .padding(.vertical, 4)
             }
 
-            ForEach(byTrigger, id: \.trigger) { group in
+            ForEach(Self.byTrigger, id: \.trigger) { group in
                 let groupUnlocked = group.defs.filter { store.unlockedAchievements.contains($0.name) }.count
                 Section {
                     ForEach(group.defs) { def in
@@ -50,16 +47,16 @@ struct AchievementsView: View {
                 }
             }
 
-            let randomUnlocked = randomDefs.filter { store.unlockedAchievements.contains($0.name) }.count
+            let randomUnlocked = Self.randomDefs.filter { store.unlockedAchievements.contains($0.name) }.count
             Section {
-                ForEach(randomDefs) { def in
+                ForEach(Self.randomDefs) { def in
                     AchievementRow(def: def, isUnlocked: store.unlockedAchievements.contains(def.name))
                 }
             } header: {
                 HStack {
                     Text("Encouragement")
                     Spacer()
-                    Text("\(randomUnlocked)/\(randomDefs.count)")
+                    Text("\(randomUnlocked)/\(Self.randomDefs.count)")
                         .foregroundStyle(.secondary)
                 }
             }

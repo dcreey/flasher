@@ -7,7 +7,7 @@ extension SeedData {
 
     // MARK: - Hand-crafted sentences
     // Format: [spanish_word: [(template_with_blank, full_sentence, english_translation)]]
-    static let handcraftedSentenceMap: [String: [(String, String, String)]] = [
+    private static let _sentences0: [String: [(String, String, String)]] = [
         "de": [
             ("Vengo ___ Monterrey.", "Vengo de Monterrey.", "I'm from Monterrey."),
             ("Es una taza ___ café.", "Es una taza de café.", "It's a cup of coffee."),
@@ -3598,6 +3598,9 @@ extension SeedData {
             ("Iba ya a meterse en la cama, cuando entró Ana, en ___.", "Iba ya a meterse en la cama, cuando entró Ana, en camisón.", "DOLLY WAS READY TO GET INTO bed when Anna in her nightgown came into the room."),
             ("––No, estaba en ___.", "––No, estaba en camisón.", "\"No, she was in her night-dress."),
         ],
+    ]
+
+    private static let _sentences1: [String: [(String, String, String)]] = [
         "campaña": [
             ("En Facebook, se lanzó una ___ titulada ¿Cuánto por el blogger?", "En Facebook, se lanzó una campaña titulada ¿Cuánto por el blogger?", "On Facebook, a campaign was launched entitled How Much for the Blogger?"),
         ],
@@ -7177,6 +7180,9 @@ extension SeedData {
             ("Los líderes políticos de la ___ de Pará son los representantes", "Los líderes políticos de la división de Pará son los representantes", "The politicians in favor of Pará's divison are the deputies"),
             ("Hay una gran ___ en el partido.", "Hay una gran división en el partido.", "There's a serious split in the party."),
         ],
+    ]
+
+    private static let _sentences2: [String: [(String, String, String)]] = [
         "divorciarse": [
             ("¿Es cierto que van a ___?", "¿Es cierto que van a divorciarse?", "Is it true that they'll divorce?"),
             ("¿Es que parece que van a ___?", "¿Es que parece que van a divorciarse?", "Do they look like they'll divorce?"),
@@ -10758,6 +10764,9 @@ extension SeedData {
             ("Pero, ¿de qué nos acusan? exclamó Picaporte ___.", "Pero, ¿de qué nos acusan? exclamó Picaporte impaciente.", "\"But of what are we accused?\" asked Passepartout, impatiently."),
             ("––Su rostro, sus ropas... ¿Reparó en ellas? ––atajó Holmes ___.", "––Su rostro, sus ropas... ¿Reparó en ellas? ––atajó Holmes impaciente.", "— Et sa figure, ses vetements, ne les avez-vous pas observés ? reprit Holmes, avec impatience."),
         ],
+    ]
+
+    private static let _sentences3: [String: [(String, String, String)]] = [
         "imparcial": [
             ("Es una enfermedad viciosa, constante e ___.", "Es una enfermedad viciosa, constante e imparcial.", "It's a vicious, unrelenting, unbiased disease."),
             ("Dos veces una moneda ___.", "Dos veces una moneda imparcial.", "An unbiased coin twice."),
@@ -14319,6 +14328,9 @@ extension SeedData {
             ("¿Detendrá Brasil la nueva ___ de inmigración?", "¿Detendrá Brasil la nueva oleada de inmigración?", "Will Brazil Stem New Tide of Immigration? · Global Voices"),
             ("La Gran Depresión disparó un gran ___ de crímenes.", "La Gran Depresión disparó un gran oleada de crímenes.", "The Great Depression triggered a great surge in crime."),
         ],
+    ]
+
+    private static let _sentences4: [String: [(String, String, String)]] = [
         "oler": [
             ("¿Alguien quiere ___ el polen de estas flores?", "¿Alguien quiere oler el polen de estas flores?", "We've got lots of flowers."),
             ("¿Pueden ___ la propaganda y la sabrosa ignorancia?", "¿Pueden oler la propaganda y la sabrosa ignorancia?", "Can you just smell the propaganda and delectable ignorance?"),
@@ -17909,6 +17921,9 @@ extension SeedData {
             ("Mario dice que Rómulo es el fundador de ___.", "Mario dice que Rómulo es el fundador de Roma.", "Mario says that Romulus is the founder of Rome."),
             ("Muchos caminos conducen a ___.", "Muchos caminos conducen a Roma.", "Many ways lead to Rome."),
         ],
+    ]
+
+    private static let _sentences5: [String: [(String, String, String)]] = [
         "romper": [
             ("¿Pueden ___ con su cultura del silencio?", "¿Pueden romper con su cultura del silencio?", "Can you break your culture of silence?"),
             ("Ok. Podemos ___ sus expectativas sobre la forma.", "Ok. Podemos romper sus expectativas sobre la forma.", "OK. We can violate your expectations about shape."),
@@ -21250,6 +21265,16 @@ extension SeedData {
         ],
 
     ]
+
+    static var handcraftedSentenceMap: [String: [(String, String, String)]] {
+        var m = _sentences0
+        m.merge(_sentences1) { a, _ in a }
+        m.merge(_sentences2) { a, _ in a }
+        m.merge(_sentences3) { a, _ in a }
+        m.merge(_sentences4) { a, _ in a }
+        m.merge(_sentences5) { a, _ in a }
+        return m
+    }
 
     // MARK: - Template sentence generator (for words without hand-crafted sentences)
 

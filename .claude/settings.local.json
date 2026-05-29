@@ -17,7 +17,8 @@
       "Bash(xcodebuild -project Flasher.xcodeproj -scheme Flasher -destination 'platform=iOS Simulator,id=1269EC9C-32EF-4487-AA9A-8E76FB10263D' -showBuildSettings)",
       "Bash(xcodebuild -scheme Flasher -destination 'platform=iOS Simulator,name=iPhone 17 Pro' -configuration Debug build)",
       "Bash(xcodebuild -scheme Flasher -destination 'platform=iOS Simulator,id=1269EC9C-32EF-4487-AA9A-8E76FB10263D' -configuration Debug build)",
-      "Bash(xcodebuild -scheme Flasher -destination 'platform=iOS Simulator,id=1269EC9C-32EF-4487-AA9A-8E76FB10263D' -configuration Debug clean build)"
+      "Bash(xcodebuild -scheme Flasher -destination 'platform=iOS Simulator,id=1269EC9C-32EF-4487-AA9A-8E76FB10263D' -configuration Debug clean build)",
+      "Bash(xcodebuild -scheme Flasher -destination 'name=iPhone 17 Pro' -configuration Debug build)"
     ]
   }
 }

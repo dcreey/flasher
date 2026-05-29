@@ -5,6 +5,7 @@ struct ResultView: View {
     let result: CardResult
     let userInput: String
     let onNext: () -> Void
+    var achievementShowing: Bool = false
 
     @State private var confirmInput: String = ""
     @FocusState private var confirmFocused: Bool
@@ -99,7 +100,10 @@ struct ResultView: View {
                     .disabled(!confirmMatches)
                     .padding(.horizontal)
                 }
-                .onAppear { confirmFocused = true }
+                .onAppear { if !achievementShowing { confirmFocused = true } }
+                .onChange(of: achievementShowing) { _, showing in
+                    confirmFocused = !showing
+                }
             } else {
                 Button(action: onNext) {
                     Text("Continue")

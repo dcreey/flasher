@@ -6,6 +6,9 @@ struct AchievementToastView: View {
 
     @State private var appeared = false
     @State private var sparkle = false
+    @State private var sparkleTask: Task<Void, Never>? = nil
+
+    private static let starSizes: [CGFloat] = (0..<8).map { _ in CGFloat.random(in: 10...20) }
 
     var body: some View {
         ZStack {
@@ -17,7 +20,7 @@ struct AchievementToastView: View {
                     ZStack {
                         ForEach(0..<8, id: \.self) { i in
                             Image(systemName: "star.fill")
-                                .font(.system(size: CGFloat.random(in: 10...20)))
+                                .font(.system(size: Self.starSizes[i]))
                                 .foregroundStyle(.yellow.opacity(0.7))
                                 .offset(
                                     x: sparkle ? cos(Double(i) / 8 * .pi * 2) * 80 : 0,
@@ -82,9 +85,14 @@ struct AchievementToastView: View {
         .onTapGesture { onDismiss() }
         .onAppear {
             appeared = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            sparkleTask = Task {
+                try? await Task.sleep(nanoseconds: 100_000_000)
+                guard !Task.isCancelled else { return }
                 sparkle = true
             }
+        }
+        .onDisappear {
+            sparkleTask?.cancel()
         }
     }
 }

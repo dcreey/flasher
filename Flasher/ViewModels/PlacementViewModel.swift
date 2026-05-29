@@ -37,8 +37,7 @@ final class PlacementViewModel {
     init(store: ProgressStore = .shared) {
         self.store = store
         self.allWords = SeedData.words
-        let sentences = SeedData.buildSentences()
-        self.sentencesByWord = Dictionary(grouping: sentences) { $0.wordID }
+        self.sentencesByWord = SeedData.sentencesByWord
         loadLevel(0)
     }
 
