@@ -8,6 +8,19 @@ struct HomeView: View {
     @State private var showPlacement = false
     @State private var showAchievements = false
     @State private var showReview = false
+    @State private var showRaptorRoom = false
+
+    private static let mongoIcon: UIImage = {
+        let size = CGSize(width: 28, height: 28)
+        let renderer = UIGraphicsImageRenderer(size: size)
+        let img = renderer.image { _ in
+            ("🦖" as NSString).draw(
+                at: CGPoint(x: 0, y: 1),
+                withAttributes: [.font: UIFont.systemFont(ofSize: 24)]
+            )
+        }
+        return img.withRenderingMode(.alwaysTemplate)
+    }()
 
     private var allWords: [Word] { SeedData.words }
     private var totalWords: Int { allWords.count }
@@ -57,9 +70,16 @@ struct HomeView: View {
         .navigationTitle("El Pie")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button { showAchievements = true } label: {
-                    Image(systemName: "trophy.fill")
-                        .foregroundStyle(store.unlockedAchievements.isEmpty ? Color.secondary : Color.yellow)
+                HStack(spacing: 4) {
+                    Button { showRaptorRoom = true } label: {
+                        Image(uiImage: Self.mongoIcon)
+                            .foregroundStyle(.blue)
+                            .accessibilityLabel("Mongo's Room")
+                    }
+                    Button { showAchievements = true } label: {
+                        Image(systemName: "trophy.fill")
+                            .foregroundStyle(store.unlockedAchievements.isEmpty ? Color.secondary : Color.yellow)
+                    }
                 }
             }
         }
@@ -76,6 +96,9 @@ struct HomeView: View {
         }
         .navigationDestination(isPresented: $showReview) {
             ReviewView()
+        }
+        .navigationDestination(isPresented: $showRaptorRoom) {
+            RaptorRoomView()
         }
     }
 

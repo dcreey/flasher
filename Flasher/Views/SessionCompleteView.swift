@@ -24,6 +24,11 @@ struct SessionCompleteView: View {
                 .buttonStyle(.borderedProminent)
                 .tint(.green)
                 .font(.title3)
+
+            Text("🦖 Mongo is waiting for you!")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
         }
         .padding()
     }

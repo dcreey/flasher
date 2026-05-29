@@ -9,15 +9,28 @@ final class ProgressStore {
     private(set) var placementCompleted: Bool = false
     private(set) var currentSessionNumber: Int = 0
 
-    private let progressKey = "word_progress_v3"
-    private let placementKey = "placement_completed_v1"
-    private let sessionKey = "session_number_v1"
-    private let achievementsKey = "unlocked_achievements_v2"
-    private let milestoneCyclesKey = "milestone_cycles_v1"
+    private let progressKey            = "word_progress_v3"
+    private let placementKey           = "placement_completed_v1"
+    private let sessionKey             = "session_number_v1"
+    private let achievementsKey        = "unlocked_achievements_v2"
+    private let milestoneCyclesKey     = "milestone_cycles_v1"
+    private let correctAnswersKey      = "total_correct_v1"
+    private let accessoryTokensKey     = "accessory_tokens_v1"
+    private let unlockedAccessoriesKey = "unlocked_accessories_raptor_v1"
+    private let equippedAccessoriesKey = "equipped_accessories_v1"
 
     private(set) var unlockedAchievements: Set<String> = []
-    // Maps trigger rawValue → last 250-word cycle in which it fired
+    // Maps trigger rawValue → last 225-word cycle in which it fired
     private(set) var lastFiredMilestoneCycle: [String: Int] = [:]
+
+    // Accessory / token system
+    private(set) var totalCorrectAnswers: Int = 0
+    private(set) var accessoryTokens: Int = 0
+    private(set) var unlockedAccessoryIDs: Set<String> = []
+    private(set) var equippedAccessoryIDs: Set<String> = []
+
+    // How many correct answers until the next token
+    var correctsToNextToken: Int { 25 - (totalCorrectAnswers % 25) }
 
     func canFireMilestone(_ trigger: AchievementTrigger, cycle: Int) -> Bool {
         lastFiredMilestoneCycle[trigger.rawValue] != cycle
@@ -109,6 +122,49 @@ final class ProgressStore {
         save()
     }
 
+    // MARK: - Accessory tokens
+
+    func recordCorrectAnswer() {
+        let before = totalCorrectAnswers / 25
+        totalCorrectAnswers += 1
+        if totalCorrectAnswers / 25 > before { accessoryTokens += 1 }
+        saveAccessoryState()
+    }
+
+    // Returns true if the token was spent and the accessory unlocked
+    @discardableResult
+    func unlockAccessory(id: String) -> Bool {
+        guard accessoryTokens > 0, !unlockedAccessoryIDs.contains(id) else { return false }
+        accessoryTokens -= 1
+        unlockedAccessoryIDs.insert(id)
+        saveAccessoryState()
+        return true
+    }
+
+    func isAccessoryUnlocked(id: String) -> Bool { unlockedAccessoryIDs.contains(id) }
+
+    func equipAccessory(id: String) {
+        guard unlockedAccessoryIDs.contains(id) else { return }
+        equippedAccessoryIDs.insert(id)
+        saveAccessoryState()
+    }
+
+    func unequipAccessory(id: String) {
+        equippedAccessoryIDs.remove(id)
+        saveAccessoryState()
+    }
+
+    private func saveAccessoryState() {
+        UserDefaults.standard.set(totalCorrectAnswers, forKey: correctAnswersKey)
+        UserDefaults.standard.set(accessoryTokens, forKey: accessoryTokensKey)
+        if let d = try? JSONEncoder().encode(Array(unlockedAccessoryIDs)) {
+            UserDefaults.standard.set(d, forKey: unlockedAccessoriesKey)
+        }
+        if let d = try? JSONEncoder().encode(Array(equippedAccessoryIDs)) {
+            UserDefaults.standard.set(d, forKey: equippedAccessoriesKey)
+        }
+    }
+
     func permanentlySkip(wordID: String) {
         var p = progressFor(wordID)
         p.permanentlySkipped = true
@@ -159,11 +215,15 @@ final class ProgressStore {
         currentSessionNumber = 0
         unlockedAchievements = []
         lastFiredMilestoneCycle = [:]
-        UserDefaults.standard.removeObject(forKey: progressKey)
-        UserDefaults.standard.removeObject(forKey: placementKey)
-        UserDefaults.standard.removeObject(forKey: sessionKey)
-        UserDefaults.standard.removeObject(forKey: achievementsKey)
-        UserDefaults.standard.removeObject(forKey: milestoneCyclesKey)
+        totalCorrectAnswers = 0
+        accessoryTokens = 0
+        unlockedAccessoryIDs = []
+        equippedAccessoryIDs = []
+        for key in [progressKey, placementKey, sessionKey, achievementsKey,
+                    milestoneCyclesKey, correctAnswersKey, accessoryTokensKey,
+                    unlockedAccessoriesKey, equippedAccessoriesKey] {
+            UserDefaults.standard.removeObject(forKey: key)
+        }
     }
 
     // MARK: - Persistence
@@ -185,6 +245,16 @@ final class ProgressStore {
         if let data = UserDefaults.standard.data(forKey: milestoneCyclesKey),
            let cycles = try? JSONDecoder().decode([String: Int].self, from: data) {
             lastFiredMilestoneCycle = cycles
+        }
+        totalCorrectAnswers = UserDefaults.standard.integer(forKey: correctAnswersKey)
+        accessoryTokens = UserDefaults.standard.integer(forKey: accessoryTokensKey)
+        if let d = UserDefaults.standard.data(forKey: unlockedAccessoriesKey),
+           let arr = try? JSONDecoder().decode([String].self, from: d) {
+            unlockedAccessoryIDs = Set(arr)
+        }
+        if let d = UserDefaults.standard.data(forKey: equippedAccessoriesKey),
+           let arr = try? JSONDecoder().decode([String].self, from: d) {
+            equippedAccessoryIDs = Set(arr)
         }
         guard let data = UserDefaults.standard.data(forKey: progressKey),
               let decoded = try? JSONDecoder().decode([String: WordProgress].self, from: data)

@@ -211,6 +211,7 @@ final class StudyViewModel {
         correctStreak += 1
         wrongStreak = 0
         sessionCorrectCount += 1
+        store.recordCorrectAnswer()
 
         if !sessionResolvedIDs.contains(card.word.spanish) {
             sessionResolvedIDs.insert(card.word.spanish)
