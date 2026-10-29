@@ -77,20 +77,31 @@ final class StudyViewModel {
     private func buildQueue() {
         let selected = selectSessionWords()
         sessionWordCount = selected.count
-        queue = selected.compactMap { word -> CardItem? in
+        let cards = selected.compactMap { word -> CardItem? in
             guard let (sentence, idx) = pickSentence(for: word) else { return nil }
             return CardItem(word: word, sentence: sentence, sentenceIdx: idx)
-        }.shuffled()
+        }
+        // Words moved to the top of the queue stay first, in the order selected; the rest are shuffled
+        let isPriority = { (card: CardItem) in self.store.progressFor(card.word.spanish).priorityDate != nil }
+        queue = cards.filter(isPriority) + cards.filter { !isPriority($0) }.shuffled()
     }
 
     private func selectSessionWords() -> [Word] {
         let prevSession = store.currentSessionNumber - 1
         let allAvailable = allWords.filter { !store.isEffectivelyLearned($0.spanish) && !store.isPermanentlySkipped($0.spanish) }
+
+        // Words the user moved to the top of the queue come first, most recent request first
+        let prioritized = allAvailable
+            .filter { store.progressFor($0.spanish).priorityDate != nil }
+            .sorted { store.progressFor($0.spanish).priorityDate! > store.progressFor($1.spanish).priorityDate! }
+            .prefix(Self.sessionSize)
+        let prioritizedIDs = Set(prioritized.map(\.spanish))
         // Prefer words not answered correctly in the immediately preceding session
-        let cooledDown = allAvailable.filter {
+        let pool = allAvailable.filter { !prioritizedIDs.contains($0.spanish) }
+        let cooledDown = pool.filter {
             store.progressFor($0.spanish).lastCorrectSession != prevSession
         }
-        let available = cooledDown.count >= 5 ? cooledDown : allAvailable
+        let available = cooledDown.count >= 5 ? cooledDown : pool
 
         // Priority: in-progress words (sessionCorrectCount 1-4, desc) then new by order
         let sorted = available.sorted { a, b in
@@ -104,10 +115,10 @@ final class StudyViewModel {
 
         // Ensure at least one word of each key POS type (if available)
         let targetPOS: [PartOfSpeech] = [.noun, .infinitive, .adjective, .adverb, .preposition, .conjunction]
-        var selected: [Word] = []
-        var selectedIDs = Set<String>()
+        var selected: [Word] = Array(prioritized)
+        var selectedIDs = prioritizedIDs
 
-        for pos in targetPOS {
+        for pos in targetPOS where selected.count < Self.sessionSize {
             if let rep = sorted.first(where: { $0.partOfSpeech == pos && !selectedIDs.contains($0.spanish) }) {
                 selected.append(rep)
                 selectedIDs.insert(rep.spanish)
@@ -216,7 +227,7 @@ final class StudyViewModel {
         if !sessionResolvedIDs.contains(card.word.spanish) {
             sessionResolvedIDs.insert(card.word.spanish)
             let p = store.progressFor(card.word.spanish)
-            if p.totalWrongCount > 0 || p.learnWordCount > 0 {
+            if p.hasStruggled {
                 store.incrementSessionCorrect(wordID: card.word.spanish, sentenceIdx: card.sentenceIdx)
                 if store.isEffectivelyLearned(card.word.spanish) { fireAchievement(.wordMastered) }
             } else {

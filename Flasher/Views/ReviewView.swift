@@ -23,7 +23,7 @@ struct ReviewView: View {
     private var filteredWords: [(word: Word, progress: WordProgress)] {
         allWords.compactMap { word in
             let p = store.progressFor(word.spanish)
-            let hasStruggled = p.totalWrongCount > 0 || p.learnWordCount > 0
+            let hasStruggled = p.hasStruggled
             let matchesFilter: Bool = {
                 switch filter {
                 case .learning:    return !p.permanentlySkipped && hasStruggled && !p.effectivelyLearned

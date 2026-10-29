@@ -101,6 +101,7 @@ final class ProgressStore {
         p.sessionCorrectCount = min(p.sessionCorrectCount + 1, SeedData.neededSessions)
         p.lastSentenceIdx = sentenceIdx
         p.lastCorrectSession = currentSessionNumber
+        p.priorityDate = nil
         p.lastReviewDate = Date()
         progress[wordID] = p
         save()
@@ -165,6 +166,37 @@ final class ProgressStore {
         }
     }
 
+    // MARK: - Dictionary actions
+
+    /// Puts a word back into the learning pool, discarding earlier progress.
+    func flagForRelearning(wordID: String) {
+        var p = progressFor(wordID)
+        p.sessionCorrectCount = 0
+        p.placementPassed = false
+        p.permanentlySkipped = false
+        p.lastCorrectSession = -99
+        p.flaggedForRelearn = true
+        p.lastReviewDate = Date()
+        progress[wordID] = p
+        save()
+    }
+
+    /// Flags the word for relearning and moves it to the front of the next study session.
+    func moveToTopOfQueue(wordID: String) {
+        flagForRelearning(wordID: wordID)
+        var p = progressFor(wordID)
+        p.priorityDate = Date()
+        progress[wordID] = p
+        save()
+    }
+
+    func removeFromQueue(wordID: String) {
+        var p = progressFor(wordID)
+        p.priorityDate = nil
+        progress[wordID] = p
+        save()
+    }
+
     func permanentlySkip(wordID: String) {
         var p = progressFor(wordID)
         p.permanentlySkipped = true
@@ -219,6 +251,7 @@ final class ProgressStore {
         accessoryTokens = 0
         unlockedAccessoryIDs = []
         equippedAccessoryIDs = []
+        RecentWords.shared.clear()
         for key in [progressKey, placementKey, sessionKey, achievementsKey,
                     milestoneCyclesKey, correctAnswersKey, accessoryTokensKey,
                     unlockedAccessoriesKey, equippedAccessoriesKey] {

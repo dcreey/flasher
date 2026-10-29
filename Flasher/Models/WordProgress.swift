@@ -11,8 +11,11 @@ struct WordProgress: Codable {
     var lastReviewDate: Date      // updated whenever word is answered wrong or learn word is clicked
 
     var permanentlySkipped: Bool
+    var flaggedForRelearn: Bool   // user asked to learn this word again from the dictionary
+    var priorityDate: Date?       // non-nil = jump the study queue; cleared once answered correctly
     var learned: Bool { sessionCorrectCount >= SeedData.neededSessions }
     var effectivelyLearned: Bool { learned || placementPassed }
+    var hasStruggled: Bool { totalWrongCount > 0 || learnWordCount > 0 || flaggedForRelearn }
 
     init(wordID: String) {
         self.wordID = wordID
@@ -21,6 +24,8 @@ struct WordProgress: Codable {
         self.lastSentenceIdx = -1
         self.lastCorrectSession = -99
         self.permanentlySkipped = false
+        self.flaggedForRelearn = false
+        self.priorityDate = nil
         self.totalWrongCount = 0
         self.learnWordCount = 0
         self.lastReviewDate = .distantPast
@@ -34,6 +39,8 @@ struct WordProgress: Codable {
         lastSentenceIdx = try c.decode(Int.self, forKey: .lastSentenceIdx)
         lastCorrectSession = try c.decode(Int.self, forKey: .lastCorrectSession)
         permanentlySkipped = try c.decodeIfPresent(Bool.self, forKey: .permanentlySkipped) ?? false
+        flaggedForRelearn = try c.decodeIfPresent(Bool.self, forKey: .flaggedForRelearn) ?? false
+        priorityDate = try c.decodeIfPresent(Date.self, forKey: .priorityDate)
         totalWrongCount = try c.decodeIfPresent(Int.self, forKey: .totalWrongCount) ?? 0
         learnWordCount = try c.decodeIfPresent(Int.self, forKey: .learnWordCount) ?? 0
         lastReviewDate = try c.decodeIfPresent(Date.self, forKey: .lastReviewDate) ?? .distantPast
