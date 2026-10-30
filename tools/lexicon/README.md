@@ -7,3 +7,6 @@ Regenerates `Flasher/Data/lexicon.tsv`.
 Sources: Wiktionary via Kaikki.org (CC BY-SA 4.0); OpenSubtitles word frequencies.
 A word is included when it is a Wiktionary dictionary entry (not an inflected form) and appears 3+ times in the subtitle corpus,
 or is already in the flashcard set.
+
+`extras.tsv` (examples, synonyms, antonyms, derived/related terms, etymology):
+`curl -s https://kaikki.org/dictionary/Spanish/kaikki.org-dictionary-Spanish.jsonl | python3 extras.py lexicon.tsv extras.tsv`

@@ -14,6 +14,39 @@ struct WordDetailView: View {
     private var synonyms: [String] { SeedData.synonyms[word.spanish]?.sorted() ?? [] }
     private var conjugation: Conjugation? { word.partOfSpeech == .infinitive ? Conjugator.conjugate(word.spanish) : nil }
     private var relatedWords: [Word] { RelatedForms.find(for: word) }
+    private var wikiExamples: [Extras.Example] { Extras.shared.examples(for: word) }
+    private var origin: String? { Extras.shared.etymology[word.spanish] }
+
+    private struct RelatedItem: Identifiable {
+        let text: String
+        let english: String?
+        let linked: Word?
+        let tag: String
+        let color: Color
+        var id: String { tag + "·" + text }
+    }
+
+    /// Word forms, synonyms, opposites and word families, each tagged with how it relates.
+    private var relatedItems: [RelatedItem] {
+        var items: [RelatedItem] = []
+        var seen: Set<String> = [word.spanish]
+        func add(_ text: String, tag: String, color: Color, limit: Int) {
+            guard !seen.contains(text), items.filter({ $0.tag == tag }).count < limit else { return }
+            seen.insert(text)
+            let linked = Lexicon.shared.wordsByID[text]
+            items.append(RelatedItem(text: text, english: linked?.english, linked: linked, tag: tag, color: color))
+        }
+        for related in relatedWords {
+            let isParticiple = related.spanish == conjugation?.participle
+            add(related.spanish, tag: isParticiple ? "participle" : related.partOfSpeech.rawValue, color: .indigo, limit: 6)
+        }
+        let seedSynonyms = SeedData.synonyms[word.spanish]?.sorted() ?? []
+        for synonym in seedSynonyms + (Extras.shared.synonyms[word.spanish] ?? []) { add(synonym, tag: "synonym", color: .teal, limit: 8) }
+        for antonym in Extras.shared.antonyms[word.spanish] ?? [] { add(antonym, tag: "antonym", color: .red, limit: 4) }
+        for derived in Extras.shared.derived[word.spanish] ?? [] { add(derived, tag: "derived", color: .orange, limit: 6) }
+        for related in Extras.shared.related[word.spanish] ?? [] { add(related, tag: "related", color: .gray, limit: 5) }
+        return items
+    }
     private var mexicanMeanings: [MexicanMeaning] { Lexicon.shared.mexicanMeanings(for: word) }
     /// Everything except the Mexican meanings, which get their own card above.
     private var meanings: [Meaning] {
@@ -33,12 +66,12 @@ struct WordDetailView: View {
             VStack(alignment: .leading, spacing: 24) {
                 header
                 if let shownDiminutive { diminutiveCard(shownDiminutive) }
+                if let conjugation { conjugationSection(conjugation) }
                 if !mexicanMeanings.isEmpty { mexicanCard }
                 if showsMeanings { meaningsSection }
-                if let conjugation { conjugationSection(conjugation) }
-                if !relatedWords.isEmpty { relatedSection }
-                if !synonyms.isEmpty { synonymsSection }
-                if !sentences.isEmpty { usagesSection }
+                if !usageSentences.isEmpty { usagesSection }
+                if !relatedItems.isEmpty { relatedSection }
+                if let origin { originSection(origin) }
             }
             .padding()
         }
@@ -267,61 +300,84 @@ struct WordDetailView: View {
         VStack(alignment: .leading, spacing: 8) {
             sectionTitle("Related words")
             VStack(spacing: 0) {
-                ForEach(relatedWords) { related in
-                    NavigationLink(value: SearchHit(word: related, diminutive: nil)) {
-                        HStack(spacing: 10) {
-                            VStack(alignment: .leading, spacing: 1) {
-                                Text(related.spanish)
-                                    .font(.headline)
-                                Text(related.english)
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
-                            }
-                            Spacer()
-                            Text(related.partOfSpeech.rawValue)
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                            Image(systemName: "chevron.right")
-                                .font(.caption.weight(.semibold))
-                                .foregroundStyle(.tertiary)
+                ForEach(relatedItems) { item in
+                    if let linked = item.linked {
+                        NavigationLink(value: SearchHit(word: linked, diminutive: nil)) {
+                            relatedRow(item, showsChevron: true)
                         }
-                        .padding(.vertical, 8)
-                        .contentShape(Rectangle())
+                        .buttonStyle(.plain)
+                    } else {
+                        relatedRow(item, showsChevron: false)
                     }
-                    .buttonStyle(.plain)
-                    if related.id != relatedWords.last?.id { Divider() }
+                    if item.id != relatedItems.last?.id { Divider() }
                 }
             }
+        }
+    }
+
+    private func relatedRow(_ item: RelatedItem, showsChevron: Bool) -> some View {
+        HStack(spacing: 10) {
+            VStack(alignment: .leading, spacing: 1) {
+                Text(item.text).font(.headline)
+                if let english = item.english {
+                    Text(english).font(.subheadline).foregroundStyle(.secondary).lineLimit(2)
+                }
+            }
+            Spacer()
+            Text(item.tag)
+                .font(.caption2.weight(.semibold))
+                .padding(.horizontal, 7)
+                .padding(.vertical, 2)
+                .background(item.color.opacity(0.15), in: Capsule())
+                .foregroundStyle(item.color)
+            if showsChevron {
+                Image(systemName: "chevron.right")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.tertiary)
+            }
+        }
+        .padding(.vertical, 8)
+        .contentShape(Rectangle())
+    }
+
+    private func originSection(_ text: String) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            sectionTitle("Origin")
+            Text(text)
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 
     private func conjugationSection(_ conjugation: Conjugation) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             sectionTitle("Conjugation")
-            ConjugationView(conjugation: conjugation)
+            ConjugationView(conjugation: conjugation, examples: TenseExamples.pool(for: word), gloss: word.english)
         }
     }
 
-    private var synonymsSection: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            sectionTitle("Similar words")
-            Text(synonyms.joined(separator: ", "))
-                .font(.body)
-        }
+    private var usageSentences: [ExampleSentence] {
+        var all = sentences.map { ExampleSentence(spanish: $0.full, english: $0.translation) }
+        all += wikiExamples.map { ExampleSentence(spanish: $0.spanish, english: $0.english) }
+        var seen = Set<String>()
+        return all.filter { seen.insert($0.spanish).inserted }
     }
 
     private var usagesSection: some View {
         VStack(alignment: .leading, spacing: 14) {
             sectionTitle("Usage")
-            ForEach(sentences) { sentence in
+            ForEach(usageSentences, id: \.self) { sentence in
                 VStack(alignment: .leading, spacing: 3) {
-                    Text(highlighted(sentence.full))
+                    Text(highlighted(sentence.spanish))
                         .font(.body)
                         .fixedSize(horizontal: false, vertical: true)
-                    Text(sentence.translation)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
+                    if !sentence.english.isEmpty {
+                        Text(sentence.english)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
                 }
             }
         }
@@ -334,8 +390,11 @@ struct WordDetailView: View {
             .textCase(.uppercase)
     }
 
-    /// Bolds the headword when it appears verbatim; conjugated forms are left as plain text.
+    /// Bolds the headword, or every conjugated form of a verb, wherever it appears in the sentence.
     private func highlighted(_ sentence: String) -> AttributedString {
+        if let conjugation {
+            return TenseExamples.highlight(sentence, tokens: Set(TenseExamples.formIndex(conjugation).keys))
+        }
         var text = AttributedString(sentence)
         if let range = text.range(of: word.spanish, options: [.caseInsensitive, .diacriticInsensitive]) {
             text[range].font = .body.bold()

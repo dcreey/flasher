@@ -69,6 +69,12 @@ struct Conjugation {
 
     func form(_ tense: Tense, _ person: Int) -> String? { forms[tense]?[person] ?? nil }
 
+    /// The form as written in a sentence: with the pronoun attached for reflexive commands ("lávate").
+    func attachedImperativeOrForm(_ tense: Tense, _ person: Int) -> String? {
+        if tense == .imperative, let attached = attachedImperative, let form = attached[person] { return form }
+        return form(tense, person)
+    }
+
     /// Splits a form into its stem and its (regular) ending. When the form doesn't end the regular way
     /// the whole form is returned as the ending and `regularEnding` is false.
     func parts(_ tense: Tense, _ person: Int) -> (stem: String, ending: String, regularEnding: Bool)? {

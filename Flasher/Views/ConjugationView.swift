@@ -4,6 +4,10 @@ import SwiftUI
 /// Regular endings read as colored columns; stem changes and irregular forms break the pattern in orange.
 struct ConjugationView: View {
     let conjugation: Conjugation
+    /// Real sentences for the verb; the one shown follows the selected tense.
+    var examples: [ExampleSentence] = []
+    /// The verb's English gloss, used to translate generated sentences.
+    var gloss: String = ""
 
     private struct Selection: Equatable {
         var tense: Tense
@@ -12,6 +16,7 @@ struct ConjugationView: View {
 
     @State private var selection = Selection(tense: .present, person: 0)
     @State private var showFullForms = false
+    @State private var exampleIndex = 0
     @AppStorage(AppSettings.showVosotrosKey) private var showVosotros = true
 
     private let labelWidth: CGFloat = 68
@@ -21,14 +26,15 @@ struct ConjugationView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            nonFiniteForms
             banner
+            exampleCard
             Picker("Display", selection: $showFullForms) {
                 Text("Endings").tag(false)
                 Text("Full forms").tag(true)
             }
             .pickerStyle(.segmented)
             chart
+            nonFiniteForms
             footer
         }
         .onChange(of: showVosotros) { _, shown in
@@ -92,6 +98,52 @@ struct ConjugationView: View {
         .padding(12)
         .background(tense.mood.color.opacity(0.1), in: RoundedRectangle(cornerRadius: 12))
         .animation(.easeOut(duration: 0.15), value: selection)
+    }
+
+    // MARK: - Example sentence for the selected tense
+
+    private var tenseExamples: [TenseExample] {
+        TenseExamples.examples(for: selection.tense, person: selection.person, conjugation: conjugation, pool: examples)
+    }
+
+    @ViewBuilder
+    private var exampleCard: some View {
+        let real = tenseExamples.filter(\.exactPerson)
+        VStack(alignment: .leading, spacing: 4) {
+            if !real.isEmpty {
+                let match = real[exampleIndex % real.count]
+                Text(TenseExamples.highlight(match.sentence.spanish, tokens: [match.token]))
+                    .font(.callout)
+                    .fixedSize(horizontal: false, vertical: true)
+                Text(match.sentence.english)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                if real.count > 1 {
+                    Text("\((exampleIndex % real.count) + 1) of \(real.count) · tap the form again for the next")
+                        .font(.caption2)
+                        .foregroundStyle(.tertiary)
+                }
+            } else if let made = TenseExamples.generated(tense: selection.tense, person: selection.person, conjugation: conjugation, gloss: gloss),
+                      let form = conjugation.attachedImperativeOrForm(selection.tense, selection.person) {
+                Text(TenseExamples.highlight(made.spanish, tokens: [form.lowercased()]))
+                    .font(.callout)
+                    .fixedSize(horizontal: false, vertical: true)
+                if !made.english.isEmpty {
+                    Text(made.english)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Text("Made-up example · real sentences show up when we have them")
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
+        .background(Color(.secondarySystemFill), in: RoundedRectangle(cornerRadius: 12))
     }
 
     private let bannerPronouns = ["yo", "tú", "él / ella", "nosotros", "vosotros", "ellos / ellas"]
@@ -196,7 +248,8 @@ struct ConjugationView: View {
     private func cell(_ tense: Tense, _ person: Int, rowStem: String, changed: Bool) -> some View {
         let isSelected = selection == Selection(tense: tense, person: person)
         return Button {
-            selection = Selection(tense: tense, person: person)
+            let tapped = Selection(tense: tense, person: person)
+            if tapped == selection { exampleIndex += 1 } else { selection = tapped; exampleIndex = 0 }
         } label: {
             cellText(tense, person, rowStem: rowStem, changed: changed)
                 .frame(maxWidth: .infinity, minHeight: 34)
