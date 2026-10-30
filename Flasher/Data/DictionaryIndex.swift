@@ -92,6 +92,12 @@ enum DictionaryIndex {
         let q = query.searchKey
         guard !q.isEmpty else { return [] }
 
+        // "to sit" / "a house" / "the ant" search the same as "sit" / "house" / "ant" on the English side
+        var englishQuery = q
+        for article in ["to ", "a ", "an ", "the "] where q.hasPrefix(article) && q.count > article.count + 1 {
+            englishQuery = String(q.dropFirst(article.count))
+            break
+        }
         let queryBytes = Array(q.utf8)
         let maxTypos = q.count >= 7 ? 2 : (q.count >= 4 ? 1 : 0)
         var ranked: [(rank: Int, language: Int, hit: SearchHit)] = []
@@ -105,7 +111,7 @@ enum DictionaryIndex {
         for entry in entries where entry.word.id != diminutive?.base.id {
             var best: (tier: Int, language: Int)?
             if scope != .english, let tier = spanishTier(q, entry.spanish) { best = (tier, 0) }
-            if scope != .spanish, let tier = englishTier(q, entry), best == nil || tier < best!.tier { best = (tier, 1) }
+            if scope != .spanish, let tier = englishTier(englishQuery, entry), best == nil || tier < best!.tier { best = (tier, 1) }
 
             if let best {
                 ranked.append((best.tier * 2, best.language,
