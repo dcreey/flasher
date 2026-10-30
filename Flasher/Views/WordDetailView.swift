@@ -216,7 +216,7 @@ struct WordDetailView: View {
             }
             ForEach(mexicanMeanings, id: \.self) { meaning in
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
-                    Text(meaning.text)
+                    Text(Lexicon.flagged(meaning.text))
                         .font(.body.weight(.medium))
                         .fixedSize(horizontal: false, vertical: true)
                     if let pos = meaning.partOfSpeech, pos != word.partOfSpeech {
@@ -249,7 +249,7 @@ struct WordDetailView: View {
                                     .font(.body.monospacedDigit())
                                     .foregroundStyle(.secondary)
                             }
-                            Text(sense.text)
+                            Text(Lexicon.flagged(sense.text))
                                 .font(.body)
                                 .fixedSize(horizontal: false, vertical: true)
                         }

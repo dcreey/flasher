@@ -8,8 +8,8 @@ enum SearchScope: String, CaseIterable, Identifiable {
     var title: String {
         switch self {
         case .all: "All"
-        case .spanish: "Español"
-        case .english: "English"
+        case .spanish: "🇲🇽 Español"
+        case .english: "🇺🇸 English"
         }
     }
 

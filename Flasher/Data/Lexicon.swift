@@ -104,6 +104,32 @@ final class Lexicon {
 
     private static func partOfSpeech(_ raw: String) -> PartOfSpeech? { PartOfSpeech(rawValue: raw) }
 
+    private static let flags: [String: String] = [
+        "Mexico": "🇲🇽", "Spain": "🇪🇸", "Chile": "🇨🇱", "Argentina": "🇦🇷", "Rioplatense": "🇦🇷", "Colombia": "🇨🇴",
+        "Peru": "🇵🇪", "Venezuela": "🇻🇪", "Cuba": "🇨🇺", "Guatemala": "🇬🇹", "El Salvador": "🇸🇻", "Honduras": "🇭🇳",
+        "Nicaragua": "🇳🇮", "Bolivia": "🇧🇴", "Dominican Republic": "🇩🇴", "Puerto Rico": "🇵🇷", "Canary Islands": "🇮🇨",
+        "Ecuador": "🇪🇨", "Costa Rica": "🇨🇷", "Panama": "🇵🇦", "Paraguay": "🇵🇾", "Uruguay": "🇺🇾",
+        "Latin America": "🌎",
+    ]
+
+    /// Puts a flag in front of each country in a label: "(Spain, colloquial) flatbread" → "(🇪🇸 Spain, colloquial) flatbread".
+    static func flagged(_ text: String) -> String {
+        var result = ""
+        var rest = Substring(text)
+        while let open = rest.firstIndex(of: "("), let close = rest[open...].firstIndex(of: ")") {
+            result += rest[..<open]
+            let items = rest[rest.index(after: open)..<close].components(separatedBy: ", ").map { item -> String in
+                let isAlso = item.hasPrefix("also ")
+                let name = isAlso ? String(item.dropFirst(5)) : item
+                guard let flag = flags[name] else { return item }
+                return (isAlso ? "also " : "") + flag + " " + name
+            }
+            result += "(" + items.joined(separator: ", ") + ")"
+            rest = rest[rest.index(after: close)...]
+        }
+        return result + rest
+    }
+
     /// "(MX)", "(Mexican)", "(Mexico)" or "(MX CDMX)" in the flashcard data marks a Mexican gloss.
     private static let mexicanMarker = try! NSRegularExpression(pattern: #"\s*\((?:MX|Mexican|Mexico)\b[^)]*\)"#)
 

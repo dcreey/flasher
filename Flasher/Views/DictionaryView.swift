@@ -125,7 +125,7 @@ private struct DictionaryRow: View {
                 Text(word.spanish)
                     .font(.headline)
                 if Lexicon.shared.hasMexicanMeaning(word) {
-                    Text("MX")
+                    Text("🇲🇽 MX")
                         .font(.system(size: 10, weight: .bold))
                         .padding(.horizontal, 5)
                         .padding(.vertical, 1)
@@ -133,7 +133,7 @@ private struct DictionaryRow: View {
                         .foregroundStyle(Color.green)
                 }
                 if hit.matchedEnglish {
-                    Text("EN")
+                    Text("🇺🇸 EN")
                         .font(.system(size: 10, weight: .bold))
                         .padding(.horizontal, 5)
                         .padding(.vertical, 1)
