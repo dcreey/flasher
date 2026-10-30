@@ -36,6 +36,7 @@ enum DictionaryIndex {
     private struct Entry {
         let word: Word
         let spanish: String
+        let headlineTerms: [String]       // the word's own one-line gloss ("sit down")
         let primaryTerms: Set<String>     // English terms of the first meaning ("ant", "run")
         let secondaryTerms: Set<String>   // English terms of later meanings
         let termList: [String]
@@ -61,7 +62,7 @@ enum DictionaryIndex {
         let spanish = word.spanish.searchKey
         let termList = Array(primary) + Array(secondary)
         let fuzzyTerms = [Array(spanish.utf8)] + (Array(primary) + Array(secondary).prefix(8)).map { Array($0.utf8) }
-        return Entry(word: word, spanish: spanish, primaryTerms: primary, secondaryTerms: secondary,
+        return Entry(word: word, spanish: spanish, headlineTerms: englishTerms(word.english), primaryTerms: primary, secondaryTerms: secondary,
                      termList: termList, englishText: text.joined(separator: " ¦ ").searchKey,
                      fuzzy: fuzzyTerms, diminutive: DiminutiveResolver.resolve(word.spanish))
     }
@@ -140,8 +141,10 @@ enum DictionaryIndex {
     }
 
     private static func englishTier(_ q: String, _ entry: Entry) -> Int? {
-        if entry.primaryTerms.contains(q) { return 0 }
-        if entry.secondaryTerms.contains(q) { return 1 }
+        // The word's own gloss leads: "sit" finds sentarse ("to sit down") before words that only mention sitting
+        if entry.headlineTerms.contains(where: { $0 == q || $0.hasPrefix(q + " ") }) { return 0 }
+        if entry.primaryTerms.contains(q) { return 1 }
+        if entry.primaryTerms.contains(where: { $0.hasPrefix(q + " ") }) || entry.secondaryTerms.contains(q) { return 2 }
         if entry.termList.contains(where: { $0.hasPrefix(q) }) { return 3 }
         if entry.englishText.contains(q) { return 4 }
         return nil
