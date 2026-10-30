@@ -51,9 +51,10 @@ enum DictionaryIndex {
         var text = [word.english]
         for meaning in meanings {
             for (index, sense) in meaning.senses.enumerated() {
-                let terms = englishTerms(sense)
-                if index == 0 { primary.formUnion(terms) } else { secondary.formUnion(terms) }
-                text.append(sense)
+                let terms = englishTerms(sense.text)
+                // The first meaning and every Mexican meaning count as primary
+                if index == 0 || sense.isMexican { primary.formUnion(terms) } else { secondary.formUnion(terms) }
+                text.append(sense.text)
             }
         }
         secondary.subtract(primary)

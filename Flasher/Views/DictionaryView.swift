@@ -124,6 +124,14 @@ private struct DictionaryRow: View {
             HStack {
                 Text(word.spanish)
                     .font(.headline)
+                if Lexicon.shared.hasMexicanMeaning(word) {
+                    Text("MX")
+                        .font(.system(size: 10, weight: .bold))
+                        .padding(.horizontal, 5)
+                        .padding(.vertical, 1)
+                        .background(Color.green.opacity(0.18), in: Capsule())
+                        .foregroundStyle(Color.green)
+                }
                 if hit.matchedEnglish {
                     Text("EN")
                         .font(.system(size: 10, weight: .bold))

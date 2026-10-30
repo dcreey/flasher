@@ -37,6 +37,9 @@ def merge_near_duplicates(senses):
             merged[target] = merged[target] + ', ' + sense
     return merged
 
+CRUDE = {'vulgar','offensive','derogatory'}
+OTHER_REGIONS = {'Spain','Chile','Argentina','Rioplatense','Colombia','Peru','Venezuela','Cuba','Guatemala','El-Salvador','Honduras',
+ 'Nicaragua','Bolivia','Dominican-Republic','Puerto-Rico','Canary-Islands','Ecuador','Costa-Rica','Panama','Paraguay','Uruguay','Philippines','Andalusia'}
 entries = collections.OrderedDict()   # (word,pos) -> dict
 deriv = {}
 for l in open('es_compact.jsonl', encoding='utf8'):
@@ -69,10 +72,31 @@ for l in open('es_compact.jsonl', encoding='utf8'):
         text = re.sub(r'\s+', ' ', text).strip().rstrip('.')
         if not text or len(text) > 220: text = text[:220]
         if text.lower().startswith(('alternative form of','obsolete','misspelling of','eye dialect')): continue
-        labels = [LABEL[t] for t in s['t'] if t in LABEL][:2]
+        tags = list(s['t']) + list(s['rt'])
+        mex = 'Mexico' in tags
+        inline = re.search(r'\s*\(Mexic(?:o|an)\b[^)]*\)', text)
+        if inline:
+            mex = True
+            text = (text[:inline.start()] + text[inline.end():]).strip()
+        labels = [LABEL[t] for t in tags if t in LABEL and t != 'Mexico'][:2]
+        if mex:
+            regional = {LABEL[t] for t in tags if t in OTHER_REGIONS | {'Latin-America'} and t in LABEL}
+            plain = [l for l in labels if l not in regional]
+            extra = [l for l in labels if l in regional]
+            labels = plain + (['also ' + ', '.join(extra)] if extra else [])
         if labels: text = '(' + ', '.join(labels) + ') ' + text
-        if text not in senses: senses.append(text)
-    senses = merge_near_duplicates(senses)
+        if mex: rank_ = 0
+        elif OTHER_REGIONS & set(tags): rank_ = 3
+        elif 'Latin-America' in tags: rank_ = 2 if CRUDE & set(tags) else 1
+        else: rank_ = 2
+        if not any(t == text for _, t, _ in senses): senses.append((rank_, text, mex))
+    # Mexican meanings first, then general, Latin American, and other regions last
+    senses.sort(key=lambda x: x[0])
+    merged_texts = []
+    flags = {}
+    for r_, t_, m_ in senses: flags.setdefault(t_, m_)
+    texts = merge_near_duplicates([t for _, t, _ in senses])
+    senses = [('\u00a7' if flags.get(t.split(', ')[0], False) or flags.get(t, False) else '') + t for t in texts]
     if not senses: continue
     g = ''
     if p == 'noun':
@@ -93,7 +117,7 @@ out = open('lexicon.tsv', 'w', encoding='utf8')
 n = 0
 for (w, pos), d in entries.items():
     r = rank.get(w, (0, 0))[0]
-    out.write('W\t%s\t%s\t%s\t%d\t%s\n' % (w, pos, d['g'], r, ' ¦ '.join(d['senses'][:8]).replace('\t',' ')))
+    out.write('W\t%s\t%s\t%s\t%d\t%s\n' % (w, pos, d['g'], r, ' ¦ '.join(sorted(d['senses'], key=lambda x: 0 if x.startswith('\u00a7') else 1)[:8]).replace('\t',' ')))
     n += 1
 dn = 0
 for form, (base, kind) in deriv.items():

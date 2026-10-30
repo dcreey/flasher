@@ -14,11 +14,18 @@ struct WordDetailView: View {
     private var synonyms: [String] { SeedData.synonyms[word.spanish]?.sorted() ?? [] }
     private var conjugation: Conjugation? { word.partOfSpeech == .infinitive ? Conjugator.conjugate(word.spanish) : nil }
     private var relatedWords: [Word] { RelatedForms.find(for: word) }
-    private var meanings: [Meaning] { Lexicon.shared.meanings(for: word.spanish) }
+    private var mexicanMeanings: [MexicanMeaning] { Lexicon.shared.mexicanMeanings(for: word) }
+    /// Everything except the Mexican meanings, which get their own card above.
+    private var meanings: [Meaning] {
+        Lexicon.shared.meanings(for: word.spanish).compactMap { block in
+            let rest = block.senses.filter { !$0.isMexican }
+            return rest.isEmpty ? nil : Meaning(partOfSpeech: block.partOfSpeech, gender: block.gender, senses: rest)
+        }
+    }
     /// Dictionary-only words always list their meanings; flashcard words only when there is more than the headline gloss.
     private var showsMeanings: Bool {
         guard let first = meanings.first else { return false }
-        return word.order >= SeedData.words.count || meanings.count > 1 || first.senses.count > 1
+        return word.order >= SeedData.words.count || !mexicanMeanings.isEmpty || meanings.count > 1 || first.senses.count > 1
     }
 
     var body: some View {
@@ -27,6 +34,7 @@ struct WordDetailView: View {
                 header
                 if let shownDiminutive { diminutiveCard(shownDiminutive) }
                 actions
+                if !mexicanMeanings.isEmpty { mexicanCard }
                 if showsMeanings { meaningsSection }
                 if !relatedWords.isEmpty { relatedSection }
                 if let conjugation { conjugationSection(conjugation) }
@@ -198,9 +206,35 @@ struct WordDetailView: View {
 
     // MARK: - Content
 
+    private var mexicanCard: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 6) {
+                Text("🇲🇽")
+                Text("In Mexico")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.green)
+            }
+            ForEach(mexicanMeanings, id: \.self) { meaning in
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Text(meaning.text)
+                        .font(.body.weight(.medium))
+                        .fixedSize(horizontal: false, vertical: true)
+                    if let pos = meaning.partOfSpeech, pos != word.partOfSpeech {
+                        Text(pos.rawValue)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(12)
+        .background(Color.green.opacity(0.12), in: RoundedRectangle(cornerRadius: 12))
+    }
+
     private var meaningsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionTitle(meanings.count > 1 ? "Meanings" : "Meaning")
+            sectionTitle(!mexicanMeanings.isEmpty ? "Other meanings" : (meanings.count > 1 ? "Meanings" : "Meaning"))
             ForEach(meanings, id: \.self) { meaning in
                 VStack(alignment: .leading, spacing: 6) {
                     if meanings.count > 1 {
@@ -215,7 +249,7 @@ struct WordDetailView: View {
                                     .font(.body.monospacedDigit())
                                     .foregroundStyle(.secondary)
                             }
-                            Text(sense)
+                            Text(sense.text)
                                 .font(.body)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
