@@ -1,7 +1,7 @@
 import Foundation
 
 enum PartOfSpeech: String, Codable {
-    case noun, adjective, adverb, preposition, conjunction, pronoun, article, infinitive
+    case noun, adjective, adverb, preposition, conjunction, pronoun, article, infinitive, interjection, numeral
 }
 
 struct Word: Identifiable, Codable, Hashable {

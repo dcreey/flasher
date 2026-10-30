@@ -14,6 +14,12 @@ struct WordDetailView: View {
     private var synonyms: [String] { SeedData.synonyms[word.spanish]?.sorted() ?? [] }
     private var conjugation: Conjugation? { word.partOfSpeech == .infinitive ? Conjugator.conjugate(word.spanish) : nil }
     private var relatedWords: [Word] { RelatedForms.find(for: word) }
+    private var meanings: [Meaning] { Lexicon.shared.meanings(for: word.spanish) }
+    /// Dictionary-only words always list their meanings; flashcard words only when there is more than the headline gloss.
+    private var showsMeanings: Bool {
+        guard let first = meanings.first else { return false }
+        return word.order >= SeedData.words.count || meanings.count > 1 || first.senses.count > 1
+    }
 
     var body: some View {
         ScrollView {
@@ -21,6 +27,7 @@ struct WordDetailView: View {
                 header
                 if let shownDiminutive { diminutiveCard(shownDiminutive) }
                 actions
+                if showsMeanings { meaningsSection }
                 if !relatedWords.isEmpty { relatedSection }
                 if let conjugation { conjugationSection(conjugation) }
                 if !synonyms.isEmpty { synonymsSection }
@@ -190,6 +197,42 @@ struct WordDetailView: View {
     }
 
     // MARK: - Content
+
+    private var meaningsSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            sectionTitle(meanings.count > 1 ? "Meanings" : "Meaning")
+            ForEach(meanings, id: \.self) { meaning in
+                VStack(alignment: .leading, spacing: 6) {
+                    if meanings.count > 1 {
+                        Text(label(for: meaning))
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(.secondary)
+                    }
+                    ForEach(Array(meaning.senses.enumerated()), id: \.offset) { index, sense in
+                        HStack(alignment: .firstTextBaseline, spacing: 6) {
+                            if meaning.senses.count > 1 {
+                                Text("\(index + 1).")
+                                    .font(.body.monospacedDigit())
+                                    .foregroundStyle(.secondary)
+                            }
+                            Text(sense)
+                                .font(.body)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private func label(for meaning: Meaning) -> String {
+        switch meaning.gender {
+        case "m": "\(meaning.partOfSpeech.rawValue) · masculine"
+        case "f": "\(meaning.partOfSpeech.rawValue) · feminine"
+        case "mf": "\(meaning.partOfSpeech.rawValue) · masculine or feminine"
+        default: meaning.partOfSpeech.rawValue
+        }
+    }
 
     private var relatedSection: some View {
         VStack(alignment: .leading, spacing: 8) {

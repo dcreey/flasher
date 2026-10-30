@@ -87,6 +87,14 @@ final class ProgressStore {
         return breakdown
     }
 
+    /// IDs of every word the user moved to the top of the queue, flashcard set or not.
+    func prioritizedWordIDs() -> [String] {
+        progress.values.filter { $0.priorityDate != nil }.map(\.wordID)
+    }
+
+    /// IDs of every word with any saved progress.
+    func trackedWordIDs() -> [String] { Array(progress.keys) }
+
     // MARK: - Session
 
     func beginSession() {

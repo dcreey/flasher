@@ -14,6 +14,9 @@
 		26B5E635A87F5B61E2BA82E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F301223F1043743D51C9E079 /* Assets.xcassets */; };
 		28BEFEC6891D0CBAEB89D1B0 /* PlacementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEB29B44C38CB09DD23C2F6 /* PlacementViewModel.swift */; };
 		3AD26BBAC958652C16178BD9 /* RecentWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D5754378B53E36C74817D /* RecentWords.swift */; };
+		B576A8BE372787D40F34D546 /* lexicon.tsv in Resources */ = {isa = PBXBuildFile; fileRef = 23DA9309C8B55BF22D4C937D /* lexicon.tsv */; };
+		49C341F465036223A0C4EC96 /* DictionaryIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46318E3C2C94C879E7C1846A /* DictionaryIndex.swift */; };
+		3C1D3D5A0F58396D0B2C334E /* Lexicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2C4963525C6B2A5705339 /* Lexicon.swift */; };
 		D6EEC285ACC551E8CBEF5FA5 /* RelatedForms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CC31A946F548CEB84BA86 /* RelatedForms.swift */; };
 		3484F9F231533EB7D74BC4D2 /* Conjugator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45D5FE1EC816A6C9D8909B2 /* Conjugator.swift */; };
 		4436E573729DF8D2E479796E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55E68FEEABC8D07EC15B631 /* ContentView.swift */; };
@@ -62,6 +65,9 @@
 		2773AC78DDD538241E1D861F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F648AE9DD9A31E2445AB7080 /* ConjugationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConjugationView.swift; sourceTree = "<group>"; };
 		968D5754378B53E36C74817D /* RecentWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWords.swift; sourceTree = "<group>"; };
+		23DA9309C8B55BF22D4C937D /* lexicon.tsv */ = {isa = PBXFileReference; lastKnownFileType = text; path = lexicon.tsv; sourceTree = "<group>"; };
+		46318E3C2C94C879E7C1846A /* DictionaryIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryIndex.swift; sourceTree = "<group>"; };
+		3BC2C4963525C6B2A5705339 /* Lexicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lexicon.swift; sourceTree = "<group>"; };
 		374CC31A946F548CEB84BA86 /* RelatedForms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedForms.swift; sourceTree = "<group>"; };
 		F45D5FE1EC816A6C9D8909B2 /* Conjugator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conjugator.swift; sourceTree = "<group>"; };
 		9B38B63AEC2371269855812A /* WordDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDetailView.swift; sourceTree = "<group>"; };
@@ -83,6 +89,9 @@
 				64D95E0DA4D0DD1DF9129EB3 /* Diminutive.swift */,
 				2866CF6C7C986AB50523B34B /* ProgressStore.swift */,
 				968D5754378B53E36C74817D /* RecentWords.swift */,
+				23DA9309C8B55BF22D4C937D /* lexicon.tsv */,
+				46318E3C2C94C879E7C1846A /* DictionaryIndex.swift */,
+				3BC2C4963525C6B2A5705339 /* Lexicon.swift */,
 				374CC31A946F548CEB84BA86 /* RelatedForms.swift */,
 				F45D5FE1EC816A6C9D8909B2 /* Conjugator.swift */,
 				FA642928CF609403D00FAE50 /* SeedData.swift */,
@@ -224,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				26B5E635A87F5B61E2BA82E3 /* Assets.xcassets in Resources */,
+				B576A8BE372787D40F34D546 /* lexicon.tsv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +260,8 @@
 				140CC1DFD6042178EA15E404 /* ProgressStore.swift in Sources */,
 				C01B3EA18F73D830D0CAA12A /* RaptorRoomView.swift in Sources */,
 				3AD26BBAC958652C16178BD9 /* RecentWords.swift in Sources */,
+				49C341F465036223A0C4EC96 /* DictionaryIndex.swift in Sources */,
+				3C1D3D5A0F58396D0B2C334E /* Lexicon.swift in Sources */,
 				D6EEC285ACC551E8CBEF5FA5 /* RelatedForms.swift in Sources */,
 				3484F9F231533EB7D74BC4D2 /* Conjugator.swift in Sources */,
 				54C4DE5BF0D922FB4F39D076 /* ResultView.swift in Sources */,

@@ -11,10 +11,7 @@ final class RecentWords {
 
     private(set) var ids: [String] = []
 
-    private static let wordsByID: [String: Word] = Dictionary(
-        SeedData.words.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
-
-    var words: [Word] { ids.compactMap { Self.wordsByID[$0] } }
+    var words: [Word] { ids.compactMap { Lexicon.shared.wordsByID[$0] } }
 
     private init() {
         ids = UserDefaults.standard.stringArray(forKey: Self.key) ?? []

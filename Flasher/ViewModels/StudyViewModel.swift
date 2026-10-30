@@ -90,9 +90,11 @@ final class StudyViewModel {
         let prevSession = store.currentSessionNumber - 1
         let allAvailable = allWords.filter { !store.isEffectivelyLearned($0.spanish) && !store.isPermanentlySkipped($0.spanish) }
 
-        // Words the user moved to the top of the queue come first, most recent request first
-        let prioritized = allAvailable
-            .filter { store.progressFor($0.spanish).priorityDate != nil }
+        // Words the user moved to the top of the queue come first, most recent request first. They can come
+        // from the whole dictionary, not only the flashcard set.
+        let prioritized = store.prioritizedWordIDs()
+            .compactMap { Lexicon.shared.wordsByID[$0] }
+            .filter { !store.isEffectivelyLearned($0.spanish) && !store.isPermanentlySkipped($0.spanish) }
             .sorted { store.progressFor($0.spanish).priorityDate! > store.progressFor($1.spanish).priorityDate! }
             .prefix(Self.sessionSize)
         let prioritizedIDs = Set(prioritized.map(\.spanish))
@@ -131,9 +133,20 @@ final class StudyViewModel {
         return selected + fill
     }
 
+    private var generatedSentences: [String: [VocabSentence]] = [:]
+
+    private func templateSentences(for word: Word) -> [VocabSentence] {
+        if let cached = generatedSentences[word.spanish] { return cached }
+        let sentences = SeedData.templateSentences(for: word)
+        generatedSentences[word.spanish] = sentences
+        return sentences
+    }
+
     // Pick a sentence different from the last one used for this word
     private func pickSentence(for word: Word) -> (VocabSentence, Int)? {
-        guard let sentences = sentencesByWord[word.spanish], !sentences.isEmpty else { return nil }
+        // Dictionary-only words have no written sentences; use generic templates for them
+        let sentences = sentencesByWord[word.spanish] ?? templateSentences(for: word)
+        guard !sentences.isEmpty else { return nil }
         let lastIdx = store.progressFor(word.spanish).lastSentenceIdx
         let candidates = sentences.indices.filter { $0 != lastIdx }
         let idx = candidates.randomElement() ?? sentences.indices.randomElement()!

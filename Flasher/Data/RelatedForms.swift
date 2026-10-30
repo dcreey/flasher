@@ -5,7 +5,7 @@ enum RelatedForms {
     private static let wordsByKey: [String: [Word]] = {
         let skipped: Set<PartOfSpeech> = [.infinitive, .preposition, .conjunction, .pronoun, .article]
         var map: [String: [Word]] = [:]
-        for word in SeedData.words where !skipped.contains(word.partOfSpeech) {
+        for word in Lexicon.shared.allWords where !skipped.contains(word.partOfSpeech) {
             map[word.spanish.searchKey, default: []].append(word)
         }
         return map

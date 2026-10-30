@@ -18,7 +18,12 @@ struct ReviewView: View {
         var id: String { rawValue }
     }
 
-    private var allWords: [Word] { SeedData.words }
+    /// The flashcard set plus any dictionary-only words the user has started studying.
+    private var allWords: [Word] {
+        SeedData.words + store.trackedWordIDs().compactMap { id in
+            Lexicon.shared.wordsByID[id].flatMap { $0.order >= SeedData.words.count ? $0 : nil }
+        }
+    }
 
     private var filteredWords: [(word: Word, progress: WordProgress)] {
         allWords.compactMap { word in
