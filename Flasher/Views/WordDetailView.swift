@@ -33,17 +33,17 @@ struct WordDetailView: View {
             VStack(alignment: .leading, spacing: 24) {
                 header
                 if let shownDiminutive { diminutiveCard(shownDiminutive) }
-                actions
                 if !mexicanMeanings.isEmpty { mexicanCard }
                 if showsMeanings { meaningsSection }
-                if !relatedWords.isEmpty { relatedSection }
                 if let conjugation { conjugationSection(conjugation) }
+                if !relatedWords.isEmpty { relatedSection }
                 if !synonyms.isEmpty { synonymsSection }
                 if !sentences.isEmpty { usagesSection }
             }
             .padding()
         }
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar { ToolbarItemGroup(placement: .topBarTrailing) { queueButtons } }
         .onAppear { RecentWords.shared.record(word) }
         .overlay(alignment: .bottom) {
             if let confirmation {
@@ -68,10 +68,29 @@ struct WordDetailView: View {
                 .font(.title3)
                 .foregroundStyle(.secondary)
             HStack(spacing: 8) {
-                tag(partOfSpeechLabel)
+                if let conjugation {
+                    verbTags(conjugation)
+                } else {
+                    tag(partOfSpeechLabel)
+                }
                 statusTag
             }
         }
+    }
+
+    /// Verbs get a solid "VERB" badge plus what kind of verb it is (-ar/-er/-ir, regular or not, reflexive).
+    @ViewBuilder
+    private func verbTags(_ conjugation: Conjugation) -> some View {
+        let irregular = conjugation.forms != conjugation.regularForms
+        Label("VERB", systemImage: "bolt.fill")
+            .font(.caption.weight(.bold))
+            .padding(.horizontal, 8)
+            .padding(.vertical, 3)
+            .background(Color.indigo, in: Capsule())
+            .foregroundStyle(.white)
+        tag("-\(conjugation.infinitive.suffix(2)) verb", color: .indigo)
+        tag(irregular ? "irregular" : "regular", color: irregular ? .orange : .indigo)
+        if conjugation.reflexive { tag("reflexive", color: .indigo) }
     }
 
     private var partOfSpeechLabel: String {
@@ -138,62 +157,38 @@ struct WordDetailView: View {
 
     // MARK: - Actions
 
-    private var actions: some View {
+    /// Small icon buttons in the top-right corner: move to the front of the queue, flag to learn again.
+    @ViewBuilder
+    private var queueButtons: some View {
         let inQueue = progress.priorityDate != nil
-        let alreadyRelearning = progress.flaggedForRelearn && !progress.effectivelyLearned
+        let relearning = progress.flaggedForRelearn && !progress.effectivelyLearned
 
-        return VStack(spacing: 10) {
+        Button {
             if inQueue {
-                queueBanner("Already in your queue", detail: "First card in your next study session.", icon: "checkmark.circle.fill")
-                Button {
-                    store.removeFromQueue(wordID: word.spanish)
-                    confirm("Removed from the front of the queue")
-                } label: {
-                    Label("Remove from queue", systemImage: "xmark")
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.bordered)
+                store.removeFromQueue(wordID: word.spanish)
+                confirm("Removed from the front of the queue")
             } else {
-                Button {
-                    store.moveToTopOfQueue(wordID: word.spanish)
-                    confirm("Moved to the top of your next study session")
-                } label: {
-                    Label("Study next", systemImage: "arrow.up.to.line")
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.borderedProminent)
+                store.moveToTopOfQueue(wordID: word.spanish)
+                confirm("Moved to the top of your next study session")
             }
-
-            if !inQueue && alreadyRelearning {
-                queueBanner("Flagged to learn again", detail: "It will come up in your normal study sessions.", icon: "flag.fill")
-            }
-
-            if !inQueue && !alreadyRelearning {
-                Button {
-                    store.flagForRelearning(wordID: word.spanish)
-                    confirm("Flagged to learn again")
-                } label: {
-                    Label("Learn again", systemImage: "flag")
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.bordered)
-            }
+        } label: {
+            Image(systemName: inQueue ? "arrow.up.to.line.circle.fill" : "arrow.up.to.line")
+                .foregroundStyle(inQueue ? Color.blue : Color.primary)
         }
-        .controlSize(.large)
-    }
+        .accessibilityLabel(inQueue ? "Remove from queue" : "Study next")
 
-    private func queueBanner(_ title: String, detail: String, icon: String) -> some View {
-        HStack(spacing: 10) {
-            Image(systemName: icon)
-                .foregroundStyle(.blue)
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title).font(.subheadline.weight(.semibold))
-                Text(detail).font(.footnote).foregroundStyle(.secondary)
+        Button {
+            if relearning || inQueue {
+                confirm(inQueue ? "Already first in your queue" : "Already flagged to learn again")
+            } else {
+                store.flagForRelearning(wordID: word.spanish)
+                confirm("Flagged to learn again")
             }
-            Spacer()
+        } label: {
+            Image(systemName: relearning || inQueue ? "flag.fill" : "flag")
+                .foregroundStyle(relearning || inQueue ? Color.orange : Color.primary)
         }
-        .padding(12)
-        .background(Color.blue.opacity(0.1), in: RoundedRectangle(cornerRadius: 12))
+        .accessibilityLabel("Learn again")
     }
 
     private func confirm(_ message: String) {
@@ -233,24 +228,24 @@ struct WordDetailView: View {
     }
 
     private var meaningsSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 8) {
             sectionTitle(!mexicanMeanings.isEmpty ? "Other meanings" : (meanings.count > 1 ? "Meanings" : "Meaning"))
             ForEach(meanings, id: \.self) { meaning in
-                VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: 2) {
                     if meanings.count > 1 {
                         Text(label(for: meaning))
-                            .font(.subheadline.weight(.semibold))
+                            .font(.caption.weight(.semibold))
                             .foregroundStyle(.secondary)
                     }
                     ForEach(Array(meaning.senses.enumerated()), id: \.offset) { index, sense in
-                        HStack(alignment: .firstTextBaseline, spacing: 6) {
+                        HStack(alignment: .firstTextBaseline, spacing: 4) {
                             if meaning.senses.count > 1 {
                                 Text("\(index + 1).")
-                                    .font(.body.monospacedDigit())
+                                    .font(.footnote.monospacedDigit())
                                     .foregroundStyle(.secondary)
                             }
                             Text(Lexicon.flagged(sense.text))
-                                .font(.body)
+                                .font(.footnote)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                     }
