@@ -40,7 +40,7 @@ struct DictionaryView: View {
         }
         .autocorrectionDisabled()
         .textInputAutocapitalization(.never)
-        .navigationTitle("Diccionario")
+        .navigationTitle("El Pie")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button { showSettings = true } label: { Image(systemName: "gearshape") }

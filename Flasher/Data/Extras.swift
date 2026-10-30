@@ -51,6 +51,7 @@ final class Extras {
         case .preposition: ["prep", "contraction"]
         case .conjunction: ["conj"]
         case .numeral: ["num"]
+        case .phrase: ["phrase", "proverb", "prep_phrase", "adv_phrase", "intj"]
         }
     }
 

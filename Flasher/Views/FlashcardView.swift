@@ -37,13 +37,18 @@ struct FlashcardView: View {
 
                 Spacer()
 
-                // Progress dots: how many sessions correct out of neededSessions
-                HStack(spacing: 4) {
-                    ForEach(0..<SeedData.neededSessions, id: \.self) { i in
-                        Circle()
-                            .fill(i < sessionCorrectCount ? Color.green : Color(.systemFill))
-                            .frame(width: 8, height: 8)
+                // Mastery: correct sessions out of neededSessions
+                HStack(spacing: 6) {
+                    HStack(spacing: 3) {
+                        ForEach(0..<SeedData.neededSessions, id: \.self) { i in
+                            Capsule()
+                                .fill(i < sessionCorrectCount ? Color.green : Color(.systemFill))
+                                .frame(width: 10, height: 6)
+                        }
                     }
+                    Text("\(min(sessionCorrectCount, SeedData.neededSessions))/\(SeedData.neededSessions)")
+                        .font(.caption2.monospacedDigit())
+                        .foregroundStyle(.secondary)
                 }
             }
             .padding(.horizontal)

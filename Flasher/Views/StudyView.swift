@@ -69,12 +69,22 @@ struct SessionProgressView: View {
     let done: Int
     let total: Int
 
+    private var fraction: Double { min(1, Double(done) / Double(max(total, 1))) }
+
     var body: some View {
-        VStack(spacing: 4) {
-            ProgressView(value: Double(done), total: Double(max(total, 1)))
-                .tint(.green)
-                .padding(.horizontal)
-            Text("\(done) / \(total) words this session")
+        VStack(spacing: 6) {
+            GeometryReader { geo in
+                ZStack(alignment: .leading) {
+                    Capsule().fill(Color(.systemFill))
+                    Capsule()
+                        .fill(Color.green)
+                        .frame(width: max(fraction > 0 ? 8 : 0, geo.size.width * fraction))
+                }
+            }
+            .frame(height: 8)
+            .animation(.easeInOut(duration: 0.3), value: fraction)
+            .padding(.horizontal)
+            Text("\(done) of \(total) words")
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }

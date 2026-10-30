@@ -10,3 +10,6 @@ or is already in the flashcard set.
 
 `extras.tsv` (examples, synonyms, antonyms, derived/related terms, etymology):
 `curl -s https://kaikki.org/dictionary/Spanish/kaikki.org-dictionary-Spanish.jsonl | python3 extras.py lexicon.tsv extras.tsv`
+
+Phrases, sayings and proverbs (run after build.py; appends `phrase` rows to lexicon.tsv, merging hand-written grammar patterns from `phrases_curated.tsv`):
+`curl -s https://kaikki.org/dictionary/Spanish/kaikki.org-dictionary-Spanish.jsonl | python3 phrases.py ../../Flasher/Data/lexicon.tsv`
