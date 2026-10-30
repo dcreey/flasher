@@ -18,6 +18,25 @@ LABEL = {'Mexico':'Mexico','Latin-America':'Latin America','Spain':'Spain','Chil
  'colloquial':'colloquial','slang':'slang','vulgar':'vulgar','derogatory':'derogatory','informal':'informal','figuratively':'figurative',
  'offensive':'offensive','formal':'formal','literary':'literary','humorous':'humorous','euphemistic':'euphemism','idiomatic':'idiomatic'}
 FREQ_MIN = 3
+def merge_near_duplicates(senses):
+    """Single-word senses where one extends the other (hill / hilltop) become one sense ("hill, hilltop")."""
+    merged = []
+    for sense in senses:
+        plain = re.fullmatch(r"[a-zA-Z-]+", sense) is not None
+        target = None
+        if plain:
+            for i, m in enumerate(merged):
+                parts = [p.strip() for p in m.split(',')]
+                if all(re.fullmatch(r"[a-zA-Z-]+", p) for p in parts):
+                    a, b = sense.lower(), parts[-1].lower()
+                    if a != b and len(min(a, b, key=len)) >= 4 and (a.startswith(b) or b.startswith(a)):
+                        target = i; break
+        if target is None:
+            if sense not in merged: merged.append(sense)
+        else:
+            merged[target] = merged[target] + ', ' + sense
+    return merged
+
 entries = collections.OrderedDict()   # (word,pos) -> dict
 deriv = {}
 for l in open('es_compact.jsonl', encoding='utf8'):
@@ -53,6 +72,7 @@ for l in open('es_compact.jsonl', encoding='utf8'):
         labels = [LABEL[t] for t in s['t'] if t in LABEL][:2]
         if labels: text = '(' + ', '.join(labels) + ') ' + text
         if text not in senses: senses.append(text)
+    senses = merge_near_duplicates(senses)
     if not senses: continue
     g = ''
     if p == 'noun':

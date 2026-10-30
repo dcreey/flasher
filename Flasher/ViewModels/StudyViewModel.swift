@@ -137,7 +137,16 @@ final class StudyViewModel {
 
     private func templateSentences(for word: Word) -> [VocabSentence] {
         if let cached = generatedSentences[word.spanish] { return cached }
-        let sentences = SeedData.templateSentences(for: word)
+        // Dictionary-only words carry a multi-term gloss ("hill, hilltop"); sentences read better with just the first term
+        var source = word
+        if word.order >= SeedData.words.count {
+            let first = Lexicon.stripParentheses(word.english)
+                .split(whereSeparator: { ",;".contains($0) }).first
+                .map { $0.trimmingCharacters(in: .whitespaces) } ?? word.english
+            source = Word(order: word.order, spanish: word.spanish, english: first,
+                          partOfSpeech: word.partOfSpeech, gender: word.gender)
+        }
+        let sentences = SeedData.templateSentences(for: source)
         generatedSentences[word.spanish] = sentences
         return sentences
     }

@@ -1157,7 +1157,7 @@ W	más	article		36	more, any more ¦ most
 W	más	conjunction		36	plus
 W	librería	noun	f	10128	bookshop, bookstore ¦ bookcase, bookshelf (piece of furniture for the storage and display of books)
 W	biblioteca	noun	f	2948	library ¦ bookcase
-W	moderno	adjective		5874	modern ¦ modern-day
+W	moderno	adjective		5874	modern, modern-day
 W	heterosexual	adjective		13475	heterosexual
 W	heterosexual	noun	mf	13475	heterosexual
 W	nel	adverb		45871	(Mexico, Peru) no; no way; nope
@@ -1209,7 +1209,7 @@ W	peluche	adjective		10609	(Nicaragua, colloquial) conceited, smug ¦ (Honduras,
 W	materia	noun	f	4319	matter (the basic structural component of the universe) ¦ subject (topic; particular area of study)
 W	variable	adjective		25280	variable
 W	variable	noun	f	25280	variable
-W	vela	noun	f	4728	candle ¦ wakefulness, sleeplessness ¦ vigil, watch ¦ (Latin America) vigil (any of various indigenous festivals) ¦ sail ¦ sailing
+W	vela	noun	f	4728	candle ¦ wakefulness, sleeplessness ¦ vigil, watch ¦ (Latin America) vigil (any of various indigenous festivals) ¦ sail, sailing
 W	araña	noun	f	5439	spider ¦ chandelier
 W	pidgin	noun	m	178309	pidgin (amalgamation of two languages having no native speakers)
 W	cinta	noun	f	1907	ribbon, worn by girls in the hair ¦ tape
@@ -1433,7 +1433,7 @@ W	vez	noun	f	71	time, instance ¦ (Spain) place (in a queue) ¦ (Spain) turn (a 
 W	bienvenido	adjective		1260	welcome
 W	bienvenido	interjection		1260	welcome (when saying this to a male)
 W	office	noun	m	33597	a dining area in a kitchen
-W	palabra	noun	f	534	word ¦ wording ¦ word (promise)
+W	palabra	noun	f	534	word, wording ¦ word (promise)
 W	adrenal	adjective		95425	adrenal
 W	adulto	adjective		3876	adult
 W	adulto	noun	m	3876	adult
@@ -1718,7 +1718,7 @@ W	yo	noun	m	30	Freud's concept of the ego
 W	primate	noun	m	45651	primate (animal)
 W	lima	noun	f	11481	lime (fruit) ¦ (Mexico) sweet lime (fruit) ¦ lemon (fruit) ¦ file (tool to smoothen a surface)
 W	twist	noun	m	23410	twist
-W	integral	adjective		18705	integral ¦ whole ¦ brown (rice) ¦ wholegrain
+W	integral	adjective		18705	integral ¦ whole, wholegrain ¦ brown (rice)
 W	integral	noun	f	18705	integral
 W	costa	noun	f	1911	coast, coastline ¦ shore, shoreline ¦ expense, costs
 W	bandana	noun	f	69503	(Argentina, Chile) Handkerchief folded in half or triangular piece of cloth worn on the head, knotted at its two lateral ends over the nape of the neck
@@ -1730,7 +1730,7 @@ W	brownie	noun	m	24583	brownie
 W	normal	adjective		837	normal (customary, standard, not deviating from a norm) ¦ normal (typical, usual) ¦ (colloquial) normal (typical, usual): (that's) expected, (that's) obvious ¦ normal (not ill) ¦ perpendicular
 W	normal	adverb		837	in a normal way, normally
 W	normal	noun	f	837	a school for becoming a teacher
-W	snorkel	noun	m	77213	snorkel ¦ snorkeling
+W	snorkel	noun	m	77213	snorkel, snorkeling
 W	tubo	noun	m	4197	tube ¦ (Latin America) receiver (on a telephone)
 W	feeling	noun	m	37839	feeling, hunch ¦ spark; attraction; feeling
 W	hanging	noun	m	72341	hanging out
@@ -1813,7 +1813,7 @@ W	fantasma	noun	m	1852	ghost, phantom, wraith ¦ (colloquial) show-off
 W	material	adjective		2195	material
 W	material	noun	m	2195	material
 W	chimenea	noun	f	6325	chimney ¦ smokestack (of a train or factory) ¦ funnel (of a ship) ¦ fireplace, fireside, hearth
-W	hogar	noun	m	1154	home ¦ homeland ¦ housekeeping ¦ hearth, fireplace
+W	hogar	noun	m	1154	home, homeland ¦ housekeeping ¦ hearth, fireplace
 W	foyer	noun	m	155983	foyer
 W	racismo	noun	m	15781	racism (discrimination based on race)
 W	buscar	infinitive		635	to seek, search for, look for, try to find, to scour ¦ to look up (in a search engine, dictionary, etc.) ¦ to fetch, get, pick up ¦ (colloquial) to bring on (oneself), to ask for
@@ -2180,7 +2180,7 @@ W	digestible	adjective		383530	digestible
 W	embargo	noun	m	885	embargo ¦ trade embargo ¦ distraint ¦ seizure, freezing (juridical detention of goods) ¦ foreclosure ¦ repossession
 W	enlace	noun	m	7028	link, connection ¦ bond, relationship ¦ union, marriage ¦ bond, linkage ¦ liaison ¦ go-between ¦ link, hyperlink
 W	exigible	adjective		283805	exigible, enforceable, demandable
-W	extra	adjective		1990	additional, extra ¦ superior ¦ extraordinary
+W	extra	adjective		1990	additional, extra, extraordinary ¦ superior
 W	extra	noun	mf	1990	extra (in a film)
 W	fake	adjective		99107	fake
 W	fascia	noun	f	91310	fascia (a layer of loose tissue)
@@ -2220,7 +2220,7 @@ W	saliva	noun	f	10742	saliva, spittle
 W	scout	noun	mf	12495	scout
 W	server	noun	m	127220	a server
 W	siesta	noun	f	5334	siesta (a nap, especially an afternoon one taken during the hottest part of the day in some cultures)
-W	skate	noun	m	25119	skateboard ¦ skateboarding
+W	skate	noun	m	25119	skateboard, skateboarding
 W	slap	noun	m	69011	(Peru) flip-flop, thong (Australia), jandal (New Zealand)
 W	snap	noun	m	40444	snap (photograph)
 W	squirt	noun	m	110016	(slang) an act of squirting (female ejaculation)
@@ -2238,7 +2238,7 @@ W	vestigial	adjective		136385	vestigial
 W	valor	noun	m	1308	value (all senses) ¦ security ¦ worth ¦ courage
 W	amnesia	noun	f	11984	amnesia
 W	feudal	adjective		42629	feudal
-W	formal	adjective		7173	formal ¦ reliable, dependable ¦ form
+W	formal	adjective		7173	formal, form ¦ reliable, dependable
 W	laksa	noun	f	328048	laksa
 W	funda	noun	f	14958	a case, a covering or bag used to wrap something up and protect it ¦ (Dominican Republic, Ecuador) a bag made of paper or plastic ¦ (Bolivia) a female undergarment similar to a skirt
 W	capote	noun	m	37838	cloak ¦ cape worn by bullfighters
@@ -2347,7 +2347,7 @@ W	chutney	noun	m	54229	chutney
 W	surf	noun	m	8998	surfing
 W	camión	noun	m	1521	lorry (UK); truck (US) ¦ (Mexico) bus
 W	cuadrado	adjective		10655	square
-W	cuadrado	noun	m	10655	square (shape) ¦ square (product) ¦ quad, quadrat ¦ die ¦ quadrate
+W	cuadrado	noun	m	10655	square (shape) ¦ square (product) ¦ quad, quadrat, quadrate ¦ die
 W	gamba	noun	f	37240	(Spain) shrimp ¦ (Spain, derogatory) butterface, prawn ¦ (Chile, colloquial) 100 pesos ¦ (Argentina, colloquial) leg ¦ (Chile, colloquial) human foot
 W	mente	noun	f	758	mind, intellect
 W	sala	noun	f	875	room (a separate part of a building) ¦ large hall ¦ ward (section of a hospital) ¦ courtroom
@@ -2529,7 +2529,7 @@ W	burka	noun	m	53212	burka or burqa
 W	horror	noun	m	5325	horror; terror
 W	rector	adjective		17122	governing, directing
 W	rector	noun	m	17122	rector
-W	familiar	adjective		1597	familial, family ¦ close, familiar ¦ daily, plain ¦ family-friendly
+W	familiar	adjective		1597	familial, family, family-friendly ¦ close, familiar ¦ daily, plain
 W	familiar	noun	m	1597	relative, family member ¦ station wagon; estate car
 W	fara	noun	f	60346	Snake originating in Africa
 W	umpire	noun	m	152027	umpire
@@ -3349,7 +3349,7 @@ W	uña	noun	f	13394	fingernail, toenail, nail ¦ claw, hoof, stinger
 W	uranio	noun	m	14716	uranium
 W	urbanidad	noun	f	130017	urbanity ¦ politeness
 W	urbanización	noun	f	30683	housing development ¦ housing estate ¦ urbanization
-W	urbano	adjective		18861	urban ¦ urbane
+W	urbano	adjective		18861	urban, urbane
 W	urbe	noun	f	126923	metropolis; large city
 W	urdimbre	noun	f	172597	warp (of the weave) ¦ scheme
 W	uretra	noun	f	50613	urethra
@@ -3439,7 +3439,7 @@ W	décimo	adjective		12649	tenth
 W	décimo	noun	m	12649	tenth, ¹⁄₁₀ ¦ (Spain) participation in the lottery
 W	ábaco	noun	m	60486	abacus
 W	abadesa	noun	f	50503	abbess (female superior of a nunnery or convent)
-W	abadía	noun	f	19320	abbey ¦ abbeystead
+W	abadía	noun	f	19320	abbey, abbeystead
 W	marginal	adjective		34370	marginal
 W	garage	noun	m	13924	garage (music genre)
 W	primo	noun	m	1991	cousin (of male or unspecified gender) ¦ (Spain, slang) cuz, man, bro, homie ¦ prime number ¦ (colloquial) sucker, gullible person
@@ -3947,7 +3947,7 @@ W	queja	noun	f	4751	complaint, grievance, gripe, grumble ¦ complaining
 W	quejarse	infinitive		10878	to complain, to whine, to gripe, to grouse, to fuss, to bitch, to beef ¦ to grumble, to moan, to groan ¦ to quarrel
 W	quejido	noun	m	48651	groan ¦ whimper; whine ¦ yip, yap, yelp
 W	quejoso	adjective		69670	whining; whimpering ¦ complaining
-W	vida	noun	f	122	life ¦ lifestyle ¦ livelihood; living ¦ liveliness ¦ lifespan; lifetime ¦ a term of endearment; darling, sweetheart ¦ the game (prostitution) ¦ life (in a computer game)
+W	vida	noun	f	122	life, lifestyle ¦ livelihood; living ¦ liveliness ¦ lifespan; lifetime ¦ a term of endearment; darling, sweetheart ¦ the game (prostitution) ¦ life (in a computer game) ¦ protagonist
 W	clandestino	adjective		19550	clandestine
 W	clandestino	noun	m	19550	one who is clandestine; (often) undocumented immigrant
 W	norte	adjective		1118	north, northern
@@ -4281,7 +4281,7 @@ W	unir	infinitive		7108	to unite, join ¦ to merge, conflate
 W	inuit	adjective		65803	Inuit
 W	inuit	noun	mf	65803	Inuit ¦ Inuktitut (language)
 W	quito	adjective		8211	exempt ¦ free
-W	orden	noun	f	613	order (command) ¦ order (request for some product or service or that which is requested) ¦ order (law) ¦ order (decoration) ¦ order ¦ order (arrangement, sequence, organization) ¦ orderliness ¦ good behavior
+W	orden	noun	f	613	order (command) ¦ order (request for some product or service or that which is requested) ¦ order (law) ¦ order (decoration) ¦ order ¦ order (arrangement, sequence, organization) ¦ orderliness, order ¦ good behavior
 W	rinde	noun	m	13718	(Mexico, Rioplatense) output ¦ (Mexico, Paraguay) output: result
 W	cambio	noun	m	640	change, shift ¦ change (money given back) ¦ gear (of a motor vehicle) ¦ exchange rate
 W	cambio	interjection		640	over
@@ -5051,7 +5051,7 @@ W	barrio	noun	m	2329	neighbourhood ¦ (Mexico) any neighbourhood of the original
 W	oriente	noun	m	6167	east
 W	arresto	noun	m	2733	arrest ¦ boldness
 W	investigación	noun	f	930	investigation ¦ research
-W	chequeo	noun	m	12853	check ¦ examination; check-up ¦ checkpoint
+W	chequeo	noun	m	12853	check, checkpoint ¦ examination; check-up
 W	viaje	noun	m	626	voyage ¦ journey, trip ¦ A state of hallucination or altered consciousness caused by a narcotic drug ¦ (colloquial) a lot, loads
 W	decisión	noun	f	877	decision
 W	retorno	noun	m	9367	return
@@ -5072,7 +5072,7 @@ W	político	noun	m	3917	politician
 W	corrupción	noun	f	7630	corruption (the act of impairing integrity, virtue, or moral principle) ¦ corruption (the act of changing for the worse) ¦ corruption, decay, rot
 W	nacionalidad	noun	f	20627	nationality
 W	policía	noun	f	256	Civility, polity, public order, police, fineness, neatness, urbanity ¦ police, police department, police force, police service ¦ police officer (a member of a police force)
-W	relación	noun	f	791	relation ¦ relationship
+W	relación	noun	f	791	relation, relationship
 W	congreso	noun	m	4611	congress ¦ assembly, conference, meeting
 W	límite	noun	m	2919	limit, threshold, cutoff, cut-off
 W	humanidad	noun	f	2564	humanity
@@ -5146,7 +5146,7 @@ W	adolescente	noun	mf	3937	adolescent ¦ teenager
 W	estación	noun	f	1179	station ¦ season (of the year)
 W	identidad	noun	f	2754	identity
 W	conversación	noun	f	1465	conversation
-W	programa	noun	m	861	programme, program ¦ show, programme ¦ program
+W	programa	noun	m	861	programme, program ¦ show, programme, program
 W	diálogo	noun	m	11314	dialogue (form of discourse) ¦ dialogue (literary form)
 W	negociación	noun	f	10037	negotiation ¦ bargain
 W	actividad	noun	f	3612	activity (state of being active) ¦ activity (something done as an action)
@@ -5168,7 +5168,7 @@ W	diplomático	noun	m	11550	diplomat
 W	representante	noun	mf	4795	representative
 W	invitación	noun	f	3577	invitation
 W	respuesta	noun	f	829	reply, response, answer
-W	comentario	noun	m	5454	comment ¦ commentary
+W	comentario	noun	m	5454	comment, commentary
 W	emergencia	noun	f	1637	emergency ¦ emergence
 W	tormenta	noun	f	2151	storm ¦ thunderstorm, lightning storm
 W	sirena	noun	f	7556	siren (device) ¦ mermaid, siren (mythological creature) ¦ siren (seductive woman)
@@ -5348,7 +5348,7 @@ W	ribera	noun	f	26814	bank (riverbank)
 W	amenaza	noun	f	1833	threat, menace, an indication of danger ¦ threat, menace, an expression of intent
 W	lucha	noun	f	1528	fight, fighting, fray ¦ struggle, battle (in the figurative sense), strife, striving ¦ wrestling ¦ control, enforcement, fight (e.g. disease control, tobacco control, drug control)
 W	participación	noun	f	7953	participation
-W	razón	noun	f	233	reason ¦ reasoning ¦ correctness, rectitude, a point ¦ ratio ¦ rate
+W	razón	noun	f	233	reason, reasoning ¦ correctness, rectitude, a point ¦ ratio ¦ rate
 W	invasión	noun	f	6157	invasion ¦ trespass
 W	parada	noun	f	2567	stop (the act of stopping) ¦ station (a location where things stop) ¦ (football) stop, (baseball) catch
 W	personalidad	noun	f	3702	personality
@@ -5449,7 +5449,7 @@ W	cajón	noun	m	5197	a large box ¦ drawer ¦ cajón (box-shaped percussion inst
 W	aplique	noun	m	35214	wall light, sconce
 W	iluminación	noun	f	9630	illumination ¦ lighting
 W	cuadro	noun	m	3364	square (a polygon with four straight sides of equal length and four right angles) ¦ rectangle (any quadrilateral having opposing sides parallel and four right angles) ¦ picture, painting or other work of art, especially one in a frame ¦ frame (a piece of photographic film containing an image) ¦ frame (a rigid, generally rectangular mounting for paper, canvas or other flexible material) ¦ table, chart, graph (a visual representation of data) ¦ sight, scene, picture, spectacle, image (an event that leaves an impact) ¦ group, team, squad; staff
-W	marco	noun	m	3265	frame ¦ framework
+W	marco	noun	m	3265	frame, framework
 W	moqueta	noun	f	38071	fitted carpet
 W	taburete	noun	m	24860	stool, barstool ¦ taboret ¦ stepstool
 W	tocador	noun	m	17813	dressing table ¦ player
@@ -5522,7 +5522,7 @@ W	sofá	noun	m	2809	sofa, couch
 W	cenicero	noun	m	17055	ashtray
 W	vestíbulo	noun	m	7178	lobby, vestibule, foyer, entrance hall ¦ hall
 W	recibidor	noun	m	29557	receiver (someone who receives) ¦ entrance hall ¦ furniture in the entrance hall
-W	entrada	noun	f	1316	entrance ¦ entry, entering, admission, entryway ¦ entry ¦ driveway ¦ ticket ¦ entrance fee ¦ gateway, gate ¦ starter, appetizer, entrée (food)
+W	entrada	noun	f	1316	entrance ¦ entry, entering, admission, entryway, entry ¦ driveway ¦ ticket ¦ entrance fee ¦ gateway, gate ¦ starter, appetizer, entrée (food) ¦ computer port
 W	perchero	noun	m	37925	coat rack
 W	gancho	noun	m	8144	hook, peg ¦ clothes hanger ¦ difficult situation ¦ hook ¦ uppercut ¦ pulling power ¦ attracting object or argument (true or fraudulent) ¦ tout
 W	percha	noun	f	32207	coat hanger ¦ coat rack ¦ perch ¦ physique; build (of body, especially a good one)
@@ -5878,7 +5878,7 @@ W	oreja	noun	f	4942	outer ear; auricle; ear (used for references to the external
 W	piel	noun	f	1355	skin ¦ pelt
 W	pómulo	noun	m	63239	cheekbone
 W	trenza	noun	f	36356	plait, braid, tress, pigtail
-W	espalda	noun	f	1136	back ¦ backstroke
+W	espalda	noun	f	1136	back, backstroke
 W	hombro	noun	m	3337	shoulder ¦ shoulder (verge to the side of a road)
 W	vientre	noun	m	6648	abdomen ¦ belly ¦ womb
 W	cadera	noun	f	8865	hip
@@ -5991,7 +5991,7 @@ W	presionar	infinitive		9650	to pressure ¦ to push, press, hit, press down (e.g
 W	ascender	infinitive		14529	to ascend, to mount, to climb ¦ to advance ¦ to rise
 W	docudrama	noun	m	250896	docudrama
 W	prisionero	noun	m	3428	prisoner
-W	señal	noun	f	1008	sign ¦ landmark ¦ signal ¦ reminder ¦ representation
+W	señal	noun	f	1008	sign, signal ¦ landmark ¦ reminder ¦ representation
 W	tortura	noun	f	4952	torture (intentional causing of somebody experiencing agony)
 W	tropa	noun	f	10631	troop, crowd ¦ army, troop ¦ (Latin America) flock, herd
 W	denuncia	noun	f	6534	report, complaint
@@ -6046,7 +6046,7 @@ W	altura	noun	f	2779	height ¦ altitude ¦ heaven
 W	soundtrack	noun	m	159157	soundtrack
 W	ambo	noun	m	125941	suit
 W	haba	noun	f	70669	broad bean, horse bean (Fabaceae, Vicia faba) ¦ bean (cocoa, coffee, etc.) ¦ ballot ball ¦ nodule (in stone) ¦ nugget of ore (with gangue) ¦ bump (caused by insect bite) ¦ equine palatitis (disease of horses)
-W	mujeriego	adjective		16316	woman ¦ womanizing
+W	mujeriego	adjective		16316	woman, womanizing
 W	mujeriego	noun	m	16316	a womanizer, a ladies' man, a lady's man ¦ a group of women
 W	afilar	infinitive		38677	to sharpen ¦ (Paraguay, Rioplatense) to court, flirt with ¦ (Chile, Colombia) to fuck
 W	afiliado	noun	m	41114	affiliate ¦ member
@@ -6201,7 +6201,7 @@ W	alienación	noun	f	55852	alienation
 W	concepto	noun	m	5021	concept ¦ conceit
 W	fenómeno	noun	m	5699	phenomenon ¦ (colloquial, derogatory) freak
 W	barba	noun	f	4131	beard ¦ chin ¦ beardy, bearded man
-W	contraste	noun	m	19310	contrast ¦ assay ¦ hallmark (from an assay office) ¦ assayer
+W	contraste	noun	m	19310	contrast ¦ assay, assayer ¦ hallmark (from an assay office)
 W	negación	noun	f	12101	denial
 W	blocao	noun	m	226931	movable blockhouse
 W	lamer	infinitive		17045	to lick (stroke with the tongue) ¦ to lick (lap; take in with the tongue)
@@ -6246,7 +6246,7 @@ W	colina	noun	f	4061	hill ¦ choline
 W	visar	infinitive		311820	to study ¦ to visa ¦ to endorse; to approve
 W	kokoro	noun	m	68300	(slang) heart
 W	apraxia	noun	f	392577	apraxia
-W	beatbox	noun	m	137526	beatbox ¦ beatboxing
+W	beatbox	noun	m	137526	beatbox, beatboxing
 W	convenio	noun	m	27506	agreement ¦ covenant ¦ convention (an international agreement)
 W	costo	noun	m	6266	(Latin America) cost ¦ (Spain, slang) hashish
 W	parlamentario	adjective		40568	parliamentary
@@ -6341,7 +6341,7 @@ W	rebotar	infinitive		26723	to bounce, ricochet ¦ to get pissed off ¦ to refus
 W	tos	noun	f	9618	cough
 W	toser	infinitive		25311	to cough ¦ (figurative) to hold a candle (to someone); to compete (with someone); to touch (be as good as)
 W	gotear	infinitive		58633	to drip
-W	gota	noun	f	5136	a drop or small amount of ¦ eyedrops ¦ gout ¦ goutte
+W	gota	noun	f	5136	a drop or small amount of ¦ eyedrops ¦ gout, goutte
 W	ameba	noun	f	59107	amoeba
 W	compadre	noun	m	11949	godfather of one's child ¦ parent of one's godchild ¦ friend, especially a very close and honoured male friend ¦ (colloquial) father of one's child's spouse ¦ (Mexico) binge drinking or partying companion ¦ (Argentina) person of the generation whose parents fought in Argentina's war of independence from Spain ¦ (Nicaragua, colloquial) the relation between a man and his wife's lover, or in the case of divorce, the relation between the previous and current husband (in general, the relation between two men who have been involved with the same woman) ¦ (colloquial) term of address, dude
 W	cameo	noun	m	67761	cameo (short appearance)
@@ -6982,7 +6982,7 @@ W	favorito	adjective		2214	favorite/favourite
 W	favorito	noun	m	2214	favorite/favourite
 W	vaticinar	infinitive		351780	to predict, vaticinate
 W	vaticinio	noun	m	202476	prediction
-W	vecinal	adjective		44589	local ¦ neighbour ¦ neighbourly
+W	vecinal	adjective		44589	local ¦ neighbour, neighbourly
 W	vecindad	noun	f	30899	vicinity ¦ neighborhood
 W	vegetación	noun	f	22229	vegetation ¦ adenoid, ellipsis of vegetación adenoidea
 W	vegetal	adjective		13356	plant; vegetal
@@ -7093,7 +7093,7 @@ W	idioma	noun	m	4692	language
 W	habla	noun	f	467	speech (faculty of speech) ¦ speaking (action)
 W	osadía	noun	f	27180	boldness, nerve, guts ¦ audacity, temerity
 W	organista	noun	mf	49213	organist
-W	fotografía	noun	f	3098	photograph ¦ photography
+W	fotografía	noun	f	3098	photograph, photography
 W	masturbación	noun	f	22673	masturbation
 W	cigarro	noun	m	6873	cigar (rolled bundle of tobacco made for smoking) ¦ cigarette (thin roll of tobacco made for smoking)
 W	cigarrillo	noun	m	3282	cigarette
@@ -7236,7 +7236,7 @@ W	perfecto	adjective		667	perfect
 W	jumpsuit	noun	m	334542	jumpsuit
 W	marca	noun	f	1835	brand (of clothing etc.) ¦ brand (for cattle) ¦ mark (left on a surface) ¦ print (fingerprint, footprint) ¦ record; personal best ¦ marker; buoy ¦ (slang) whore; harlot ¦ marker (player marking a rival)
 W	enorme	adjective		1473	enormous, huge
-W	completo	adjective		1231	full, complete ¦ completed
+W	completo	adjective		1231	full, complete, completed
 W	completo	noun	m	1231	(Chile) hot dog, usually served with chopped tomatoes, mayonnaise, and avocado paste or sauerkraut
 W	apreciar	infinitive		9344	to appreciate (to view as valuable) ¦ to appreciate (to increase in value) ¦ to notice, to detect
 W	gaza	noun	f	22667	eye splice
@@ -8260,7 +8260,7 @@ W	siniestro	noun	m	12244	accident ¦ accident: car accident ¦ catastrophe, disa
 W	mira	noun	f	148	target ¦ purpose, object ¦ sight (of a weapon)
 W	mira	interjection		148	look!
 W	arrancar	infinitive		8102	to pull out ¦ to unsheathe (a sword, dagger, etc.) ¦ to rip, to tear ¦ to start (a machine) ¦ to get going, get started ¦ to run away
-W	blando	adjective		10126	soft ¦ bland ¦ flabby ¦ cowardly ¦ flat ¦ softcore
+W	blando	adjective		10126	soft, softcore ¦ bland ¦ flabby ¦ cowardly ¦ flat
 W	bobina	noun	f	30436	reel, bobbin, spool ¦ electrical coil
 W	bollo	noun	m	16611	bun ¦ puff, tuft ¦ bump on the head ¦ (colloquial) confusion, chaos ¦ (Cuba, colloquial) vulva
 W	bollo	adjective		16611	(Spain, colloquial) dyke, lesbian (related to lesbians)
@@ -10224,7 +10224,7 @@ W	cursado	adjective		110063	well-versed
 W	curtido	adjective		57943	tanned ¦ weather-beaten, leathery (of skin) ¦ (El Salvador) pickled ¦ (Colombia, Dominican Republic) blackened by dirt, dirty
 W	curtido	noun	m	57943	(El Salvador) a pickled cabbage salad
 W	curvado	adjective		64144	curved
-W	custodio	noun	m	23528	guardian ¦ keeper ¦ custodian ¦ guard
+W	custodio	noun	m	23528	guardian, guard ¦ keeper ¦ custodian
 W	debido	adjective		1168	owed ¦ due
 W	decepcionado	adjective		5253	disappointed, gutted (UK), disillusioned
 W	decomiso	noun	m	92742	forfeiture, confiscation, seizure
@@ -10241,7 +10241,7 @@ W	deleite	noun	m	25709	delight, delectation
 W	deletreo	noun	m	34300	spelling
 W	deliberado	adjective		26281	deliberate
 W	denominado	adjective		47106	named, called, entitled, denominated ¦ so-called
-W	conjetura	noun	f	17226	guess ¦ conjecture, surmise, speculation ¦ guesswork
+W	conjetura	noun	f	17226	guess, guesswork ¦ conjecture, surmise, speculation
 W	conjeturar	infinitive		91328	to guess; to conjecture
 W	deporte	noun	m	4299	sport (activity)
 W	depravado	adjective		26123	depraved
@@ -10453,7 +10453,7 @@ W	empastado	adjective		298585	filled with paste
 W	empaste	noun	m	53350	filling
 W	empinado	adjective		46205	steep
 W	empleo	noun	m	2337	job, employment ¦ use, application
-W	empuje	noun	m	9826	thrust ¦ boost ¦ pushing ¦ push
+W	empuje	noun	m	9826	thrust ¦ boost ¦ pushing, push
 W	enajenado	adjective		109690	kooky, not all there
 W	enajenado	noun	m	109690	kook, nut, lunatic
 W	encadenado	adjective		17989	in chains; chained
@@ -10700,7 +10700,7 @@ W	gimoteo	noun	m	131890	whine, whining
 W	glaseado	noun	m	25230	frosting, icing, sugarcoat to be applied on bakestuff
 W	estirado	adjective		20656	stretched ¦ stuck-up, snooty
 W	estirado	noun	m	20656	stretch
-W	estofado	noun	m	12339	stew ¦ stewing
+W	estofado	noun	m	12339	stew, stewing
 W	estofa	noun	f	115287	quilting
 W	golpeado	adjective		4126	beaten, hit
 W	golpeo	noun	m	12054	hit, hitting, beating
@@ -10936,7 +10936,7 @@ W	resguardar	infinitive		71515	to safeguard, to protect ¦ to hunker down, to ta
 W	resignar	infinitive		108954	to resign oneself to
 W	resistir	infinitive		5751	to tolerate, to put up with, to bear, to handle, to stand ¦ to fight off, to survive, to defend oneself (from) ¦ to resist
 W	gesto	noun	m	5381	gesture ¦ expression
-W	soborno	noun	m	9643	bribery ¦ bribe ¦ (formal) subornation
+W	soborno	noun	m	9643	bribery, bribe ¦ (formal) subornation
 W	etiquetado	noun	m	29809	labelling
 W	evacuado	adjective		28473	evacuated
 W	evacuado	noun	m	28473	evacuee
@@ -11470,7 +11470,7 @@ W	retirado	adjective		6214	withdrawn, removed; retired
 W	retiro	noun	m	4416	retirement ¦ retirement pension ¦ retreat, refuge ¦ withdrawal (of money)
 W	retrasado	adjective		6268	delayed, retarded ¦ retarded, moronic, dumb
 W	retrasado	noun	m	6268	moron; retard
-W	retrato	noun	m	5472	portrait ¦ portraiture ¦ portrayal
+W	retrato	noun	m	5472	portrait, portraiture ¦ portrayal
 W	retumbo	noun	m	135333	crash (of thunder) ¦ boom, crash (loud sound)
 W	sacio	adjective		195140	sated, satiated, full
 W	revelado	noun	m	11914	photographic processing, development
@@ -11488,7 +11488,7 @@ W	robado	adjective		1983	stolen
 W	robo	noun	m	1644	robbery, theft
 W	sancocho	noun	m	269950	sancocho
 W	rondó	noun	m	121319	rondo
-W	sangrado	noun	m	10897	bleeding ¦ bleed
+W	sangrado	noun	m	10897	bleeding, bleed
 W	saqueo	noun	m	27503	sack, plunder, pillage
 W	rumia	noun	f	168002	pondering; rumination
 W	secuestrado	adjective		5995	kidnapped
@@ -12472,7 +12472,7 @@ W	fascista	adjective		13006	fascist (of or relating to fascism) ¦ fascist (supp
 W	fascista	noun	mf	13006	fascist (proponent of fascism)
 W	fascismo	noun	m	20718	fascism
 W	nazismo	noun	m	49461	Nazism
-W	comunista	adjective		6112	communist, Communist ¦ communistic
+W	comunista	adjective		6112	communist, Communist, communistic
 W	comunista	noun	mf	6112	communist, Communist
 W	comunismo	noun	m	14651	communism
 W	marxismo	noun	m	53288	Marxism
@@ -13490,7 +13490,7 @@ W	mitra	noun	f	54255	mitre (head covering of a church dignitary)
 W	tarjeta	noun	f	1336	card (only sometimes, see carta)
 W	varios	article		1859	various, several
 W	varios	adjective		1859	various, several
-W	humano	adjective		1157	human ¦ humane
+W	humano	adjective		1157	human, humane
 W	humano	noun	m	1157	human, human being
 W	enseguida	adverb		1029	immediately ¦ next
 W	absolutamente	adverb		1379	absolutely; completely; entirely; totally; utterly; wholly (in absolute manner) ¦ (Latin America) at all
@@ -13806,7 +13806,7 @@ W	griego	adjective		6772	Greek (from or native to Greece) ¦ Greek (pertaining t
 W	griego	noun	m	6772	a Greek ¦ (slang, vulgar) anal sex ¦ Greek (language) ¦ (colloquial) an unintelligible language
 W	fígaro	noun	m	47391	barber, hairdresser ¦ short jacket
 W	etnia	noun	f	57503	ethnic group, ethnicity
-W	malta	noun	f	16795	malt ¦ malta
+W	malta	noun	f	16795	malt, malta
 W	intendencia	noun	f	56896	management, administration, government ¦ the region governed by an intendente ¦ the status of being an intendente
 W	concebir	infinitive		18957	to conceive, imagine ¦ to understand ¦ to conceive, become pregnant
 W	sentado	adjective		1584	seated ¦ (figurative) settled, established ¦ (figurative) sensible, solid
@@ -14050,7 +14050,7 @@ W	aterrizar	infinitive		5709	to land (e.g. an airplane) ¦ (colloquial, figurati
 W	majestad	noun	f	1296	majesty
 W	conde	noun	m	3002	count, earl (nobility); countess in the feminine sense
 W	enfrente	adverb		3355	in front of, across from, opposite, facing
-W	campamento	noun	m	1936	camping (recreational activity) ¦ campsite, campground ¦ camp
+W	campamento	noun	m	1936	camping (recreational activity) ¦ campsite, campground, camp
 W	helicóptero	noun	m	3552	helicopter (an aircraft that is borne along by one or more sets of long rotating blades which allow it to hover)
 W	verdaderamente	adverb		3788	truthfully
 W	perfectamente	adverb		1878	perfectly
@@ -14326,10 +14326,10 @@ W	lubrificante	noun	m	214526	lubricant
 W	balcón	noun	m	7844	balcony
 W	digno	adjective		5075	worthy ¦ honorable ¦ dignified, respectful
 W	docena	noun	f	4168	dozen
-W	económico	adjective		11161	economic ¦ economical
+W	económico	adjective		11161	economic, economical
 W	enseñanza	noun	f	12306	teaching
 W	equivocar	infinitive		35536	to mistake, mix up ¦ to make a mistake
-W	guitarra	noun	f	3832	guitar ¦ guitarfish ¦ guitarist
+W	guitarra	noun	f	3832	guitar, guitarfish ¦ guitarist
 W	humilde	adjective		5811	humble ¦ low, lower (class)
 W	independiente	adjective		5424	independent (not contingent or depending on something else) ¦ independent, autonomous
 W	ingeniero	noun	m	4746	engineer
@@ -14612,7 +14612,7 @@ W	hidráulico	adjective		37999	hydraulic
 W	bilingüe	adjective		63342	bilingual
 W	bilingüe	noun	mf	63342	bilingual
 W	diámetro	noun	m	19093	diameter
-W	granizo	noun	m	32295	hail ¦ hailstone
+W	granizo	noun	m	32295	hail, hailstone
 W	inercia	noun	f	32624	inertia (the property of a body that resists change to its uniform motion) ¦ (figurative) inertia (lack of motivation, apathetic mood) ¦ inertness, inactivity
 W	bíblico	adjective		24300	biblical
 W	ojal	noun	m	49415	buttonhole, eyelet ¦ loop
@@ -14714,7 +14714,7 @@ W	reuma	noun	mf	49797	rheumatism
 W	comercial	adjective		2843	commercial
 W	comercial	noun	m	2843	(Latin America) commercial, advert
 W	ligar	infinitive		12689	to link, join ¦ to tie ¦ (colloquial) to score, (UK) to pull (persuade someone to kiss or have sex) ¦ (colloquial) to flirt ¦ (Bolivia, Cuba) to obtain; to get
-W	concierto	noun	m	2800	concert ¦ concerto
+W	concierto	noun	m	2800	concert, concerto
 W	posesión	noun	f	4937	possession
 W	adenovirus	noun	m	172303	adenovirus (any virus of the family Adenoviridae, many of which are responsible for respiratory infections in humans)
 W	bombo	adjective		29407	(colloquial) reckless ¦ (Cuba) having a mild temperature ¦ (Cuba) bland, insipid, flavorless
@@ -14838,7 +14838,7 @@ W	aniquilación	noun	f	27096	annihilation
 W	núcleo	noun	m	6272	nucleus, centre, core ¦ nucleus ¦ kernel ¦ core
 W	respectivamente	adverb		63930	respectively
 W	fisión	noun	f	42137	fission
-W	fusión	noun	f	6737	fusion ¦ melting ¦ merger ¦ merge
+W	fusión	noun	f	6737	fusion ¦ melting ¦ merger, merge
 W	repulsivo	adjective		19665	repulsive ¦ repulsive, gross
 W	firmeza	noun	f	20064	firmness
 W	interacción	noun	f	18452	interaction (the situation or occurrence in which two or more objects or events act upon one another to produce a new effect)
@@ -14990,7 +14990,7 @@ W	provisión	noun	f	30314	provision ¦ provisions, supplies
 W	reconstrucción	noun	f	12577	reconstruction
 W	catastrófico	adjective		25631	catastrophic (being a catastrophe)
 W	cartográfico	adjective		160693	cartographic
-W	fragata	noun	f	37718	frigate ¦ frigatebird
+W	fragata	noun	f	37718	frigate, frigatebird
 W	corbeta	noun	f	46640	corvette
 W	resarcimiento	noun	m	121742	compensation
 W	establecimiento	noun	m	12855	establishment
@@ -15204,7 +15204,7 @@ W	perteneciente	adjective		32527	[with a ‘someone/something’] belonging to
 W	antártico	adjective		50755	Antarctic ¦ meridional (of or in the south, southern)
 W	subsuelo	noun	m	29614	basement ¦ subsoil
 W	contiguo	adjective		44333	contiguous
-W	escuadra	noun	f	23070	squadron ¦ squad ¦ set square ¦ angle bracket (for shelves)
+W	escuadra	noun	f	23070	squadron, squad ¦ set square ¦ angle bracket (for shelves)
 W	grial	noun	m	15694	grail
 W	celoso	adjective		3253	jealous ¦ zealous
 W	paliza	noun	f	3241	(Spain) beating, bashing ¦ (Spain) rout, hammering, trouncing, beating (the act of completely defeating an army or other enemy force, causing it to retreat in a disorganized manner; (by extension) in politics, sport, etc.: a convincing defeat)
@@ -15285,7 +15285,7 @@ W	anatema	noun	m	93726	anathema (ban or curse)
 W	guardiamarina	noun	m	72100	second lieutenant
 W	finca	noun	f	10143	real estate (typically rural and surrounding land but also urban) ¦ farm
 W	amigdalitis	noun	f	72157	tonsilitis; strep throat
-W	crecido	adjective		4794	grown ¦ grown-up
+W	crecido	adjective		4794	grown, grown-up
 W	informado	adjective		4269	informed, aware of
 W	gestar	infinitive		110701	to gestate ¦ to develop, generate (a feeling) ¦ to carry out (progeny)
 W	bárbaro	adjective		11847	cruel, barbaric ¦ reckless, careless ¦ uneducated, ignorant ¦ rude ¦ intensifier, tremendous ¦ very good
@@ -15682,7 +15682,7 @@ W	avalancha	noun	f	18991	avalanche ¦ (figurative) deluge, flood, spate, onslaug
 W	telaraña	noun	f	23538	spiderweb
 W	escombro	noun	m	76897	rubble ¦ mackerel
 W	húmedo	adjective		9433	humid, moist, damp
-W	balón	noun	m	5879	ball ¦ balloon
+W	balón	noun	m	5879	ball, balloon
 W	fascinante	adjective		4191	fascinating
 W	licor	noun	m	5634	liqueur
 W	verificar	infinitive		7879	to verify, check
@@ -16726,7 +16726,7 @@ W	gorgojo	noun	m	118056	grub ¦ weevil ¦ (colloquial) small person
 W	duquesa	noun	f	9818	duchess
 W	caroteno	noun	m	266180	carotene
 W	infantil	adjective		4232	childish; childlike ¦ immature ¦ of, relating, or for children
-W	conteo	noun	m	16628	(Latin America) bill ¦ calculus, computation ¦ counting ¦ count
+W	conteo	noun	m	16628	(Latin America) bill ¦ calculus, computation ¦ counting, count
 W	lazo	noun	m	8112	bow (type of knot) ¦ ribbon ¦ lasso ¦ link ¦ bond ¦ snare, trap ¦ (Bolivia) bow tie, bowtie
 W	delincuente	adjective		6900	delinquent ¦ criminal
 W	delincuente	noun	mf	6900	delinquent, criminal, felon
@@ -17006,7 +17006,7 @@ W	mortalmente	adverb		29436	fatally, mortally
 W	longevo	adjective		143768	long-lived, long-living, that lives for a long time
 W	positivamente	adverb		21259	positively
 W	ingenuamente	adverb		74336	naively, ingenuously
-W	estrado	noun	m	7554	platform, dais, estrade, stage ¦ court ¦ courtroom
+W	estrado	noun	m	7554	platform, dais, estrade, stage ¦ court, courtroom
 W	frigio	adjective		220688	Phrygian
 W	frigio	noun	m	220688	Phrygian
 W	fabiano	adjective		159927	fabian; Fabian
@@ -17073,7 +17073,7 @@ W	chistoso	adjective		11690	jocular, funny
 W	chistoso	noun	m	11690	joker
 W	desensibilizar	infinitive		330818	to desensitize
 W	insensibilizar	infinitive		196360	to desensitize ¦ to become desensitized
-W	consiguiente	adjective		22364	consequent ¦ consequential
+W	consiguiente	adjective		22364	consequent, consequential
 W	omnipresencia	noun	f	191551	omnipresence
 W	anacronismo	noun	m	97319	anachronism
 W	pinacoteca	noun	f	303289	art gallery, especially one devoted to paintings
@@ -17147,7 +17147,7 @@ W	rivera	noun	f	17963	stream
 W	fábula	noun	f	28755	fable, myth, tale ¦ rumor ¦ (Costa Rica) animated cartoon
 W	tuera	noun	f	131342	colocynth, bitter apple (Citrullus colocynthis) ¦ monkshood (Aconitum napellus) ¦ annual scorpion-vetch (Coronilla scorpioides)
 W	salmodia	noun	f	263746	psalmody
-W	salterio	noun	m	163728	psaltery ¦ psalter
+W	salterio	noun	m	163728	psaltery, psalter
 W	segmento	noun	m	19847	segment, section
 W	semitono	noun	m	167822	semitone
 W	tapera	noun	f	200422	a ruin or an old, abandoned house
@@ -17196,7 +17196,7 @@ W	descenso	noun	m	12420	descent ¦ decline
 W	descendiente	noun	mf	16187	descendant ¦ offspring
 W	exhibición	noun	f	8375	exhibition, show, display
 W	profecía	noun	f	9994	prophecy ¦ prediction
-W	táctica	noun	f	8342	tactic ¦ tactics
+W	táctica	noun	f	8342	tactic, tactics
 W	parroquia	noun	f	12012	parish
 W	parroquiano	noun	m	138917	parishioner ¦ patron (regular customer)
 W	parroquial	adjective		38312	parochial (pertaining to a parish)
@@ -17636,7 +17636,7 @@ W	tarado	noun	m	10073	(colloquial) bozo, idiot, moron
 W	humanista	noun	mf	57690	humanist
 W	antera	noun	f	389204	anther
 W	bandoneón	noun	m	109134	bandoneon (a small Latin American accordion played with buttons which is frequently used in tango ensembles)
-W	bajón	noun	m	30237	bassoon ¦ bassoonist ¦ lull, low, dip, drop (decline) ¦ blues, slump (lack of spirit) ¦ (Chile, El Salvador) appetite (Desire to eat food or consume drink)
+W	bajón	noun	m	30237	bassoon, bassoonist ¦ lull, low, dip, drop (decline) ¦ blues, slump (lack of spirit) ¦ (Chile, El Salvador) appetite (Desire to eat food or consume drink)
 W	interferencia	noun	f	11612	interference
 W	adicción	noun	f	9464	addiction (compulsive usage) ¦ addiction (devotion; inclination)
 W	taxista	noun	mf	9615	taxi driver
@@ -17905,7 +17905,7 @@ W	operador	noun	m	12220	operator
 W	androide	noun	m	16842	android
 W	vudú	noun	m	13585	voodoo ¦ voodoo (person)
 W	arzobispo	noun	m	15888	archbishop
-W	cardenal	noun	m	7334	cardinal ¦ cardinal (bird) ¦ cardinalfish ¦ bruise
+W	cardenal	noun	m	7334	cardinal, cardinalfish ¦ cardinal (bird) ¦ bruise
 W	ftalato	noun	m	215988	phthalate
 W	glutamina	noun	f	279974	glutamine
 W	glicina	noun	f	138144	glycine ¦ wisteria (Also spelled glicinia)
@@ -18050,7 +18050,7 @@ W	stalinista	noun	mf	219331	Stalinist
 W	a huevo	adverb		0	(El Salvador, Guatemala) forcedly having no choice and with great effort ¦ (Colombia, Ecuador) very cheap ¦ (Spain, colloquial) within reach, easily achievable, on a plate
 W	a huevo	interjection		0	(El Salvador, Mexico) That's so true! ¦ (El Salvador, Mexico) fuck yeah ¦ (El Salvador, Mexico) for sure
 W	polaroid	noun	f	41555	polaroid
-W	argolla	noun	f	71912	large ring, hoop ¦ staple ¦ croquet ¦ ring ¦ ringlet ¦ scoreless inning ¦ (colloquial, vulgar) vagina
+W	argolla	noun	f	71912	large ring, hoop ¦ staple ¦ croquet ¦ ring, ringlet ¦ scoreless inning ¦ (colloquial, vulgar) vagina
 W	archivador	adjective		43646	filing
 W	archivador	noun	m	43646	filing cabinet ¦ folder, binder ¦ filing clerk; archivist
 W	aserradero	noun	m	28955	sawmill
@@ -18841,7 +18841,7 @@ W	bulevar	noun	m	30882	boulevard
 W	grajilla	noun	f	271350	jackdaw
 W	canelo	noun	m	135430	cinnamon (tree) ¦ Winter's bark (Drimys winteri)
 W	canelo	adjective		135430	having cinnamon color ¦ (Canary Islands) brown (chestnut colored)
-W	franja	noun	f	21657	stripe ¦ strip ¦ bangs, fringe
+W	franja	noun	f	21657	stripe, strip ¦ bangs, fringe
 W	anticlericalismo	noun	m	419100	anticlericalism
 W	antifascismo	noun	m	221178	antifascism
 W	antisemitismo	noun	m	39225	anti-Semitism
@@ -19490,7 +19490,7 @@ W	proteína	noun	f	16933	protein
 W	rehabilitación	noun	f	5649	rehabilitation ¦ reinstatement ¦ physical therapy
 W	narcótico	adjective		43331	narcotic
 W	narcótico	noun	m	43331	drug
-W	aleación	noun	f	27344	alloy ¦ alloying
+W	aleación	noun	f	27344	alloy, alloying
 W	preciado	adjective		15822	precious ¦ valuable
 W	magdalena	noun	f	13052	madeleine (cake) ¦ cupcake
 W	remolque	noun	m	10083	trailer (unpowered wheeled vehicle towed behind another) ¦ towing
@@ -20600,7 +20600,7 @@ W	indignado	noun	m	33763	(Spain) someone protesting the bankster occupation of t
 W	inducido	noun	m	29791	armature (in a dynamo)
 W	infecto	adjective		74328	infested
 W	inflado	noun	m	38120	inflation (an act, instance of, or state of expansion or increase in size, especially by injection of a gas)
-W	injerto	noun	m	24873	grafting ¦ graft
+W	injerto	noun	m	24873	grafting, graft
 W	inspirado	adjective		11475	inspired
 W	intercalado	adjective		219294	inserted, interspersed, interwoven
 W	inundado	adjective		22726	flooded, inundated
@@ -21985,7 +21985,7 @@ W	esturión	noun	m	64106	sturgeon
 W	esbelto	adjective		52835	slender, svelte, thin, slim, lean, willowy, trim
 W	perspicacia	noun	f	35523	perspicacity, acumen
 W	perturbante	adjective		90229	disruptive
-W	salsero	adjective		254927	salsa ¦ salsa-loving
+W	salsero	adjective		254927	salsa, salsa-loving
 W	salsero	noun	m	254927	salsa musician
 W	emoji	noun	m	77542	emoji (“digital graphic icon used to represent a concept or object”)
 W	clenbuterol	noun	m	307646	clenbuterol
@@ -22948,7 +22948,7 @@ W	ciclotrón	noun	m	114324	cyclotron
 W	posterioridad	noun	f	120931	posteriority
 W	estimación	noun	f	21511	estimation
 W	débilmente	adverb		60363	weakly
-W	doblete	noun	m	104608	doublet ¦ dipole ¦ cognate ¦ double ¦ fork
+W	doblete	noun	m	104608	doublet, double ¦ dipole ¦ cognate ¦ fork
 W	cuadrático	adjective		396898	quadratic
 W	migraña	noun	f	22895	migraine
 W	portentoso	adjective		112098	portentous ¦ prodigious ¦ wonderful, marvelous
@@ -23553,7 +23553,7 @@ W	maullar	infinitive		105487	to meow
 W	sij	adjective		80368	Sikh
 W	sij	noun	mf	80368	Sikh
 W	pituitario	adjective		199248	pituitary
-W	telégrafo	noun	m	26367	telegraph ¦ telegraphy
+W	telégrafo	noun	m	26367	telegraph, telegraphy
 W	ruibarbo	noun	m	38493	rhubarb (any plant of the genus Rheum)
 W	aeroportuario	adjective		314025	relating to airports
 W	delictual	adjective		347588	delictual
@@ -24199,7 +24199,7 @@ W	toroide	noun	m	224333	toroid
 W	obtuso	adjective		53096	obtuse (blunt) ¦ obtuse (intellectually dull) ¦ obtuse
 W	abdominoplastia	noun	f	136671	abdominoplasty
 W	amigdalectomía	noun	f	199237	tonsillectomy
-W	angiografía	noun	f	73048	angiograph ¦ angiography
+W	angiografía	noun	f	73048	angiograph, angiography
 W	angioplastia	noun	f	73963	angioplasty
 W	apendicectomía	noun	f	74256	appendicectomy
 W	autotrasplante	noun	m	303019	autotransplant
@@ -24325,7 +24325,7 @@ W	vericueto	noun	m	316671	difficult terrain ¦ difficult mountain trail ¦ meand
 W	primoroso	adjective		114845	prime, excellent, ace (first in excellence, quality, or value)
 W	piltrafa	noun	f	90896	scrap of meat ¦ offal, scrap, junk (object in very bad condition) ¦ rag ¦ skinny, feeble person ¦ someone pathetic/a wuss
 W	esquela	noun	f	65096	note, letter ¦ death announcement, funeral announcement
-W	tapón	noun	m	20760	obstruction, blockage ¦ cap, plug, bung, stopper ¦ plug, bathplug (for bath, bathtub), sink plug (for sink) ¦ earplug ¦ wax, build up of wax (excess wax in the ear) ¦ block ¦ traffic jam
+W	tapón	noun	m	20760	obstruction, blockage, block ¦ cap, plug, bung, stopper ¦ plug, bathplug (for bath, bathtub), sink plug (for sink) ¦ earplug ¦ wax, build up of wax (excess wax in the ear) ¦ traffic jam
 W	colonoscopia	noun	f	58091	colonoscopy
 W	recepcionista	noun	mf	12861	receptionist
 W	maleducado	adjective		16307	bad-mannered, ill-mannered, rude
@@ -24821,7 +24821,7 @@ W	egotista	noun	mf	132926	egotist
 W	exitosamente	adverb		29760	successfully
 W	toxicología	noun	f	24264	toxicology
 W	simbólico	adjective		21716	symbolic
-W	surrealista	adjective		26221	surreal ¦ surrealistic
+W	surrealista	adjective		26221	surreal, surrealistic
 W	surrealista	noun	mf	26221	surrealist
 W	aportación	noun	f	42253	contribution
 W	gueto	noun	m	17205	ghetto
@@ -25273,7 +25273,7 @@ W	astrofísico	noun	m	61414	astrophysicist
 W	neuroma	noun	m	127988	neuroma
 W	albinismo	noun	m	217434	albinism (lack of melanin pigmentation)
 W	keroseno	noun	m	89678	kerosene
-W	libelo	noun	m	104697	libel ¦ libelle
+W	libelo	noun	m	104697	libel, libelle
 W	sendos	article		209905	each, each one, both
 W	alidada	noun	f	261664	alidade
 W	alienista	noun	mf	213303	alienist
@@ -25822,7 +25822,7 @@ W	tendinoso	adjective		447280	tendinous
 W	jebe	noun	m	327931	(Latin America) latex, rubber ¦ (Latin America) rubber tree (Hevea brasiliensis)
 W	oleaginoso	adjective		274720	oleaginous (oily) ¦ producing oily fruit
 W	rasposo	adjective		189756	rough, raspy ¦ rough, hoarse, gravelly (voice) ¦ rough, grimy (place)
-W	labranza	noun	f	69905	farm ¦ farmland ¦ farming (business of cultivating land)
+W	labranza	noun	f	69905	farm, farmland ¦ farming (business of cultivating land)
 W	hisopo	noun	m	47725	hyssop ¦ aspergillium ¦ cotton swab, abbreviation of "hisopo de algodón"
 W	cifrar	infinitive		155374	to value, quantify, aggregate ¦ to write in code, cypher
 W	waterpolo	noun	m	58009	water polo (sport)
@@ -26235,7 +26235,7 @@ W	mamarracho	noun	m	61561	(colloquial, derogatory) mess, disaster (something bad
 W	encriptar	infinitive		116837	to encrypt
 W	piramidal	adjective		56653	pyramidal (pyramid-shaped) ¦ triquetrum
 W	piramidal	noun	f	56653	chimney bellflower (Campanula pyramidalis)
-W	albor	noun	m	118443	whiteness (state of being white) ¦ dawnlight ¦ dawn
+W	albor	noun	m	118443	whiteness (state of being white) ¦ dawnlight, dawn
 W	fosforescencia	noun	f	287148	phosphorescence
 W	pretor	noun	m	71078	magistrate
 W	embrollo	noun	m	29629	huddle, mess ¦ lie ¦ trouble, hassle
@@ -26501,7 +26501,7 @@ W	malabar	noun	m	88282	Malayalam (language)
 W	guardameta	noun	mf	102562	goalkeeper (player that protects a goal)
 W	teto	adjective		123825	(Mexico, colloquial) silly; immature; childishly foolish
 W	teto	noun	m	123825	(Mexico, colloquial) a silly, immature person
-W	morro	noun	m	24786	hill ¦ snout (long nose of an animal) ¦ (figurative) mouth ¦ hillock ¦ cheek; cheekiness ¦ pebble ¦ headland ¦ (El Salvador, Guatemala) Mexican calabash (Crescentia alata)
+W	morro	noun	m	24786	hill, hillock ¦ snout (long nose of an animal) ¦ (figurative) mouth ¦ cheek; cheekiness ¦ pebble ¦ headland ¦ (El Salvador, Guatemala) Mexican calabash (Crescentia alata) ¦ (Mexico) kid
 W	corsé	noun	m	26125	corset (woman's garment)
 W	axón	noun	m	456547	axon (nerve fibre)
 W	alcantarillado	noun	m	31723	sewer system, sewerage ¦ sewer
@@ -27518,7 +27518,7 @@ W	nonagenario	noun	m	275182	nonagenarian
 W	octogenario	adjective		132685	octogenarian
 W	octogenario	noun	m	132685	octogenarian
 W	peculio	noun	m	225342	savings, scraps, nest egg ¦ assets
-W	piloso	adjective		286867	hairy ¦ hair
+W	piloso	adjective		286867	hairy, hair
 W	idealizar	infinitive		109554	to idealize, idealise
 W	sobrecalentar	infinitive		151041	to overheat
 W	antibalas	adjective		21537	bulletproof
@@ -28515,7 +28515,7 @@ W	apoteosis	noun	f	79200	apotheosis
 W	estéticamente	adverb		67871	aesthetically
 W	biogénesis	noun	f	373642	biogenesis
 W	biogenético	adjective		268011	biogenetic
-W	estoico	adjective		48787	stoical ¦ stoic
+W	estoico	adjective		48787	stoical, stoic
 W	estoico	noun	m	48787	stoic
 W	estoicismo	noun	m	116287	stoicism
 W	soñolencia	noun	f	431190	drowsiness, sleepiness
@@ -28833,7 +28833,7 @@ W	amnésico	adjective		65825	amnesic
 W	amnésico	noun	m	65825	amnesiac
 W	gafar	infinitive		150318	to jinx, put a jinx on (a person or thing supposed to bring bad luck) ¦ to be jinx, be put a jinx on
 W	megalítico	adjective		238316	megalithic
-W	litografía	noun	f	109961	lithography ¦ lithograph
+W	litografía	noun	f	109961	lithography, lithograph
 W	litógrafo	noun	m	391875	lithographer
 W	payasada	noun	f	41944	antic, clowning
 W	bufonada	noun	f	107260	antic, clowning
@@ -28898,7 +28898,7 @@ W	protozoario	adjective		340306	protozoan, protozoic
 W	protozoario	noun	m	340306	protozoan
 W	hipertrofia	noun	f	106004	hypertrophy
 W	hipertrófico	adjective		247984	hypertrophic
-W	trópico	noun	m	37946	tropic ¦ tropics
+W	trópico	noun	m	37946	tropic, tropics
 W	trópico	adjective		37946	trope (of or relating to tropes and their use)
 W	uretral	adjective		202782	urethral
 W	pollas	adverb		18006	(Spain, vulgar) the fuck
@@ -29551,7 +29551,7 @@ W	flechazo	noun	m	32793	arrow wound ¦ arrow shot ¦ (colloquial) love at first 
 W	errático	adjective		32712	erratic
 W	personarse	infinitive		269291	(formal) to arrive, turn up, make one's way
 W	pulidor	adjective		73068	polishing
-W	pulidor	noun	m	73068	polish ¦ polisher
+W	pulidor	noun	m	73068	polish, polisher
 W	recompra	noun	f	118069	repurchase, buyback
 W	guinche	noun	m	266073	Rioplatense, Paraguayan, Bolivian, Venezuelan, and Cuban form of güinche (“crane”)
 W	grafitero	noun	m	110369	graffitist, graffiti artist
@@ -29843,7 +29843,7 @@ W	ofuscación	noun	f	146351	bewilderment, confusion ¦ blurring ¦ obfuscation (
 W	superestructura	noun	f	84451	superstructure (any structure built above the top full deck) ¦ superstructure (the social sphere of ideology)
 W	maratonista	noun	mf	124791	marathoner, marathon runner
 W	encarnizado	adjective		138876	bloody, brutal
-W	anilla	noun	f	53472	ring ¦ ring-pull
+W	anilla	noun	f	53472	ring, ring-pull
 W	alzada	noun	f	53240	height (distance from bottom) ¦ elevation ¦ appeal
 W	profusión	noun	f	113617	profusion, abundance
 W	paralímpico	adjective		373913	Paralympic
@@ -30090,7 +30090,7 @@ W	amañar	infinitive		58449	to rig, fix, meddle with
 W	cochambroso	adjective		124891	squalid, filthy
 W	detallista	adjective		45348	characterized by very precise attention to detalles (details); detail oriented, fussy, thoughtful, thoughty, perfectionist, fastidious, finicky, meticulous, precise, exact ¦ demonstrating detalles (kindness or consideration) for others; thoughtful, thoughty, considerate, attentive
 W	detallista	noun	mf	45348	retailer ¦ shopkeeper
-W	rozadura	noun	f	125426	scratch ¦ scratchmark
+W	rozadura	noun	f	125426	scratch, scratchmark
 W	atracón	noun	m	57250	(colloquial) stuffing, pigging out (act of eating a lot)
 W	dominada	noun	f	33801	pull-up; chin-up
 W	manguito	noun	m	48685	muff (of clothing) ¦ armband (for floating)
@@ -30366,7 +30366,7 @@ W	recomponer	infinitive		45349	to mend, put back together, fix back ¦ to recomp
 W	remarcar	infinitive		62179	to re-mark ¦ to reiterate, stress, emphasise ¦ to remark
 W	entredicho	noun	m	52947	question, doubt ¦ interdiction, ban
 W	eternizar	infinitive		196244	to eternalize ¦ to last for ever, last an age, drag on
-W	importación	noun	f	23269	importation ¦ import
+W	importación	noun	f	23269	importation, import
 W	innovador	adjective		25095	innovative (characterized by the creation of new ideas or inventions)
 W	innovador	noun	m	25095	innovator
 W	irreconocible	adjective		33006	unrecognizable
@@ -30612,7 +30612,7 @@ W	actuante	adjective		193826	acting (assuming the duties of another)
 W	ajetreo	noun	m	37937	toil, hard work ¦ bustle
 W	ajetrear	infinitive		352190	to tire out (with hard work)
 W	amerizar	infinitive		153696	synonym of amarar
-W	castizo	adjective		199389	pure-bred ¦ pure, original, fully-fledged ¦ pure
+W	castizo	adjective		199389	pure-bred, pure ¦ pure, original, fully-fledged
 W	desbarajuste	noun	m	102783	disorder, disarray, jumble
 W	desvalijar	infinitive		105516	to rob, clean out (rob everything someone has)
 W	doblegar	infinitive		47080	to bring down, vanquish, conquer, topple, defeat ¦ to fold, bend ¦ to divide by two ¦ to kneel down
@@ -30716,7 +30716,7 @@ W	amnios	noun	m	338888	amnion
 W	ajetreado	adjective		35552	busy with work; swamped ¦ bustling, hectic
 W	avinagrado	adjective		118935	bitter (personality)
 W	barrunto	noun	m	337156	foreboding; omen
-W	devanado	noun	m	161347	coiling ¦ coil
+W	devanado	noun	m	161347	coiling, coil
 W	fardo	noun	m	42963	bundle ¦ stack ¦ burden ¦ bale
 W	hojaldrado	adjective		244201	flaky
 W	reenvío	noun	m	75102	sending back; return
@@ -31025,8 +31025,8 @@ W	sacrílegamente	adverb		464692	sacrilegiously
 W	conjuntamente	adverb		38325	conjointly, jointly
 W	contencioso	adjective		101269	contentious
 W	contencioso	noun	m	101269	contention
-W	contraparte	noun	f	54131	counterpart ¦ counterparty ¦ opposing party
-W	contrapartida	noun	f	95535	counterpart ¦ counterparty ¦ contribution (financial) ¦ compensation ¦ compensatory measure
+W	contraparte	noun	f	54131	counterpart, counterparty ¦ opposing party
+W	contrapartida	noun	f	95535	counterpart, counterparty ¦ contribution (financial) ¦ compensation ¦ compensatory measure
 W	curador	noun	m	38653	curator ¦ executor ¦ trustee
 W	descendente	adjective		39804	descending, downward
 W	rojez	noun	f	151171	redness
@@ -31343,7 +31343,7 @@ W	conversador	noun	m	39095	conversationalist
 W	conversador	adjective		39095	talkative
 W	crestado	adjective		203238	crested
 W	crestado	noun	m	203238	crested animal
-W	cópula	noun	f	81245	copula ¦ conjunction ¦ copulation
+W	cópula	noun	f	81245	copula, copulation ¦ conjunction
 W	decididamente	adverb		28211	decidedly
 W	decálogo	noun	m	185074	commandments ¦ (informal) rules, dos and don'ts
 W	ralentizar	infinitive		49962	to slow down
@@ -33443,13 +33443,13 @@ W	encofrado	noun	m	215946	formwork, (UK) shuttering
 W	ensortijado	adjective		201124	curly
 W	alborozado	adjective		193056	overjoyed; ebullient
 W	trucado	adjective		62285	souped-up (of an engine, a motor vehicle, etc.: modified for higher performance)
-W	picudo	adjective		130445	beaked ¦ pointy ¦ pointed ¦ pointy-nosed ¦ chatty
+W	picudo	adjective		130445	beaked ¦ pointy, pointy-nosed ¦ pointed ¦ chatty
 W	picudo	noun	m	130445	weevil
 W	indigestar	infinitive		300560	to give or cause indigestion ¦ to get indigestion
 W	indigerible	adjective		237264	indigestible
 W	resabiado	adjective		351318	deft, crafty; streetwise
 W	desempañar	infinitive		332964	to demist, defog
-W	dentellada	noun	f	344246	bite ¦ bitemark
+W	dentellada	noun	f	344246	bite, bitemark
 W	archiconocido	adjective		422600	extremely well-known, world-famous
 W	campismo	noun	m	208212	camping (activity)
 W	termas	noun	f	48598	hot spring ¦ thermae ¦ thermal bath
@@ -35349,7 +35349,7 @@ W	reurbanización	noun	f	111647	reurbanization
 W	sorpresivamente	adverb		50115	surprisingly
 W	subprefecto	noun	m	119795	subprefect
 W	taumatúrgico	adjective		376845	thaumaturgic
-W	tempranero	adjective		104603	early ¦ early-rising
+W	tempranero	adjective		104603	early, early-rising
 W	tempranero	noun	m	104603	early riser, early bird
 W	añojo	noun	m	452014	a young bull between one and two years old
 W	eral	noun	mf	190286	a young bull between two and three years old
@@ -37859,7 +37859,7 @@ W	tapador	adjective		218243	guarding (connected to the guard, part of a machine)
 W	tapador	noun	m	218243	guard (machine part)
 W	colaless	noun	m	355702	thong, G-string
 W	arboleda	noun	f	37974	grove, coppice, copse
-W	molienda	noun	f	100604	grist ¦ grinding, milling ¦ mill ¦ tiredness ¦ nuisance
+W	molienda	noun	f	100604	grist ¦ grinding, milling, mill ¦ tiredness ¦ nuisance
 W	verdor	noun	m	86586	green, greenery, greenness
 W	verderón	noun	m	161145	greenfinch
 W	zambullidor	noun	m	291729	grebe
@@ -40071,7 +40071,7 @@ W	tarasco	noun	m	319317	Tarascan
 W	arana	noun	f	136712	trick, cheating, deception
 W	gargajo	noun	m	123561	phlegm
 W	juarista	noun	mf	223996	Juarista
-W	compaña	noun	f	126278	company, companionship ¦ companion
+W	compaña	noun	f	126278	company, companionship, companion
 W	fundillo	noun	m	221725	seat; crotch (of trousers) ¦ bottom; rear end; derriere
 W	fondillo	noun	m	188768	seat; crotch (of trousers) ¦ bottom; rear end; derriere
 W	puntillo	noun	m	187332	self-love ¦ staccato dot ¦ light drunkenness
@@ -42769,7 +42769,7 @@ W	ingresante	noun	mf	336447	incomer; entrant
 W	paiute	adjective		124809	Paiute
 W	paiute	noun	mf	124809	Paiute
 W	cefeida	adjective		229423	Cepheid
-W	cabezo	noun	m	314016	hill ¦ hilltop
+W	cabezo	noun	m	314016	hill, hilltop
 W	genciana	noun	f	161301	gentian
 W	queche	noun	m	183416	ketch
 W	inquietantemente	adverb		99447	worryingly
@@ -43500,7 +43500,7 @@ W	hemocultivo	noun	m	206494	blood culture
 W	archimago	noun	m	83559	archmage
 W	esterilizador	adjective		106392	sterilizing
 W	esterilizador	noun	m	106392	sterilizer
-W	discipulado	noun	m	447378	discipleship ¦ disciples
+W	discipulado	noun	m	447378	discipleship, disciples
 W	subdominante	noun	f	452433	subdominant
 W	acuanauta	noun	mf	290948	aquanaut
 W	onondaga	adjective		185560	Onondaga
@@ -44747,7 +44747,7 @@ W	adoratriz	noun	f	267979	adorer
 W	dendrotoxina	noun	f	261093	dendrotoxin
 W	pirincho	noun	m	330040	guira cuckoo (Guira guira)
 W	ferrofluido	noun	m	330251	ferrofluid
-W	camisero	adjective		198065	shirt ¦ shirtlike
+W	camisero	adjective		198065	shirt, shirtlike
 W	camisero	noun	m	198065	shirt maker or seller
 W	vinchuca	noun	f	253528	the kissing bug Triatoma infestans
 W	tetrodotoxina	noun	f	79341	tetrodotoxin
