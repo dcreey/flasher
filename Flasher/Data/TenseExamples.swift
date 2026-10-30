@@ -127,38 +127,50 @@ private enum EnglishVerb {
         return b + "s"
     }
 
-    /// The verb and anything after it from a gloss like "to sit down" → ("sit", "down"); nil when the gloss isn't a plain verb.
+    static let modals: Set<String> = ["can", "may", "must", "will", "should", "shall", "might"]
+
+    /// The verb and anything after it from a gloss like "to sit down" → ("sit", "down"). Tries each comma-separated term;
+    /// nil when no term is a plain verb (modals like "can" can't be inflected here).
     static func parse(_ gloss: String) -> (base: String, rest: String)? {
-        let first = Lexicon.stripParentheses(gloss)
-            .split(whereSeparator: { ",;".contains($0) }).first
-            .map { $0.trimmingCharacters(in: .whitespaces).lowercased() } ?? ""
-        let text = first.hasPrefix("to ") ? String(first.dropFirst(3)) : first
-        guard text.range(of: #"^[a-z]+( [a-z]+)?$"#, options: .regularExpression) != nil else { return nil }
-        let parts = text.split(separator: " ").map(String.init)
-        return (parts[0], parts.dropFirst().joined(separator: " "))
+        let terms = Lexicon.stripParentheses(gloss)
+            .split(whereSeparator: { ",;".contains($0) })
+            .map { $0.trimmingCharacters(in: .whitespaces).lowercased() }
+        for term in terms {
+            let text = term.hasPrefix("to ") ? String(term.dropFirst(3)) : term
+            guard text.range(of: #"^[a-z]+( [a-z]+)?$"#, options: .regularExpression) != nil else { continue }
+            let parts = text.split(separator: " ").map(String.init)
+            if modals.contains(parts[0]) { continue }
+            return (parts[0], parts.dropFirst().joined(separator: " "))
+        }
+        return nil
     }
 }
 
 extension TenseExamples {
     private static let spanishSubjects = ["yo", "tú", "él", "nosotros", "vosotros", "ellos"]
     private static let englishSubjects = ["I", "you", "he", "we", "you all", "they"]
+    private static let couldClause = ["Si pudiera", "Si pudieras", "Si pudiera", "Si pudiéramos", "Si pudierais", "Si pudieran"]
+    /// Weather verbs only make sense in the third person ("llueve").
+    private static let impersonal: Set<String> = ["llover", "nevar", "amanecer", "atardecer", "anochecer", "tronar", "granizar", "lloviznar", "acontecer", "relampaguear"]
 
     /// A simple made-up sentence that shows the selected form in context. Used when no real sentence has the tense.
     static func generated(tense: Tense, person: Int, conjugation: Conjugation, gloss: String) -> ExampleSentence? {
         guard let form = conjugation.form(tense, person) ?? nil else { return nil }
         let tail = conjugation.tail.isEmpty ? "" : " " + conjugation.tail
         let clitic = conjugation.reflexive && tense != .imperative ? Conjugation.reflexivePronouns[person] + " " : ""
-        let subject = spanishSubjects[person]
+        let isWeather = impersonal.contains(conjugation.infinitive)
+        if isWeather && (person != 2 || tense == .imperative || tense == .conditional) { return nil }
+        let subject = isWeather ? "" : spanishSubjects[person] + " "
         let verbPhrase = clitic + form + tail
         let spanish: String
         switch tense {
-        case .present: spanish = "Hoy \(subject) \(verbPhrase)."
-        case .preterite: spanish = "Ayer \(subject) \(verbPhrase)."
-        case .imperfect: spanish = "Antes \(subject) \(verbPhrase)."
-        case .future: spanish = "Mañana \(subject) \(verbPhrase)."
-        case .conditional: spanish = "Si pudiera, \(subject) \(verbPhrase)."
-        case .subjunctivePresent: spanish = "Espero que \(subject) \(verbPhrase)."
-        case .subjunctiveImperfect: spanish = "Ojalá \(subject) \(verbPhrase)."
+        case .present: spanish = "Hoy \(subject)\(verbPhrase)."
+        case .preterite: spanish = "Ayer \(subject)\(verbPhrase)."
+        case .imperfect: spanish = "Antes \(subject)\(verbPhrase)."
+        case .future: spanish = "Mañana \(subject)\(verbPhrase)."
+        case .conditional: spanish = "\(couldClause[person]), \(subject)\(verbPhrase)."
+        case .subjunctivePresent: spanish = "Espero que \(subject)\(verbPhrase)."
+        case .subjunctiveImperfect: spanish = "Ojalá \(subject)\(verbPhrase)."
         case .imperative:
             let shown = conjugation.attachedImperative?[person] ?? form
             spanish = "¡\(shown)\(tail)!"
@@ -166,17 +178,17 @@ extension TenseExamples {
 
         var english = ""
         if let (base, rest) = EnglishVerb.parse(gloss) {
-            let who = englishSubjects[person]
+            let who = isWeather ? "it" : englishSubjects[person]
             let tailEn = rest.isEmpty ? "" : " " + rest
             let isBe = base == "be"
-            func present() -> String { isBe ? ["am", "are", "is", "are", "are", "are"][person] : (person == 2 ? EnglishVerb.thirdSingular(base) : base) }
+            func present() -> String { isBe ? ["am", "are", "is", "are", "are", "are"][person] : (person == 2 || isWeather ? EnglishVerb.thirdSingular(base) : base) }
             func past() -> String { isBe ? [1, 3, 4, 5].contains(person) ? "were" : "was" : EnglishVerb.past(base) }
             switch tense {
             case .present: english = "Today \(who) \(present())\(tailEn)."
             case .preterite: english = "Yesterday \(who) \(past())\(tailEn)."
             case .imperfect: english = "Before, \(who) used to \(base)\(tailEn)."
             case .future: english = "Tomorrow \(who) will \(base)\(tailEn)."
-            case .conditional: english = "If I could, \(who) would \(base)\(tailEn)."
+            case .conditional: english = "If \(who) could, \(who) would \(base)\(tailEn)."
             case .subjunctivePresent: english = "I hope \(who) \(present())\(tailEn)."
             case .subjunctiveImperfect: english = "I wish \(who) \(isBe ? "were" : past())\(tailEn)."
             case .imperative:

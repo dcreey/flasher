@@ -134,10 +134,18 @@ struct ConjugationView: View {
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
+                } else {
+                    Text("No English translation for this verb")
+                        .font(.footnote)
+                        .foregroundStyle(.tertiary)
                 }
                 Text("Made-up example · real sentences show up when we have them")
                     .font(.caption2)
                     .foregroundStyle(.tertiary)
+            } else {
+                Text("This verb isn't used in this form.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
