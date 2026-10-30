@@ -12,6 +12,8 @@ struct WordDetailView: View {
     private var sentences: [VocabSentence] { SeedData.sentencesByWord[word.spanish] ?? [] }
     private var shownDiminutive: Diminutive? { diminutive ?? DiminutiveResolver.resolve(word.spanish) }
     private var synonyms: [String] { SeedData.synonyms[word.spanish]?.sorted() ?? [] }
+    private var conjugation: Conjugation? { word.partOfSpeech == .infinitive ? Conjugator.conjugate(word.spanish) : nil }
+    private var relatedWords: [Word] { RelatedForms.find(for: word) }
 
     var body: some View {
         ScrollView {
@@ -19,6 +21,8 @@ struct WordDetailView: View {
                 header
                 if let shownDiminutive { diminutiveCard(shownDiminutive) }
                 actions
+                if !relatedWords.isEmpty { relatedSection }
+                if let conjugation { conjugationSection(conjugation) }
                 if !synonyms.isEmpty { synonymsSection }
                 if !sentences.isEmpty { usagesSection }
             }
@@ -186,6 +190,45 @@ struct WordDetailView: View {
     }
 
     // MARK: - Content
+
+    private var relatedSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            sectionTitle("Related words")
+            VStack(spacing: 0) {
+                ForEach(relatedWords) { related in
+                    NavigationLink(value: SearchHit(word: related, diminutive: nil)) {
+                        HStack(spacing: 10) {
+                            VStack(alignment: .leading, spacing: 1) {
+                                Text(related.spanish)
+                                    .font(.headline)
+                                Text(related.english)
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            Text(related.partOfSpeech.rawValue)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            Image(systemName: "chevron.right")
+                                .font(.caption.weight(.semibold))
+                                .foregroundStyle(.tertiary)
+                        }
+                        .padding(.vertical, 8)
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    if related.id != relatedWords.last?.id { Divider() }
+                }
+            }
+        }
+    }
+
+    private func conjugationSection(_ conjugation: Conjugation) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            sectionTitle("Conjugation")
+            ConjugationView(conjugation: conjugation)
+        }
+    }
 
     private var synonymsSection: some View {
         VStack(alignment: .leading, spacing: 6) {
