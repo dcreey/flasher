@@ -34,7 +34,7 @@ struct DictionaryView: View {
                 resultsList
             }
         }
-        .searchable(text: $searchText, prompt: scope.prompt)
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: scope.prompt)
         .searchScopes($scope, activation: .onSearchPresentation) {
             ForEach(SearchScope.allCases) { Text($0.title).tag($0) }
         }
