@@ -137,7 +137,7 @@ private enum EnglishVerb {
             .map { $0.trimmingCharacters(in: .whitespaces).lowercased() }
         for term in terms {
             let text = term.hasPrefix("to ") ? String(term.dropFirst(3)) : term
-            guard text.range(of: #"^[a-z]+( [a-z]+)?$"#, options: .regularExpression) != nil else { continue }
+            guard text.range(of: #"^[a-z]+( [a-z]+){0,3}$"#, options: .regularExpression) != nil else { continue }
             let parts = text.split(separator: " ").map(String.init)
             if modals.contains(parts[0]) { continue }
             return (parts[0], parts.dropFirst().joined(separator: " "))
@@ -150,18 +150,63 @@ extension TenseExamples {
     private static let spanishSubjects = ["yo", "tú", "él", "nosotros", "vosotros", "ellos"]
     private static let englishSubjects = ["I", "you", "he", "we", "you all", "they"]
     private static let couldClause = ["Si pudiera", "Si pudieras", "Si pudiera", "Si pudiéramos", "Si pudierais", "Si pudieran"]
+    /// What a verb usually takes after it, so a made-up sentence doesn't end mid-thought ("tengo un carro").
+    private static let complements: [String: (es: String, en: String)] = [
+        "tener": ("un carro", "a car"), "querer": ("un café", "a coffee"), "hacer": ("la tarea", "the homework"),
+        "dar": ("un regalo", "a gift"), "ver": ("una película", "a movie"), "comprar": ("pan", "bread"),
+        "vender": ("frutas", "fruit"), "leer": ("un libro", "a book"), "escribir": ("una carta", "a letter"),
+        "beber": ("agua", "water"), "tomar": ("agua", "water"), "abrir": ("la puerta", "the door"),
+        "cerrar": ("la puerta", "the door"), "usar": ("el teléfono", "the phone"), "llevar": ("la mochila", "the backpack"),
+        "traer": ("el café", "the coffee"), "buscar": ("las llaves", "the keys"), "encontrar": ("las llaves", "the keys"),
+        "perder": ("las llaves", "the keys"), "ganar": ("el juego", "the game"), "necesitar": ("ayuda", "help"),
+        "conocer": ("a tu hermano", "your brother"), "saber": ("la respuesta", "the answer"), "decir": ("la verdad", "the truth"),
+        "pedir": ("un favor", "a favor"), "preparar": ("la cena", "dinner"), "cocinar": ("la cena", "dinner"),
+        "lavar": ("la ropa", "the clothes"), "limpiar": ("la casa", "the house"), "ayudar": ("a mi amigo", "my friend"),
+        "amar": ("a mi familia", "my family"), "esperar": ("el autobús", "the bus"), "mirar": ("la tele", "the TV"),
+        "escuchar": ("música", "music"), "cantar": ("una canción", "a song"), "tocar": ("la guitarra", "the guitar"),
+        "jugar": ("fútbol", "soccer"), "pagar": ("la cuenta", "the bill"), "recibir": ("un mensaje", "a message"),
+        "enviar": ("un mensaje", "a message"), "mandar": ("un mensaje", "a message"), "mostrar": ("la foto", "the photo"),
+        "poner": ("la mesa", "the table"), "sacar": ("la basura", "the trash"), "recordar": ("tu nombre", "your name"),
+        "olvidar": ("mi cartera", "my wallet"), "entender": ("la lección", "the lesson"), "aprender": ("español", "Spanish"),
+        "estudiar": ("español", "Spanish"), "practicar": ("español", "Spanish"), "pensar": ("en ti", "about you"),
+        "llamar": ("a mi mamá", "my mom"), "visitar": ("a mi abuela", "my grandmother"), "abrazar": ("a mi hijo", "my son"),
+        "invitar": ("a mis amigos", "my friends"), "romper": ("el vaso", "the glass"), "construir": ("una casa", "a house"),
+        "compartir": ("la comida", "the food"), "guardar": ("el dinero", "the money"), "gastar": ("el dinero", "the money"),
+        "ahorrar": ("dinero", "money"), "terminar": ("el trabajo", "the work"), "empezar": ("el trabajo", "the work"),
+        "comenzar": ("el trabajo", "the work"), "sentir": ("frío", "cold"), "dejar": ("las llaves", "the keys"),
+        "tirar": ("la basura", "the trash"), "elegir": ("un regalo", "a gift"), "contar": ("una historia", "a story"),
+        "explicar": ("la lección", "the lesson"), "repetir": ("la pregunta", "the question"), "ofrecer": ("ayuda", "help"),
+        "conseguir": ("un trabajo", "a job"), "mantener": ("la calma", "calm"), "creer": ("en ti", "in you"),
+        "poder": ("ir", "go"), "cambiar": ("el plan", "the plan"), "probar": ("la sopa", "the soup"),
+        "cortar": ("el pan", "the bread"), "mover": ("la silla", "the chair"),
+    ]
+
+    /// Glosses that don't inflect on their own ("to be able to, can").
+    private static let glossOverrides: [String: String] = ["poder": "to be able to"]
+
+    /// Verbs like gustar: the thing liked is the grammatical subject, so the person is who it pleases.
+    private static let dativeVerbs: [String: String] = ["gustar": "like", "encantar": "love"]
+
     /// Weather verbs only make sense in the third person ("llueve").
     private static let impersonal: Set<String> = ["llover", "nevar", "amanecer", "atardecer", "anochecer", "tronar", "granizar", "lloviznar", "acontecer", "relampaguear"]
 
     /// A simple made-up sentence that shows the selected form in context. Used when no real sentence has the tense.
     static func generated(tense: Tense, person: Int, conjugation: Conjugation, gloss: String) -> ExampleSentence? {
         guard let form = conjugation.form(tense, person) ?? nil else { return nil }
+        if let base = dativeVerbs[conjugation.infinitive] {
+            return generatedDative(tense: tense, person: person, form: form, base: base)
+        }
+        if conjugation.infinitive == "poder" && tense == .imperative { return nil }
+        var comp = conjugation.reflexive || !conjugation.tail.isEmpty ? nil : complements[conjugation.infinitive]
+        // A command shouldn't be aimed at "you" or "my mom" ("¡piensa en ti!"), so those objects are dropped
+        if tense == .imperative, let c = comp, c.es.contains(" ti") || c.es.contains("mi ") || c.es.contains("tu ") || c.es.contains("mis ") { comp = nil }
+        let compEs = comp.map { " " + $0.es } ?? ""
         let tail = conjugation.tail.isEmpty ? "" : " " + conjugation.tail
         let clitic = conjugation.reflexive && tense != .imperative ? Conjugation.reflexivePronouns[person] + " " : ""
         let isWeather = impersonal.contains(conjugation.infinitive)
         if isWeather && (person != 2 || tense == .imperative || tense == .conditional) { return nil }
         let subject = isWeather ? "" : spanishSubjects[person] + " "
-        let verbPhrase = clitic + form + tail
+        let verbPhrase = clitic + form + tail + compEs
         let spanish: String
         switch tense {
         case .present: spanish = "Hoy \(subject)\(verbPhrase)."
@@ -173,13 +218,14 @@ extension TenseExamples {
         case .subjunctiveImperfect: spanish = "Ojalá \(subject)\(verbPhrase)."
         case .imperative:
             let shown = conjugation.attachedImperative?[person] ?? form
-            spanish = "¡\(shown)\(tail)!"
+            spanish = "¡\(shown)\(tail)\(compEs)!"
         }
 
         var english = ""
-        if let (base, rest) = EnglishVerb.parse(gloss) {
+        if let (base, rest) = EnglishVerb.parse(glossOverrides[conjugation.infinitive] ?? gloss) {
             let who = isWeather ? "it" : englishSubjects[person]
-            let tailEn = rest.isEmpty ? "" : " " + rest
+            let restEn = [rest, comp?.en ?? ""].filter { !$0.isEmpty }.joined(separator: " ")
+            let tailEn = restEn.isEmpty ? "" : " " + restEn
             let isBe = base == "be"
             func present() -> String { isBe ? ["am", "are", "is", "are", "are", "are"][person] : (person == 2 || isWeather ? EnglishVerb.thirdSingular(base) : base) }
             func past() -> String { isBe ? [1, 3, 4, 5].contains(person) ? "were" : "was" : EnglishVerb.past(base) }
@@ -199,6 +245,43 @@ extension TenseExamples {
                 default: english = "\(cmd)\(tailEn)!"
                 }
             }
+        }
+        return ExampleSentence(spanish: spanish, english: english)
+    }
+
+    /// "Me gusta el café." / "Le gusto a mi mamá." with matching English.
+    private static func generatedDative(tense: Tense, person: Int, form: String, base: String) -> ExampleSentence? {
+        guard tense != .imperative else { return nil }
+        // person → (clitic, Spanish object, English subject, English object, subject is third person)
+        let frames: [(String, String, String, String, Bool)] = [
+            ("le", "a mi mamá", "my mom", "me", true), ("le", "a mi mamá", "my mom", "you", true),
+            ("me", "el café", "I", "coffee", false), ("le", "a mi mamá", "my mom", "us", true),
+            ("le", "a mi mamá", "my mom", "you all", true), ("me", "los tacos", "I", "tacos", false),
+        ]
+        let (clitic, object, subject, englishObject, third) = frames[person]
+        let clause = "\(clitic) \(form) \(object)"
+        let spanish: String
+        switch tense {
+        case .present: spanish = "Hoy \(clause)."
+        case .preterite: spanish = "Ayer \(clause)."
+        case .imperfect: spanish = "Antes \(clause)."
+        case .future: spanish = "Mañana \(clause)."
+        case .conditional: spanish = clause.prefix(1).uppercased() + clause.dropFirst() + "."
+        case .subjunctivePresent: spanish = "Espero que \(clause)."
+        case .subjunctiveImperfect: spanish = "Ojalá \(clause)."
+        case .imperative: return nil
+        }
+        let present = third ? EnglishVerb.thirdSingular(base) : base
+        let english: String
+        switch tense {
+        case .present: english = "Today \(subject) \(present) \(englishObject)."
+        case .preterite: english = "Yesterday \(subject) \(EnglishVerb.past(base)) \(englishObject)."
+        case .imperfect: english = "Before, \(subject) used to \(base) \(englishObject)."
+        case .future: english = "Tomorrow \(subject) will \(base) \(englishObject)."
+        case .conditional: english = "\(subject.prefix(1).uppercased() + subject.dropFirst()) would \(base) \(englishObject)."
+        case .subjunctivePresent: english = "I hope \(subject) \(present) \(englishObject)."
+        case .subjunctiveImperfect: english = "I wish \(subject) \(EnglishVerb.past(base)) \(englishObject)."
+        case .imperative: return nil
         }
         return ExampleSentence(spanish: spanish, english: english)
     }
