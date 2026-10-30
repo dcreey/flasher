@@ -12,6 +12,7 @@ struct ConjugationView: View {
 
     @State private var selection = Selection(tense: .present, person: 0)
     @State private var showFullForms = false
+    @AppStorage(AppSettings.showVosotrosKey) private var showVosotros = true
 
     private let labelWidth: CGFloat = 68
     private let groupGap: CGFloat = 6
@@ -29,6 +30,9 @@ struct ConjugationView: View {
             .pickerStyle(.segmented)
             chart
             footer
+        }
+        .onChange(of: showVosotros) { _, shown in
+            if !shown && selection.person == 4 { selection.person = 0 }
         }
     }
 
@@ -151,7 +155,7 @@ struct ConjugationView: View {
         HStack(spacing: cellSpacing) {
             ForEach(0..<3, id: \.self) { content($0) }
             Color.clear.frame(width: groupGap, height: 1)
-            ForEach(3..<6, id: \.self) { content($0) }
+            ForEach([3, 4, 5].filter { showVosotros || $0 != 4 }, id: \.self) { content($0) }
         }
     }
 

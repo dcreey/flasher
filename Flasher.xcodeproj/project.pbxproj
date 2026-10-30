@@ -36,6 +36,7 @@
 		DE4EC3968B84E0B857E31E7B /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76A63D228510AFCF6644AC3 /* ReviewView.swift */; };
 		E907C877405936A4FA128EE2 /* SessionCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857928A1FA26257E2EF7F8D6 /* SessionCompleteView.swift */; };
 		EF04C7CDBF16A8256C111E95 /* DictionaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDECE69016EF3E306EE24A /* DictionaryView.swift */; };
+		D7B19990C2078D95003A1465 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2773AC78DDD538241E1D861F /* SettingsView.swift */; };
 		811B219EA1967FC2A580BDCC /* ConjugationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F648AE9DD9A31E2445AB7080 /* ConjugationView.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		7045F70119B2781F3C96CC38 /* PlacementQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementQuizView.swift; sourceTree = "<group>"; };
 		857928A1FA26257E2EF7F8D6 /* SessionCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCompleteView.swift; sourceTree = "<group>"; };
 		91DDECE69016EF3E306EE24A /* DictionaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryView.swift; sourceTree = "<group>"; };
+		2773AC78DDD538241E1D861F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F648AE9DD9A31E2445AB7080 /* ConjugationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConjugationView.swift; sourceTree = "<group>"; };
 		968D5754378B53E36C74817D /* RecentWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWords.swift; sourceTree = "<group>"; };
 		374CC31A946F548CEB84BA86 /* RelatedForms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedForms.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				3BB241CE0198C1790881B7C3 /* AchievementToastView.swift */,
 				F55E68FEEABC8D07EC15B631 /* ContentView.swift */,
 				91DDECE69016EF3E306EE24A /* DictionaryView.swift */,
+				2773AC78DDD538241E1D861F /* SettingsView.swift */,
 				F648AE9DD9A31E2445AB7080 /* ConjugationView.swift */,
 				6E529F4375338B9F2C7D2EF8 /* FlashcardView.swift */,
 				212F413245547E0FD2840FD9 /* HomeView.swift */,
@@ -236,6 +239,7 @@
 				97988ABA6188C3FC38FBBD42 /* AchievementsView.swift in Sources */,
 				4436E573729DF8D2E479796E /* ContentView.swift in Sources */,
 				EF04C7CDBF16A8256C111E95 /* DictionaryView.swift in Sources */,
+				D7B19990C2078D95003A1465 /* SettingsView.swift in Sources */,
 				811B219EA1967FC2A580BDCC /* ConjugationView.swift in Sources */,
 				6CA487D4EDEDD21707249C45 /* Diminutive.swift in Sources */,
 				AAED40C9430D0BE07290E4CA /* FlashcardView.swift in Sources */,

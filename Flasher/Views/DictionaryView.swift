@@ -11,38 +11,33 @@ struct DictionaryView: View {
     @State private var recents = RecentWords.shared
     @State private var searchText: String = ""
     @State private var displayCount: Int = 100
+    @State private var showSettings = false
 
     private let pageSize = 100
 
     private var results: [SearchHit] {
-        DictionaryIndex.search(searchText)
+        searchText.isEmpty ? [] : DictionaryIndex.search(searchText)
     }
 
-    /// Recently opened words, shown above the full list until the user starts typing.
     private var recentHits: [SearchHit] {
-        guard searchText.isEmpty else { return [] }
-        return recents.words.map { SearchHit(word: $0, diminutive: DiminutiveResolver.resolve($0.spanish)) }
+        recents.words.map { SearchHit(word: $0, diminutive: DiminutiveResolver.resolve($0.spanish)) }
     }
 
     private var displayed: ArraySlice<SearchHit> {
         results.prefix(displayCount)
     }
 
-    private var allRows: some View {
-        ForEach(displayed) { hit in
-            NavigationLink(value: hit) {
-                DictionaryRow(hit: hit)
-            }
-        }
-    }
-
     var body: some View {
         Group {
-            if results.isEmpty {
-                ContentUnavailableView.search(text: searchText)
-            } else {
-                List {
-                    if !recentHits.isEmpty {
+            if searchText.isEmpty {
+                if recentHits.isEmpty {
+                    ContentUnavailableView(
+                        "No recent searches",
+                        systemImage: "clock",
+                        description: Text("Recent searches show up here.")
+                    )
+                } else {
+                    List {
                         Section {
                             ForEach(recentHits) { hit in
                                 NavigationLink(value: hit) {
@@ -59,10 +54,16 @@ struct DictionaryView: View {
                             }
                         }
                     }
-                    if recentHits.isEmpty {
-                        allRows
-                    } else {
-                        Section("All words") { allRows }
+                    .listStyle(.plain)
+                }
+            } else if results.isEmpty {
+                ContentUnavailableView.search(text: searchText)
+            } else {
+                List {
+                    ForEach(displayed) { hit in
+                        NavigationLink(value: hit) {
+                            DictionaryRow(hit: hit)
+                        }
                     }
                     if displayCount < results.count {
                         ProgressView()
@@ -78,6 +79,13 @@ struct DictionaryView: View {
         .autocorrectionDisabled()
         .textInputAutocapitalization(.never)
         .navigationTitle("Diccionario")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button { showSettings = true } label: { Image(systemName: "gearshape") }
+                    .accessibilityLabel("Settings")
+            }
+        }
+        .sheet(isPresented: $showSettings) { SettingsView() }
         .navigationDestination(for: SearchHit.self) { WordDetailView(word: $0.word, diminutive: $0.diminutive) }
         .onChange(of: searchText) { displayCount = pageSize }
     }
