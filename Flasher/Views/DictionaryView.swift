@@ -68,7 +68,11 @@ struct DictionaryView: View {
                 searchText = query
             }
         }
-        .navigationDestination(for: SearchHit.self) { WordDetailView(word: $0.word, diminutive: $0.diminutive) }
+        .navigationDestination(for: SearchHit.self) { hit in
+            WordDetailView(word: hit.word, diminutive: hit.diminutive)
+                // Opening a result is a finished search; the query is still in the field behind this page
+                .onAppear { searches.record(searchText) }
+        }
         .task(id: currentKey) { await runSearch(for: currentKey) }
         .onSubmit(of: .search) { searches.record(searchText) }
         .onChange(of: isSearching) { _, searching in
@@ -183,7 +187,6 @@ struct DictionaryView: View {
         List {
             ForEach(results.prefix(displayCount)) { hit in
                 NavigationLink(value: hit) { DictionaryRow(hit: hit) }
-                    .simultaneousGesture(TapGesture().onEnded { searches.record(searchText) })
             }
             if displayCount < results.count {
                 ProgressView()
@@ -277,6 +280,8 @@ private struct DictionaryRow: View {
             }
         }
         .padding(.vertical, 2)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .contentShape(Rectangle())
     }
 
     private var diminutiveNote: String? {
