@@ -286,3 +286,32 @@ extension TenseExamples {
         return ExampleSentence(spanish: spanish, english: english)
     }
 }
+
+// MARK: - English for conjugated phrases
+
+extension TenseExamples {
+    /// "to have just" → "I have just" / "he had just" / "you will have just"; nil when the gloss isn't a verb phrase.
+    static func phraseEnglish(gloss: String, tense: Tense, person: Int) -> String? {
+        guard gloss.lowercased().hasPrefix("to "), let (base, rest) = EnglishVerb.parse(gloss) else { return nil }
+        let who = englishSubjects[person]
+        let tail = rest.isEmpty ? "" : " " + rest
+        let isBe = base == "be"
+        let present = isBe ? ["am", "are", "is", "are", "are", "are"][person] : (person == 2 ? EnglishVerb.thirdSingular(base) : base)
+        let past = isBe ? ([1, 3, 4, 5].contains(person) ? "were" : "was") : EnglishVerb.past(base)
+        switch tense {
+        case .present: return "\(who) \(present)\(tail)"
+        case .preterite: return "\(who) \(past)\(tail)"
+        case .imperfect: return "\(who) used to \(base)\(tail)"
+        case .future: return "\(who) will \(base)\(tail)"
+        case .conditional: return "\(who) would \(base)\(tail)"
+        case .subjunctivePresent: return "that \(who) \(present)\(tail)"
+        case .subjunctiveImperfect: return "that \(who) \(past)\(tail)"
+        case .imperative:
+            switch person {
+            case 3: return "let's \(base)\(tail)"
+            case 4, 5: return "\(base)\(tail), everyone"
+            default: return "\(base)\(tail)"
+            }
+        }
+    }
+}

@@ -13,9 +13,57 @@ struct WordDetailView: View {
     private var shownDiminutive: Diminutive? { diminutive ?? DiminutiveResolver.resolve(word.spanish) }
     private var synonyms: [String] { SeedData.synonyms[word.spanish]?.sorted() ?? [] }
     private var conjugation: Conjugation? { word.partOfSpeech == .infinitive ? Conjugator.conjugate(word.spanish) : nil }
+    private var phraseVerb: PhraseVerb? { PhraseVerb.find(for: word) }
     private var relatedWords: [Word] { RelatedForms.find(for: word) }
     private var wikiExamples: [Extras.Example] { Extras.shared.examples(for: word) }
     private var origin: String? { Extras.shared.etymology[word.spanish] }
+
+    private struct FormRow: Identifiable {
+        let label: String
+        let singular: String?
+        let plural: String
+        var id: String { label }
+    }
+
+    /// Singular and plural for each sex, e.g. "el profesor · los profesores" and "la profesora · las profesoras".
+    private var nounFormRows: [FormRow] {
+        guard word.partOfSpeech == .noun, let forms = Extras.shared.nounForms[word.spanish] else { return [] }
+        func join(_ article: String, _ items: [String]) -> String? {
+            items.isEmpty ? nil : items.map { "\(article) \($0)" }.joined(separator: " / ")
+        }
+        var masculine: (s: [String], p: [String]) = (forms.masculine, forms.masculinePlural)
+        var feminine: (s: [String], p: [String]) = (forms.feminine, forms.femininePlural)
+        switch word.gender {
+        case "m": masculine = ([word.spanish], forms.plural)
+        case "f": feminine = ([word.spanish], forms.plural)
+        default: // one form for both sexes (el/la estudiante)
+            if masculine.s.isEmpty && feminine.s.isEmpty { masculine = ([word.spanish], forms.plural); feminine = masculine }
+        }
+        var rows: [FormRow] = []
+        if let plural = join("los", masculine.p) { rows.append(FormRow(label: "Masculine", singular: join("el", masculine.s), plural: plural)) }
+        if let plural = join("las", feminine.p) { rows.append(FormRow(label: "Feminine", singular: join("la", feminine.s), plural: plural)) }
+        return rows
+    }
+
+    private var nounFormsSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            sectionTitle("Plural & gender")
+            VStack(spacing: 0) {
+                ForEach(nounFormRows) { row in
+                    HStack(alignment: .firstTextBaseline) {
+                        Text(row.label).font(.caption).foregroundStyle(.secondary).frame(width: 76, alignment: .leading)
+                        VStack(alignment: .leading, spacing: 2) {
+                            if let singular = row.singular { Text(singular).font(.body.weight(.semibold)) }
+                            Text(row.plural).font(.body)
+                        }
+                        Spacer()
+                    }
+                    .padding(.vertical, 8)
+                    if row.id != nounFormRows.last?.id { Divider() }
+                }
+            }
+        }
+    }
 
     private struct RelatedItem: Identifiable {
         let text: String
@@ -66,7 +114,9 @@ struct WordDetailView: View {
             VStack(alignment: .leading, spacing: 24) {
                 header
                 if let shownDiminutive { diminutiveCard(shownDiminutive) }
+                if !nounFormRows.isEmpty { nounFormsSection }
                 if let conjugation { conjugationSection(conjugation) }
+                if let phraseVerb { phraseSection(phraseVerb) }
                 if !mexicanMeanings.isEmpty { mexicanCard }
                 if showsMeanings { meaningsSection }
                 if !usageSentences.isEmpty { usagesSection }
@@ -75,6 +125,7 @@ struct WordDetailView: View {
             }
             .padding()
         }
+        .opensWordLinks()
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { ToolbarItemGroup(placement: .topBarTrailing) { queueButtons } }
         .onAppear { RecentWords.shared.record(word) }
@@ -97,9 +148,24 @@ struct WordDetailView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(word.spanish)
                 .font(.largeTitle.bold())
-            Text(word.english)
+            let parts = word.english.components(separatedBy: " — ")
+            Text(parts[0])
                 .font(.title3)
                 .foregroundStyle(.secondary)
+            if parts.count > 1 {
+                Text(WordLinks.linked(parts.dropFirst().joined(separator: " — ")))
+                    .font(.callout)
+                    .italic()
+                    .tint(.primary)
+            }
+            if word.spanish.contains(" ") {
+                Text(WordLinks.linked(word.spanish))
+                    .font(.callout)
+                    .tint(.secondary)
+                Text("Tap a word to look it up")
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+            }
             HStack(spacing: 8) {
                 if let conjugation {
                     verbTags(conjugation)
@@ -357,6 +423,13 @@ struct WordDetailView: View {
         }
     }
 
+    private func phraseSection(_ phrase: PhraseVerb) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            sectionTitle("Conjugate this phrase")
+            ConjugationView(conjugation: phrase.conjugation, phrase: phrase)
+        }
+    }
+
     private var usageSentences: [ExampleSentence] {
         var all = sentences.map { ExampleSentence(spanish: $0.full, english: $0.translation) }
         all += wikiExamples.map { ExampleSentence(spanish: $0.spanish, english: $0.english) }
@@ -369,8 +442,9 @@ struct WordDetailView: View {
             sectionTitle("Usage")
             ForEach(usageSentences, id: \.self) { sentence in
                 VStack(alignment: .leading, spacing: 3) {
-                    Text(highlighted(sentence.spanish))
+                    Text(WordLinks.linked(highlighted(sentence.spanish)))
                         .font(.body)
+                        .tint(.primary)
                         .fixedSize(horizontal: false, vertical: true)
                     if !sentence.english.isEmpty {
                         Text(sentence.english)

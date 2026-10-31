@@ -13,14 +13,17 @@ LABEL = {'Spain': 'Spain', 'Chile': 'Chile', 'Argentina': 'Argentina', 'Rioplate
          'colloquial': 'colloquial', 'slang': 'slang', 'vulgar': 'vulgar', 'derogatory': 'derogatory', 'informal': 'informal',
          'figuratively': 'figurative', 'offensive': 'offensive', 'formal': 'formal', 'humorous': 'humorous', 'idiomatic': 'idiomatic'}
 SKIP_GLOSS = re.compile(r'^(alternative|pronominal|obsolete|misspelling|eye dialect|(first|second|third)-person|plural|feminine|masculine|apocopic|archaic)\b.*\b(of|form)\b', re.I)
+# Multi-word entries of other parts of speech ("hasta ahora" = so far, "agujero negro"); the verbs stay phrases
+OTHER = {'noun': 'noun', 'adj': 'adjective', 'adv': 'adverb', 'prep': 'preposition', 'conj': 'conjunction', 'pron': 'pronoun',
+         'det': 'article', 'num': 'numeral', 'verb': 'phrase', 'contraction': 'preposition'}
 path = sys.argv[1]
-keep = [l for l in open(path, encoding='utf8') if not l.startswith('W\t') or '\tphrase\t' not in l]
+keep = [l for l in open(path, encoding='utf8') if not l.startswith('W\t') or ' ' not in l.split('\t')[1]]
 seen = {}
 for line in sys.stdin:
     try: e = json.loads(line)
     except Exception: continue
     w = e.get('word') or ''
-    if e.get('lang_code') != 'es' or e.get('pos') not in PHRASE_POS or ' ' not in w.strip(): continue
+    if e.get('lang_code') != 'es' or (e.get('pos') not in PHRASE_POS and e.get('pos') not in OTHER) or ' ' not in w.strip(): continue
     if len(w) > 60 or w[0].isupper() and e['pos'] == 'intj' or not re.fullmatch(r"[^\d_@/]+", w): continue
     senses = []
     for s in e.get('senses', []):
@@ -37,18 +40,26 @@ for line in sys.stdin:
         senses.append(('§' if mex else '') + text[:220])
     if not senses: continue
     senses.sort(key=lambda x: 0 if x.startswith('§') else 1)
-    d = seen.setdefault(w, [])
+    pos = 'phrase' if e['pos'] in PHRASE_POS else OTHER[e['pos']]
+    if pos != 'phrase' and not senses[0].lstrip('§(').strip(): continue
+    gender = ''
+    if pos == 'noun':
+        for t in e.get('head_templates', []):
+            g = (t.get('args') or {}).get('1', '')
+            if g in ('m', 'f', 'mf', 'mfbysense'): gender = 'mf' if g.startswith('mf') else g
+    d = seen.setdefault((w, pos), {'g': gender, 'senses': []})['senses']
     for s in senses:
         if s not in d: d.append(s)
 for l in open('phrases_curated.tsv', encoding='utf8'):
     if not l.strip() or l.startswith('#'): continue
     w, g = l.rstrip('\n').split('\t')
-    seen.setdefault(w, []).insert(0, g)
+    seen.setdefault((w, 'phrase'), {'g': '', 'senses': []})['senses'].insert(0, g)
 out = open(path, 'w', encoding='utf8')
 out.writelines(keep)
 n = 0
-for w, ss in seen.items():
+for (w, pos), v in seen.items():
+    ss = sorted(v['senses'], key=lambda x: 0 if x.startswith('§') else 1)
     mex = any(s.startswith('§') for s in ss)
-    out.write('W\t%s\tphrase\t\t%d\t%s\n' % (w, 40000 if mex else 90000, ' ¦ '.join(ss[:6]).replace('\t', ' ')))
+    out.write('W\t%s\t%s\t%s\t%d\t%s\n' % (w, pos, v['g'], 40000 if mex else 90000, ' ¦ '.join(ss[:6]).replace('\t', ' ')))
     n += 1
 print('phrases', n, file=sys.stderr)

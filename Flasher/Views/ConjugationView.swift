@@ -9,12 +9,23 @@ struct ConjugationView: View {
     /// The verb's English gloss, used to translate generated sentences.
     var gloss: String = ""
 
+    /// Set for a phrase built around this verb: the banner then shows the whole phrase and its meaning.
+    var phrase: PhraseVerb?
+
     private struct Selection: Equatable {
         var tense: Tense
         var person: Int
     }
 
-    @State private var selection = Selection(tense: .present, person: 0)
+    init(conjugation: Conjugation, examples: [ExampleSentence] = [], gloss: String = "", phrase: PhraseVerb? = nil) {
+        self.conjugation = conjugation
+        self.examples = examples
+        self.gloss = gloss
+        self.phrase = phrase
+        _selection = State(initialValue: Selection(tense: phrase?.start.tense ?? .present, person: phrase?.start.person ?? 0))
+    }
+
+    @State private var selection: Selection
     @State private var showFullForms = false
     @State private var exampleIndex = 0
     @AppStorage(AppSettings.showVosotrosKey) private var showVosotros = true
@@ -27,7 +38,7 @@ struct ConjugationView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             banner
-            exampleCard
+            if phrase == nil { exampleCard }
             Picker("Display", selection: $showFullForms) {
                 Text("Endings").tag(false)
                 Text("Full forms").tag(true)
@@ -93,11 +104,32 @@ struct ConjugationView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
+            if let phrase {
+                phraseMeaning(phrase)
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(12)
         .background(tense.mood.color.opacity(0.1), in: RoundedRectangle(cornerRadius: 12))
         .animation(.easeOut(duration: 0.15), value: selection)
+    }
+
+    /// The phrase's meaning, inflected for the chosen tense and person when it reads as a verb phrase ("I have just").
+    @ViewBuilder
+    private func phraseMeaning(_ phrase: PhraseVerb) -> some View {
+        if let inflected = phrase.english(tense: selection.tense, person: selection.person) {
+            Text(inflected)
+                .font(.callout.weight(.medium))
+            Text("Base meaning: \(phrase.baseMeaning)")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        } else if !phrase.baseMeaning.isEmpty {
+            Text(phrase.baseMeaning)
+                .font(.callout.weight(.medium))
+            Text("Meaning of the base phrase")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
     }
 
     // MARK: - Example sentence for the selected tense
@@ -112,8 +144,9 @@ struct ConjugationView: View {
         VStack(alignment: .leading, spacing: 4) {
             if !real.isEmpty {
                 let match = real[exampleIndex % real.count]
-                Text(TenseExamples.highlight(match.sentence.spanish, tokens: [match.token]))
+                Text(WordLinks.linked(TenseExamples.highlight(match.sentence.spanish, tokens: [match.token])))
                     .font(.callout)
+                    .tint(.primary)
                     .fixedSize(horizontal: false, vertical: true)
                 Text(match.sentence.english)
                     .font(.footnote)
@@ -126,8 +159,9 @@ struct ConjugationView: View {
                 }
             } else if let made = TenseExamples.generated(tense: selection.tense, person: selection.person, conjugation: conjugation, gloss: gloss),
                       let form = conjugation.attachedImperativeOrForm(selection.tense, selection.person) {
-                Text(TenseExamples.highlight(made.spanish, tokens: [form.lowercased()]))
+                Text(WordLinks.linked(TenseExamples.highlight(made.spanish, tokens: [form.lowercased()])))
                     .font(.callout)
+                    .tint(.primary)
                     .fixedSize(horizontal: false, vertical: true)
                 if !made.english.isEmpty {
                     Text(made.english)
@@ -178,6 +212,7 @@ struct ConjugationView: View {
             }
         }
         if !conjugation.tail.isEmpty { form += " " + conjugation.tail }
+        if let phrase { form = phrase.spanish(core: form) }
         return tense == .imperative ? "¡\(form)!" : form
     }
 

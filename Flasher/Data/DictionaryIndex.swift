@@ -67,6 +67,36 @@ enum DictionaryIndex {
                      fuzzy: fuzzyTerms, diminutive: DiminutiveResolver.resolve(word.spanish))
     }
 
+    /// Every plural and other-sex form of a noun, so "profesoras" finds profesor.
+    private static let formIndex: [String: [Word]] = {
+        var map: [String: [Word]] = [:]
+        for (headword, forms) in Extras.shared.nounForms {
+            guard let word = Lexicon.shared.wordsByID[headword] else { continue }
+            let all = forms.plural + forms.feminine + forms.femininePlural + forms.masculine + forms.masculinePlural
+            for form in all where form != headword {
+                let key = form.searchKey
+                if !(map[key]?.contains(word) ?? false) { map[key, default: []].append(word) }
+            }
+        }
+        return map
+    }()
+
+    /// "los profesores y las profesoras" → the words behind each form: articles are dropped, "y"/"o"/commas separate the parts.
+    private static func wordsForForms(in q: String) -> [Word] {
+        let articles: Set<String> = ["el", "la", "los", "las", "un", "una", "unos", "unas"]
+        var parts = [q]
+        for separator in [" y ", " o ", ",", "/"] { parts = parts.flatMap { $0.components(separatedBy: separator) } }
+        var found: [Word] = []
+        for part in parts {
+            var tokens = part.split(separator: " ").map(String.init)
+            if tokens.count > 1, articles.contains(tokens[0]) { tokens.removeFirst() }
+            let key = tokens.joined(separator: " ")
+            let matches = formIndex[key] ?? []
+            for word in matches where !found.contains(word) { found.append(word) }
+        }
+        return found
+    }
+
     /// Builds the index ahead of the first search.
     static func warmUp() { _ = entries.count }
 
@@ -108,9 +138,23 @@ enum DictionaryIndex {
             ranked.append((diminutive.inDictionary ? 1 : -1, 0, SearchHit(word: diminutive.base, diminutive: diminutive)))
         }
 
-        for entry in entries where entry.word.id != diminutive?.base.id {
+        // "los profesores y las profesoras" / "profesoras": plural and other-sex forms lead
+        let formWords = scope == .english ? [] : wordsForForms(in: q)
+        for word in formWords where word.id != diminutive?.base.id {
+            ranked.append((0, 0, SearchHit(word: word, diminutive: nil)))
+        }
+        let formIDs = Set(formWords.map(\.id))
+        // "el profesor" searches like "profesor"
+        let articles = ["el ", "la ", "los ", "las ", "un ", "una ", "unos ", "unas "]
+        let bare = articles.first(where: { q.hasPrefix($0) && q.count > $0.count }).map { String(q.dropFirst($0.count)) }
+
+        for entry in entries where entry.word.id != diminutive?.base.id && !formIDs.contains(entry.word.id) {
             var best: (tier: Int, language: Int)?
-            if scope != .english, let tier = spanishTier(q, entry.spanish) { best = (tier, 0) }
+            if scope != .english {
+                let direct = spanishTier(q, entry.spanish)
+                let viaBare = bare.flatMap { spanishTier($0, entry.spanish) }.map { $0 + 1 }
+                if let tier = [direct, viaBare].compactMap({ $0 }).min() { best = (tier, 0) }
+            }
             if scope != .spanish, let tier = englishTier(englishQuery, entry), best == nil || tier < best!.tier { best = (tier, 1) }
 
             if let best {

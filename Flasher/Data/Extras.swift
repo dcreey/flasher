@@ -11,6 +11,16 @@ final class Extras {
         let english: String
     }
 
+    /// A noun's plural and its other-sex forms; every list is empty when Wiktionary gives none.
+    struct NounForms: Hashable {
+        let plural: [String]
+        let feminine: [String]
+        let femininePlural: [String]
+        let masculine: [String]
+        let masculinePlural: [String]
+    }
+
+    private(set) var nounForms: [String: NounForms] = [:]
     private(set) var examples: [String: [Example]] = [:]
     private(set) var synonyms: [String: [String]] = [:]
     private(set) var antonyms: [String: [String]] = [:]
@@ -29,6 +39,10 @@ final class Extras {
             switch cols[0] {
             case "X" where cols.count >= 5:
                 examples[word, default: []].append(Example(pos: String(cols[2]), spanish: String(cols[3]), english: String(cols[4])))
+            case "F":
+                let c = line.split(separator: "\t", omittingEmptySubsequences: false).map { list($0).filter { !$0.isEmpty } }
+                guard c.count >= 7 else { continue }
+                nounForms[word] = NounForms(plural: c[2], feminine: c[3], femininePlural: c[4], masculine: c[5], masculinePlural: c[6])
             case "Y": synonyms[word] = list(cols[2])
             case "N": antonyms[word] = list(cols[2])
             case "V": derived[word] = list(cols[2])

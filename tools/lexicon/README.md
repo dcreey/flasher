@@ -13,3 +13,8 @@ or is already in the flashcard set.
 
 Phrases, sayings and proverbs (run after build.py; appends `phrase` rows to lexicon.tsv, merging hand-written grammar patterns from `phrases_curated.tsv`):
 `curl -s https://kaikki.org/dictionary/Spanish/kaikki.org-dictionary-Spanish.jsonl | python3 phrases.py ../../Flasher/Data/lexicon.tsv`
+
+`forms.py` appends noun plural and feminine rows (`F`) to extras.tsv:
+`python3 forms.py ../../Flasher/Data/lexicon.tsv ../../Flasher/Data/extras.tsv < kaikki.jsonl`
+
+`phrases.py` also adds multi-word entries of every part of speech ("hasta ahora"), so run it after build.py.
