@@ -18,3 +18,8 @@ Phrases, sayings and proverbs (run after build.py; appends `phrase` rows to lexi
 `python3 forms.py ../../Flasher/Data/lexicon.tsv ../../Flasher/Data/extras.tsv < kaikki.jsonl`
 
 `phrases.py` also adds multi-word entries of every part of speech ("hasta ahora"), so run it after build.py.
+
+## adjective_tags.py
+
+Hand-curated categories for the ~350 most useful adjectives (what each sense can describe: person, animal, food, place, thing, weather, body, idea).
+Edit `adjective_tags.tsv`, then run `python3 tools/lexicon/adjective_tags.py` to rewrite the `A` rows in `extras.tsv`.

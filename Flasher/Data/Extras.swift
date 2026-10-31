@@ -20,6 +20,8 @@ final class Extras {
         let masculinePlural: [String]
     }
 
+    /// What each sense of an adjective can describe (people, food, places...); an empty set fits anything.
+    private(set) var adjectiveCategories: [String: [Set<String>]] = [:]
     private(set) var nounForms: [String: NounForms] = [:]
     private(set) var examples: [String: [Example]] = [:]
     private(set) var synonyms: [String: [String]] = [:]
@@ -43,6 +45,8 @@ final class Extras {
                 let c = line.split(separator: "\t", omittingEmptySubsequences: false).map { list($0).filter { !$0.isEmpty } }
                 guard c.count >= 7 else { continue }
                 nounForms[word] = NounForms(plural: c[2], feminine: c[3], femininePlural: c[4], masculine: c[5], masculinePlural: c[6])
+            case "A":
+                adjectiveCategories[word] = cols[2].components(separatedBy: "¦").map { Set($0.split(separator: ",").map(String.init)) }
             case "Y": synonyms[word] = list(cols[2])
             case "N": antonyms[word] = list(cols[2])
             case "V": derived[word] = list(cols[2])

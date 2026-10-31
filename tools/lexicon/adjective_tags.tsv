@@ -1,0 +1,798 @@
+# word<TAB>sense:cats ... (sense index in the adjective block, or * for every sense). cats: p person, a animal, f food/drink, l place, t thing, w weather, b body, i idea/situation
+bien	0:p
+bueno	0:t	1:t,f	2:p	3:p	5:p,a
+solo	1:p,a	2:p,a
+señor	0:t
+mejor	1:p
+padre	0:t,i
+claro	1:t	2:t,l	3:t,f	4:w
+seguro	0:l,t	1:i	4:p
+nuevo	0:t
+serio	0:p	1:i	2:p
+genial	0:t,i	1:p
+chico	0:t,l
+muerto	0:p,a	1:p
+rápido	0:p,a,t
+feliz	0:p,a	1:p	2:p,i
+justo	1:p,i
+bajo	0:p	1:l,t	2:p	3:i	4:p
+viejo	0:t,l	1:p,a	2:t	3:i
+grande	0:t,l	1:t	2:p
+difícil	0:i	1:i	2:i
+pequeño	0:t,l
+igual	2:t,l
+loco	0:p	1:p,i	2:t,i	3:t	4:l
+listo	0:p	1:p,t	2:p,a
+fuerte	0:p,a	1:t,i	2:i
+malo	1:t,f	3:p	5:t,f
+mayor	0:p
+fácil	0:i	1:t	2:p
+joven	0:p,a
+alto	0:p,t,l	1:t,l	2:t
+vivo	0:p,a	1:t,i	2:t,i
+perdido	0:p,t,a
+increíble	0:i,t
+duro	0:p	1:t	2:t,f	3:i	4:p	5:p,i
+perro	1:t,i	2:p
+libre	0:p,a	1:p	2:p	3:t	4:f
+extraño	0:i,p,t
+raro	1:p,t,i
+divertido	0:p,t,i
+largo	0:t,l	1:i	2:i
+negro	1:t	3:t,p	4:i	5:i
+pobre	0:p,l	1:p,a
+tranquilo	0:p,l
+bonito	0:p,l,t	1:l,t
+tonto	0:p
+normal	0:t,i	3:p
+blanco	0:t,f	1:p
+dejado	0:p
+terrible	0:i,t	2:i
+horrible	0:t,i,p
+amable	0:p
+dulce	0:f,t	1:p	2:w
+gracioso	0:p,i	1:p	3:p	5:f
+maravilloso	0:t,i,l
+triste	0:p,a	1:p	2:l,w,t	3:i	4:l	5:i
+conocido	1:p,l	2:p
+vestido	0:p
+inteligente	0:p,a,i
+frío	0:f,w,t,b	1:w,f	2:p	3:p
+simple	0:t,i	4:f
+hermoso	0:p,l,t
+caliente	0:f,t,w,l	1:i
+apuesto	0:p
+peligroso	0:p,l,t,a
+excelente	0:t,i,p
+lleno	0:t,l,p
+enfermo	0:p,a
+ocupado	0:p	1:p,l
+paciente	0:p
+culpable	0:p
+matado	0:p
+informe	0:t
+acabado	0:p,t
+doble	0:t
+fantástico	1:t,i,p
+rico	0:p	1:p	2:t,l	3:f
+brillante	0:t	1:p,i
+estupendo	3:t,i
+cansado	0:p,a	1:p	2:i,t	3:i
+casado	0:p
+enorme	0:t,l,a
+preocupado	0:p
+decidido	0:p
+responsable	0:p
+herido	0:p,a
+sospechoso	0:p,i
+sentado	0:p,a
+verde	0:t,l,f	1:t	2:f,t	3:p	4:i	5:i
+nervioso	1:p,a
+roto	0:t	1:t	2:t,b
+orgulloso	0:p
+abierto	0:t,l	1:l	2:p	3:p
+borracho	0:p	1:f
+enamorado	0:p
+oscuro	0:l,t,w	1:t	2:i
+grave	0:i,p	1:t	2:p,i
+contento	0:p,a
+limpio	0:t,l,p
+dormido	0:p,a	1:b
+cerrado	0:t,l	1:p
+débil	0:p,a,t
+valiente	0:p,a
+aburrido	0:p	1:p,i,t
+ligero	*:t,f
+pesado	0:t,f	1:p	2:i	3:p,i
+fresco	0:f,t	1:w,f,l	2:p
+caro	0:p	1:t,l
+barato	*:t,l,f
+sabroso	*:f
+amargo	*:f,p
+picante	0:f	1:i,t
+salado	*:f
+agrio	*:f,p
+suave	0:t,f,b	1:w,t,f	2:p	3:i
+fino	*:t,p,f
+gordo	0:p,a	1:t,f
+delgado	*:p,a,t
+flaco	*:p,a
+guapo	0:p	1:p	2:p
+feo	0:i,t	1:p,l,t
+extra	0:t,f
+inútil	*:p,t
+antiguo	0:t,l,p	1:t,l	2:t	3:t,i
+asustado	*:p,a
+entero	0:t,f
+profundo	0:l,t,w	1:p,i
+amante	0:p
+superior	2:t,l
+rosa	*:t,f
+sucio	0:t,l,p	1:p,i	2:i
+complicado	0:i,t	1:i
+precioso	0:t	1:p,l,t	2:p,t
+corto	0:t	1:i	2:p
+helado	0:f,w,t
+vacío	*:t,l
+famoso	*:p,l,t
+molesto	0:p	1:i,p	2:t
+bravo	0:p,a	1:p	2:p
+caído	0:p,t
+útil	*:t
+honesto	*:p
+enojado	*:p
+cobarde	*:p,a
+firme	0:t,p	1:p	2:p	3:p
+encantador	*:p,l,t
+usado	*:t
+salvaje	*:a,l,p
+asqueroso	*:t,f,p
+sencillo	0:t,f	1:t,i
+cómodo	0:t,p	1:t,i
+cruel	*:p,a
+gigante	*:t,p,a
+poderoso	*:p,t
+adorable	*:p,a,t
+ciego	0:p,a
+elegante	*:p,t,l
+urgente	*:i
+curioso	0:p,a	1:i,t	2:i,t	3:t,l
+lento	*:p,a,t
+desagradable	*:p,t,i
+delicioso	0:f	1:t,l,i
+celoso	0:p
+cercano	*:l,t
+mortal	0:i,t,p
+puro	0:t,w,f
+romántico	*:p,l,t
+afortunado	*:p
+sincero	*:p
+decente	0:p	1:t,l	2:l,t
+noble	*:p,t
+solitario	*:p,l
+atractivo	*:p,t,i
+sensible	0:p,a	1:p,a
+desnudo	0:p,b	1:t,l
+miserable	0:p	1:p	2:p
+alegre	*:p,l,t
+fatal	*:i
+adulto	*:p,a
+soltero	*:p
+sano	0:p,a,f	1:p
+incómodo	*:t,p,i
+ideal	*:t,l,i
+fascinante	*:p,t,i
+infantil	*:p,t
+confundido	*:p,a
+inconsciente	*:p,a
+patético	*:p,i
+bello	*:p,l,t
+fabuloso	1:t,p,l,i
+auténtico	*:t,f,p
+seco	*:t,w,f,l
+sagrado	*:t,l
+gris	0:t,w	1:i,p	2:w
+típico	*:f,t,l
+anciano	*:p
+malvado	*:p
+fiel	*:p,a
+mágico	*:t,l,i
+clásico	*:t,i
+plano	*:t,l
+generoso	*:p,f
+violento	*:p,a,i
+macho	0:a
+invisible	*:t,p
+saludable	*:p,f,t
+quemado	0:t,f	1:p
+callado	*:p,l
+grosero	*:p
+satisfecho	*:p,f
+misterioso	*:p,l,t
+furioso	*:p,a
+valioso	*:t,p
+sabio	*:p
+nocturno	*:a,t
+cojo	*:p,a
+avergonzado	*:p
+suelto	0:t
+apagado	0:t	1:p,t
+arriesgado	*:i,t,p
+humilde	*:p,l
+hambriento	*:p,a
+confuso	*:p,i
+moderno	*:t,l
+delicado	0:t,f,b	1:t	2:f,t
+líquido	*:f,t
+ácido	*:f,t
+sordo	0:p,a
+ansioso	*:p,a
+pacífico	*:p,l
+simpático	*:p
+astuto	*:p,a
+hueco	0:t
+dorado	*:t,f
+tímido	*:p,a
+reservado	1:p
+torpe	*:p,a
+enano	*:p,a
+intenso	*:f,t,w,i
+rubio	*:p,t
+bobo	*:p
+vago	1:p
+tierno	0:p	1:t,f	2:f,p
+agotado	0:p,a	1:t
+brutal	*:i,p,t
+honrado	*:p
+ardiente	*:p,t,i
+protector	*:p
+femenino	*:p,t
+sentimental	*:p,t
+educado	1:p
+recto	0:t,l	1:p
+sobrio	*:p,t
+deprimido	*:p,l
+rudo	*:p,t
+cuidadoso	*:p
+fijo	*:t
+bendito	*:p,t
+dedicado	*:p
+frágil	*:t,p
+gil	*:p
+gastado	*:t
+regular	1:t,i,f
+lejano	*:l,t
+vulgar	*:p,t
+mojado	*:t,w,l
+básico	*:t,i
+trágico	*:i,t
+frito	0:f
+atento	*:p
+inesperado	*:i
+chiflado	*:p
+inmortal	*:p,t
+insoportable	*:p,i,t
+culto	*:p
+inestable	*:t,p
+congelado	*:f,t,w
+sólido	*:t,f
+espeluznante	*:l,t,i
+confiado	*:p
+bruto	*:p,t
+mudo	*:p,a
+excepcional	*:t,p,i
+artificial	*:t,f
+masculino	*:p,t
+agresivo	*:p,a,i
+cómico	*:p,i
+silencioso	*:p,l,t
+letal	*:t,i
+embarazoso	*:i
+prudente	*:p
+cálido	*:w,l,p,t
+exitoso	*:p
+hondo	*:l,t
+ignorante	*:p
+hostil	*:p,l
+calvo	0:p,a,b
+apretado	1:t
+casero	2:f,t
+juvenil	*:p
+asado	*:f
+estropeado	*:t,f
+atrevido	*:p,t
+sutil	*:t,i,f
+tenso	*:p,i,t
+ancho	0:t,l
+relleno	0:f,t
+calmado	*:p,l,w
+corrupto	*:p,i
+sensual	*:p,t
+distante	*:p,l,t
+húmedo	*:w,l,t,f
+explosivo	*:p,t
+intruso	*:p
+inapropiado	*:i,t,p
+ingenuo	*:p
+feroz	*:a,p
+chulo	*:t,p
+radical	*:i
+leve	*:i,t,w
+eficiente	*:p,t
+maduro	0:f	1:p
+potente	*:t,p
+apestoso	*:t,f,p,l
+pálido	*:p,t
+modesto	*:p,l,t
+hábil	*:p
+blando	0:t,f	1:f
+amigable	*:p,a,l
+descuidado	*:p,l
+elevado	*:t,l
+veloz	*:p,a,t
+relajado	*:p,l
+crudo	1:f
+amplio	*:l,t
+maligno	*:p,t
+mareado	*:p
+estrecho	*:l,t
+sofisticado	*:t,p
+severo	*:p,i
+audaz	*:p,t
+travieso	*:p,a
+exigente	*:p,t
+puntual	*:p
+impecable	*:t,l,p
+agotador	*:i,t
+tinto	*:f
+terco	*:p,a
+ordinario	1:t,p
+dije	*:p
+importante	*:p,i,t,l
+bastante	*:t,f
+único	*:p,t,l
+correcto	0:i,t	1:p
+idiota	*:p,i
+maldito	*:p,t
+real	1:p,l,t
+especial	*:p,t,i,l,f
+café	*:t,f
+perfecto	*:p,t,i,f
+asesino	*:p,a,t
+médico	*:t,i
+secreto	*:i,t,l
+interesante	*:p,t,i,l
+capaz	*:p
+agradable	*:p,l,t,f,w
+humano	*:p,t
+santo	*:p,l,t
+azul	*:t,w,a
+rojo	*:t,f,p
+imbécil	*:p
+inocente	*:p,a
+ridículo	*:p,i,t
+cerdo	*:p,t
+natural	0:t,l,f	2:f,t,p	3:i
+pollo	*:p
+bastardo	*:p
+quieto	*:p,a,l
+falso	*:p,t,i
+móvil	*:t
+mono	*:p,t
+obvio	*:i
+mentiroso	*:p
+uniforme	*:t
+alerta	*:p,a
+desierto	*:l
+despierto	*:p,a
+ilegal	*:i,t
+bestia	*:p,t
+súper	*:t,p,i
+popular	*:p,l,t
+emocionante	*:i,t,l
+exterior	*:t,l
+distinto	*:t,i
+mental	*:i,p
+extranjero	*:p,t,f
+experto	*:p
+disponible	*:t,p,l
+consciente	*:p
+vecino	*:p,l
+crema	*:t,f
+moral	*:p,i
+traidor	*:p
+magnífico	*:t,p,l,i
+negativo	*:i,p
+razonable	*:p,i,t
+izquierdo	*:b,t
+sorprendente	*:i,t
+egoísta	*:p
+positivo	*:p,i
+breve	*:i,t
+absurdo	*:i,t,p
+guay	*:t,p,l
+plástico	*:t
+guerrero	*:p
+físico	*:b,t,i
+amarillo	*:t,f
+extremo	*:t,i,w,l
+extraordinario	*:p,t,i
+complejo	*:t,i,p
+estable	*:t,p,i
+habitual	*:i,p
+similar	*:t,i
+franco	*:p
+inusual	*:i,t
+digno	*:p
+doloroso	*:i,t,b
+creído	*:p
+evidente	*:i
+espiritual	*:p,i
+independiente	*:p,t
+repugnante	*:t,p,f,i
+oculto	*:t,l,i
+vital	*:i,t
+injusto	*:i,p
+incapaz	*:p
+vergonzoso	*:i,p
+trabajador	*:p,a
+vano	*:i,p
+espectacular	*:t,l,i,p
+arrogante	*:p
+excitante	*:i,t
+burro	*:p,a
+honorable	*:p
+conveniente	*:i,t
+adicto	*:p
+tradicional	*:t,f,i
+pillo	*:p
+lógico	*:i,p
+aterrador	*:t,i,l,p
+inevitable	*:i
+espantoso	*:t,i,l,p
+portátil	*:t
+tremendo	*:i,t
+vulnerable	*:p,a,t
+zorro	*:p
+pendejo	*:p
+eterno	*:i,t
+suicida	*:p,i
+rebelde	*:p,a
+esencial	*:t,i
+delincuente	*:p
+gentil	*:p
+formal	0:i,t	1:p
+divino	*:t,f,p,l
+ebrio	*:p
+concreto	*:i,t
+remoto	*:l,t,i
+convincente	*:p,i
+supremo	*:t,p
+automático	*:t,i
+demente	*:p
+anual	*:t,i
+sinvergüenza	*:p
+lamentable	*:i,t,p
+joya	*:t,p
+respetable	*:p
+difunto	*:p,a
+paranoico	*:p
+insignificante	*:t,i,p
+religioso	*:p,l,t
+infiel	*:p
+impaciente	*:p,a
+ingenioso	*:p,t,i
+deprimente	*:i,l,t,w
+villano	*:p
+optimista	*:p
+práctico	*:t,p,i
+superficial	*:p,t,i
+dramático	*:p,i
+confiable	*:p,t
+nudo	*:p,b
+creativo	*:p,t
+infinito	*:t,i,l
+notable	*:i,p,t
+hipócrita	*:p
+pésimo	*:t,i,p,f,l
+inconveniente	*:i,t
+legítimo	*:t,p,i
+ausente	*:p
+expuesto	*:t,l,p
+humillante	*:i
+despreciable	*:p,i
+repentino	*:i,w
+aceptable	*:t,i,f
+formidable	*:t,i,p
+oportuno	*:i
+irrelevante	*:i
+insensible	*:p
+golfo	*:p
+discreto	*:p,l
+anónimo	*:p,t
+alcohólico	*:p,f
+inaceptable	*:i,p
+inminente	*:i,w
+mozo	*:p
+admirable	*:p,i
+glorioso	*:t,i,l
+irresponsable	*:p
+inofensivo	*:p,a,t
+íntimo	*:p,l,i
+imprudente	*:p,i
+moreno	*:p,b,t
+ambicioso	*:p,i
+racional	*:p,i
+infernal	*:l,w,i,t
+artístico	*:p,t
+grandote	*:p,t,a
+ejemplar	*:p,t
+frustrante	*:i,p
+improbable	*:i
+casual	*:t,i,p
+vil	*:p,i
+anormal	*:i,t,p
+visible	*:t,i
+amistoso	*:p,a,l
+sensato	*:p,i
+comprensible	*:i,t
+tramposo	*:p
+peculiar	*:p,t,i,f
+distraído	*:p
+observador	*:p
+alérgico	*:p
+inmenso	*:t,l
+creíble	*:p,i
+cortés	*:p
+radiante	*:p,w,l
+chistoso	*:p,i
+considerable	*:i,t
+conmovedor	*:i,t
+bárbaro	*:p,i
+talentoso	*:p
+intacto	*:t,l,p
+cursi	*:p,t
+ofensivo	*:i,t,p
+cariñoso	*:p,a
+agudo	*:t,i,p
+eficaz	*:t,p,i
+siniestro	*:p,l,i
+significativo	*:i,t
+amoroso	*:p,a
+ruidoso	*:l,p,t,a
+masivo	*:t,i
+irritante	*:p,t,i
+insolente	*:p
+sangriento	*:i,t
+bribón	*:p
+resistente	*:t,p
+peludo	*:p,a,b
+estricto	*:p,i
+impotente	*:p
+estresante	*:i,l,t
+creyente	*:p
+sobrenatural	*:t,i
+innecesario	*:i,t
+legendario	*:p,t,l
+inmune	*:p,a
+tacaño	*:p
+dominante	*:p,a,i
+prometedor	*:i,t,p
+inquieto	*:p,a
+flexible	*:t,p,i
+destructor	*:t,p
+virtual	*:t,i
+flojo	0:t	1:p	2:t,f
+infame	*:t,p,l
+continuo	*:t,i
+perezoso	*:p,a
+fiable	*:p,t
+grueso	*:t,b,p
+exclusivo	*:t,l,i
+irresistible	*:t,p,f,i
+informal	*:p,t,i
+implacable	*:p,i,w
+entusiasta	*:p
+escalofriante	*:i,t,l
+decepcionante	*:i,t,f,p
+irracional	*:i,p
+interminable	*:i,t,l
+incompetente	*:p
+atroz	*:i,t
+impredecible	*:p,i,w
+tóxico	*:t,f,p,i
+problemático	*:i,p,t
+mediocre	*:p,t,f
+acogedor	*:l,p,t
+exhausto	*:p,a
+gruñón	*:p,a
+inseguro	*:p,l,i
+indiferente	*:p,i
+primitivo	*:t,p,l
+transparente	*:t,p,i
+impactante	*:i,t
+estimulante	*:i,t,f
+inquietante	*:i,t,l
+reconfortante	*:i,t,f
+engreído	*:p
+indefenso	*:p,a
+excesivo	*:i,t
+costoso	*:t,i
+relajante	*:i,l,t
+caluroso	*:w,l,p
+inmoral	*:p,i
+sonriente	*:p
+tentador	*:t,f,i
+estéril	*:p,a,l,t
+cínico	*:p
+contagioso	*:i,t,p
+moribundo	*:p,a
+testarudo	*:p,a
+sediento	*:p,a,l
+refrescante	*:f,w,t
+confortable	*:t,l
+perverso	*:p,i
+exquisito	*:f,t,p
+frecuente	*:i
+extravagante	*:p,t,i
+decisivo	*:i
+apto	*:p,t
+orgánico	*:f,t
+redondo	*:t,b,i
+imperdonable	*:i,p
+sobresaliente	*:p,i,t
+heroico	*:p,i
+preocupante	*:i,t
+diabólico	*:p,i,t
+irregular	*:t,i,l,b
+idéntico	*:t,p
+satisfactorio	*:i,t
+compatible	*:t,p
+singular	*:p,t,i
+repleto	*:t,l,p
+lujoso	*:t,l,f
+mezquino	*:p
+cachondo	*:p,a
+pegajoso	*:t,p,f
+crujiente	*:f,t
+horroroso	*:t,p,i,l
+predecible	*:i,p
+inspirador	*:p,i
+enfermizo	*:p
+necio	*:p
+viable	*:i
+llorón	*:p
+impulsivo	*:p
+gigantesco	*:t,l,a
+sublime	*:t,i,f
+solemne	*:p,i
+competitivo	*:p,i
+abundante	*:t,f,l
+inolvidable	*:i,l,p
+deslumbrante	*:p,l,t
+obediente	*:p,a
+pelirrojo	*:p
+rabioso	*:p,a
+inmóvil	*:p,a,t
+sereno	*:p,l,w
+célebre	*:p,l,t
+impermeable	*:t
+espontáneo	*:p,i
+placentero	*:i,l,t
+ilustre	*:p
+respetuoso	*:p
+temerario	*:p
+aventurero	*:p
+obsceno	*:t,i,p
+repulsivo	*:p,t,f
+ágil	*:p,a,t
+desastroso	*:i,t
+vicioso	*:p
+hablador	*:p
+tenebroso	*:l,t,i
+colosal	*:t,l,i
+escéptico	*:p
+pretencioso	*:p,t,l
+sociable	*:p,a
+alarmante	*:i,t
+horrendo	*:t,i,p
+dudoso	*:i,p,t
+imponente	*:t,l,p
+bondadoso	*:p
+delirante	*:p,i
+indestructible	*:t
+meticuloso	*:p
+robusto	*:p,t,a
+insaciable	*:p
+cordial	*:p,i
+musculoso	*:p,a,b
+dinámico	*:p,i,t
+cauteloso	*:p
+grotesco	*:t,p,i
+elocuente	*:p,i
+cabezón	*:p,b
+dichoso	*:p
+resbaladizo	*:t,l
+tieso	*:t,p,b
+áspero	*:t,b,f,p
+avaro	*:p
+ileso	*:p,a
+criminal	*:p,i
+funeral	*:i,t
+original	*:t,p,i
+acusado	0:p
+abandonado	*:p,l,t,a
+probable	*:i
+salvo	*:p,a,t
+bienvenido	*:p,t,i
+temprano	*:i,t,w
+querido	*:p
+amado	*:p
+enemigo	*:p
+empleado	*:p
+ganador	*:p,t
+imposible	*:i,t
+payaso	*:p
+ladrón	*:p
+harto	*:p
+borde	*:p
+considerado	*:p
+arreglado	*:p,t,l
+enfadado	*:p
+bebido	*:p
+alejado	*:l,t,p
+arruinado	*:p,t,l
+atrapado	*:p,a
+condenado	*:p
+desesperado	*:p,i
+despejado	0:t,l	1:w
+emocionado	*:p
+encantado	*:p
+encerrado	*:p,a
+escondido	*:t,l
+golpeado	*:p,t,a
+olvidado	*:p,l,t
+robado	*:t
+sorprendido	*:p,a
+estúpido	*:p,i
+grandioso	*:t,l,i
+equivocado	*:p,i
+desgraciado	*:p
+jodido	*:p,t
+interesado	*:p
+impresionante	*:t,l,p,i
+asombroso	*:t,i,l
+destruido	*:t,l
+despedido	*:p
+informado	*:p
+convencido	*:p
+apropiado	*:i,t
+adecuado	*:i,t
+agradecido	*:p
+entendido	*:p
+desconocido	*:p,l,t
+infeliz	*:p
+perdedor	*:p
+desaparecido	*:p,t
+prohibido	*:i,t,f
+privado	*:t,l,i
+público	*:l,t
+directo	*:p,t,i
+necesario	*:i,t
+sentido	*:i,p
+sufrido	*:p
+tomado	*:p
+tocado	*:p,f
+tirado	0:p
+parado	*:p,t
+mate	*:t
+naranja	*:t,f
+rata	*:p
+culo	*:p
+mago	*:p
+cabrón	*:p
+coño	*:p
+puto	*:p
+gilipollas	*:p
+tipo	*:p
+maestro	1:p

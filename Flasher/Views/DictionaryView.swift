@@ -4,6 +4,10 @@ struct DictionaryView: View {
     @State private var recents = RecentWords.shared
     @State private var searchText: String = ""
     @State private var scope: SearchScope = .all
+    /// What the searched adjective should describe ("rich" + food); nil leaves the search unfiltered.
+    @State private var typeFilter: TypeCategory?
+    /// Set once the chip is used, so "Anything" can switch off the type named in the query.
+    @State private var typeChosen = false
     @State private var results: [SearchHit] = []
     @State private var resultsKey: SearchKey?
     @State private var displayCount: Int = 100
@@ -22,9 +26,14 @@ struct DictionaryView: View {
     private struct SearchKey: Equatable {
         let text: String
         let scope: SearchScope
+        let category: TypeCategory?
+        let readsQuery: Bool
     }
 
-    private var currentKey: SearchKey { SearchKey(text: searchText, scope: scope) }
+    private var currentKey: SearchKey { SearchKey(text: searchText, scope: scope, category: typeFilter, readsQuery: !typeChosen) }
+
+    /// The type the results are filtered to: the chosen one, or the one named in the query ("rich food").
+    private var activeType: TypeCategory? { typeChosen ? typeFilter : TypeCategory.parse(searchText.searchKey)?.category }
 
     private var recentHits: [SearchHit] {
         recents.words.map { SearchHit(word: $0, diminutive: DiminutiveResolver.resolve($0.spanish)) }
@@ -43,6 +52,9 @@ struct DictionaryView: View {
             } else {
                 resultsList
             }
+        }
+        .safeAreaInset(edge: .top, spacing: 0) {
+            if !searchText.isEmpty { typeFilterBar }
         }
         .background { SearchStateReader(isSearching: $isSearching) }
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: scope.prompt)
@@ -83,6 +95,7 @@ struct DictionaryView: View {
             if phase != .active { saveLastQuery() }
         }
         .onChange(of: searchText) { _, text in
+            if text.isEmpty { typeFilter = nil; typeChosen = false }
             if !text.isEmpty { lastQuery = text }
         }
         .task(id: searchText) {
@@ -100,6 +113,33 @@ struct DictionaryView: View {
         }
     }
 
+    /// One chip: "Describes: Food & drink ▾". Tapping it lists the kinds of thing an adjective can describe.
+    private var typeFilterBar: some View {
+        HStack {
+            Menu {
+                Picker("Describes", selection: Binding(get: { activeType }, set: { typeFilter = $0; typeChosen = true })) {
+                    Label("Anything", systemImage: "square.grid.2x2").tag(TypeCategory?.none)
+                    ForEach(TypeCategory.allCases) { Label($0.title, systemImage: $0.symbol).tag(TypeCategory?.some($0)) }
+                }
+            } label: {
+                HStack(spacing: 6) {
+                    Image(systemName: activeType?.symbol ?? "line.3.horizontal.decrease")
+                    Text(activeType.map { "Describes: \($0.title)" } ?? "Describes: anything")
+                    Image(systemName: "chevron.up.chevron.down").font(.caption2)
+                }
+                .font(.subheadline.weight(.medium))
+                .padding(.horizontal, 12)
+                .padding(.vertical, 7)
+                .background(activeType == nil ? Color(.secondarySystemBackground) : Color.accentColor.opacity(0.15), in: Capsule())
+                .foregroundStyle(activeType == nil ? Color.secondary : Color.accentColor)
+            }
+            Spacer()
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 6)
+        .background(Color(.systemBackground))
+    }
+
     private func saveLastQuery() {
         guard !lastQuery.isEmpty else { return }
         searches.record(lastQuery)
@@ -115,7 +155,7 @@ struct DictionaryView: View {
         try? await Task.sleep(for: .milliseconds(120))
         guard !Task.isCancelled else { return }
         let hits = await Task.detached(priority: .userInitiated) {
-            DictionaryIndex.search(key.text, scope: key.scope)
+            DictionaryIndex.search(key.text, scope: key.scope, category: key.category, readsTypeFromQuery: key.readsQuery)
         }.value
         guard !Task.isCancelled else { return }
         results = hits
@@ -270,7 +310,7 @@ private struct DictionaryRow: View {
                         .foregroundStyle(.orange)
                 }
             }
-            Text(word.english)
+            Text(hit.senseNote ?? word.english)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
             if let note = diminutiveNote {
