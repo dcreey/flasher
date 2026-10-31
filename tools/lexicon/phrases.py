@@ -32,7 +32,7 @@ for line in sys.stdin:
         tags = set(s.get('tags') or []) | set(s.get('raw_tags') or [])
         if BAD & tags: continue
         text = re.sub(r'\s+', ' ', g[-1]).strip().rstrip('.')
-        if not text or SKIP_GLOSS.match(text) or ' of ' in text[:25] and text.split()[0] in ('alternative', 'pronominal'): continue
+        if not text or text.startswith('Used other than') or SKIP_GLOSS.match(text) or ' of ' in text[:25] and text.split()[0] in ('alternative', 'pronominal'): continue
         mex = 'Mexico' in tags or bool(re.search(r'\((?:Mexic|MX)', text))
         text = re.sub(r'\s*\((?:Mexican|Mexico|MX)[^)]*\)', '', text).strip()
         labels = [LABEL[t] for t in sorted(tags) if t in LABEL][:2]

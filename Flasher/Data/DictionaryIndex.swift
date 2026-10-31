@@ -81,6 +81,11 @@ enum DictionaryIndex {
         return map
     }()
 
+    /// The nouns a plural or other-sex form belongs to ("bocas" → boca), most common first.
+    static func nounsWithForm(_ form: String) -> [Word] {
+        (formIndex[form.searchKey] ?? []).sorted { $0.order < $1.order }
+    }
+
     /// "los profesores y las profesoras" → the words behind each form: articles are dropped, "y"/"o"/commas separate the parts.
     private static func wordsForForms(in q: String) -> [Word] {
         let articles: Set<String> = ["el", "la", "los", "las", "un", "una", "unos", "unas"]
@@ -118,7 +123,7 @@ enum DictionaryIndex {
     /// Exact matches in either language rank first (the primary meaning ahead of secondary ones), then Spanish
     /// prefixes, English prefixes / Spanish substrings and English substrings. Queries of 4+ characters also
     /// match near-misses (typos) after the direct matches.
-    static func search(_ query: String, scope: SearchScope) -> [SearchHit] {
+    static func search(_ query: String, scope: SearchScope, isFallback: Bool = false) -> [SearchHit] {
         let q = query.searchKey
         guard !q.isEmpty else { return [] }
 
@@ -129,7 +134,9 @@ enum DictionaryIndex {
             break
         }
         let queryBytes = Array(q.utf8)
-        let maxTypos = q.count >= 7 ? 2 : (q.count >= 4 ? 1 : 0)
+        let englishBytes = Array(englishQuery.utf8)
+        func typos(_ text: String) -> Int { text.count >= 7 ? 2 : (text.count >= 4 ? 1 : 0) }
+        let maxTypos = max(typos(q), typos(englishQuery))
         var ranked: [(rank: Int, language: Int, hit: SearchHit)] = []
 
         // "casita" → casa. Goes first unless "casita" has its own entry; that entry then stays on top.
@@ -164,7 +171,9 @@ enum DictionaryIndex {
                 var closest: (distance: Int, language: Int)?
                 for (index, term) in entry.fuzzy.enumerated() {
                     if index == 0 ? scope == .english : scope == .spanish { continue }
-                    if let d = editDistance(queryBytes, term, limit: maxTypos), closest == nil || d < closest!.distance {
+                    let isSpanish = index == 0
+                    let allowed = isSpanish ? typos(q) : typos(englishQuery)
+                    if let d = editDistance(isSpanish ? queryBytes : englishBytes, term, limit: allowed), closest == nil || d < closest!.distance {
                         closest = (d, index == 0 ? 0 : 1)
                     }
                 }
@@ -172,6 +181,20 @@ enum DictionaryIndex {
                     ranked.append(((5 + closest.distance) * 2, closest.language,
                                    SearchHit(word: entry.word, diminutive: entry.diminutive, matchedEnglish: closest.language == 1)))
                 }
+            }
+        }
+        // Nothing matched the whole phrase ("que gusto"): fall back to the words in it, the content words first
+        if ranked.isEmpty, englishQuery.contains(" "), !isFallback {
+            let small: Set<String> = ["que", "de", "la", "el", "los", "las", "un", "una", "y", "a", "en", "lo", "se", "me", "te", "por", "para", "con", "no", "to", "the", "of", "an"]
+            let tokens = englishQuery.split(separator: " ").map(String.init)
+            for group in [tokens.filter { !small.contains($0) }, tokens.filter { small.contains($0) }] {
+                var seen: Set<String> = []
+                for token in group {
+                    for hit in search(token, scope: scope, isFallback: true).prefix(6) where seen.insert(hit.id).inserted {
+                        ranked.append((6 + (group.first == token ? 0 : 1), hit.matchedEnglish ? 1 : 0, hit))
+                    }
+                }
+                if !ranked.isEmpty { break }
             }
         }
         return ranked

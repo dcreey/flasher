@@ -101,7 +101,10 @@ enum WordLinks {
     static func resolve(_ token: String) -> Word? {
         let lower = token.lowercased()
         let words = Lexicon.shared.wordsByID
-        if let word = words[lower] { return word }
+        // A plural of a common noun beats a rarer word spelled the same (bocas → boca, not Spain's "bocas")
+        let exact = words[lower]
+        if let base = DictionaryIndex.nounsWithForm(lower).first, exact == nil || base.order < exact!.order { return base }
+        if let exact { return exact }
         if let slot = VerbForms.index[lower]?.first, let word = words[slot.infinitive] { return word }
         for candidate in [String(lower.dropLast(2)), String(lower.dropLast()), String(lower.dropLast(2)) + "o"] where candidate.count >= 3 {
             if lower.hasSuffix("es"), candidate == String(lower.dropLast(2)), let word = words[candidate] { return word }
