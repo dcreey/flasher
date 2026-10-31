@@ -8,8 +8,16 @@ struct DictionaryView: View {
     @State private var resultsKey: SearchKey?
     @State private var displayCount: Int = 100
     @State private var showSettings = false
+    @State private var showHistory = false
+    @State private var searches = RecentSearches.shared
+    @State private var isSearching = false
+    /// The latest non-empty query; saved whenever the search is closed or the app leaves the screen.
+    @State private var lastQuery = ""
+    @Environment(\.scenePhase) private var scenePhase
 
     private let pageSize = 100
+    /// Only what fits above the keyboard shows here; the rest lives in the searchable history.
+    private static let inlineSearches = 5
 
     private struct SearchKey: Equatable {
         let text: String
@@ -24,7 +32,9 @@ struct DictionaryView: View {
 
     var body: some View {
         Group {
-            if searchText.isEmpty {
+            if searchText.isEmpty, isSearching {
+                recentSearchesList
+            } else if searchText.isEmpty {
                 recentsList
             } else if resultsKey == currentKey, results.isEmpty {
                 ContentUnavailableView.search(text: searchText)
@@ -34,6 +44,7 @@ struct DictionaryView: View {
                 resultsList
             }
         }
+        .background { SearchStateReader(isSearching: $isSearching) }
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: scope.prompt)
         .searchScopes($scope, activation: .onSearchPresentation) {
             ForEach(SearchScope.allCases) { Text($0.title).tag($0) }
@@ -41,6 +52,8 @@ struct DictionaryView: View {
         .autocorrectionDisabled()
         .textInputAutocapitalization(.never)
         .navigationTitle("El Pie")
+        .toolbarBackground(.visible, for: .navigationBar)
+        .toolbarBackground(Color(.systemBackground), for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button { showSettings = true } label: { Image(systemName: "gearshape") }
@@ -48,8 +61,44 @@ struct DictionaryView: View {
             }
         }
         .sheet(isPresented: $showSettings) { SettingsView() }
+        .sheet(isPresented: $showHistory) {
+            SearchHistoryView { query in
+                showHistory = false
+                searchText = query
+            }
+        }
         .navigationDestination(for: SearchHit.self) { WordDetailView(word: $0.word, diminutive: $0.diminutive) }
         .task(id: currentKey) { await runSearch(for: currentKey) }
+        .onSubmit(of: .search) { searches.record(searchText) }
+        .onChange(of: isSearching) { _, searching in
+            // Any close is the strongest sign the query was what they wanted
+            if !searching { saveLastQuery() }
+        }
+        .onChange(of: scenePhase) { _, phase in
+            if phase != .active { saveLastQuery() }
+        }
+        .onChange(of: searchText) { _, text in
+            if !text.isEmpty { lastQuery = text }
+        }
+        .task(id: searchText) {
+            // Text that sits still with results on screen counts as a finished search
+            if searchText.isEmpty {
+                // Text emptied while the field stays active means they erased it; closing empties it too, so give that a beat
+                try? await Task.sleep(for: .milliseconds(400))
+                if !Task.isCancelled, isSearching { lastQuery = "" }
+                return
+            }
+            guard searchText.count >= 3 else { return }
+            try? await Task.sleep(for: .seconds(2))
+            guard !Task.isCancelled, resultsKey == currentKey, !results.isEmpty else { return }
+            searches.record(searchText)
+        }
+    }
+
+    private func saveLastQuery() {
+        guard !lastQuery.isEmpty else { return }
+        searches.record(lastQuery)
+        lastQuery = ""
     }
 
     private func runSearch(for key: SearchKey) async {
@@ -79,21 +128,51 @@ struct DictionaryView: View {
             )
         } else {
             List {
-                Section {
-                    ForEach(recentHits) { hit in
-                        NavigationLink(value: hit) { DictionaryRow(hit: hit) }
+                listHeader("Recent") { recents.clear() }
+                ForEach(recentHits) { hit in
+                    NavigationLink(value: hit) { DictionaryRow(hit: hit) }
+                }
+            }
+            .listStyle(.plain)
+        }
+    }
+
+    /// A title row that scrolls with the list; a pinned section header is see-through and lets rows show behind it.
+    private func listHeader(_ title: String, clear: @escaping () -> Void) -> some View {
+        HStack {
+            Text(title).font(.footnote.weight(.semibold)).foregroundStyle(.secondary)
+            Spacer()
+            Button("Clear", action: clear).font(.footnote)
+        }
+        .buttonStyle(.borderless)
+        .listRowSeparator(.hidden)
+    }
+
+    @ViewBuilder
+    private var recentSearchesList: some View {
+        if searches.queries.isEmpty {
+            ContentUnavailableView(
+                "No recent searches",
+                systemImage: "magnifyingglass",
+                description: Text("Searches you finish show up here.")
+            )
+        } else {
+            List {
+                listHeader("Recent searches") { searches.clear() }
+                ForEach(searches.queries.prefix(Self.inlineSearches), id: \.self) { query in
+                    Button { searchText = query } label: {
+                        Label(query, systemImage: "magnifyingglass").foregroundStyle(.primary)
                     }
-                } header: {
-                    HStack {
-                        Text("Recent")
-                        Spacer()
-                        Button("Clear") { recents.clear() }
-                            .font(.footnote)
-                            .textCase(nil)
+                    .swipeActions { Button("Delete", role: .destructive) { searches.remove(query) } }
+                }
+                if searches.queries.count > Self.inlineSearches {
+                    Button { showHistory = true } label: {
+                        Label("See all searches", systemImage: "clock.arrow.circlepath")
                     }
                 }
             }
             .listStyle(.plain)
+            .scrollDisabled(true)
         }
     }
 
@@ -101,6 +180,7 @@ struct DictionaryView: View {
         List {
             ForEach(results.prefix(displayCount)) { hit in
                 NavigationLink(value: hit) { DictionaryRow(hit: hit) }
+                    .simultaneousGesture(TapGesture().onEnded { searches.record(searchText) })
             }
             if displayCount < results.count {
                 ProgressView()
@@ -110,6 +190,48 @@ struct DictionaryView: View {
             }
         }
         .listStyle(.plain)
+    }
+}
+
+/// Every saved search, filtered by what the user types.
+private struct SearchHistoryView: View {
+    @Environment(\.dismiss) private var dismiss
+    @State private var searches = RecentSearches.shared
+    @State private var filter = ""
+    let pick: (String) -> Void
+
+    private var shown: [String] {
+        let key = filter.searchKey
+        return key.isEmpty ? searches.queries : searches.queries.filter { $0.searchKey.contains(key) }
+    }
+
+    var body: some View {
+        NavigationStack {
+            List(shown, id: \.self) { query in
+                Button { pick(query) } label: {
+                    Label(query, systemImage: "magnifyingglass").foregroundStyle(.primary)
+                }
+                .swipeActions { Button("Delete", role: .destructive) { searches.remove(query) } }
+            }
+            .listStyle(.plain)
+            .overlay { if shown.isEmpty { ContentUnavailableView.search(text: filter) } }
+            .searchable(text: $filter, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search your history")
+            .autocorrectionDisabled()
+            .textInputAutocapitalization(.never)
+            .navigationTitle("Search history")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Done") { dismiss() } } }
+        }
+    }
+}
+
+/// Reports whether the search field is active; the environment value is only readable from inside the searchable view.
+private struct SearchStateReader: View {
+    @Environment(\.isSearching) private var environmentIsSearching
+    @Binding var isSearching: Bool
+
+    var body: some View {
+        Color.clear.onChange(of: environmentIsSearching, initial: true) { _, value in isSearching = value }
     }
 }
 
