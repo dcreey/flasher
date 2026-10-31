@@ -52,6 +52,7 @@ struct DictionaryView: View {
         .autocorrectionDisabled()
         .textInputAutocapitalization(.never)
         .navigationTitle("El Pie")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarBackground(Color(.systemBackground), for: .navigationBar)
         .toolbar {
@@ -146,6 +147,8 @@ struct DictionaryView: View {
         }
         .buttonStyle(.borderless)
         .listRowSeparator(.hidden)
+        .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 0, trailing: 16))
+        .frame(minHeight: 0)
     }
 
     @ViewBuilder

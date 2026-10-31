@@ -68,6 +68,7 @@ struct HomeView: View {
             .padding()
         }
         .navigationTitle("El Pie")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 HStack(spacing: 4) {
@@ -164,7 +165,9 @@ struct HomeView: View {
     // MARK: - Current level card (zoomed 10% band)
 
     private var currentLevelCard: some View {
-        VStack(spacing: 10) {
+        // In progress within this level only; the overall count would overflow the bar
+        let levelInProgress = store.inProgressCount(in: activeLevelWords)
+        return VStack(spacing: 10) {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Current Level")
@@ -189,9 +192,10 @@ struct HomeView: View {
             // Word-dot bar showing status of each word in this level
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
-                    let total = CGFloat(max(activeLevelWords.count, 1))
+                    // Never let the segments add up to more than the bar, whatever the counts say
+                    let total = CGFloat(max(activeLevelWords.count, activeLevelLearned + levelInProgress + activeLevelSkipped, 1))
                     let learnedW  = geo.size.width * CGFloat(activeLevelLearned) / total
-                    let inProgW   = geo.size.width * CGFloat(inProgressCount) / total
+                    let inProgW   = geo.size.width * CGFloat(levelInProgress) / total
                     let skippedW  = geo.size.width * CGFloat(activeLevelSkipped) / total
 
                     // Gray background
@@ -207,7 +211,7 @@ struct HomeView: View {
                     }
 
                     // Learned (blue/teal) + in-progress (orange) from left
-                    if activeLevelLearned > 0 || inProgressCount > 0 {
+                    if activeLevelLearned > 0 || levelInProgress > 0 {
                         HStack(spacing: 0) {
                             LinearGradient(colors: [.blue, .teal], startPoint: .leading, endPoint: .trailing)
                                 .frame(width: learnedW, height: 22)
@@ -232,6 +236,8 @@ struct HomeView: View {
                         .frame(width: geo.size.width)
                     }
                 }
+                .frame(width: geo.size.width, height: 22, alignment: .leading)
+                .clipShape(RoundedRectangle(cornerRadius: 6))
             }
             .frame(height: 22)
 
