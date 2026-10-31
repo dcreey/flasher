@@ -109,6 +109,11 @@ struct TranslateView: View {
     @State private var configuration: TranslationSession.Configuration?
     @State private var request: (text: String, direction: Direction, readAs: String?)?
     @FocusState private var focused: Bool
+    @Environment(AppRouter.self) private var router: AppRouter?
+    /// False right after translating Spanish, when the input shows as tappable words instead of an editor.
+    @State private var isEditing = true
+
+    private var showsLinkedInput: Bool { !isEditing && output?.direction == .toEnglish && !input.isEmpty }
 
     var body: some View {
         ScrollView {
@@ -152,6 +157,10 @@ struct TranslateView: View {
             .padding()
         }
         .scrollDismissesKeyboard(.interactively)
+        .onChange(of: direction) {
+            // Switching direction translates the same text the other way
+            if output != nil || errorText != nil { translate() }
+        }
         .navigationTitle("El Pie")
         .navigationBarTitleDisplayMode(.inline)
         .translationTask(configuration) { session in
@@ -175,19 +184,29 @@ struct TranslateView: View {
             }
             isWorking = false
         }
-        .navigationDestination(for: Word.self) { WordDetailView(word: $0) }
-        .opensWordLinks()
+        .opensWordLinks(inDictionary: true)
     }
 
     private var inputField: some View {
         ZStack(alignment: .topLeading) {
-            TextEditor(text: $input)
-                .focused($focused)
-                .autocorrectionDisabled()
-                .scrollContentBackground(.hidden)
-                .padding(8)
-                .frame(minHeight: 120)
-                .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+            if showsLinkedInput {
+                // Translated Spanish becomes tappable words; tapping anywhere else turns it back into the editor
+                Text(WordLinks.linked(input))
+                    .font(.body)
+                    .frame(maxWidth: .infinity, minHeight: 120, alignment: .topLeading)
+                    .padding(13)
+                    .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+                    .contentShape(Rectangle())
+                    .onTapGesture { isEditing = true; focused = true }
+            } else {
+                TextEditor(text: $input)
+                    .focused($focused)
+                    .autocorrectionDisabled()
+                    .scrollContentBackground(.hidden)
+                    .padding(8)
+                    .frame(minHeight: 120)
+                    .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+            }
             if input.isEmpty {
                 Text(direction == .toEnglish ? "Type or paste Spanish" : "Type or paste English")
                     .foregroundStyle(.tertiary)
@@ -198,7 +217,7 @@ struct TranslateView: View {
         }
         .overlay(alignment: .bottomTrailing) {
             if !input.isEmpty {
-                Button { input = ""; output = nil; errorText = nil } label: { Image(systemName: "xmark.circle.fill") }
+                Button { input = ""; output = nil; errorText = nil; isEditing = true } label: { Image(systemName: "xmark.circle.fill") }
                     .foregroundStyle(.secondary)
                     .padding(10)
             }
@@ -209,13 +228,6 @@ struct TranslateView: View {
     private func results(_ output: Output) -> some View {
         let spanish = output.direction == .toEnglish ? output.input : output.translation
         VStack(alignment: .leading, spacing: 12) {
-            card(title: output.direction == .toEnglish ? "Spanish · tap a word" : "English") {
-                if output.direction == .toEnglish {
-                    Text(WordLinks.linked(output.input)).font(.title3)
-                } else {
-                    Text(output.input).font(.title3)
-                }
-            }
             card(title: output.direction == .toEnglish ? "English" : "Spanish · tap a word") {
                 if output.direction == .toSpanish {
                     Text(WordLinks.linked(output.translation)).font(.title3).textSelection(.enabled)
@@ -234,7 +246,7 @@ struct TranslateView: View {
                 card(title: "Mexican words in this text") {
                     VStack(alignment: .leading, spacing: 8) {
                         ForEach(slang) { item in
-                            NavigationLink(value: item.word) {
+                            Button { router?.showWord(item.word) } label: {
                                 HStack {
                                     VStack(alignment: .leading) {
                                         Text(item.term).font(.headline)
@@ -281,6 +293,7 @@ struct TranslateView: View {
         let text = input.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty else { return }
         focused = false
+        isEditing = false
         isWorking = true
         errorText = nil
         needsDownload = false

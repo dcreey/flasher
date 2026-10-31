@@ -143,6 +143,9 @@ enum WordLinks {
 
 /// Opens a tapped Spanish word in its own dictionary page, pushed onto the current stack.
 private struct WordLinkNavigation: ViewModifier {
+    /// Sends the word to the Dictionary tab instead of pushing it onto the current stack.
+    let opensInDictionary: Bool
+    @Environment(AppRouter.self) private var router: AppRouter?
     @State private var target: Word?
 
     func body(content: Content) -> some View {
@@ -151,7 +154,7 @@ private struct WordLinkNavigation: ViewModifier {
                 guard url.scheme == "elpie",
                       let id = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.first(where: { $0.name == "id" })?.value,
                       let word = Lexicon.shared.wordsByID[id] else { return .systemAction }
-                target = word
+                if opensInDictionary, let router { router.showWord(word) } else { target = word }
                 return .handled
             })
             .navigationDestination(item: $target) { WordDetailView(word: $0) }
@@ -159,5 +162,6 @@ private struct WordLinkNavigation: ViewModifier {
 }
 
 extension View {
-    func opensWordLinks() -> some View { modifier(WordLinkNavigation()) }
+    /// `inDictionary` sends tapped words to the Dictionary tab; otherwise their page is pushed onto the current stack.
+    func opensWordLinks(inDictionary: Bool = false) -> some View { modifier(WordLinkNavigation(opensInDictionary: inDictionary)) }
 }
