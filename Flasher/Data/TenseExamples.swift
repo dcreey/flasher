@@ -86,7 +86,7 @@ enum TenseExamples {
 // MARK: - Generated fallback sentences
 
 /// Just enough English inflection to gloss a generated sentence ("Yesterday I worked.").
-private enum EnglishVerb {
+enum EnglishVerb {
     static let irregularPast: [String: String] = [
         "have": "had", "do": "did", "go": "went", "say": "said", "get": "got", "make": "made", "know": "knew",
         "think": "thought", "take": "took", "see": "saw", "come": "came", "give": "gave", "find": "found", "tell": "told",
@@ -191,7 +191,8 @@ extension TenseExamples {
     private static let impersonal: Set<String> = ["llover", "nevar", "amanecer", "atardecer", "anochecer", "tronar", "granizar", "lloviznar", "acontecer", "relampaguear"]
 
     /// A simple made-up sentence that shows the selected form in context. Used when no real sentence has the tense.
-    static func generated(tense: Tense, person: Int, conjugation: Conjugation, gloss: String) -> ExampleSentence? {
+    /// `pronouns` are object pronouns to use with the verb: attached to the end of a command, in front of any other form.
+    static func generated(tense: Tense, person: Int, conjugation: Conjugation, gloss: String, pronouns: [String] = []) -> ExampleSentence? {
         guard let form = conjugation.form(tense, person) ?? nil else { return nil }
         if let base = dativeVerbs[conjugation.infinitive] {
             return generatedDative(tense: tense, person: person, form: form, base: base)
@@ -200,9 +201,12 @@ extension TenseExamples {
         var comp = conjugation.reflexive || !conjugation.tail.isEmpty ? nil : complements[conjugation.infinitive]
         // A command shouldn't be aimed at "you" or "my mom" ("¡piensa en ti!"), so those objects are dropped
         if tense == .imperative, let c = comp, c.es.contains(" ti") || c.es.contains("mi ") || c.es.contains("tu ") || c.es.contains("mis ") { comp = nil }
+        // The pronouns are the object, so the verb's stock object ("una película") would clash with them
+        if !pronouns.isEmpty { comp = nil }
         let compEs = comp.map { " " + $0.es } ?? ""
         let tail = conjugation.tail.isEmpty ? "" : " " + conjugation.tail
-        let clitic = conjugation.reflexive && tense != .imperative ? Conjugation.reflexivePronouns[person] + " " : ""
+        let clitic = !pronouns.isEmpty && tense != .imperative ? pronouns.joined(separator: " ") + " "
+            : (conjugation.reflexive && tense != .imperative ? Conjugation.reflexivePronouns[person] + " " : "")
         let isWeather = impersonal.contains(conjugation.infinitive)
         if isWeather && (person != 2 || tense == .imperative || tense == .conditional) { return nil }
         let subject = isWeather ? "" : spanishSubjects[person] + " "
@@ -217,14 +221,15 @@ extension TenseExamples {
         case .subjunctivePresent: spanish = "Espero que \(subject)\(verbPhrase)."
         case .subjunctiveImperfect: spanish = "Ojalá \(subject)\(verbPhrase)."
         case .imperative:
-            let shown = conjugation.attachedImperative?[person] ?? form
+            let shown = pronouns.isEmpty ? (conjugation.attachedImperative?[person] ?? form) : SpanishStress.attach(form, pronouns: pronouns, person: person)
             spanish = "¡\(shown)\(tail)\(compEs)!"
         }
 
         var english = ""
         if let (base, rest) = EnglishVerb.parse(glossOverrides[conjugation.infinitive] ?? gloss) {
             let who = isWeather ? "it" : englishSubjects[person]
-            let restEn = [rest, comp?.en ?? ""].filter { !$0.isEmpty }.joined(separator: " ")
+            let objectEn = pronouns.isEmpty ? "" : Clitics.englishObject(pronouns, verb: conjugation.infinitive, person: person)
+            let restEn = [objectEn, rest, comp?.en ?? ""].filter { !$0.isEmpty }.joined(separator: " ")
             let tailEn = restEn.isEmpty ? "" : " " + restEn
             let isBe = base == "be"
             func present() -> String { isBe ? ["am", "are", "is", "are", "are", "are"][person] : (person == 2 || isWeather ? EnglishVerb.thirdSingular(base) : base) }

@@ -81,7 +81,7 @@ struct DictionaryView: View {
             }
         }
         .navigationDestination(for: SearchHit.self) { hit in
-            WordDetailView(word: hit.word, diminutive: hit.diminutive)
+            WordDetailView(word: hit.word, diminutive: hit.diminutive, attached: hit.attached)
                 // Opening a result is a finished search; the query is still in the field behind this page
                 .onAppear { searches.record(searchText) }
         }

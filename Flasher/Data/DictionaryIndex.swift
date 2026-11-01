@@ -30,6 +30,8 @@ struct SearchHit: Identifiable, Hashable {
     var matchedEnglish = false
     /// The meaning of an adjective that fits the chosen type of thing ("rich" + food → "tasty, yummy").
     var senseNote: String?
+    /// Set when the query is a verb with pronouns attached ("vernos"): the page explains the form.
+    var attached: Clitics.Match?
     var id: String { word.id }
 }
 
@@ -224,7 +226,12 @@ enum DictionaryIndex {
         for word in formWords where word.id != diminutive?.base.id {
             ranked.append((0, 0, SearchHit(word: word, diminutive: nil)))
         }
-        let formIDs = Set(formWords.map(\.id))
+        var formIDs = Set(formWords.map(\.id))
+        // "vernos" / "dámelo" / "hacerlo": a verb with pronouns attached, when it isn't an entry of its own
+        if scope != .english, !q.contains(" "), !entries.contains(where: { $0.spanish == q }), let attached = Clitics.resolve(q),
+           attached.verb.id != diminutive?.base.id, formIDs.insert(attached.verb.id).inserted {
+            ranked.append((0, 0, SearchHit(word: attached.verb, diminutive: nil, senseNote: attached.note, attached: attached)))
+        }
         // "el profesor" searches like "profesor"
         let articles = ["el ", "la ", "los ", "las ", "un ", "una ", "unos ", "unas "]
         let bare = articles.first(where: { q.hasPrefix($0) && q.count > $0.count }).map { String(q.dropFirst($0.count)) }

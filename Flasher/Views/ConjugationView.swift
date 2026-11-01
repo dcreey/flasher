@@ -11,18 +11,22 @@ struct ConjugationView: View {
 
     /// Set for a phrase built around this verb: the banner then shows the whole phrase and its meaning.
     var phrase: PhraseVerb?
+    /// Set when the word was reached through a form with pronouns attached ("dímelo"): its command, infinitive or gerund is marked.
+    var attached: Clitics.Match?
 
     private struct Selection: Equatable {
         var tense: Tense
         var person: Int
     }
 
-    init(conjugation: Conjugation, examples: [ExampleSentence] = [], gloss: String = "", phrase: PhraseVerb? = nil) {
+    init(conjugation: Conjugation, examples: [ExampleSentence] = [], gloss: String = "", phrase: PhraseVerb? = nil, attached: Clitics.Match? = nil) {
         self.conjugation = conjugation
         self.examples = examples
         self.gloss = gloss
         self.phrase = phrase
-        _selection = State(initialValue: Selection(tense: phrase?.start.tense ?? .present, person: phrase?.start.person ?? 0))
+        self.attached = attached
+        let start = attached?.selection
+        _selection = State(initialValue: Selection(tense: start?.tense ?? phrase?.start.tense ?? .present, person: start?.person ?? phrase?.start.person ?? 0))
     }
 
     @State private var selection: Selection
@@ -57,13 +61,21 @@ struct ConjugationView: View {
 
     private var nonFiniteForms: some View {
         HStack(spacing: 8) {
-            nonFiniteChip("Infinitive", conjugation.infinitive)
-            nonFiniteChip("Gerund", conjugation.gerund)
-            nonFiniteChip("Participle", conjugation.participle)
+            nonFiniteChip("Infinitive", conjugation.infinitive, marked: attached?.kind == .infinitive, withPronouns: pronounForm(of: conjugation.infinitive))
+            nonFiniteChip("Gerund", conjugation.gerund, marked: attached?.kind == .gerund, withPronouns: pronounForm(of: conjugation.gerund))
+            nonFiniteChip("Participle", conjugation.participle, withPronouns: attached == nil || !showsPronouns ? nil : "never attached")
         }
     }
 
-    private func nonFiniteChip(_ title: String, _ value: String) -> some View {
+    /// Pronouns only attach to a plain verb: reflexive verbs and phrases ("darse cuenta") reorder them.
+    private var showsPronouns: Bool { attached != nil && !conjugation.reflexive && conjugation.tail.isEmpty }
+
+    private func pronounForm(of form: String) -> String? {
+        guard showsPronouns, let attached else { return nil }
+        return "→ " + SpanishStress.attach(form, pronouns: attached.pronouns, person: nil)
+    }
+
+    private func nonFiniteChip(_ title: String, _ value: String, marked: Bool = false, withPronouns: String? = nil) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(title)
                 .font(.caption2)
@@ -72,11 +84,19 @@ struct ConjugationView: View {
                 .font(.subheadline.weight(.semibold))
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
+            if let withPronouns {
+                Text(withPronouns)
+                    .font(.caption.weight(.medium))
+                    .foregroundStyle(Color.accentColor)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 10)
         .padding(.vertical, 8)
         .background(Color(.secondarySystemFill), in: RoundedRectangle(cornerRadius: 10))
+        .overlay { if marked { RoundedRectangle(cornerRadius: 10).stroke(Color.accentColor, lineWidth: 2) } }
     }
 
     // MARK: - Selected form
@@ -104,6 +124,7 @@ struct ConjugationView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
+            pronounLine(tense: tense, person: person)
             if let phrase {
                 phraseMeaning(phrase)
             }
@@ -112,6 +133,41 @@ struct ConjugationView: View {
         .padding(12)
         .background(tense.mood.color.opacity(0.1), in: RoundedRectangle(cornerRadius: 12))
         .animation(.easeOut(duration: 0.15), value: selection)
+    }
+
+    /// The selected form with the pronouns, where Spanish allows it: attached to a command, in front of anything else.
+    @ViewBuilder
+    private func pronounLine(tense: Tense, person: Int) -> some View {
+        if showsPronouns, let attached, let form = conjugation.forms[tense]?[person], !form.isEmpty {
+            let list = attached.pronouns.joined(separator: " ")
+            VStack(alignment: .leading, spacing: 3) {
+                if tense == .imperative {
+                    let joined = SpanishStress.attach(form, pronouns: attached.pronouns, person: person)
+                    let plainJoin = form.lowercased() + attached.pronouns.joined()
+                    let note = joined == plainJoin ? "Attached to the end of the command." : "Attached to the end of the command; the accent (or dropped letter) keeps the sound the same."
+                    pronounRow("With \(list)", joined, note: note, highlight: joined.searchKey == attached.typed.searchKey)
+                    if let negative = conjugation.forms[.subjunctivePresent]?[person] {
+                        pronounRow("Negative", "no \(list) \(negative)", note: "In a negative command the pronouns go before the verb.")
+                    }
+                } else {
+                    let reflexive = ["me", "te", "se", "nos", "os", "se"][person]
+                    let echo = attached.pronouns.contains(reflexive) ? " Here “\(reflexive)” matches the subject, so it reads as reflexive (\(Clitics.reflexiveMeaning(of: reflexive)))." : ""
+                    pronounRow("With \(list)", "\(list) \(form)", note: "Pronouns go before a conjugated verb; attaching them (“\(form)\(attached.pronouns.joined())”) isn't used.\(echo)")
+                }
+            }
+            .padding(.top, 6)
+        }
+    }
+
+    private func pronounRow(_ title: String, _ text: String, note: String, highlight: Bool = false) -> some View {
+        VStack(alignment: .leading, spacing: 1) {
+            HStack(alignment: .firstTextBaseline, spacing: 6) {
+                Text(title + ":").font(.caption).foregroundStyle(.secondary)
+                Text(text).font(.callout.weight(.semibold))
+                if highlight { Image(systemName: "checkmark.circle.fill").font(.caption).foregroundStyle(Color.accentColor) }
+            }
+            Text(note).font(.caption2).foregroundStyle(.secondary)
+        }
     }
 
     /// The phrase's meaning, inflected for the chosen tense and person when it reads as a verb phrase ("I have just").
@@ -140,7 +196,8 @@ struct ConjugationView: View {
 
     @ViewBuilder
     private var exampleCard: some View {
-        let real = tenseExamples.filter(\.exactPerson)
+        // With pronouns attached the real sentences wouldn't show them, so a made-up one takes over
+        let real = showsPronouns ? [] : tenseExamples.filter(\.exactPerson)
         VStack(alignment: .leading, spacing: 4) {
             if !real.isEmpty {
                 let match = real[exampleIndex % real.count]
@@ -157,9 +214,12 @@ struct ConjugationView: View {
                         .font(.caption2)
                         .foregroundStyle(.tertiary)
                 }
-            } else if let made = TenseExamples.generated(tense: selection.tense, person: selection.person, conjugation: conjugation, gloss: gloss),
+            } else if let made = TenseExamples.generated(tense: selection.tense, person: selection.person, conjugation: conjugation, gloss: gloss,
+                                                         pronouns: showsPronouns ? attached?.pronouns ?? [] : []),
                       let form = conjugation.attachedImperativeOrForm(selection.tense, selection.person) {
-                Text(WordLinks.linked(TenseExamples.highlight(made.spanish, tokens: [form.lowercased()])))
+                let shown = showsPronouns && selection.tense == .imperative
+                    ? SpanishStress.attach(form, pronouns: attached?.pronouns ?? [], person: selection.person) : form
+                Text(WordLinks.linked(TenseExamples.highlight(made.spanish, tokens: [shown.lowercased()])))
                     .font(.callout)
                     .tint(.primary)
                     .fixedSize(horizontal: false, vertical: true)

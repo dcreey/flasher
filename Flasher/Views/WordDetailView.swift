@@ -5,6 +5,8 @@ struct WordDetailView: View {
     let word: Word
     /// Set when the user searched for an -ito/-ita form of this word; otherwise resolved from the word itself.
     var diminutive: Diminutive?
+    /// Set when the user arrived through a verb with pronouns attached ("vernos", "dímelo").
+    var attached: Clitics.Match?
 
     @State private var confirmation: String?
 
@@ -113,6 +115,7 @@ struct WordDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 header
+                if let attached { attachedCard(attached) }
                 if let shownDiminutive { diminutiveCard(shownDiminutive) }
                 if !nounFormRows.isEmpty { nounFormsSection }
                 if let conjugation { conjugationSection(conjugation) }
@@ -226,6 +229,32 @@ struct WordDetailView: View {
     }
 
     // MARK: - Diminutive
+
+    private func attachedCard(_ match: Clitics.Match) -> some View {
+        let readings = match.readings
+        return VStack(alignment: .leading, spacing: 6) {
+            Text("\(match.typed) = \(match.form) + \(match.pronouns.joined(separator: " + "))")
+                .font(.subheadline.weight(.semibold))
+            if let first = readings.first {
+                Text("“\(first.english)”").font(.title3)
+                ForEach(readings.dropFirst(), id: \.self) { reading in
+                    Text("also “\(reading.english)” (\(reading.label))").font(.subheadline)
+                }
+            }
+            if let idiom = match.idiom {
+                Label { Text(idiom).font(.footnote) } icon: { Image(systemName: "text.bubble") }
+                    .padding(.top, 2)
+            }
+            Text(match.built)
+                .font(.footnote)
+            Text(match.rule)
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(12)
+        .background(Color.blue.opacity(0.1), in: RoundedRectangle(cornerRadius: 12))
+    }
 
     private func diminutiveCard(_ d: Diminutive) -> some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -419,7 +448,7 @@ struct WordDetailView: View {
     private func conjugationSection(_ conjugation: Conjugation) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             sectionTitle("Conjugation")
-            ConjugationView(conjugation: conjugation, examples: TenseExamples.pool(for: word), gloss: word.english)
+            ConjugationView(conjugation: conjugation, examples: TenseExamples.pool(for: word), gloss: word.english, attached: attached)
         }
     }
 
