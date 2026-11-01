@@ -16,22 +16,37 @@ enum MexicanTranslation {
 
     /// Spain's wording → what is said in Mexico.
     private static let mexican: [(String, String)] = [
+        // Words whose gender changes come first, so the article follows
+        ("del ordenador", "de la computadora"), ("el ordenador", "la computadora"), ("un ordenador", "una computadora"),
+        ("los ordenadores", "las computadoras"), ("unos ordenadores", "unas computadoras"),
+        ("el grifo", "la llave"), ("un grifo", "una llave"), ("del grifo", "de la llave"),
+        ("las gafas", "los lentes"), ("unas gafas", "unos lentes"), ("de las gafas", "de los lentes"),
         ("ordenadores", "computadoras"), ("ordenador", "computadora"), ("coches", "carros"), ("coche", "carro"),
         ("móviles", "celulares"), ("móvil", "celular"), ("zumos", "jugos"), ("zumo", "jugo"), ("patatas", "papas"), ("patata", "papa"),
         ("gafas", "lentes"), ("aparcamiento", "estacionamiento"), ("aparcar", "estacionar"), ("conducir", "manejar"),
-        ("autobús", "camión"), ("jersey", "suéter"), ("melocotón", "durazno"), ("grifo", "llave"), ("chaval", "muchacho"), ("guay", "chido"),
+        ("autobús", "camión"), ("jersey", "suéter"), ("resaca", "cruda"), ("melocotón", "durazno"), ("grifo", "llave"), ("chaval", "muchacho"), ("guay", "chido"),
     ]
 
     static func replacing(_ pairs: [(String, String)], in text: String) -> (text: String, changes: [(String, String)]) {
         var result = text
         var changes: [(String, String)] = []
         for (from, to) in pairs {
-            guard let regex = try? NSRegularExpression(pattern: "(?<![\\p{L}])" + NSRegularExpression.escapedPattern(for: from) + "(?![\\p{L}])", options: .caseInsensitive),
-                  regex.firstMatch(in: result, range: NSRange(result.startIndex..., in: result)) != nil else { continue }
-            result = regex.stringByReplacingMatches(in: result, range: NSRange(result.startIndex..., in: result), withTemplate: to)
+            guard let regex = try? NSRegularExpression(pattern: "(?<![\\p{L}])" + NSRegularExpression.escapedPattern(for: from) + "(?![\\p{L}])", options: .caseInsensitive) else { continue }
+            let matches = regex.matches(in: result, range: NSRange(result.startIndex..., in: result))
+            guard !matches.isEmpty else { continue }
+            for match in matches.reversed() {
+                guard let range = Range(match.range, in: result) else { continue }
+                // A capital at the start of what was replaced carries over ("No puede ser" → "No manches")
+                result.replaceSubrange(range, with: Self.matchingCapital(of: String(result[range]), in: to))
+            }
             changes.append((from, to))
         }
         return (result, changes)
+    }
+
+    static func matchingCapital(of original: String, in replacement: String) -> String {
+        guard original.first?.isUppercase == true, let first = replacement.first else { return replacement }
+        return first.uppercased() + replacement.dropFirst()
     }
 
     static func prepare(_ text: String) -> (text: String, changes: [(String, String)]) { replacing(plainer, in: text) }
@@ -79,6 +94,60 @@ enum MexicanTranslation {
             if result.count == 5 { break }
         }
         return result
+    }
+
+    /// Plain Spanish phrases that Mexicans say another way, wherever they appear.
+    private static let mexicanPhrases: [(String, String)] = [
+        ("ahora mismo", "ahorita"), ("no hay problema", "no hay bronca"), ("de mala calidad", "chafa"),
+        ("no me importa", "me vale"), ("qué le vamos a hacer", "ni modo"), ("no hay remedio", "ni modo"),
+        ("qué bien", "qué padre"), ("qué genial", "qué chido"),
+    ]
+
+    /// Short reactions, swapped only when they are a whole sentence ("No puede ser." but not "No puede ser tan difícil.").
+    private static let mexicanReactions: [(String, String)] = [
+        ("no puede ser", "no manches"), ("de ninguna manera", "ni de chiste"), ("ni hablar", "ni de chiste"),
+        ("ni de broma", "ni de chiste"), ("qué increíble", "no manches"), ("genial", "chido"), ("estupendo", "padrísimo"),
+    ]
+
+    /// Replaces whole sentences that are just a reaction, keeping the sentence's own punctuation.
+    private static func swappingReactions(in text: String) -> (text: String, changes: [(String, String)]) {
+        guard let regex = try? NSRegularExpression(pattern: "[^.!?¡¿\\n]+") else { return (text, []) }
+        var result = text
+        var changes: [(String, String)] = []
+        for match in regex.matches(in: text, range: NSRange(text.startIndex..., in: text)).reversed() {
+            guard let range = Range(match.range, in: result) else { continue }
+            let segment = String(result[range])
+            let key = segment.trimmingCharacters(in: .whitespaces).lowercased()
+            guard let pair = mexicanReactions.first(where: { $0.0 == key }) else { continue }
+            let leading = segment.prefix { $0 == " " }
+            result.replaceSubrange(range, with: leading + matchingCapital(of: String(segment.drop { $0 == " " }), in: pair.1))
+            changes.append(pair)
+        }
+        return (result, changes)
+    }
+
+    /// The text with Mexican wording: Spain's words swapped, then each plain noun or adjective that has a Mexican synonym replaced by it.
+    /// Only dictionary headwords are swapped, never words that are already Mexican, and a noun only becomes a noun of the same
+    /// gender, so "el", "la" and adjectives still agree. Verbs, adverbs and prepositions are left alone. `replaced` lists what changed.
+    static func slangVersion(of text: String) -> (text: String, replaced: [(String, String)]) {
+        let reactions = swappingReactions(in: text)
+        let phrases = replacing(mexicanPhrases, in: reactions.text)
+        let local = localize(phrases.text)
+        var result = local.text
+        // Everything swapped so far counts, so the bottom card doesn't repeat it
+        var replaced: [(String, String)] = (reactions.changes + phrases.changes + local.changes)
+            .flatMap { change in change.0.split(separator: " ").map { (String($0), change.1) } }
+        func gender(_ word: Word) -> String? { Lexicon.shared.meanings(for: word.spanish).first?.gender }
+        for (token, synonym) in alternatives(in: result) {
+            guard let word = WordLinks.resolve(token), word.spanish == token, [.noun, .adjective].contains(word.partOfSpeech),
+                  !Lexicon.shared.hasMexicanMeaning(word),
+                  let other = Lexicon.shared.wordsByID[synonym], other.partOfSpeech == word.partOfSpeech, !synonym.contains(" "),
+                  word.partOfSpeech == .adjective || (gender(word) != nil && gender(word) == gender(other)) else { continue }
+            result = replacing([(token, synonym)], in: result).text
+            replaced.append((token, synonym))
+        }
+        if let first = text.first, first.isUppercase, let now = result.first, now.isLowercase { result = result.prefix(1).uppercased() + result.dropFirst() }
+        return (result, replaced)
     }
 }
 
@@ -324,19 +393,20 @@ struct TranslateView: View {
 
     @ViewBuilder
     /// The re-worded Spanish cards. Each only appears when it says something different from what was typed (ignoring case, accents and punctuation).
-    private func alternateTexts(_ output: Output) -> (natural: String?, mexican: String?) {
+    private func alternateTexts(_ output: Output) -> (natural: String?, mexican: String?, slang: Set<String>) {
         if output.direction == .toEnglish, let backText {
             let typed = Self.comparable(output.input)
             let natural = Self.comparable(backText) != typed ? backText : nil
-            let mexican = MexicanTranslation.localize(backText).text
-            let showMexican = Self.comparable(mexican) != typed && Self.comparable(mexican) != Self.comparable(backText)
-            return (natural, showMexican ? mexican : nil)
+            let version = MexicanTranslation.slangVersion(of: backText)
+            let showMexican = Self.comparable(version.text) != typed && Self.comparable(version.text) != Self.comparable(backText)
+            return (natural, showMexican ? version.text : nil, showMexican ? Set(version.replaced.map(\.0)) : [])
         }
         if output.direction == .toSpanish {
-            let mexican = MexicanTranslation.localize(output.translation).text
-            return (nil, Self.comparable(mexican) != Self.comparable(output.translation) ? mexican : nil)
+            let version = MexicanTranslation.slangVersion(of: output.translation)
+            let show = Self.comparable(version.text) != Self.comparable(output.translation)
+            return (nil, show ? version.text : nil, show ? Set(version.replaced.map(\.0)) : [])
         }
-        return (nil, nil)
+        return (nil, nil, [])
     }
 
     @ViewBuilder
@@ -344,14 +414,14 @@ struct TranslateView: View {
         let spanish = output.direction == .toEnglish ? output.input : output.translation
         let alternates = alternateTexts(output)
         let slang = MexicanTranslation.slang(in: spanish)
-        let alternatives = MexicanTranslation.alternatives(in: spanish)
+        let alternatives = MexicanTranslation.alternatives(in: spanish).filter { !alternates.slang.contains($0.0) }
         let hasNatural = alternates.natural != nil || alternates.mexican != nil
         let hasWords = output.readAs != nil || !output.adjusted.isEmpty || !slang.isEmpty || !alternatives.isEmpty
         VStack(alignment: .leading, spacing: 24) {
             // Lines only separate sections that both have something in them
             if hasNatural || hasWords { Divider().padding(.horizontal, 28) }
             if let natural = alternates.natural {
-                card(title: "More natural Spanish", copy: natural) {
+                card(title: "Another way to say it", copy: natural) {
                     Text(WordLinks.linked(natural)).font(.callout).textSelection(.enabled)
                 }
             }

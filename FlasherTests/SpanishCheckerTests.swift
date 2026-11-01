@@ -401,4 +401,22 @@ final class SpanishCheckerTests: XCTestCase {
         XCTAssertLessThanOrEqual(grammarHits, 12, "grammar rules fired \(grammarHits) times on \(sentences.count) real sentences: \(byKind)")
         XCTAssertLessThanOrEqual(byKind[.spelling] ?? 0, 40, "spelling rule fired too often: \(byKind)")
     }
+
+    func testMexicanVersionKeepsGenderAndLeavesVerbsAlone() {
+        XCTAssertEqual(MexicanTranslation.localize("Cerca del ordenador.").text, "Cerca de la computadora.")
+        XCTAssertEqual(MexicanTranslation.localize("Abre el grifo.").text, "Abre la llave.")
+        XCTAssertEqual(MexicanTranslation.slangVersion(of: "Voy a conducir mi coche.").text, "Voy a manejar mi carro.")
+        // Verbs and words that are already Mexican are never swapped for something else
+        XCTAssertEqual(MexicanTranslation.slangVersion(of: "Quiero comer con mi amigo.").text, "Quiero comer con mi amigo.")
+        XCTAssertEqual(MexicanTranslation.slangVersion(of: "El niño bebe agua.").text, "El chavo bebe agua.")
+    }
+
+    func testMexicanPhrases() {
+        XCTAssertEqual(MexicanTranslation.slangVersion(of: "No puede ser.").text, "No manches.")
+        XCTAssertEqual(MexicanTranslation.slangVersion(of: "¡De ninguna manera!").text, "¡Ni de chiste!")
+        XCTAssertEqual(MexicanTranslation.slangVersion(of: "Me voy ahora mismo. No hay problema.").text, "Me voy ahorita. No hay bronca.")
+        XCTAssertEqual(MexicanTranslation.slangVersion(of: "Tengo resaca.").text, "Tengo cruda.")
+        // A reaction inside a longer sentence is literal and stays as it is
+        XCTAssertEqual(MexicanTranslation.slangVersion(of: "No puede ser tan difícil.").text, "No puede ser tan difícil.")
+    }
 }
