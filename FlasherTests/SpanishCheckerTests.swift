@@ -62,6 +62,20 @@ final class SpanishCheckerTests: XCTestCase {
         assertClean("La sal está en la mesa.")   // "la" is an article here, "sal" a noun
     }
 
+    func testEveryMistakeIsListed() {
+        let found = SpanishChecker.check("Le lo haz.").map(\.found)
+        XCTAssertEqual(found.count, 2, "\(found)")
+        XCTAssertTrue(found.contains("Le lo") && found.contains("lo haz"), "\(found)")
+    }
+
+    func testHaberExamplesUseAParticiple() {
+        let c = Conjugator.conjugate("haber")!
+        for tense in [Tense.present, .imperfect, .future, .conditional, .subjunctivePresent, .subjunctiveImperfect] {
+            let e = TenseExamples.generated(tense: tense, person: 0, conjugation: c, gloss: "to have")
+            XCTAssertTrue(e?.spanish.contains("comido") == true, "\(tense)")
+        }
+    }
+
     func testAttachedPronounOnNegativeCommand() {
         assertFlags("No dímelo.", .pronouns)
         assertClean("No me lo digas.")
@@ -211,13 +225,11 @@ final class SpanishCheckerTests: XCTestCase {
 
     // MARK: - Punctuation
 
-    func testQuestionAndExclamationMarks() {
-        assertFlags("Como estas?", .punctuation, suggestion: "¿")
-        assertFlags("Hola!", .punctuation, suggestion: "¡")
+    /// Missing ¿ and ¡ are informal and common, and Apple's translations don't need them flagged, so they are not checked.
+    func testMissingQuestionAndExclamationMarksAreIgnored() {
+        assertClean("Como estas?")
+        assertClean("Hola!")
         assertClean("¿Cómo estás?")
-        assertClean("¡Hola!")
-        assertClean("Hola, ¿cómo estás?")
-        assertClean("¿Qué?! No puede ser.")
     }
 
     // MARK: - Mood and verb forms
@@ -371,7 +383,7 @@ final class SpanishCheckerTests: XCTestCase {
     // MARK: - Real sentences
 
     /// The dictionary's own example sentences are real Spanish. Most are correct, so the engine should rarely object. What it
-    /// does flag should be a missing ¿ / ¡, a missing accent, or an actual error in the example, not a false alarm.
+    /// does flag should be a missing accent or an actual error in the example, not a false alarm.
     func testRealExampleSentencesRarelyTriggerGrammarRules() {
         var sentences: [String] = []
         var seen = Set<String>()
@@ -383,7 +395,7 @@ final class SpanishCheckerTests: XCTestCase {
         for sentence in sentences {
             for issue in SpanishChecker.check(sentence) where issue.kind != .tip { byKind[issue.kind, default: 0] += 1 }
         }
-        // Spelling and punctuation hits are mostly true omissions in informal text; the grammar rules should almost never fire.
+        // Spelling hits are mostly true omissions in informal text; the grammar rules should almost never fire.
         let grammarRules: [SpanishIssue.Kind] = [.agreement, .verb, .pronouns, .grammar, .style]
         let grammarHits = grammarRules.reduce(0) { $0 + (byKind[$1] ?? 0) }
         XCTAssertLessThanOrEqual(grammarHits, 12, "grammar rules fired \(grammarHits) times on \(sentences.count) real sentences: \(byKind)")

@@ -194,6 +194,7 @@ extension TenseExamples {
     /// `pronouns` are object pronouns to use with the verb: attached to the end of a command, in front of any other form.
     static func generated(tense: Tense, person: Int, conjugation: Conjugation, gloss: String, pronouns: [String] = []) -> ExampleSentence? {
         guard let form = conjugation.form(tense, person) ?? nil else { return nil }
+        if conjugation.infinitive == "haber" { return generatedHaber(tense: tense, person: person, form: form) }
         if let base = dativeVerbs[conjugation.infinitive] {
             return generatedDative(tense: tense, person: person, form: form, base: base)
         }
@@ -252,6 +253,23 @@ extension TenseExamples {
             }
         }
         return ExampleSentence(spanish: spanish, english: english)
+    }
+
+    /// "haber" is the helper in compound tenses, so it needs a participle: "Hoy yo he comido." / "Today I have eaten."
+    private static func generatedHaber(tense: Tense, person: Int, form: String) -> ExampleSentence? {
+        let subject = spanishSubjects[person]
+        let who = englishSubjects[person]
+        let have = person == 2 ? "has" : "have"
+        switch tense {
+        case .present: return ExampleSentence(spanish: "Hoy \(subject) \(form) comido.", english: "Today \(who) \(have) eaten.")
+        case .preterite: return ExampleSentence(spanish: "Cuando \(subject) \(form) comido, salí.", english: "When \(who) had eaten, I left.")
+        case .imperfect: return ExampleSentence(spanish: "Antes \(subject) \(form) comido.", english: "Before, \(who) had already eaten.")
+        case .future: return ExampleSentence(spanish: "Mañana \(subject) \(form) comido.", english: "Tomorrow \(who) will have eaten.")
+        case .conditional: return ExampleSentence(spanish: "Con tiempo, \(subject) \(form) comido.", english: "With time, \(who) would have eaten.")
+        case .subjunctivePresent: return ExampleSentence(spanish: "Espero que \(subject) \(form) comido.", english: "I hope \(who) \(have) eaten.")
+        case .subjunctiveImperfect: return ExampleSentence(spanish: "Ojalá \(subject) \(form) comido.", english: "I wish \(who) had eaten.")
+        case .imperative: return nil
+        }
     }
 
     /// "Me gusta el café." / "Le gusto a mi mamá." with matching English.

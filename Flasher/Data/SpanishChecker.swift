@@ -7,7 +7,6 @@ struct SpanishIssue: Identifiable, Hashable {
         case pronouns = "Pronouns"
         case agreement = "Agreement"
         case spelling = "Spelling"
-        case punctuation = "Punctuation"
         case grammar = "Grammar"
         case verb = "Verb"
         case style = "Style"
@@ -18,7 +17,6 @@ struct SpanishIssue: Identifiable, Hashable {
             case .pronouns: "person.2"
             case .agreement: "arrow.left.arrow.right"
             case .spelling: "textformat.abc"
-            case .punctuation: "questionmark.circle"
             case .grammar: "text.badge.checkmark"
             case .verb: "textformat.alt"
             case .style: "scissors"
@@ -79,7 +77,8 @@ enum SpanishChecker {
 
         var issues: [SpanishIssue] = []
         let add: (SpanishIssue.Kind, NSRange, String, String?) -> Void = { kind, range, message, suggestion in
-            guard !issues.contains(where: { NSIntersectionRange($0.range, range).length > 0 }) else { return }
+            // Two pronoun notes can share a word ("le lo haz": "le lo" and "lo haz"), so those may overlap each other
+            guard !issues.contains(where: { NSIntersectionRange($0.range, range).length > 0 && !($0.kind == .pronouns && kind == .pronouns && $0.range != range) }) else { return }
             issues.append(SpanishIssue(kind: kind, range: range, found: ns.substring(with: range), message: message, suggestion: suggestion))
         }
 
@@ -146,7 +145,6 @@ enum SpanishChecker {
             add(.grammar, span(i, i + 1), "“\(tokens[i].lower)” is repeated.", tokens[i].lower)
         }
 
-        punctuationRules(ns, add: add)
 
         return issues.sorted { $0.range.location < $1.range.location }
     }
@@ -161,9 +159,15 @@ enum SpanishChecker {
             for i in 0..<max(0, words.count - size + 1) where (pronounWords.contains(words[i].lower) || words[i].lower == "no") {
                 guard (i..<(i + size - 1)).allSatisfy({ adjacent($0) }) else { continue }
                 let range = span(i, i + size - 1)
-                guard !covered.contains(where: { NSIntersectionRange($0, range).length > 0 }) else { continue }
+                // A wider window that already holds a flagged pair adds nothing, but a pair that only shares a word does
+                guard !covered.contains(where: { NSIntersectionRange($0, range).length == min($0.length, range.length) }) else { continue }
                 let query = words[i..<(i + size)].map(\.text).joined(separator: " ")
-                if let note = Clitics.correction(forQuery: query) {
+                var note = Clitics.correction(forQuery: query)
+                // "le lo haz": after another pronoun, "lo" can't be an article, so check the command as "se lo haz"
+                if note == nil, size == 2, i > 0, ["lo", "la", "los", "las"].contains(words[i].lower), pronounWords.contains(words[i - 1].lower), adjacent(i - 1) {
+                    note = Clitics.correction(forQuery: "se " + query)
+                }
+                if let note {
                     covered.append(range)
                     add(.pronouns, range, note, nil)
                 }
@@ -353,34 +357,6 @@ enum SpanishChecker {
             if otherUses { continue }
             let who = persons.sorted().map { personNames[$0] }.joined(separator: " or ")
             add(.agreement, span(i, j + 1), "“\(tokens[i].text)” doesn't match “\(verb.text)”: that form goes with \(who), not \(personNames[person]).", nil)
-        }
-    }
-
-    // MARK: - Punctuation
-
-    /// Spanish opens questions and exclamations with ¿ and ¡.
-    private static func punctuationRules(_ ns: NSString, add: (SpanishIssue.Kind, NSRange, String, String?) -> Void) {
-        var sentenceStart = 0
-        var index = 0
-        while index < ns.length {
-            let c = ns.character(at: index)
-            let isTerminator = c == 46 || c == 63 || c == 33 || c == 10   // . ? ! newline
-            if isTerminator {
-                let previous: unichar = index > 0 ? ns.character(at: index - 1) : 0
-                let afterAnother = previous == 63 || previous == 33
-                if (c == 63 || c == 33), !afterAnother {
-                    let opener: unichar = c == 63 ? 0xBF : 0xA1
-                    let segment = ns.substring(with: NSRange(location: sentenceStart, length: index - sentenceStart))
-                    if !segment.utf16.contains(opener), segment.contains(where: { $0.isLetter }) {
-                        let mark = c == 63 ? "¿" : "¡"
-                        let closer = c == 63 ? "?" : "!"
-                        let kind = c == 63 ? "question" : "exclamation"
-                        add(.punctuation, NSRange(location: index, length: 1), "A \(kind) needs “\(mark)” at the start as well as “\(closer)” at the end.", mark)
-                    }
-                }
-                sentenceStart = index + 1
-            }
-            index += 1
         }
     }
 

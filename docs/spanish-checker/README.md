@@ -20,7 +20,7 @@ It can be switched off with the checkmark button in the Translate navigation bar
 
 | File | What it holds |
 | --- | --- |
-| `Flasher/Data/SpanishChecker.swift` | `SpanishIssue`, the tokenizer, and the rules that need token context: pronoun windows, spelling, article/noun and noun/adjective agreement, subject/verb agreement, contractions, repeated words, punctuation. `SpanishChecker.check(_:)` is the entry point. |
+| `Flasher/Data/SpanishChecker.swift` | `SpanishIssue`, the tokenizer, and the rules that need token context: pronoun windows, spelling, article/noun and noun/adjective agreement, subject/verb agreement, contractions, repeated words. `SpanishChecker.check(_:)` is the entry point. |
 | `Flasher/Data/SpanishRules.swift` | Fixed-phrase rules (regular expressions), the subjunctive rule, wrong irregular conjugations, pronoun order, adjective inflection helpers and the false-friend tips. |
 | `Flasher/Views/PhraseVerb.swift` | `SpanishStress` (syllables, stress and accent placement), `Clitics` (verbs with attached pronouns, pronoun + conjugated verb, commands) and `VerbForms` (an index of every conjugated form). |
 | `Flasher/Views/TranslateView.swift` | The "Spanish check" card, the text highlighting and the toolbar toggle. |
@@ -96,9 +96,7 @@ The subjunctive rule only looks at the verb right after the trigger (skipping `n
 
 ### Punctuation
 
-| Rule | Flagged | Not flagged |
-| --- | --- | --- |
-| Questions and exclamations open with `¿` / `¡` | *como estas?* → *¿como estas?*, *hola!* | ✅ *¿Qué?! No puede ser.* |
+Not checked. A missing `¿` or `¡` is common in informal writing, so the engine ignores it.
 
 ### Heads-up tips (not mistakes)
 

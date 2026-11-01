@@ -70,6 +70,7 @@ struct HomeView: View {
         .navigationTitle("El Pie")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) { AboutButton() }
             ToolbarItem(placement: .topBarTrailing) {
                 HStack(spacing: 4) {
                     Button { showRaptorRoom = true } label: {

@@ -54,7 +54,7 @@ struct SettingsView: View {
                 } header: {
                     Text("Translate")
                 } footer: {
-                    Text("Points out likely mistakes in Spanish text: pronoun order, accents, agreement, punctuation and more. You can also toggle it with the checkmark in Translate.")
+                    Text("Points out likely mistakes in Spanish text: pronoun order, accents, agreement, verb forms and more. You can also toggle it with the checkmark in Translate.")
                 }
 
                 Section {
@@ -82,5 +82,57 @@ struct SettingsView: View {
                 ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } }
             }
         }
+    }
+}
+
+/// The info button in the top-left of each tab; opens `AboutView`.
+struct AboutButton: View {
+    @State private var show = false
+
+    var body: some View {
+        Button { show = true } label: { Image(systemName: "info.circle") }
+            .accessibilityLabel("About this app")
+            .sheet(isPresented: $show) { AboutView() }
+    }
+}
+
+struct AboutView: View {
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            List {
+                Section {
+                    VStack(spacing: 6) {
+                        Image(systemName: "lock.shield.fill").font(.system(size: 44)).foregroundStyle(.green)
+                        Text("Your privacy").font(.title2.bold())
+                        Text("El Pie keeps everything on your phone.").font(.subheadline).foregroundStyle(.secondary)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 8)
+                }
+                Section {
+                    point("eye.slash", "We do not track you", "No analytics, no advertising, no accounts and no profiling.")
+                    point("airplane", "Fully offline", "The dictionary, conjugations, flashcards and Spanish checks all work without a connection.")
+                    point("icloud.slash", "No data is sent anywhere", "What you search, study and type never leaves your device. Your progress and settings are stored only on this phone.")
+                    point("character.bubble", "Translation stays on device", "The Translate tab uses Apple's on-device translation. The first time, iOS may download a language pack, and after that translating needs no internet.")
+                    point("trash", "You are in control", "Deleting the app deletes everything it stored.")
+                }
+            }
+            .navigationTitle("About El Pie")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Done") { dismiss() } } }
+        }
+    }
+
+    private func point(_ icon: String, _ title: String, _ detail: String) -> some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: icon).frame(width: 26).foregroundStyle(.green)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title).font(.headline)
+                Text(detail).font(.subheadline).foregroundStyle(.secondary)
+            }
+        }
+        .padding(.vertical, 2)
     }
 }

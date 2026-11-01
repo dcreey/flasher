@@ -107,7 +107,16 @@ struct TranslateView: View {
     @Environment(\.openURL) private var openSystemURL
     @State private var isWorking = false
     @State private var configuration: TranslationSession.Configuration?
-    @State private var request: (text: String, direction: Direction, readAs: String?)?
+    @State private var request: (text: String, direction: Direction, readAs: String?, source: String)?
+    /// Translating waits until typing has paused for this long.
+    private static let typingPause: Duration = .milliseconds(500)
+    @State private var pending: Task<Void, Never>?
+    /// What was last sent to the translator, so the same text isn't translated twice.
+    @State private var lastSent = ""
+    /// The English translation put back into Spanish, to show how a natural speaker would say the same thing.
+    @State private var backText: String?
+    @State private var backConfiguration: TranslationSession.Configuration?
+    @State private var backRequest: String?
     @FocusState private var focused: Bool
     @Environment(AppRouter.self) private var router: AppRouter?
     @AppStorage(AppSettings.showSpanishChecksKey) private var showChecks = true
@@ -126,18 +135,11 @@ struct TranslateView: View {
                 }
                 .pickerStyle(.segmented)
 
-                inputField
+                combinedBox
 
-                Button(action: translate) {
-                    HStack {
-                        if isWorking { ProgressView().tint(.white) }
-                        Text("Translate").fontWeight(.semibold)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
+                if isWorking {
+                    HStack(spacing: 8) { ProgressView(); Text("Translating…").font(.footnote).foregroundStyle(.secondary) }
                 }
-                .buttonStyle(.borderedProminent)
-                .disabled(input.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isWorking)
 
                 if let errorText {
                     VStack(alignment: .leading, spacing: 8) {
@@ -155,18 +157,23 @@ struct TranslateView: View {
                         }
                     }
                 }
-                if let output { results(output) }
+                if let output { results(output).padding(.top, 8) }
             }
             .padding()
         }
         .scrollDismissesKeyboard(.interactively)
+        .onChange(of: input) { scheduleTranslation() }
+        .onChange(of: focused) {
+            // Once the keyboard is away, translated Spanish turns into tappable words
+            if !focused, let done = output, done.direction == .toEnglish, done.input == input { isEditing = false }
+        }
         .onChange(of: direction) {
             if let done = output, done.direction != direction, done.input == input {
                 // A finished, unedited translation: flip the languages, so the result becomes the new input
-                input = done.translation
+                input = done.direction == .toSpanish ? MexicanTranslation.localize(done.translation).text : done.translation
                 output = nil
                 translate()
-            } else if output != nil || errorText != nil {
+            } else if output != nil || errorText != nil || !input.isEmpty {
                 // Nothing trustworthy to flip (edited text or an error): translate the same text the other way
                 translate()
             }
@@ -179,23 +186,31 @@ struct TranslateView: View {
                 // Missing language packs: the system asks to download them
                 try await session.prepareTranslation()
                 let response = try await session.translate(request.text)
-                var text = response.targetText
+                // Typing carried on while this was translating: the newer text has its own translation coming
+                guard request.source == input.trimmingCharacters(in: .whitespacesAndNewlines) else { isWorking = false; return }
+                let text = response.targetText
                 var adjusted: [(String, String)] = []
-                if request.direction == .toSpanish {
-                    let local = MexicanTranslation.localize(text)
-                    text = local.text
-                    adjusted = local.changes
-                }
+                if request.direction == .toSpanish { adjusted = MexicanTranslation.localize(text).changes }
                 output = Output(input: input, direction: request.direction, translation: text, readAs: request.readAs, adjusted: adjusted)
                 errorText = nil
+                if !focused { isEditing = false }
                 checkSpanish(request.direction == .toEnglish ? input : text)
+                backText = nil
+                if request.direction == .toEnglish { startBackTranslation(of: text) }
             } catch {
                 needsDownload = error is TranslationError
                 errorText = needsDownload ? "Spanish and English need to be downloaded for offline translation." : error.localizedDescription
             }
             isWorking = false
         }
+        .translationTask(backConfiguration) { session in
+            guard let source = backRequest else { return }
+            // A failure here only hides the extra card; the main translation is already on screen
+            guard let response = try? await session.translate(source), backRequest == source else { return }
+            backText = response.targetText
+        }
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) { AboutButton() }
             ToolbarItem(placement: .topBarTrailing) {
                 Button { showChecks.toggle() } label: { Image(systemName: showChecks ? "checkmark.seal.fill" : "checkmark.seal") }
                     .accessibilityLabel(showChecks ? "Hide Spanish checks" : "Show Spanish checks")
@@ -204,35 +219,26 @@ struct TranslateView: View {
         .opensWordLinks(inDictionary: true)
     }
 
-    private var inputField: some View {
-        ZStack(alignment: .topLeading) {
-            if showsLinkedInput {
-                // Translated Spanish becomes tappable words; tapping anywhere else turns it back into the editor
-                Text(showChecks ? SpanishChecker.highlighted(WordLinks.linked(input), text: input, issues: issues) : WordLinks.linked(input))
-                    .font(.body)
-                    .frame(maxWidth: .infinity, minHeight: 120, alignment: .topLeading)
-                    .padding(13)
-                    .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
-                    .contentShape(Rectangle())
-                    .onTapGesture { isEditing = true; focused = true }
-            } else {
-                TextEditor(text: $input)
-                    .focused($focused)
-                    .autocorrectionDisabled()
-                    .scrollContentBackground(.hidden)
-                    .padding(8)
-                    .frame(minHeight: 120)
-                    .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
-            }
-            if input.isEmpty {
-                Text(direction == .toEnglish ? "Type or paste Spanish" : "Type or paste English")
-                    .foregroundStyle(.tertiary)
-                    .padding(.horizontal, 13)
-                    .padding(.vertical, 16)
-                    .allowsHitTesting(false)
+    /// The input and its direct translation share one box, with a short line between them.
+    private var combinedBox: some View {
+        let flagged = showChecks && showsCheckResult && issues.contains { $0.kind != .tip }
+        return VStack(alignment: .leading, spacing: 0) {
+            inputField
+            if let output {
+                Divider().padding(.horizontal, 28)
+                directTranslation(output)
             }
         }
-        .overlay(alignment: .bottomTrailing) {
+        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.red.opacity(0.6), lineWidth: flagged ? 1 : 0))
+    }
+
+    private var inputField: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            inputText
+            if showsCheckFooter && output?.direction == .toEnglish { checkFooter.padding(.horizontal, 13).padding(.bottom, 10) }
+        }
+        .overlay(alignment: .topTrailing) {
             if !input.isEmpty {
                 Button { input = ""; output = nil; errorText = nil; isEditing = true } label: { Image(systemName: "xmark.circle.fill") }
                     .foregroundStyle(.secondary)
@@ -241,26 +247,122 @@ struct TranslateView: View {
         }
     }
 
+    private func directTranslation(_ output: Output) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                Text(output.direction == .toEnglish ? "English" : "Spanish · tap a word")
+                    .font(.caption2.weight(.semibold)).foregroundStyle(.secondary).textCase(.uppercase)
+                Spacer()
+                CopyButton(text: output.translation)
+            }
+            if output.direction == .toSpanish {
+                Text(showChecks ? SpanishChecker.highlighted(WordLinks.linked(output.translation), text: output.translation, issues: issues) : WordLinks.linked(output.translation))
+                    .font(.callout).textSelection(.enabled)
+                if showsCheckFooter { checkFooter.padding(.top, 4) }
+            } else {
+                Text(output.translation).font(.callout).textSelection(.enabled)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 12).padding(.vertical, 10)
+    }
+
+    /// The Spanish checks only describe the text on screen once its translation has finished.
+    private var showsCheckResult: Bool { output != nil && output?.input == input && !isWorking }
+
+    /// The notes only take room when the checks found something to say.
+    private var showsCheckFooter: Bool { showChecks && showsCheckResult && !issues.isEmpty }
+
+    /// What the checks found, small, right under the text: a red list of mistakes and orange tips.
+    @ViewBuilder
+    private var checkFooter: some View {
+        let mistakes = issues.filter { $0.kind != .tip }
+        let tips = issues.filter { $0.kind == .tip }
+        VStack(alignment: .leading, spacing: 3) {
+            ForEach(mistakes) { inlineIssue($0, color: .red, icon: "exclamationmark.circle.fill") }
+            ForEach(tips) { inlineIssue($0, color: .orange, icon: "lightbulb.fill") }
+        }
+    }
+
+    private func inlineIssue(_ issue: SpanishIssue, color: Color, icon: String) -> some View {
+        HStack(alignment: .top, spacing: 5) {
+            Image(systemName: icon).font(.system(size: 9)).foregroundStyle(color).padding(.top, 2)
+            Text("**“\(issue.found)”** \(issue.message)\(issue.suggestion.map { " → \($0)" } ?? "")")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+        }
+    }
+
+    private var inputText: some View {
+        ZStack(alignment: .topLeading) {
+            if showsLinkedInput {
+                // Translated Spanish becomes tappable words; tapping anywhere else turns it back into the editor
+                Text(showChecks ? SpanishChecker.highlighted(WordLinks.linked(input), text: input, issues: issues) : WordLinks.linked(input))
+                    .font(.body)
+                    .frame(maxWidth: .infinity, minHeight: 24, alignment: .topLeading)
+                    .padding(.leading, 13).padding(.vertical, 14).padding(.trailing, 34)
+                    .contentShape(Rectangle())
+                    .onTapGesture { isEditing = true; focused = true }
+            } else {
+                // The invisible text sizes the box, so it starts small and grows with what is typed
+                Text(input + "\u{200B}")
+                    .font(.body)
+                    .opacity(0)
+                    .frame(maxWidth: .infinity, minHeight: 24, alignment: .topLeading)
+                    .padding(.leading, 13).padding(.vertical, 14).padding(.trailing, 34)
+                    .overlay { TextEditor(text: $input).focused($focused).autocorrectionDisabled().scrollContentBackground(.hidden).padding(.leading, 8).padding(.vertical, 6).padding(.trailing, 26) }
+            }
+            if input.isEmpty {
+                Text(direction == .toEnglish ? "Type or paste Spanish" : "Type or paste English")
+                    .foregroundStyle(.tertiary)
+                    .padding(.horizontal, 13)
+                    .padding(.vertical, 14)
+                    .allowsHitTesting(false)
+            }
+        }
+    }
+
+    @ViewBuilder
+    /// The re-worded Spanish cards. Each only appears when it says something different from what was typed (ignoring case, accents and punctuation).
+    private func alternateTexts(_ output: Output) -> (natural: String?, mexican: String?) {
+        if output.direction == .toEnglish, let backText {
+            let typed = Self.comparable(output.input)
+            let natural = Self.comparable(backText) != typed ? backText : nil
+            let mexican = MexicanTranslation.localize(backText).text
+            let showMexican = Self.comparable(mexican) != typed && Self.comparable(mexican) != Self.comparable(backText)
+            return (natural, showMexican ? mexican : nil)
+        }
+        if output.direction == .toSpanish {
+            let mexican = MexicanTranslation.localize(output.translation).text
+            return (nil, Self.comparable(mexican) != Self.comparable(output.translation) ? mexican : nil)
+        }
+        return (nil, nil)
+    }
+
     @ViewBuilder
     private func results(_ output: Output) -> some View {
         let spanish = output.direction == .toEnglish ? output.input : output.translation
-        VStack(alignment: .leading, spacing: 12) {
-            card(title: output.direction == .toEnglish ? "English" : "Spanish · tap a word") {
-                if output.direction == .toSpanish {
-                    Text(showChecks ? SpanishChecker.highlighted(WordLinks.linked(output.translation), text: output.translation, issues: issues) : WordLinks.linked(output.translation))
-                        .font(.title3).textSelection(.enabled)
-                } else {
-                    Text(output.translation).font(.title3).textSelection(.enabled)
+        let alternates = alternateTexts(output)
+        let slang = MexicanTranslation.slang(in: spanish)
+        let alternatives = MexicanTranslation.alternatives(in: spanish)
+        let hasNatural = alternates.natural != nil || alternates.mexican != nil
+        let hasWords = output.readAs != nil || !output.adjusted.isEmpty || !slang.isEmpty || !alternatives.isEmpty
+        VStack(alignment: .leading, spacing: 24) {
+            // Lines only separate sections that both have something in them
+            if hasNatural || hasWords { Divider().padding(.horizontal, 28) }
+            if let natural = alternates.natural {
+                card(title: "More natural Spanish", copy: natural) {
+                    Text(WordLinks.linked(natural)).font(.callout).textSelection(.enabled)
                 }
             }
-            if showChecks { checksCard(spanish: spanish) }
+            if let mexican = alternates.mexican { mexicanCard(mexican) }
+            if hasNatural && hasWords { Divider().padding(.horizontal, 28) }
             if let readAs = output.readAs {
                 note("Read as", readAs, symbol: "text.magnifyingglass")
             }
             if !output.adjusted.isEmpty {
                 note("Adjusted for Mexico", output.adjusted.map { "\($0.0) → \($0.1)" }.joined(separator: "  ·  "), symbol: "mappin.and.ellipse")
             }
-            let slang = MexicanTranslation.slang(in: output.direction == .toEnglish ? output.input : output.translation)
             if !slang.isEmpty {
                 card(title: "Mexican words in this text") {
                     VStack(alignment: .leading, spacing: 8) {
@@ -281,7 +383,6 @@ struct TranslateView: View {
                     }
                 }
             }
-            let alternatives = MexicanTranslation.alternatives(in: spanish)
             if !alternatives.isEmpty {
                 card(title: "In Mexico you'd also say") {
                     VStack(alignment: .leading, spacing: 4) {
@@ -292,13 +393,17 @@ struct TranslateView: View {
         }
     }
 
-    private func card(title: String, @ViewBuilder content: () -> some View) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(title).font(.caption.weight(.semibold)).foregroundStyle(.secondary).textCase(.uppercase)
+    private func card(title: String, copy: String? = nil, @ViewBuilder content: () -> some View) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                Text(title).font(.caption2.weight(.semibold)).foregroundStyle(.secondary).textCase(.uppercase)
+                Spacer()
+                if let copy { CopyButton(text: copy) }
+            }
             content()
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(14)
+        .padding(.horizontal, 12).padding(.vertical, 10)
         .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
     }
 
@@ -316,47 +421,48 @@ struct TranslateView: View {
         }
     }
 
-    private func checksCard(spanish: String) -> some View {
-        let mistakes = issues.filter { $0.kind != .tip }
-        let tips = issues.filter { $0.kind == .tip }
-        return card(title: mistakes.isEmpty ? "Spanish check" : "Spanish check · \(mistakes.count)") {
-            VStack(alignment: .leading, spacing: 12) {
-                if mistakes.isEmpty {
-                    Label("No mistakes found in the Spanish. The checks cover pronouns, accents, agreement, verb forms, punctuation and more.", systemImage: "checkmark.circle")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                }
-                ForEach(mistakes) { issue in issueRow(issue, tint: .orange) }
-                if !tips.isEmpty {
-                    Text("Heads-up").font(.caption.weight(.semibold)).foregroundStyle(.secondary).textCase(.uppercase).padding(.top, mistakes.isEmpty ? 0 : 4)
-                    ForEach(tips) { issue in issueRow(issue, tint: .yellow) }
-                }
-            }
+    private func mexicanCard(_ text: String) -> some View {
+        card(title: "More natural in Mexico", copy: text) {
+            Text(WordLinks.linked(text)).font(.callout).textSelection(.enabled)
         }
     }
 
-    private func issueRow(_ issue: SpanishIssue, tint: Color) -> some View {
-        HStack(alignment: .top, spacing: 10) {
-            Image(systemName: issue.kind.icon).foregroundStyle(tint).frame(width: 22)
-            VStack(alignment: .leading, spacing: 3) {
-                Text("\(issue.kind.rawValue): “\(issue.found)”").font(.subheadline.weight(.semibold))
-                Text(issue.message).font(.footnote)
-                if let suggestion = issue.suggestion {
-                    Text("Try: \(suggestion)").font(.footnote.weight(.medium)).foregroundStyle(Color.accentColor)
-                }
-            }
+    private static func comparable(_ text: String) -> String {
+        text.searchKey.split(whereSeparator: { !$0.isLetter && !$0.isNumber }).joined(separator: " ")
+    }
+
+    private func startBackTranslation(of english: String) {
+        backRequest = english
+        let next = TranslationSession.Configuration(source: Locale.Language(identifier: "en"), target: Locale.Language(identifier: "es"))
+        if backConfiguration == next { backConfiguration?.invalidate() } else { backConfiguration = next }
+    }
+
+    /// Translates once typing has paused; clears the results when the text is emptied.
+    private func scheduleTranslation() {
+        pending?.cancel()
+        let text = input.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !text.isEmpty else {
+            output = nil; errorText = nil; issues = []; backText = nil; isWorking = false; lastSent = ""
+            return
+        }
+        guard "\(direction.rawValue)|\(text)" != lastSent else { return }
+        pending = Task {
+            try? await Task.sleep(for: Self.typingPause)
+            guard !Task.isCancelled else { return }
+            translate()
         }
     }
 
     private func translate() {
         let text = input.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty else { return }
-        focused = false
-        isEditing = false
+        pending?.cancel()
+        lastSent = "\(direction.rawValue)|\(text)"
         isWorking = true
         errorText = nil
         needsDownload = false
         issues = []
+        backText = nil
         var sent = text
         var readAs: String?
         if direction == .toEnglish {
@@ -364,8 +470,29 @@ struct TranslateView: View {
             sent = prepared.text
             if !prepared.changes.isEmpty { readAs = prepared.text }
         }
-        request = (sent, direction, readAs)
+        request = (sent, direction, readAs, text)
         let next = TranslationSession.Configuration(source: direction.source, target: direction.target)
         if configuration == next { configuration?.invalidate() } else { configuration = next }
+    }
+}
+
+/// A small "copy" button that confirms with a checkmark for a moment.
+struct CopyButton: View {
+    let text: String
+    @State private var copied = false
+
+    var body: some View {
+        Button {
+            UIPasteboard.general.string = text
+            copied = true
+            Task { try? await Task.sleep(for: .seconds(1.5)); copied = false }
+        } label: {
+            Image(systemName: copied ? "checkmark" : "doc.on.doc")
+                .font(.footnote.weight(.semibold))
+                .frame(minWidth: 24, minHeight: 20)
+        }
+        .buttonStyle(.plain)
+        .foregroundStyle(copied ? Color.green : Color.accentColor)
+        .accessibilityLabel(copied ? "Copied" : "Copy text")
     }
 }

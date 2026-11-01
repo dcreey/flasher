@@ -73,6 +73,7 @@ struct DictionaryView: View {
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarBackground(Color(.systemBackground), for: .navigationBar)
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) { AboutButton() }
             ToolbarItem(placement: .topBarTrailing) {
                 Button { showSettings = true } label: { Image(systemName: "gearshape") }
                     .accessibilityLabel("Settings")
