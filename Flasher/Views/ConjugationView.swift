@@ -17,6 +17,8 @@ struct ConjugationView: View {
     private struct Selection: Equatable {
         var tense: Tense
         var person: Int
+        /// A negative command ("no digas"): the imperative's second row, built from the present subjunctive.
+        var negative = false
     }
 
     init(conjugation: Conjugation, examples: [ExampleSentence] = [], gloss: String = "", phrase: PhraseVerb? = nil, attached: Clitics.Match? = nil) {
@@ -30,7 +32,7 @@ struct ConjugationView: View {
     }
 
     @State private var selection: Selection
-    @State private var showFullForms = false
+    @State private var showFullForms = UserDefaults.standard.string(forKey: AppSettings.conjugationDisplayKey) == AppSettings.ConjugationDisplay.full.rawValue
     @State private var exampleIndex = 0
     @AppStorage(AppSettings.showVosotrosKey) private var showVosotros = true
 
@@ -42,7 +44,7 @@ struct ConjugationView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             banner
-            if phrase == nil { exampleCard }
+            if phrase == nil, !selection.negative { exampleCard }
             Picker("Display", selection: $showFullForms) {
                 Text("Endings").tag(false)
                 Text("Full forms").tag(true)
@@ -106,7 +108,7 @@ struct ConjugationView: View {
         let person = selection.person
         let subject = tense == .imperative ? Conjugation.imperativePronouns[person] : bannerPronouns[person]
         return VStack(alignment: .leading, spacing: 4) {
-            Text("\(tense.mood.title) · \(tense.title) (\(tense.gloss))")
+            Text(selection.negative ? "Imperative · Negative command = no + present subjunctive" : "\(tense.mood.title) · \(tense.title) (\(tense.gloss))")
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(tense.mood.color)
             HStack(alignment: .firstTextBaseline, spacing: 6) {
@@ -264,7 +266,10 @@ struct ConjugationView: View {
         let tense = selection.tense
         let person = selection.person
         var form: String
-        if tense == .imperative, let attached = conjugation.attachedImperative {
+        if selection.negative {
+            let pronouns = commandPronouns(person).joined(separator: " ")
+            form = ["no", pronouns, conjugation.form(.subjunctivePresent, person) ?? "–"].filter { !$0.isEmpty }.joined(separator: " ")
+        } else if tense == .imperative, let attached = conjugation.attachedImperative {
             form = attached[person] ?? "–"
         } else {
             form = conjugation.form(tense, person) ?? "–"
@@ -301,6 +306,7 @@ struct ConjugationView: View {
                     moodBand(mood)
                     ForEach(Tense.tenses(in: mood)) { tense in
                         tenseRow(tense)
+                        if tense == .imperative { tenseRow(tense, negative: true) }
                     }
                 }
             }
@@ -328,16 +334,33 @@ struct ConjugationView: View {
         .padding(.top, 4)
     }
 
-    private func tenseRow(_ tense: Tense) -> some View {
-        let rowStem = conjugation.rowStem(tense)
-        let changed = conjugation.stemChangedPersons(tense)
-        let stemIsIrregular = rowStem != conjugation.regularRowStem(tense)
+    /// The pronouns shown with commands: the ones searched for, or the verb's own reflexive pronoun.
+    private func commandPronouns(_ person: Int) -> [String] {
+        if showsPronouns, let attached { return attached.pronouns }
+        return conjugation.reflexive ? [Conjugation.reflexivePronouns[person]] : []
+    }
+
+    /// `negative` draws the imperative's second row: "no" + the present subjunctive, with pronouns in front.
+    private func tenseRow(_ tense: Tense, negative: Bool = false) -> some View {
+        let source: Tense = negative ? .subjunctivePresent : tense
+        let rowStem = conjugation.rowStem(source)
+        let changed = conjugation.stemChangedPersons(source)
+        let stemIsIrregular = rowStem != conjugation.regularRowStem(source)
+        let isCommand = tense == .imperative
         return HStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-                Text(tense.title)
+                Text(isCommand ? "\(negative ? "✗" : "✓") \(tense.title)" : tense.title)
                     .font(.system(size: 11, weight: .semibold))
+                    .foregroundStyle(isCommand ? (negative ? Color.red : Color.green) : Color.primary)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.75)
+                    .minimumScaleFactor(0.7)
+                if negative {
+                    Text("(subjunctive)")
+                        .font(.system(size: 9, weight: .bold))
+                        .foregroundStyle(Mood.subjunctive.color)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                }
                 Text(rowStem.isEmpty ? " " : rowStem + "-")
                     .font(.system(size: 10, design: .monospaced))
                     .foregroundStyle(stemIsIrregular ? Color.orange : Color.secondary)
@@ -345,34 +368,61 @@ struct ConjugationView: View {
                     .minimumScaleFactor(0.6)
             }
             .frame(width: labelWidth, alignment: .leading)
-            columns { person in cell(tense, person, rowStem: rowStem, changed: changed.contains(person)) }
+            columns { person in cell(tense, person, rowStem: rowStem, changed: changed.contains(person), negative: negative) }
         }
     }
 
-    private func cell(_ tense: Tense, _ person: Int, rowStem: String, changed: Bool) -> some View {
-        let isSelected = selection == Selection(tense: tense, person: person)
+    private func cell(_ tense: Tense, _ person: Int, rowStem: String, changed: Bool, negative: Bool = false) -> some View {
+        let selected = Selection(tense: tense, person: person, negative: negative)
+        let isSelected = selection == selected
+        let color = negative ? Color.red : tense.mood.color
         return Button {
-            let tapped = Selection(tense: tense, person: person)
-            if tapped == selection { exampleIndex += 1 } else { selection = tapped; exampleIndex = 0 }
+            if selected == selection { exampleIndex += 1 } else { selection = selected; exampleIndex = 0 }
         } label: {
-            cellText(tense, person, rowStem: rowStem, changed: changed)
+            cellText(tense, person, rowStem: rowStem, changed: changed, negative: negative)
                 .frame(maxWidth: .infinity, minHeight: 34)
                 .background(
-                    (changed ? Color.orange.opacity(0.18) : tense.mood.color.opacity(0.07)),
+                    (changed ? Color.orange.opacity(0.18) : color.opacity(0.07)),
                     in: RoundedRectangle(cornerRadius: 6)
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: 6)
-                        .stroke(isSelected ? tense.mood.color : Color.clear, lineWidth: 2)
+                        .stroke(isSelected ? color : Color.clear, lineWidth: 2)
                 )
         }
         .buttonStyle(.plain)
-        .accessibilityLabel("\(tense.title), \(Conjugation.pronouns[person]): \(conjugation.form(tense, person) ?? "none")")
+        .accessibilityLabel("\(negative ? "Negative " : "")\(tense.title), \(Conjugation.pronouns[person]): \(conjugation.form(negative ? .subjunctivePresent : tense, person) ?? "none")")
     }
 
     @ViewBuilder
-    private func cellText(_ tense: Tense, _ person: Int, rowStem: String, changed: Bool) -> some View {
-        if tense == .imperative, let attached = conjugation.attachedImperative, let form = attached[person] {
+    private func cellText(_ tense: Tense, _ person: Int, rowStem: String, changed: Bool, negative: Bool = false) -> some View {
+        if negative {
+            // There is no negative command for "yo"
+            if person == 0 { Text("–").font(.system(size: 12)).foregroundStyle(.tertiary) }
+            else if let parts = conjugation.parts(.subjunctivePresent, person) {
+                let prefix = (["no"] + commandPronouns(person)).joined(separator: " ")
+                VStack(spacing: 0) {
+                    Text(prefix)
+                        .font(.system(size: 9, weight: .medium))
+                        .foregroundStyle(Color.red.opacity(0.85))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
+                    Text(styled(parts, tense: .subjunctivePresent, changed: changed, color: Mood.subjunctive.color))
+                        .font(.system(size: 12, design: .rounded))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                }
+                .padding(.horizontal, 1)
+            } else { Text("–").font(.system(size: 12)).foregroundStyle(.tertiary) }
+        } else if tense == .imperative, showsPronouns, let attached, let form = conjugation.form(.imperative, person), !form.isEmpty {
+            // With the pronouns searched for, the affirmative cell is the whole attached word: dímelo
+            Text(SpanishStress.attach(form, pronouns: attached.pronouns, person: person))
+                .font(.system(size: 12, weight: .semibold, design: .rounded))
+                .foregroundStyle(tense.mood.color)
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+                .padding(.horizontal, 1)
+        } else if tense == .imperative, let attached = conjugation.attachedImperative, let form = attached[person] {
             Text(form)
                 .font(.system(size: 12, weight: .semibold, design: .rounded))
                 .foregroundStyle(tense.mood.color)
@@ -392,7 +442,7 @@ struct ConjugationView: View {
         }
     }
 
-    private func styled(_ parts: (stem: String, ending: String, regularEnding: Bool), tense: Tense, changed: Bool) -> AttributedString {
+    private func styled(_ parts: (stem: String, ending: String, regularEnding: Bool), tense: Tense, changed: Bool, color: Color? = nil) -> AttributedString {
         var result = AttributedString()
         if !parts.regularEnding {
             var whole = AttributedString(parts.ending)
@@ -407,7 +457,7 @@ struct ConjugationView: View {
             result += stem
         }
         var ending = AttributedString(parts.ending)
-        ending.foregroundColor = tense.mood.color
+        ending.foregroundColor = color ?? tense.mood.color
         ending.inlinePresentationIntent = .stronglyEmphasized
         result += ending
         return result

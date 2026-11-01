@@ -320,6 +320,9 @@ final class SpanishCheckerTests: XCTestCase {
         XCTAssertEqual(Clitics.resolve("dímelo")?.pronouns, ["me", "lo"])
         XCTAssertEqual(Clitics.resolve("vámonos")?.verb.spanish, "ir")
         XCTAssertEqual(Clitics.resolve("dándomelo")?.verb.spanish, "dar")
+        XCTAssertEqual(Clitics.resolve("vayámonos")?.verb.spanish, "ir")           // vayamos + nos
+        XCTAssertEqual(Clitics.resolveApproximately("vamanos")?.didYouMean, "vámonos")
+        XCTAssertNil(Clitics.resolveApproximately("lavamanos"))                    // a real word
         XCTAssertNil(Clitics.resolve("casa"))
         XCTAssertNil(Clitics.resolve("telefono"))
     }
@@ -331,6 +334,14 @@ final class SpanishCheckerTests: XCTestCase {
         XCTAssertEqual(Clitics.resolvePhrase("le lo dice")?.pronouns, ["se", "lo"])    // corrected
         XCTAssertNotNil(Clitics.resolvePhrase("le lo dice")?.correction)
         XCTAssertNil(Clitics.resolvePhrase("la casa"))
+    }
+
+    func testSearchFindsMisspelledAttachedForms() {
+        XCTAssertEqual(DictionaryIndex.search("vamanos", scope: .all).first?.word.spanish, "ir")
+        XCTAssertEqual(DictionaryIndex.search("vámonos", scope: .all).first?.word.spanish, "ir")
+        XCTAssertEqual(DictionaryIndex.search("nos veo", scope: .all).first?.word.spanish, "ver")
+        assertFlags("Vamanos ya, que es tarde.", .spelling, suggestion: "vámonos")
+        assertClean("Vámonos ya, que es tarde.")
     }
 
     func testSearchCorrections() {
@@ -379,4 +390,3 @@ final class SpanishCheckerTests: XCTestCase {
         XCTAssertLessThanOrEqual(byKind[.spelling] ?? 0, 40, "spelling rule fired too often: \(byKind)")
     }
 }
-

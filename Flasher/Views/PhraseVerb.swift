@@ -140,6 +140,8 @@ enum Clitics {
         var correction: String?
         /// A note about how pronouns and commands combine, shown when the query put them the wrong way round.
         var warning: String?
+        /// Set when the query was a slip of a vowel in an attached form ("vamanos" → "vámonos").
+        var didYouMean: String?
 
         var correctionNote: String? {
             warning ?? correction.map { "“\($0)” isn't used in Spanish. When le or les comes right before lo, la, los or las, it changes to se, so it reads “\(pronouns.joined(separator: " "))”." }
@@ -147,7 +149,7 @@ enum Clitics {
 
         /// "to see, to watch — ver + nos (us)"
         var note: String {
-            "\(verb.english) — \(title) (\(pronouns.map { Clitics.gloss(of: $0, verb: verb.spanish) }.joined(separator: " + ")))" + (correction.map { " · corrected from “\($0)”" } ?? "")
+            "\(verb.english) — \(title) (\(pronouns.map { Clitics.gloss(of: $0, verb: verb.spanish) }.joined(separator: " + ")))" + (correction.map { " · corrected from “\($0)”" } ?? "") + (didYouMean.map { " · did you mean “\($0)”?" } ?? "")
         }
 
         /// The tense and person the conjugation chart should show, when the verb part is a command or a conjugated form.
@@ -343,6 +345,8 @@ enum Clitics {
         var map: [String: [(infinitive: String, person: Int)]] = [:]
         for (form, slots) in VerbForms.index {
             for slot in slots where slot.tense == .imperative { map[form.searchKey, default: []].append((slot.infinitive, slot.person)) }
+            // "vayámonos": the nosotros command is also the present subjunctive (vayamos + nos)
+            for slot in slots where slot.tense == .subjunctivePresent && slot.person == 3 { map[form.searchKey, default: []].append((slot.infinitive, 3)) }
         }
         return map
     }()
@@ -403,6 +407,25 @@ enum Clitics {
             for first in suffixes where !direct.contains(first) && rest.hasSuffix(first) {
                 let base = String(rest.dropLast(first.count))
                 if plainFinite(base) { return (base, [first, last]) }
+            }
+        }
+        return nil
+    }
+
+    /// "vamanos" → vámonos: an attached form typed with one vowel wrong.
+    static func resolveApproximately(_ token: String) -> Match? {
+        let key = token.searchKey
+        guard key.count >= 6, key.allSatisfy({ $0.isLetter }), resolve(token) == nil else { return nil }
+        let letters = Array(key)
+        for (i, c) in letters.enumerated() where "aeiou".contains(c) {
+            for vowel in "aeiou" where vowel != c {
+                var changed = letters
+                changed[i] = vowel
+                guard let found = resolve(String(changed)), found.form.count >= 3, let spelled = expectedSpelling(found) else { continue }
+                var match = Match(verb: found.verb, typed: token, form: found.form, pronouns: found.pronouns, kind: found.kind)
+                match.didYouMean = spelled
+                match.warning = "“\(token)” isn't a word. Did you mean “\(spelled)”?"
+                return match
             }
         }
         return nil

@@ -108,6 +108,12 @@ enum SpanishChecker {
                 continue
             }
 
+            // "vamanos": an attached form with a vowel slip
+            if !token.isCapitalized || atSentenceStart(i), token.lower.count >= 6, !isKnownWord(token.text), let guess = Clitics.resolveApproximately(token.text), let spelled = guess.didYouMean {
+                add(.spelling, token.range, "“\(token.text)” isn't a word. Did you mean “\(spelled)”?", spelled)
+                continue
+            }
+
             // Missing accent or tilde on a word that isn't a word without it: "telefono" → "teléfono"
             if token.lower == token.key, token.lower.count >= 3, !token.isCapitalized, let fixed = accentFix(for: token.lower) {
                 add(.spelling, token.range, "“\(token.text)” is missing an accent mark or tilde: “\(fixed)”.", fixed)

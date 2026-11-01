@@ -228,7 +228,7 @@ enum DictionaryIndex {
         }
         var formIDs = Set(formWords.map(\.id))
         // "vernos" / "dámelo" / "hacerlo": a verb with pronouns attached, when it isn't an entry of its own
-        if scope != .english, !q.contains(" "), !entries.contains(where: { $0.spanish == q }), let attached = Clitics.resolve(q),
+        if scope != .english, !q.contains(" "), !entries.contains(where: { $0.spanish == q }), let attached = Clitics.resolve(q) ?? Clitics.resolveApproximately(q),
            attached.verb.id != diminutive?.base.id, formIDs.insert(attached.verb.id).inserted {
             ranked.append((0, 0, SearchHit(word: attached.verb, diminutive: nil, senseNote: attached.note, attached: attached)))
         }

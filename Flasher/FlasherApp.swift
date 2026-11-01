@@ -7,10 +7,13 @@ struct FlasherApp: App {
         Task.detached(priority: .utility) { DictionaryIndex.warmUp(); _ = Extras.shared; _ = VerbForms.index }
     }
 
+    @AppStorage(AppSettings.appearanceKey) private var appearance = AppSettings.Appearance.system.rawValue
+
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(ProgressStore.shared)
+                .preferredColorScheme(AppSettings.Appearance(rawValue: appearance)?.colorScheme)
         }
     }
 }
