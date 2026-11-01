@@ -119,6 +119,8 @@ enum Clitics {
         case infinitive, gerund
         /// The command's person: 1 tú, 2 usted, 3 nosotros, 4 vosotros, 5 ustedes.
         case command(person: Int)
+        /// A conjugated verb with the pronouns in front of it ("nos veo"): the tense and person it is written in.
+        case finite(tense: Tense, person: Int)
     }
 
     struct Match: Hashable {
@@ -129,27 +131,33 @@ enum Clitics {
         let form: String
         let pronouns: [String]
         let kind: Kind
+        /// Set when the query used "le lo" / "les la": the pair as typed, now corrected to "se lo".
+        var correction: String?
+        /// A note about how pronouns and commands combine, shown when the query put them the wrong way round.
+        var warning: String?
+
+        var correctionNote: String? {
+            warning ?? correction.map { "“\($0)” isn't used in Spanish. When le or les comes right before lo, la, los or las, it changes to se, so it reads “\(pronouns.joined(separator: " "))”." }
+        }
 
         /// "to see, to watch — ver + nos (us)"
         var note: String {
-            "\(verb.english) — \(form) + \(pronouns.joined(separator: " + ")) (\(pronouns.map { Clitics.gloss(of: $0, verb: verb.spanish) }.joined(separator: " + ")))"
+            "\(verb.english) — \(title) (\(pronouns.map { Clitics.gloss(of: $0, verb: verb.spanish) }.joined(separator: " + ")))" + (correction.map { " · corrected from “\($0)”" } ?? "")
         }
 
-        /// The tense and person the conjugation chart should show, when the verb part is a command.
+        /// The tense and person the conjugation chart should show, when the verb part is a command or a conjugated form.
         var selection: (tense: Tense, person: Int)? {
-            if case .command(let person) = kind { return (.imperative, person) }
-            return nil
+            switch kind {
+            case .command(let person): return (.imperative, person)
+            case .finite(let tense, let person): return (tense, person)
+            default: return nil
+            }
         }
 
-        /// "to see us", "seeing us", "tell it to me!"; nil when the verb's gloss isn't a plain verb.
-        var english: String? {
-            guard let (base, rest) = EnglishVerb.parse(verb.english) else { return nil }
-            func phrase(_ verb: String) -> String { [verb, Clitics.objects(pronouns), rest].filter { !$0.isEmpty }.joined(separator: " ") }
-            switch kind {
-            case .infinitive: return "to " + phrase(base)
-            case .gerund: return phrase(EnglishVerb.gerund(base))
-            case .command(let person): return person == 3 ? "let's " + phrase(base) : phrase(base) + "!"
-            }
+        /// "ver + nos" when the pronouns follow the verb, "nos + veo" when they come first.
+        var title: String {
+            if case .finite = kind { return "\(pronouns.joined(separator: " + ")) + \(form)" }
+            return "\(form) + \(pronouns.joined(separator: " + "))"
         }
 
         struct Reading: Hashable { let english: String; let label: String }
@@ -163,6 +171,9 @@ enum Clitics {
                 case .infinitive: return "to " + core(base)
                 case .gerund: return core(EnglishVerb.gerund(base))
                 case .command(let person): return person == 3 ? "let's " + core(base) : core(base) + "!"
+                case .finite(let tense, let person):
+                    let verbPart = TenseExamples.phraseEnglish(gloss: "to " + base, tense: tense, person: person) ?? base
+                    return [verbPart, object, rest].filter { !$0.isEmpty }.joined(separator: " ")
                 }
             }
             if pronouns.count == 2 { return [Reading(english: phrase(Clitics.objects(pronouns)), label: "pronouns combined")] }
@@ -180,23 +191,39 @@ enum Clitics {
             case "la": options = [("it/her/you", "object")]
             default: options = [("them", "object")]
             }
+            var chosen = options
+            if case .finite(_, let person) = kind {
+                // "nos vemos" (we + nos) is reflexive or reciprocal; "nos veo" (I + nos) is an object
+                let matchesSubject = pronouns[0] == Conjugation.reflexivePronouns[person]
+                var fitting = options.filter { matchesSubject ? $0.1 != "object" : $0.1 == "object" }
+                if person < 3 { fitting = fitting.filter { $0.1 != "reciprocal" } }
+                if !fitting.isEmpty { chosen = fitting }
+            }
             // "say to me", not "say me": these verbs take the person as an indirect object
             let indirect = Clitics.indirectVerbs.contains(verb.spanish) && ["me", "te", "nos", "os", "le", "les"].contains(pronouns[0])
-            return options.map { Reading(english: phrase(indirect && $0.1 == "object" ? "to " + $0.0 : $0.0), label: $0.1) }
+            return chosen.map { Reading(english: phrase(indirect && $0.1 == "object" ? "to " + $0.0 : $0.0), label: $0.1) }
         }
 
         /// What the form means in everyday speech, when that differs from the literal reading.
-        var idiom: String? { Clitics.idioms["\(verb.spanish)+\(pronouns.joined(separator: "+"))"] }
+        var idiom: String? {
+            // "nos veo" (I see us) isn't the get-together idiom; "nos vemos" and "vernos" are
+            if case .finite(_, let person) = kind, pronouns.first != Conjugation.reflexivePronouns[person] { return nil }
+            return Clitics.idioms["\(verb.spanish)+\(pronouns.joined(separator: "+"))"]
+        }
 
         /// How the written word is put together, in plain words: "diciendo (saying) + le (to him/her/you) → diciéndole".
         var built: String {
             let parsed = EnglishVerb.parse(verb.english)
+            if case .finite = kind {
+                let list = pronouns.map { "\($0) (\(Clitics.gloss(of: $0, verb: verb.spanish)))" }.joined(separator: " + ")
+                return "\(list) goes in front of the conjugated verb \(form), as a separate word: \(pronouns.joined(separator: " ")) \(form)."
+            }
             let formMeaning: String? = parsed.map { base, rest in
                 let tail = rest.isEmpty ? "" : " " + rest
                 switch kind {
                 case .infinitive: return "to " + base + tail
                 case .gerund: return EnglishVerb.gerund(base) + tail
-                case .command: return base + tail + "!"
+                case .command, .finite: return base + tail + "!"
                 }
             }
             let parts = pronouns.map { "\($0) (\(Clitics.gloss(of: $0, verb: verb.spanish)))" }.joined(separator: " + ")
@@ -215,6 +242,7 @@ enum Clitics {
             case .infinitive: "Pronouns can go on the end of an infinitive (like \(form))."
             case .gerund: "Pronouns can go on the end of a gerund, the -ing form (like \(form))."
             case .command: "Pronouns go on the end of a command you give. In a negative command they go before the verb instead (“no me lo digas”)."
+            case .finite: "With a conjugated verb, pronouns always go in front, as separate words. They are only attached to infinitives, gerunds and commands."
             }
         }
 
@@ -313,6 +341,91 @@ enum Clitics {
         }
         return map
     }()
+
+    /// Accent-free conjugated form → every verb, tense and person it can be (commands left out).
+    private static let finiteForms: [String: [(infinitive: String, tense: Tense, person: Int, shown: String)]] = {
+        var map: [String: [(infinitive: String, tense: Tense, person: Int, shown: String)]] = [:]
+        for (form, slots) in VerbForms.index {
+            for slot in slots where slot.tense != .imperative { map[form.searchKey, default: []].append((slot.infinitive, slot.tense, slot.person, form)) }
+        }
+        return map
+    }()
+
+    /// A plain-words explanation when the pronouns in a query are in a combination Spanish doesn't use: "le lo", "lo me".
+    static func correction(forQuery query: String) -> String? {
+        let tokens = query.searchKey.split(separator: " ").map(String.init)
+        for pair in zip(tokens, tokens.dropFirst()) {
+            if ["le", "les"].contains(pair.0), direct.contains(pair.1) {
+                return "“\(pair.0) \(pair.1)” isn't used in Spanish. When le or les comes right before lo, la, los or las, it changes to se (it is easier to say): “se \(pair.1)”."
+            }
+            if direct.contains(pair.0), ["me", "te", "nos", "os", "se", "le", "les"].contains(pair.1) {
+                return "“\(pair.0) \(pair.1)” has the order backwards. The person comes first, then lo, la, los or las: “\(pair.1) \(pair.0)”."
+            }
+        }
+        return resolvePhrase(query)?.warning
+    }
+
+    /// The written command or subjunctive form of a verb for a person ("decir", .imperative, 1 → "di").
+    private static func formOf(_ infinitive: String, _ tense: Tense, _ person: Int) -> String? {
+        Conjugator.conjugate(infinitive)?.forms[tense]?[person].flatMap { $0 }
+    }
+
+    /// Both ways to say a command with pronouns: attached when affirmative, in front (with the subjunctive) when negative.
+    private static func commandAdvice(_ infinitive: String, person: Int, pronouns: [String]) -> String? {
+        guard let command = formOf(infinitive, .imperative, person), let negative = formOf(infinitive, .subjunctivePresent, person) else { return nil }
+        let attached = SpanishStress.attach(command, pronouns: pronouns, person: person)
+        return "“\(attached)” (pronouns on the end) is how you give the command; the negative command puts them in front instead: “no \(pronouns.joined(separator: " ")) \(negative)”."
+    }
+
+    /// "nos veo", "me lo dice", "no te vayas": pronouns in front of a conjugated verb.
+    static func resolvePhrase(_ query: String) -> Match? {
+        var tokens = query.searchKey.split(separator: " ").map(String.init)
+        // "yo me veo": the subject is dropped, and it picks the person when a form fits several ("ve")
+        let subjects = ["yo": 0, "tu": 1, "el": 2, "ella": 2, "usted": 2, "nosotros": 3, "nosotras": 3, "vosotros": 4, "vosotras": 4, "ellos": 5, "ellas": 5, "ustedes": 5]
+        let subjectPerson = tokens.first.flatMap { subjects[$0] }
+        if subjectPerson != nil { tokens.removeFirst() }
+        let negated = tokens.first == "no"
+        if negated { tokens.removeFirst() }
+        // "no dímelo": a negative command can't take its pronouns on the end
+        if negated, tokens.count == 1, let attached = resolve(tokens[0]), case .command(let person) = attached.kind,
+           let advice = commandAdvice(attached.verb.spanish, person: person, pronouns: attached.pronouns) {
+            var match = attached
+            match.warning = "In a negative command the pronouns can't be attached to the end. " + advice
+            return match
+        }
+        guard (2...3).contains(tokens.count) else { return nil }
+        var pronouns = Array(tokens.dropLast())
+        guard pronouns.allSatisfy({ suffixes.contains($0) }) else { return nil }
+        var correction: String?
+        if pronouns.count == 2 {
+            // le/les + lo/la/los/las is not Spanish: it becomes se
+            if ["le", "les"].contains(pronouns[0]), direct.contains(pronouns[1]) { correction = pronouns.joined(separator: " "); pronouns[0] = "se" }
+            else if direct.contains(pronouns[0]) || !direct.contains(pronouns[1]) { return nil }
+        }
+        // "me haz": an affirmative command takes its pronouns on the end, so this order isn't used
+        if finiteForms[tokens.last!] == nil, let commands = imperatives[tokens.last!] {
+            for command in commands {
+                guard let word = Lexicon.shared.wordsByID[command.infinitive], !command.infinitive.contains(" "),
+                      let advice = commandAdvice(command.infinitive, person: command.person, pronouns: pronouns) else { continue }
+                var match = Match(verb: word, typed: query, form: formOf(command.infinitive, .imperative, command.person) ?? tokens.last!, pronouns: pronouns,
+                                  kind: .command(person: command.person), correction: correction)
+                match.warning = "In an affirmative command the pronouns can't go in front of the verb. " + advice
+                return match
+            }
+        }
+        guard let options = finiteForms[tokens.last!] else { return nil }
+        // Prefer a plain one-word verb, the earlier tense, and the more common verb
+        let order = Tense.allCases
+        let ranked = options.compactMap { option -> (option: (infinitive: String, tense: Tense, person: Int, shown: String), word: Word)? in
+            guard let word = Lexicon.shared.wordsByID[option.infinitive], !option.infinitive.contains(" ") else { return nil }
+            return (option, word)
+        }.sorted {
+            let a = order.firstIndex(of: $0.option.tense) ?? 0, b = order.firstIndex(of: $1.option.tense) ?? 0
+            return a != b ? a < b : $0.word.order < $1.word.order
+        }
+        guard let best = ranked.first(where: { $0.option.person == subjectPerson }) ?? ranked.first else { return nil }
+        return Match(verb: best.word, typed: query, form: best.option.shown, pronouns: pronouns, kind: .finite(tense: best.option.tense, person: best.option.person), correction: correction)
+    }
 
     /// Splits off one or two pronouns ("dámelo" → dá + me + lo) when what is left is an infinitive, a gerund or a command.
     static func resolve(_ token: String) -> Match? {

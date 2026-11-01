@@ -236,6 +236,11 @@ enum DictionaryIndex {
         let articles = ["el ", "la ", "los ", "las ", "un ", "una ", "unos ", "unas "]
         let bare = articles.first(where: { q.hasPrefix($0) && q.count > $0.count }).map { String(q.dropFirst($0.count)) }
 
+        // "nos veo" / "me lo dice": pronouns in front of a conjugated verb. Rank 1 keeps real entries ("me gusta") above it.
+        if scope != .english, q.contains(" "), let phrase = Clitics.resolvePhrase(q), phrase.verb.id != diminutive?.base.id, formIDs.insert(phrase.verb.id).inserted {
+            ranked.append((1, 0, SearchHit(word: phrase.verb, diminutive: nil, senseNote: phrase.note, attached: phrase)))
+        }
+
         // "recordarse" / "soñarse" find recordar / soñar when they have no reflexive entry of their own
         var reflexiveBase: String?
         if q.count > 5, ["arse", "erse", "irse"].contains(where: q.hasSuffix) { reflexiveBase = String(q.dropLast(2)) }

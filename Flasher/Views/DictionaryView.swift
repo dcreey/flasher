@@ -54,7 +54,12 @@ struct DictionaryView: View {
             }
         }
         .safeAreaInset(edge: .top, spacing: 0) {
-            if !searchText.isEmpty { typeFilterBar }
+            if !searchText.isEmpty {
+                VStack(spacing: 0) {
+                    typeFilterBar
+                    if let note = Clitics.correction(forQuery: searchText) { correctionBanner(note) }
+                }
+            }
         }
         .background { SearchStateReader(isSearching: $isSearching) }
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: scope.prompt)
@@ -138,6 +143,18 @@ struct DictionaryView: View {
         .padding(.horizontal)
         .padding(.vertical, 6)
         .background(Color(.systemBackground))
+    }
+
+    /// Shown when the pronouns typed are in a combination Spanish doesn't use ("le lo").
+    private func correctionBanner(_ note: String) -> some View {
+        Label { Text(note).font(.footnote) } icon: { Image(systemName: "exclamationmark.triangle") }
+            .foregroundStyle(.orange)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(12)
+            .background(Color.orange.opacity(0.12), in: RoundedRectangle(cornerRadius: 10))
+            .padding(.horizontal)
+            .padding(.bottom, 6)
+            .background(Color(.systemBackground))
     }
 
     private func saveLastQuery() {

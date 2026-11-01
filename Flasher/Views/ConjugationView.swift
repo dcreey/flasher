@@ -152,7 +152,8 @@ struct ConjugationView: View {
                 } else {
                     let reflexive = ["me", "te", "se", "nos", "os", "se"][person]
                     let echo = attached.pronouns.contains(reflexive) ? " Here “\(reflexive)” matches the subject, so it reads as reflexive (\(Clitics.reflexiveMeaning(of: reflexive)))." : ""
-                    pronounRow("With \(list)", "\(list) \(form)", note: "Pronouns go before a conjugated verb; attaching them (“\(form)\(attached.pronouns.joined())”) isn't used.\(echo)")
+                    let isSearched = attached.selection.map { $0.tense == tense && $0.person == person } ?? false
+                    pronounRow("With \(list)", "\(list) \(form)", note: "Pronouns go before a conjugated verb; attaching them (“\(form)\(attached.pronouns.joined())”) isn't used.\(echo)", highlight: isSearched)
                 }
             }
             .padding(.top, 6)

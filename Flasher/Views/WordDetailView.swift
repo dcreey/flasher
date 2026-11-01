@@ -233,8 +233,12 @@ struct WordDetailView: View {
     private func attachedCard(_ match: Clitics.Match) -> some View {
         let readings = match.readings
         return VStack(alignment: .leading, spacing: 6) {
-            Text("\(match.typed) = \(match.form) + \(match.pronouns.joined(separator: " + "))")
+            Text("\(match.typed) = \(match.title)")
                 .font(.subheadline.weight(.semibold))
+            if let note = match.correctionNote {
+                Label { Text(note).font(.footnote) } icon: { Image(systemName: "exclamationmark.triangle") }
+                    .foregroundStyle(.orange)
+            }
             if let first = readings.first {
                 Text("“\(first.english)”").font(.title3)
                 ForEach(readings.dropFirst(), id: \.self) { reading in
