@@ -19,6 +19,8 @@
 		1A301CC683839C318A0C2A86 /* extras.tsv in Resources */ = {isa = PBXBuildFile; fileRef = B3C38A555A559A897F6EE015 /* extras.tsv */; };
 		C9218132A905EB7C13C38FB1 /* TenseExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE843D21B1F70748A414EF5 /* TenseExamples.swift */; };
 		E6F7DBAEBB6421AE1C16251C /* Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3836E191B2653C2E5FF14105 /* Extras.swift */; };
+		D1E2F3A4B5C60718293A4B61 /* SpanishChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2F3A4B5C60718293A4B60 /* SpanishChecker.swift */; };
+		D1E2F3A4B5C60718293A4B63 /* SpanishRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2F3A4B5C60718293A4B62 /* SpanishRules.swift */; };
 		B576A8BE372787D40F34D546 /* lexicon.tsv in Resources */ = {isa = PBXBuildFile; fileRef = 23DA9309C8B55BF22D4C937D /* lexicon.tsv */; };
 		49C341F465036223A0C4EC96 /* DictionaryIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46318E3C2C94C879E7C1846A /* DictionaryIndex.swift */; };
 		3C1D3D5A0F58396D0B2C334E /* Lexicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2C4963525C6B2A5705339 /* Lexicon.swift */; };
@@ -46,7 +48,18 @@
 		EF04C7CDBF16A8256C111E95 /* DictionaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDECE69016EF3E306EE24A /* DictionaryView.swift */; };
 		D7B19990C2078D95003A1465 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2773AC78DDD538241E1D861F /* SettingsView.swift */; };
 		811B219EA1967FC2A580BDCC /* ConjugationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F648AE9DD9A31E2445AB7080 /* ConjugationView.swift */; };
+		936299D414BDB758B390BDAD /* SpanishCheckerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1FA2CB60F4886AD163AA56 /* SpanishCheckerTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		80A0A8F610DF9BEE3BCC36CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D873D67618BAF4D166ABEF07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F59FFD89D73A7F1638C65D0C;
+			remoteInfo = Flasher;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		C1D2E3F4A5B60718293A4B5F /* TranslateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateView.swift; sourceTree = "<group>"; };
@@ -75,6 +88,8 @@
 		B3C38A555A559A897F6EE015 /* extras.tsv */ = {isa = PBXFileReference; lastKnownFileType = text; path = extras.tsv; sourceTree = "<group>"; };
 		6EE843D21B1F70748A414EF5 /* TenseExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenseExamples.swift; sourceTree = "<group>"; };
 		3836E191B2653C2E5FF14105 /* Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extras.swift; sourceTree = "<group>"; };
+		D1E2F3A4B5C60718293A4B60 /* SpanishChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpanishChecker.swift; sourceTree = "<group>"; };
+		D1E2F3A4B5C60718293A4B62 /* SpanishRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpanishRules.swift; sourceTree = "<group>"; };
 		23DA9309C8B55BF22D4C937D /* lexicon.tsv */ = {isa = PBXFileReference; lastKnownFileType = text; path = lexicon.tsv; sourceTree = "<group>"; };
 		46318E3C2C94C879E7C1846A /* DictionaryIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryIndex.swift; sourceTree = "<group>"; };
 		3BC2C4963525C6B2A5705339 /* Lexicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lexicon.swift; sourceTree = "<group>"; };
@@ -90,6 +105,8 @@
 		F301223F1043743D51C9E079 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F55E68FEEABC8D07EC15B631 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FA642928CF609403D00FAE50 /* SeedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedData.swift; sourceTree = "<group>"; };
+		9D1FA2CB60F4886AD163AA56 /* SpanishCheckerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpanishCheckerTests.swift; sourceTree = "<group>"; };
+		094E742188666FE7FD72B24E /* FlasherTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = FlasherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -102,6 +119,8 @@
 				B3C38A555A559A897F6EE015 /* extras.tsv */,
 				6EE843D21B1F70748A414EF5 /* TenseExamples.swift */,
 				3836E191B2653C2E5FF14105 /* Extras.swift */,
+				D1E2F3A4B5C60718293A4B60 /* SpanishChecker.swift */,
+				D1E2F3A4B5C60718293A4B62 /* SpanishRules.swift */,
 				23DA9309C8B55BF22D4C937D /* lexicon.tsv */,
 				46318E3C2C94C879E7C1846A /* DictionaryIndex.swift */,
 				3BC2C4963525C6B2A5705339 /* Lexicon.swift */,
@@ -175,6 +194,7 @@
 		64085F9CF2348C4196F9E835 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				094E742188666FE7FD72B24E /* FlasherTests.xctest */,
 				AA096575DD698DA69AB2ECAF /* Flasher.app */,
 			);
 			name = Products;
@@ -183,9 +203,18 @@
 		8A177F88F0802E3F0E70A5B9 = {
 			isa = PBXGroup;
 			children = (
+				DE075C9CD702E0C74533E53B /* FlasherTests */,
 				5BBA3AC8FBCA7470E860D9E5 /* Flasher */,
 				64085F9CF2348C4196F9E835 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		DE075C9CD702E0C74533E53B /* FlasherTests */ = {
+			isa = PBXGroup;
+			children = (
+				9D1FA2CB60F4886AD163AA56 /* SpanishCheckerTests.swift */,
+			);
+			path = FlasherTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,6 +238,24 @@
 			productReference = AA096575DD698DA69AB2ECAF /* Flasher.app */;
 			productType = "com.apple.product-type.application";
 		};
+		23BA14840585AAC2571B0CDC /* FlasherTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6B3308346FC0C7F0DB13DA1C /* Build configuration list for PBXNativeTarget "FlasherTests" */;
+			buildPhases = (
+				1F462CA57527E2C6D5711FC5 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C11451DCB9CBC1DE3CA82376 /* PBXTargetDependency */,
+			);
+			name = FlasherTests;
+			packageProductDependencies = (
+			);
+			productName = FlasherTests;
+			productReference = 094E742188666FE7FD72B24E /* FlasherTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -218,6 +265,9 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					23BA14840585AAC2571B0CDC = {
+						TestTargetID = F59FFD89D73A7F1638C65D0C;
+					};
 					F59FFD89D73A7F1638C65D0C = {
 						DevelopmentTeam = "";
 					};
@@ -237,6 +287,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				23BA14840585AAC2571B0CDC /* FlasherTests */,
 				F59FFD89D73A7F1638C65D0C /* Flasher */,
 			);
 		};
@@ -280,6 +331,8 @@
 				3AD26BBAC958652C16178BD9 /* RecentWords.swift in Sources */,
 				C9218132A905EB7C13C38FB1 /* TenseExamples.swift in Sources */,
 				E6F7DBAEBB6421AE1C16251C /* Extras.swift in Sources */,
+				D1E2F3A4B5C60718293A4B61 /* SpanishChecker.swift in Sources */,
+				D1E2F3A4B5C60718293A4B63 /* SpanishRules.swift in Sources */,
 				49C341F465036223A0C4EC96 /* DictionaryIndex.swift in Sources */,
 				3C1D3D5A0F58396D0B2C334E /* Lexicon.swift in Sources */,
 				D6EEC285ACC551E8CBEF5FA5 /* RelatedForms.swift in Sources */,
@@ -299,7 +352,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1F462CA57527E2C6D5711FC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				936299D414BDB758B390BDAD /* SpanishCheckerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C11451DCB9CBC1DE3CA82376 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F59FFD89D73A7F1638C65D0C /* Flasher */;
+			targetProxy = 80A0A8F610DF9BEE3BCC36CD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		58297CE743545F96A67975DF /* Release */ = {
@@ -465,6 +534,40 @@
 			};
 			name = Release;
 		};
+		28EADA40C8858D278F0AB4E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dcreey.FlasherTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flasher.app/Flasher";
+			};
+			name = Debug;
+		};
+		0484EB6AF95AA1A6C9BDFA9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dcreey.FlasherTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flasher.app/Flasher";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -482,6 +585,15 @@
 			buildConfigurations = (
 				9ED29D2E28D60F565083C09D /* Debug */,
 				D3679EBCBC79EA80EDFAA293 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6B3308346FC0C7F0DB13DA1C /* Build configuration list for PBXNativeTarget "FlasherTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28EADA40C8858D278F0AB4E2 /* Debug */,
+				0484EB6AF95AA1A6C9BDFA9C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

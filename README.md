@@ -9,3 +9,7 @@ Be my guest.
 # Privacy
 
 This app does not collect any information or interact with any external services. Why would it do that? Yuck.
+
+## Spanish checker
+
+The Translate tab and the dictionary search use a small offline rules engine that points out Spanish mistakes. See [docs/spanish-checker/README.md](docs/spanish-checker/README.md) for what it checks, how to test it, and how to add a rule.

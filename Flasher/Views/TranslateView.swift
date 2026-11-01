@@ -110,6 +110,9 @@ struct TranslateView: View {
     @State private var request: (text: String, direction: Direction, readAs: String?)?
     @FocusState private var focused: Bool
     @Environment(AppRouter.self) private var router: AppRouter?
+    @AppStorage(AppSettings.showSpanishChecksKey) private var showChecks = true
+    /// What the Spanish checks found in the Spanish text on screen: the typed text, or the translation into Spanish.
+    @State private var issues: [SpanishIssue] = []
     /// False right after translating Spanish, when the input shows as tappable words instead of an editor.
     @State private var isEditing = true
 
@@ -185,11 +188,18 @@ struct TranslateView: View {
                 }
                 output = Output(input: input, direction: request.direction, translation: text, readAs: request.readAs, adjusted: adjusted)
                 errorText = nil
+                checkSpanish(request.direction == .toEnglish ? input : text)
             } catch {
                 needsDownload = error is TranslationError
                 errorText = needsDownload ? "Spanish and English need to be downloaded for offline translation." : error.localizedDescription
             }
             isWorking = false
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button { showChecks.toggle() } label: { Image(systemName: showChecks ? "checkmark.seal.fill" : "checkmark.seal") }
+                    .accessibilityLabel(showChecks ? "Hide Spanish checks" : "Show Spanish checks")
+            }
         }
         .opensWordLinks(inDictionary: true)
     }
@@ -198,7 +208,7 @@ struct TranslateView: View {
         ZStack(alignment: .topLeading) {
             if showsLinkedInput {
                 // Translated Spanish becomes tappable words; tapping anywhere else turns it back into the editor
-                Text(WordLinks.linked(input))
+                Text(showChecks ? SpanishChecker.highlighted(WordLinks.linked(input), text: input, issues: issues) : WordLinks.linked(input))
                     .font(.body)
                     .frame(maxWidth: .infinity, minHeight: 120, alignment: .topLeading)
                     .padding(13)
@@ -237,11 +247,13 @@ struct TranslateView: View {
         VStack(alignment: .leading, spacing: 12) {
             card(title: output.direction == .toEnglish ? "English" : "Spanish · tap a word") {
                 if output.direction == .toSpanish {
-                    Text(WordLinks.linked(output.translation)).font(.title3).textSelection(.enabled)
+                    Text(showChecks ? SpanishChecker.highlighted(WordLinks.linked(output.translation), text: output.translation, issues: issues) : WordLinks.linked(output.translation))
+                        .font(.title3).textSelection(.enabled)
                 } else {
                     Text(output.translation).font(.title3).textSelection(.enabled)
                 }
             }
+            if showChecks { checksCard(spanish: spanish) }
             if let readAs = output.readAs {
                 note("Read as", readAs, symbol: "text.magnifyingglass")
             }
@@ -296,6 +308,46 @@ struct TranslateView: View {
             .foregroundStyle(.secondary)
     }
 
+    /// Runs the Spanish checks off the main thread; the result replaces what was shown before.
+    private func checkSpanish(_ text: String) {
+        Task {
+            let found = await Task.detached(priority: .userInitiated) { SpanishChecker.check(text) }.value
+            issues = found
+        }
+    }
+
+    private func checksCard(spanish: String) -> some View {
+        let mistakes = issues.filter { $0.kind != .tip }
+        let tips = issues.filter { $0.kind == .tip }
+        return card(title: mistakes.isEmpty ? "Spanish check" : "Spanish check · \(mistakes.count)") {
+            VStack(alignment: .leading, spacing: 12) {
+                if mistakes.isEmpty {
+                    Label("No mistakes found in the Spanish. The checks cover pronouns, accents, agreement, verb forms, punctuation and more.", systemImage: "checkmark.circle")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+                ForEach(mistakes) { issue in issueRow(issue, tint: .orange) }
+                if !tips.isEmpty {
+                    Text("Heads-up").font(.caption.weight(.semibold)).foregroundStyle(.secondary).textCase(.uppercase).padding(.top, mistakes.isEmpty ? 0 : 4)
+                    ForEach(tips) { issue in issueRow(issue, tint: .yellow) }
+                }
+            }
+        }
+    }
+
+    private func issueRow(_ issue: SpanishIssue, tint: Color) -> some View {
+        HStack(alignment: .top, spacing: 10) {
+            Image(systemName: issue.kind.icon).foregroundStyle(tint).frame(width: 22)
+            VStack(alignment: .leading, spacing: 3) {
+                Text("\(issue.kind.rawValue): “\(issue.found)”").font(.subheadline.weight(.semibold))
+                Text(issue.message).font(.footnote)
+                if let suggestion = issue.suggestion {
+                    Text("Try: \(suggestion)").font(.footnote.weight(.medium)).foregroundStyle(Color.accentColor)
+                }
+            }
+        }
+    }
+
     private func translate() {
         let text = input.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty else { return }
@@ -304,6 +356,7 @@ struct TranslateView: View {
         isWorking = true
         errorText = nil
         needsDownload = false
+        issues = []
         var sent = text
         var readAs: String?
         if direction == .toEnglish {

@@ -112,11 +112,17 @@ struct Conjugation {
 
 enum Conjugator {
     private static var cache: [String: Conjugation?] = [:]
+    /// The Spanish checker conjugates from a background thread while screens conjugate on the main one.
+    private static let lock = NSLock()
 
     static func conjugate(_ entry: String) -> Conjugation? {
-        if let hit = cache[entry] { return hit }
+        lock.lock()
+        if let hit = cache[entry] { lock.unlock(); return hit }
+        lock.unlock()
         let result = build(entry)
+        lock.lock()
         cache[entry] = .some(result)
+        lock.unlock()
         return result
     }
 

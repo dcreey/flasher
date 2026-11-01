@@ -4,11 +4,14 @@ import SwiftUI
 enum VerbForms {
     struct Slot { let infinitive: String; let tense: Tense; let person: Int }
 
-    private static let built: (forms: [String: [Slot]], gerunds: [String: String]) = {
+    private static let built: (forms: [String: [Slot]], gerunds: [String: String], participles: Set<String>) = {
         var map: [String: [Slot]] = [:]
         var gerunds: [String: String] = [:]
+        var participles: Set<String> = []
         for word in Lexicon.shared.allWords where word.partOfSpeech == .infinitive {
             guard let conjugation = Conjugator.conjugate(word.spanish) else { continue }
+            participles.insert(conjugation.participle.lowercased())
+            participles.insert(conjugation.gerund.lowercased())
             // First single-word verb wins: "dando" is dar's, not darse cuenta's
             if !word.spanish.contains(" ") { gerunds[conjugation.gerund.searchKey] = gerunds[conjugation.gerund.searchKey] ?? word.spanish }
             for (tense, forms) in conjugation.forms {
@@ -18,10 +21,12 @@ enum VerbForms {
                 }
             }
         }
-        return (map, gerunds)
+        return (map, gerunds, participles)
     }()
 
     static var index: [String: [Slot]] { built.forms }
+    /// Every participle and gerund as written ("tenido", "viendo"), which the form index doesn't hold.
+    static var nonFiniteForms: Set<String> { built.participles }
     /// Accent-free gerund → infinitive ("viendo" → ver).
     static var gerunds: [String: String] { built.gerunds }
 }
@@ -358,15 +363,65 @@ enum Clitics {
             if ["le", "les"].contains(pair.0), direct.contains(pair.1) {
                 return "“\(pair.0) \(pair.1)” isn't used in Spanish. When le or les comes right before lo, la, los or las, it changes to se (it is easier to say): “se \(pair.1)”."
             }
-            if direct.contains(pair.0), ["me", "te", "nos", "os", "se", "le", "les"].contains(pair.1) {
+            // "lo sé" (I know it) is fine, so "se" isn't in this list
+            if direct.contains(pair.0), ["me", "te", "nos", "os", "le", "les"].contains(pair.1) {
                 return "“\(pair.0) \(pair.1)” has the order backwards. The person comes first, then lo, la, los or las: “\(pair.1) \(pair.0)”."
             }
         }
         return resolvePhrase(query)?.warning
     }
 
+    /// Which persons (0–5) a written verb form can be, ignoring accents; empty when it isn't a known verb form.
+    static func persons(ofVerbForm form: String) -> Set<Int> {
+        let key = form.searchKey
+        var result = Set((finiteForms[key] ?? []).map(\.person))
+        for option in imperatives[key] ?? [] { result.insert(option.person) }
+        return result
+    }
+
+    /// Every verb, tense and person a written form can be, ignoring accents (commands included). Empty when it isn't a verb form.
+    static func formOptions(_ form: String) -> [(infinitive: String, tense: Tense, person: Int)] {
+        let key = form.searchKey
+        var result = (finiteForms[key] ?? []).map { (infinitive: $0.infinitive, tense: $0.tense, person: $0.person) }
+        for option in imperatives[key] ?? [] { result.append((option.infinitive, .imperative, option.person)) }
+        return result
+    }
+
+    /// "digome": a pronoun stuck on a conjugated verb, which Spanish doesn't do. Nil for real words and valid attached forms.
+    static func attachedToFinite(_ token: String) -> (form: String, pronouns: [String])? {
+        let key = token.searchKey
+        guard key.count >= 5, key.allSatisfy({ $0.isLetter }), WordLinks.resolve(token) == nil, !(token.first?.isUppercase ?? true),
+              token.allSatisfy({ $0 != "ſ" && ($0.unicodeScalars.first?.value ?? 0) < 0x2000 }),
+              // "buscábanle", "dijéronle": literary Spanish keeps the accent of the verb and attaches the pronoun
+              !token.lowercased().contains(where: { "áéíóú".contains($0) }) else { return nil }
+        func plainFinite(_ base: String) -> Bool { base.count >= 3 && finiteForms[base] != nil && imperatives[base] == nil }
+        // "se" is left out: -se imperfect subjunctives ("trajese") look like a verb plus "se"
+        for last in suffixes where key.hasSuffix(last) && last != "se" {
+            let rest = String(key.dropLast(last.count))
+            if plainFinite(rest) { return (rest, [last]) }
+            guard direct.contains(last) else { continue }
+            for first in suffixes where !direct.contains(first) && rest.hasSuffix(first) {
+                let base = String(rest.dropLast(first.count))
+                if plainFinite(base) { return (base, [first, last]) }
+            }
+        }
+        return nil
+    }
+
+    /// The correctly accented spelling of an attached form ("hablame" → "háblame"), or nil when it can't be worked out.
+    static func expectedSpelling(_ match: Match) -> String? {
+        let base: String?
+        switch match.kind {
+        case .infinitive: base = match.verb.spanish
+        case .gerund: base = Conjugator.conjugate(match.verb.spanish)?.gerund
+        case .command(let person): base = formOf(match.verb.spanish, .imperative, person)
+        case .finite: base = nil
+        }
+        return base.map { SpanishStress.attach($0, pronouns: match.pronouns, person: match.selection?.person) }
+    }
+
     /// The written command or subjunctive form of a verb for a person ("decir", .imperative, 1 → "di").
-    private static func formOf(_ infinitive: String, _ tense: Tense, _ person: Int) -> String? {
+    static func formOf(_ infinitive: String, _ tense: Tense, _ person: Int) -> String? {
         Conjugator.conjugate(infinitive)?.forms[tense]?[person].flatMap { $0 }
     }
 
@@ -403,7 +458,7 @@ enum Clitics {
             else if direct.contains(pronouns[0]) || !direct.contains(pronouns[1]) { return nil }
         }
         // "me haz": an affirmative command takes its pronouns on the end, so this order isn't used
-        if finiteForms[tokens.last!] == nil, let commands = imperatives[tokens.last!] {
+        if finiteForms[tokens.last!] == nil, !direct.contains(pronouns[0]), let commands = imperatives[tokens.last!] {
             for command in commands {
                 guard let word = Lexicon.shared.wordsByID[command.infinitive], !command.infinitive.contains(" "),
                       let advice = commandAdvice(command.infinitive, person: command.person, pronouns: pronouns) else { continue }
@@ -413,6 +468,8 @@ enum Clitics {
                 return match
             }
         }
+        // "la casa": la/lo/los/las are articles too, so a noun or adjective after them is a noun phrase, not "it" + a verb
+        if direct.contains(pronouns[0]), Lexicon.shared.meanings(for: tokens.last!).contains(where: { $0.partOfSpeech == .noun || $0.partOfSpeech == .adjective }) { return nil }
         guard let options = finiteForms[tokens.last!] else { return nil }
         // Prefer a plain one-word verb, the earlier tense, and the more common verb
         let order = Tense.allCases
@@ -563,7 +620,7 @@ struct PhraseVerb {
 enum WordLinks {
     static func resolve(_ token: String) -> Word? { resolvePlain(token) ?? Clitics.resolve(token)?.verb }
 
-    private static func resolvePlain(_ token: String) -> Word? {
+    static func resolvePlain(_ token: String) -> Word? {
         let lower = token.lowercased()
         let words = Lexicon.shared.wordsByID
         // A plural of a common noun beats a rarer word spelled the same (bocas → boca, not Spain's "bocas")
