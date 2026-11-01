@@ -113,7 +113,7 @@ struct TranslateView: View {
     /// False right after translating Spanish, when the input shows as tappable words instead of an editor.
     @State private var isEditing = true
 
-    private var showsLinkedInput: Bool { !isEditing && output?.direction == .toEnglish && !input.isEmpty }
+    private var showsLinkedInput: Bool { !isEditing && output?.direction == .toEnglish && output?.input == input && !input.isEmpty }
 
     var body: some View {
         ScrollView {
@@ -158,8 +158,15 @@ struct TranslateView: View {
         }
         .scrollDismissesKeyboard(.interactively)
         .onChange(of: direction) {
-            // Switching direction translates the same text the other way
-            if output != nil || errorText != nil { translate() }
+            if let done = output, done.direction != direction, done.input == input {
+                // A finished, unedited translation: flip the languages, so the result becomes the new input
+                input = done.translation
+                output = nil
+                translate()
+            } else if output != nil || errorText != nil {
+                // Nothing trustworthy to flip (edited text or an error): translate the same text the other way
+                translate()
+            }
         }
         .navigationTitle("El Pie")
         .navigationBarTitleDisplayMode(.inline)
