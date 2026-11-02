@@ -522,4 +522,24 @@ final class SpanishCheckerTests: XCTestCase {
         XCTAssertFalse(ids("¿Qué pedo?").contains("pedo"))
         XCTAssertTrue(ids("Vamos a mamar gallo").contains("mamarCO"))
     }
+
+    func testReflexivePronounWithWrongPersonVerb() {
+        let tips = SpanishChecker.check("te vaya a la playa").filter { $0.kind == .tip }
+        XCTAssertEqual(tips.count, 1)
+        XCTAssertTrue(tips.first?.message.contains("vete") ?? false)
+        XCTAssertTrue(tips.first?.message.contains("váyase") ?? false)
+        XCTAssertTrue(tips.first?.message.contains("te vayas") ?? false)
+        // Fine on their own
+        XCTAssertTrue(SpanishChecker.check("Quiero que te vayas a la playa").filter { $0.kind == .tip }.isEmpty)
+        XCTAssertTrue(SpanishChecker.check("Ojalá te vaya bien").filter { $0.kind == .tip }.isEmpty)
+        XCTAssertTrue(SpanishChecker.check("Vete a la playa").filter { $0.kind == .tip }.isEmpty)
+        XCTAssertTrue(SpanishChecker.check("Me guste o no, voy").filter { $0.kind == .tip }.isEmpty)
+    }
+
+    func testMoodNoteWhenAppleReadsACommandAsAStatement() {
+        XCTAssertNotNil(TranslationTraps.moodNote(spanish: "te vaya a la playa", english: "You go to the beach"))
+        XCTAssertNil(TranslationTraps.moodNote(spanish: "Vaya a la playa", english: "Go to the beach"))
+        XCTAssertNil(TranslationTraps.moodNote(spanish: "Voy a la playa", english: "I go to the beach"))
+        XCTAssertNil(TranslationTraps.moodNote(spanish: "Quiero que vaya", english: "I want him to go"))
+    }
 }

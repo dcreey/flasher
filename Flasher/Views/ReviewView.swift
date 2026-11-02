@@ -138,6 +138,7 @@ struct ReviewView: View {
         }
         .searchable(text: $searchText, prompt: "Search Spanish or English")
         .navigationTitle("Review")
+        .keyboardDoneButton()
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: filter)     { displayCount = pageSize }
         .onChange(of: searchText) { displayCount = pageSize }

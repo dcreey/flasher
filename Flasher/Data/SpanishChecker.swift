@@ -84,6 +84,11 @@ enum SpanishChecker {
 
         pronounRules(tokens.map { ($0.lower, $0.text) }, adjacent: adjacent, span: span, add: add)
 
+        // "te vaya a la playa": a pronoun for "you" in front of a verb that is not "you": neither a command nor a subjunctive to you
+        for i in tokens.indices.dropLast() where adjacent(i) && atSentenceStart(i) {
+            if let tip = personMismatchTip(pronoun: tokens[i].lower, verb: tokens[i + 1].lower) { add(.tip, span(i, i + 1), tip.message, tip.suggestion) }
+        }
+
         for i in tokens.indices {
             let token = tokens[i]
 
@@ -173,6 +178,27 @@ enum SpanishChecker {
                 }
             }
         }
+    }
+
+    // MARK: - Pronoun and verb person
+
+    /// The person each reflexive pronoun stands for: me = yo, te = tú, nos = nosotros.
+    private static let pronounPersons = ["me": 0, "te": 1, "nos": 3]
+
+    /// "te vaya": the verb is only ever a command or subjunctive form of another person, so it doesn't fit the pronoun.
+    /// Only reflexive verbs (irse, levantarse...) are checked, since "me guste" or "te vaya bien" are fine on their own.
+    private static func personMismatchTip(pronoun: String, verb: String) -> (message: String, suggestion: String)? {
+        guard let person = pronounPersons[pronoun], let slots = VerbForms.index[verb], !slots.isEmpty,
+              slots.allSatisfy({ $0.tense == .subjunctivePresent || $0.tense == .imperative }),
+              !slots.contains(where: { $0.person == person }),
+              let infinitive = slots.first?.infinitive, !infinitive.contains(" "), Lexicon.shared.wordsByID[infinitive + "se"] != nil,
+              let conjugation = Conjugator.conjugate(infinitive),
+              let command = conjugation.forms[.imperative]?[1], let formal = conjugation.forms[.imperative]?[2],
+              let subjunctive = conjugation.forms[.subjunctivePresent]?[person] else { return nil }
+        let tuCommand = SpanishStress.attach(command, pronouns: ["te"], person: 1)
+        let usted = SpanishStress.attach(formal, pronouns: ["se"], person: 2)
+        let message = "“\(pronoun) \(verb)” isn't a command to you. To tell someone to \(infinitive): “\(tuCommand)” (tú) or “\(usted)” (usted). After “quiero que” it is “\(pronoun) \(subjunctive).”"
+        return (message, tuCommand)
     }
 
     // MARK: - Spelling

@@ -216,6 +216,20 @@ enum TranslationTraps {
              message: "**“Pendejo/a”** is an insult for an idiot in Mexico; in Colombia it can also mean a naive kid. Offensive either way."),
     ]
 
+    /// Apple turns a command or subjunctive into a plain statement ("te vaya" → "You go"). When the Spanish starts with a verb
+    /// that can only be a command or subjunctive, and the English reads as a statement, point that out.
+    static func moodNote(spanish: String, english: String) -> String? {
+        let firstSentence = spanish.split(whereSeparator: { ".!?¡¿\n".contains($0) }).first.map(String.init) ?? spanish
+        guard let regex = try? NSRegularExpression(pattern: "\\p{L}+") else { return nil }
+        var words = regex.matches(in: firstSentence, range: NSRange(firstSentence.startIndex..., in: firstSentence))
+            .compactMap { Range($0.range, in: firstSentence).map { String(firstSentence[$0]).lowercased() } }
+        while let first = words.first, ["me", "te", "se", "nos", "os", "no"].contains(first) { words.removeFirst() }
+        guard let verb = words.first, let slots = VerbForms.index[verb], !slots.isEmpty,
+              slots.allSatisfy({ $0.tense == .subjunctivePresent || $0.tense == .imperative }),
+              english.range(of: #"^\s*(?:you|he|she|they|we|i|it)\b"#, options: [.regularExpression, .caseInsensitive]) != nil else { return nil }
+        return "**“\(verb)”** is a command or subjunctive form, so the English statement may be wrong. It could be an order (“Go to…!”) or a wish (“I want you to…”)."
+    }
+
     /// The traps that apply to this English and Spanish text.
     static func find(english: String, spanish: String) -> [Trap] {
         let en = english.lowercased().replacingOccurrences(of: "’", with: "'")
@@ -518,6 +532,7 @@ struct TranslateView: View {
             }
         }
         .navigationTitle("El Pie")
+        .keyboardDoneButton()
         .navigationBarTitleDisplayMode(.inline)
         .translationTask(configuration) { session in
             guard let request else { return }
@@ -686,7 +701,8 @@ struct TranslateView: View {
         let hasNatural = alternates.natural != nil || alternates.local != nil
         let english = output.direction == .toSpanish ? output.input : output.translation
         let traps = Array(TranslationTraps.find(english: english, spanish: spanish).prefix(3))
-        let hasWords = output.readAs != nil || !output.adjusted.isEmpty || !slang.isEmpty || !alternatives.isEmpty || !traps.isEmpty
+        let mood = output.direction == .toEnglish ? TranslationTraps.moodNote(spanish: spanish, english: output.translation) : nil
+        let hasWords = output.readAs != nil || !output.adjusted.isEmpty || !slang.isEmpty || !alternatives.isEmpty || !traps.isEmpty || mood != nil
         VStack(alignment: .leading, spacing: 24) {
             // Lines only separate sections that both have something in them
             if hasNatural || hasWords { Divider().padding(.horizontal, 28) }
@@ -697,8 +713,8 @@ struct TranslateView: View {
             }
             if let mexican = alternates.local { countryCard(mexican) }
             if hasNatural && hasWords { Divider().padding(.horizontal, 28) }
-            ForEach(traps) { trap in
-                Label { Text(.init(output.direction == .toEnglish && trap.matchesSpanish(spanish) ? trap.typedMessage ?? trap.message : trap.message)) } icon: { Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.orange) }
+            ForEach(traps.map { ($0.id, output.direction == .toEnglish && $0.matchesSpanish(spanish) ? $0.typedMessage ?? $0.message : $0.message) } + (mood.map { [("mood", $0)] } ?? []), id: \.0) { _, message in
+                Label { Text(.init(message)) } icon: { Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.orange) }
                     .font(.footnote)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 12).padding(.vertical, 10)

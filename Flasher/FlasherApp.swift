@@ -4,7 +4,6 @@ import SwiftUI
 struct FlasherApp: App {
     init() {
         Self.skipWelcomeForExistingUsers()
-        KeyboardDoneBar.install()
         // Load the bundled dictionary and build the search index before the first search
         Task.detached(priority: .utility) { DictionaryIndex.warmUp(); _ = Extras.shared; _ = VerbForms.index }
     }
@@ -29,32 +28,17 @@ struct FlasherApp: App {
     }
 }
 
-/// Puts a Done bar above the keyboard for every text field, text editor and search field in the app.
-enum KeyboardDoneBar {
-    static func install() {
-        for name in [UITextField.textDidBeginEditingNotification, UITextView.textDidBeginEditingNotification] {
-            NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { note in
-                guard let field = note.object as? UIResponder else { return }
-                attach(to: field)
+extension View {
+    /// A Done button in the bar above the keyboard that puts the keyboard away. Attach it once to the screen with the text field.
+    func keyboardDoneButton() -> some View {
+        toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+                .fontWeight(.semibold)
             }
-        }
-    }
-
-    private static func attach(to responder: UIResponder) {
-        let bar = UIToolbar()
-        let dismiss = UIAction { _ in
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-        }
-        let done = UIBarButtonItem(title: "Done", primaryAction: dismiss)
-        done.style = .done
-        bar.items = [UIBarButtonItem.flexibleSpace(), done]
-        bar.sizeToFit()
-        if let field = responder as? UITextField, field.inputAccessoryView == nil {
-            field.inputAccessoryView = bar
-            field.reloadInputViews()
-        } else if let view = responder as? UITextView, view.inputAccessoryView == nil {
-            view.inputAccessoryView = bar
-            view.reloadInputViews()
         }
     }
 }

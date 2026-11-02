@@ -84,6 +84,7 @@ struct ResultView: View {
                         .foregroundStyle(.secondary)
 
                     TextField(card.word.spanish, text: $confirmInput)
+                        .keyboardDoneButton()
                         .textFieldStyle(.roundedBorder)
                         .autocorrectionDisabled()
                         .textInputAutocapitalization(.never)
