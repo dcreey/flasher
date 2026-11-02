@@ -16,7 +16,7 @@ enum DerivedKind: String {
     var explanation: String {
         switch self {
         case .diminutive:
-            "-ito/-ita usually means “little”. In Mexico it is also used to sound friendly, soften a request or show affection (un momentito, cafecito, ahorita)."
+            "-ito/-ita usually means “little”. In Latin America it is also used to sound friendly, soften a request or show affection (un momentito, cafecito, ahorita)."
         case .augmentative:
             "Augmentative endings (-ón, -azo, -ote) usually mean “big” or “a lot of”, and are sometimes affectionate or pejorative."
         case .superlative:

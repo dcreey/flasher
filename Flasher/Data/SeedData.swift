@@ -45,7 +45,7 @@ enum SeedData {
     static func buildSentences() -> [VocabSentence] {
         var result: [VocabSentence] = []
         let crafted = handcraftedSentenceMap  // from SeedData+Sentences
-        for word in words {
+        for word in everyDeckWord {
             if let sentences = crafted[word.spanish], !sentences.isEmpty {
                 let valid = sentences.filter { isUsableSentence(full: $0.1, translation: $0.2) }
                 if !valid.isEmpty {

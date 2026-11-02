@@ -7,7 +7,7 @@ It is used in two places:
 - **Translate tab.** After a translation, the Spanish side of the screen is checked: the text you typed (Spanish → English) or Apple's Spanish output (English → Spanish). Flagged words are highlighted in the text and each one is explained in a "Spanish check" card, with a suggested fix where there is one.
 - **Dictionary search.** Pronoun and command mistakes are explained above the results ("le lo" isn't used, it becomes "se lo"), and queries like "nos veo" or "yo me veo" find the verb.
 
-It can be switched off with the checkmark button in the Translate navigation bar, or with **Show Spanish checks** in Settings (`AppSettings.showSpanishChecksKey`).
+It can be switched off with **Show Spanish checks** in Settings (`AppSettings.showSpanishChecksKey`).
 
 ## Design principles
 
@@ -116,7 +116,7 @@ The same pronoun logic powers the dictionary search:
 - Capitalised words are never accent-checked or tested as irregular forms, because they may be names. Mistakes at the start of a sentence in those two rules are therefore missed.
 - The dictionary's noun data is incomplete in places, which is why gender is only trusted in the cases described above.
 - Archaic and literary spellings (`puſieronla`, `buscábanle`) are not flagged.
-- Written for Mexican Spanish. Forms from other regions (voseo, vosotros) are tolerated rather than corrected.
+- Written for Latin American Spanish; the target country (Settings) only changes Translate's regional wording. Forms from other regions (voseo, vosotros) are tolerated rather than corrected.
 
 ## Testing
 

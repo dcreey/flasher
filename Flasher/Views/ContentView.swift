@@ -32,6 +32,9 @@ final class AppRouter {
 
 struct ContentView: View {
     @State private var router = AppRouter()
+    /// Changing the target country rebuilds every screen so each one shows that country's words.
+    @AppStorage(AppSettings.countryKey) private var country = Country.mexico.rawValue
+    @AppStorage(AppSettings.welcomeSeenKey) private var welcomeSeen = false
 
     var body: some View {
         @Bindable var router = router
@@ -58,8 +61,12 @@ struct ContentView: View {
             .tabItem { Label("Flashcards", systemImage: "rectangle.on.rectangle.angled") }
             .tag(AppTab.flashcards)
         }
+        .id(country)
         .environment(router)
         .onChange(of: router.dictionaryPath) { router.pathChanged() }
         .onChange(of: router.tab) { router.tabChanged() }
+        .fullScreenCover(isPresented: Binding(get: { !welcomeSeen }, set: { welcomeSeen = !$0 })) {
+            WelcomeView { welcomeSeen = true }
+        }
     }
 }

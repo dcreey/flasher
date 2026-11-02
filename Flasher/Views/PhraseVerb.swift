@@ -283,7 +283,7 @@ enum Clitics {
         "conocer+nos": "“Conocernos” = to get to know each other: “Quiero conocernos mejor.”",
         "encontrar+nos": "“Encontrarnos” = to meet up: “¿Dónde nos encontramos?” = where shall we meet?",
         "reunir+nos": "“Reunirnos” = to get together, to meet as a group.",
-        "juntar+nos": "“Juntarnos” = to get together (very common in Mexico): “Vamos a juntarnos el sábado.”",
+        "juntar+nos": "“Juntarnos” = to get together (very common in Latin America): “Vamos a juntarnos el sábado.”",
         "llamar+te": "“Llamarte” = to call you: “Te llamo luego” = I'll call you later.",
         "ir+nos": "“Irnos” = to leave, to go away: “Vámonos” = let's go.",
         "ir+te": "“Irte” = to leave, to go away: “Vete” = go away; “Ya me voy” = I'm leaving.",

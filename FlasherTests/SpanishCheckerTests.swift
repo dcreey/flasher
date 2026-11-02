@@ -403,20 +403,123 @@ final class SpanishCheckerTests: XCTestCase {
     }
 
     func testMexicanVersionKeepsGenderAndLeavesVerbsAlone() {
-        XCTAssertEqual(MexicanTranslation.localize("Cerca del ordenador.").text, "Cerca de la computadora.")
-        XCTAssertEqual(MexicanTranslation.localize("Abre el grifo.").text, "Abre la llave.")
-        XCTAssertEqual(MexicanTranslation.slangVersion(of: "Voy a conducir mi coche.").text, "Voy a manejar mi carro.")
+        XCTAssertEqual(CountryTranslation.localize("Cerca del ordenador.").text, "Cerca de la computadora.")
+        XCTAssertEqual(CountryTranslation.localize("Abre el grifo.").text, "Abre la llave.")
+        XCTAssertEqual(CountryTranslation.slangVersion(of: "Voy a conducir mi coche.").text, "Voy a manejar mi carro.")
         // Verbs and words that are already Mexican are never swapped for something else
-        XCTAssertEqual(MexicanTranslation.slangVersion(of: "Quiero comer con mi amigo.").text, "Quiero comer con mi amigo.")
-        XCTAssertEqual(MexicanTranslation.slangVersion(of: "El niño bebe agua.").text, "El chavo bebe agua.")
+        XCTAssertEqual(CountryTranslation.slangVersion(of: "Quiero comer con mi amigo.").text, "Quiero comer con mi amigo.")
+        XCTAssertEqual(CountryTranslation.slangVersion(of: "El niño bebe agua.").text, "El chavo bebe agua.")
     }
 
     func testMexicanPhrases() {
-        XCTAssertEqual(MexicanTranslation.slangVersion(of: "No puede ser.").text, "No manches.")
-        XCTAssertEqual(MexicanTranslation.slangVersion(of: "¡De ninguna manera!").text, "¡Ni de chiste!")
-        XCTAssertEqual(MexicanTranslation.slangVersion(of: "Me voy ahora mismo. No hay problema.").text, "Me voy ahorita. No hay bronca.")
-        XCTAssertEqual(MexicanTranslation.slangVersion(of: "Tengo resaca.").text, "Tengo cruda.")
+        XCTAssertEqual(CountryTranslation.slangVersion(of: "No puede ser.").text, "No manches.")
+        XCTAssertEqual(CountryTranslation.slangVersion(of: "¡De ninguna manera!").text, "¡Ni de chiste!")
+        XCTAssertEqual(CountryTranslation.slangVersion(of: "Me voy ahora mismo. No hay problema.").text, "Me voy ahorita. No hay bronca.")
+        XCTAssertEqual(CountryTranslation.slangVersion(of: "Tengo resaca.").text, "Tengo cruda.")
         // A reaction inside a longer sentence is literal and stays as it is
-        XCTAssertEqual(MexicanTranslation.slangVersion(of: "No puede ser tan difícil.").text, "No puede ser tan difícil.")
+        XCTAssertEqual(CountryTranslation.slangVersion(of: "No puede ser tan difícil.").text, "No puede ser tan difícil.")
+    }
+
+    func testColombiaSwapsWordsAndDeck() {
+        let defaults = UserDefaults.standard
+        defaults.set(Country.colombia.rawValue, forKey: AppSettings.countryKey)
+        defer { defaults.removeObject(forKey: AppSettings.countryKey) }
+
+        XCTAssertEqual(CountryTranslation.slangVersion(of: "Voy a conducir mi coche.").text, "Voy a manejar mi carro.")
+        XCTAssertEqual(CountryTranslation.slangVersion(of: "No puede ser.").text, "No joda.")
+        XCTAssertEqual(CountryTranslation.slangVersion(of: "Me voy ahora mismo.").text, "Me voy ya mismo.")
+
+        let ids = Set(SeedData.words.map(\.spanish))
+        XCTAssertTrue(ids.contains("esfero"))
+        XCTAssertFalse(ids.contains("pluma"))
+        XCTAssertEqual(ids.count, SeedData.words.count, "no word appears twice")
+        XCTAssertTrue(Lexicon.shared.wordsByID["chévere"] != nil)
+        XCTAssertTrue(Lexicon.shared.hasLocalMeaning(Lexicon.shared.wordsByID["esfero"]!))
+        defaults.set(Country.mexico.rawValue, forKey: AppSettings.countryKey)
+        XCTAssertTrue(SeedData.words.contains { $0.spanish == "pluma" })
+    }
+
+    func testHeadsUpTraps() {
+        func ids(_ en: String, _ es: String) -> Set<String> { Set(TranslationTraps.find(english: en, spanish: es).map(\.id)) }
+        for en in ["I am hot.", "I'm very warm", "I’m so hot right now", "im really really hot", "I feel a little bit warm", "We are too hot", "I was getting hot", "I'm burning up"] {
+            XCTAssertTrue(ids(en, "").contains("hot"), en)
+        }
+        XCTAssertTrue(ids("", "Estoy muy caliente.").contains("hot"))
+        XCTAssertTrue(ids("", "Me siento caliente").contains("hot"))
+        XCTAssertTrue(ids("She is so hot", "").contains("hotPerson"))
+        XCTAssertTrue(ids("You're hot", "").contains("hotPerson"))
+        XCTAssertTrue(ids("I'm freezing", "").contains("cold"))
+        XCTAssertTrue(ids("He is really cold", "").contains("cold"))
+        XCTAssertTrue(ids("She's very hungry", "").contains("tener"))
+        XCTAssertTrue(ids("I'm embarrassed", "Estoy avergonzado").contains("embarrassed"))
+        XCTAssertTrue(ids("", "Voy a coger el autobús").contains("cogerMX"))
+        XCTAssertTrue(ids("", "Cógelo").contains("cogerMX"))
+        XCTAssertTrue(ids("Let's take the bus", "Tomemos el autobús").contains("cogerMX"))
+        XCTAssertTrue(ids("I'm 25 years old", "Tengo 25 años").contains("age"))
+        XCTAssertTrue(ids("She is twenty-five years old", "").contains("age"))
+        XCTAssertTrue(ids("", "Soy veinticinco años").contains("age"))
+        XCTAssertTrue(ids("I'm good", "Estoy bueno").contains("good"))
+        XCTAssertTrue(ids("He's so bored", "Es muy aburrido").contains("bored"))
+        XCTAssertTrue(ids("They are ready", "").contains("ready"))
+        XCTAssertTrue(ids("I record music", "Grabo música").contains("record"))
+        // Not about how a person feels
+        XCTAssertFalse(ids("The coffee is hot.", "El café está caliente.").contains("hot"))
+        XCTAssertFalse(ids("The coffee is hot.", "").contains("hotPerson"))
+        XCTAssertFalse(ids("He says it is hot.", "Dice que hace calor.").contains("hot"))
+        XCTAssertFalse(ids("It is cold outside.", "Hace frío afuera.").contains("cold"))
+        XCTAssertFalse(ids("I have 25 apples", "Tengo 25 manzanas").contains("age"))
+        XCTAssertTrue(ids("I read a book", "Leí un libro").isEmpty)
+    }
+
+    func testSavedSettingsShowUpAsExistingInstall() {
+        let defaults = UserDefaults.standard
+        defaults.set(true, forKey: "welcome_test_probe")
+        defer { defaults.removeObject(forKey: "welcome_test_probe") }
+        let saved = Bundle.main.bundleIdentifier.flatMap { defaults.persistentDomain(forName: $0) } ?? [:]
+        XCTAssertFalse(saved.isEmpty)
+    }
+
+    func testTranslationIsFixedWhenTheEnglishIsClear() {
+        func fixed(_ es: String, _ en: String) -> String { TranslationTraps.fixing(es, english: en) }
+        XCTAssertEqual(fixed("Estoy caliente.", "I am hot."), "Tengo calor.")
+        XCTAssertEqual(fixed("Estoy muy caliente.", "I'm very warm"), "Tengo mucho calor.")
+        XCTAssertEqual(fixed("Estamos demasiado calientes.", "We are too hot"), "Tenemos demasiado calor.")
+        XCTAssertEqual(fixed("Estoy un poco frío.", "I'm a little cold"), "Tengo un poco de frío.")
+        XCTAssertEqual(fixed("Estoy muy hambriento.", "I'm very hungry"), "Tengo mucha hambre.")
+        XCTAssertEqual(fixed("Estoy embarazada.", "I'm embarrassed"), "Estoy avergonzada.")
+        XCTAssertEqual(fixed("Estoy excitado.", "I'm so excited"), "Estoy emocionado.")
+        XCTAssertEqual(fixed("Soy 25 años.", "I'm 25"), "Tengo 25 años.")
+        XCTAssertEqual(fixed("Soy aburrido.", "I'm bored"), "Estoy aburrido.")
+        XCTAssertEqual(fixed("Me vengo.", "I'm coming"), "Ya voy.")
+        // Left alone when the English is about something else
+        XCTAssertEqual(fixed("El café está caliente.", "The coffee is hot."), "El café está caliente.")
+        XCTAssertEqual(fixed("Estoy caliente.", "He says it is hot."), "Estoy caliente.")
+        XCTAssertEqual(fixed("Estoy embarazada.", "I am pregnant."), "Estoy embarazada.")
+    }
+
+    func testEnglishIsFixedWhenTheSpanishHasAHiddenMeaning() {
+        func fixed(_ en: String, _ es: String) -> String { TranslationTraps.fixingEnglish(en, spanish: es) }
+        XCTAssertEqual(fixed("I'm hot.", "Estoy caliente."), "I'm aroused.")
+        XCTAssertEqual(fixed("I'm very hot.", "Estoy muy caliente."), "I'm very aroused.")
+        XCTAssertEqual(fixed("I'm coming.", "Me vengo."), "I climax.")
+        XCTAssertEqual(fixed("I'm good.", "Estoy bueno."), "I'm attractive.")
+        // Ordinary Spanish keeps Apple's English
+        XCTAssertEqual(fixed("I'm hot.", "Tengo calor."), "I'm hot.")
+        XCTAssertEqual(fixed("The coffee is hot.", "El café está caliente."), "The coffee is hot.")
+    }
+
+    func testRegionalTrapsFollowTheTargetCountry() {
+        let defaults = UserDefaults.standard
+        defer { defaults.removeObject(forKey: AppSettings.countryKey) }
+        func ids(_ es: String) -> Set<String> { Set(TranslationTraps.find(english: "", spanish: es).map(\.id)) }
+        defaults.set(Country.mexico.rawValue, forKey: AppSettings.countryKey)
+        XCTAssertTrue(ids("¿Qué pedo?").contains("pedo"))
+        XCTAssertTrue(ids("Es un pelado").contains("peladoMX"))
+        XCTAssertFalse(ids("Dame un tinto").contains("tinto"))
+        defaults.set(Country.colombia.rawValue, forKey: AppSettings.countryKey)
+        XCTAssertTrue(ids("Dame un tinto").contains("tinto"))
+        XCTAssertTrue(ids("Es un pelado").contains("peladoCO"))
+        XCTAssertFalse(ids("¿Qué pedo?").contains("pedo"))
+        XCTAssertTrue(ids("Vamos a mamar gallo").contains("mamarCO"))
     }
 }

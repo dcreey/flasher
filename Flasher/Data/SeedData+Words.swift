@@ -6403,7 +6403,8 @@ extension SeedData {
         ("apasionadamente",                        "passionately",                                      .adverb,        nil),
     ]
 
-    static let words: [Word] = {
+    /// The full deck with its original (Mexican) vocabulary; other countries swap words in .
+    static let baseWords: [Word] = {
         var raw: [W] = []
         raw += part1
         raw += part2
@@ -6440,4 +6441,418 @@ extension SeedData {
             Word(order: i, spanish: r.0, english: r.1, partOfSpeech: r.2, gender: r.3)
         }
     }()
+
+    /// The word deck for the target country (`words(for:)`): the same frequency order, with each country-specific word swapped for
+    /// its counterpart ("mesero" stays, "pluma" becomes "esfero"). A word whose replacement is already in the deck is dropped.
+    private static let decks = PerCountry<[Word]> { country in
+        guard country != .mexico else { return baseWords }
+        let swaps = swapTable(for: country)
+        let swappedAway = Set(baseWords.map(\.spanish).filter { swaps[$0].map { $0.spanish != "=" } ?? false })
+        var taken = Set(baseWords.map(\.spanish)).subtracting(swappedAway)
+        var result: [Word] = []
+        for word in baseWords {
+            guard let swap = swaps[word.spanish] else { result.append(word); continue }
+            switch swap.spanish {
+            case "-":
+                continue
+            case "=":
+                result.append(Word(order: result.count, spanish: word.spanish, english: retagged(word.english, for: country),
+                                   partOfSpeech: word.partOfSpeech, gender: word.gender))
+            default:
+                guard taken.insert(swap.spanish).inserted else { continue }
+                result.append(Word(order: result.count, spanish: swap.spanish, english: swap.english,
+                                   partOfSpeech: word.partOfSpeech, gender: swap.gender))
+            }
+        }
+        return result
+    }
+
+    static var words: [Word] { decks.current }
+    static func words(for country: Country) -> [Word] { decks.value(for: country) }
+
+    /// Every word any country's deck can hold, so sentences exist for all of them.
+    static var everyDeckWord: [Word] {
+        var seen = Set<String>()
+        return Country.allCases.flatMap { words(for: $0) }.filter { seen.insert($0.spanish).inserted }
+    }
+
+    private static func retagged(_ english: String, for country: Country) -> String {
+        guard let marker = try? NSRegularExpression(pattern: Country.mexico.markerPattern),
+              let match = marker.firstMatch(in: english, range: NSRange(english.startIndex..., in: english)),
+              let range = Range(match.range, in: english) else { return english }
+        return english.replacingCharacters(in: range, with: " (\(country.code))")
+    }
+
+    private static func swapTable(for country: Country) -> [String: (spanish: String, english: String, gender: String?)] {
+        var table: [String: (spanish: String, english: String, gender: String?)] = [:]
+        for line in colombiaSwaps.split(separator: "\n") {
+            let cols = line.split(separator: "|", omittingEmptySubsequences: false).map(String.init)
+            guard cols.count >= 2 else { continue }
+            let gender = cols.count > 3 && cols[3] != "-" ? cols[3] : nil
+            table[cols[0]] = (cols[1], cols.count > 2 ? cols[2] : "", gender)
+        }
+        return table
+    }
+
+    // Mexican word | Colombian counterpart ("=" keeps the word, "-" drops it) | English | gender
+    private static let colombiaSwaps = """
+chido|chévere|cool (CO)|-
+tianguis|galería|street market (CO)|f
+zócalo|plaza|main square (CO)|f
+jitomate|-
+elote|mazorca|corn on the cob (CO)|f
+torta|sándwich|sandwich (CO)|m
+carro|=
+camión|buseta|minibus (CO)|f
+celular|=
+banqueta|andén|sidewalk (CO)|m
+manejar|=
+platicar|charlar|to chat (CO)|-
+agarrar|=
+prepa|colegio|high school (CO)|m
+pluma|esfero|ballpoint pen (CO)|m
+gripa|=
+mesero|=
+mesera|=
+guajolote|pavo|turkey (CO)|m
+nopal|-
+bocina|parlante|speaker (CO)|m
+enojo|=
+flojo|=
+calceta|media|sock (CO)|f
+calzón|calzoncillo|underwear (CO)|m
+brasier|=
+lentes|gafas|glasses (CO)|f
+arête|=
+mole|ajiaco|Bogotá chicken soup (CO)|m
+pozole|sancocho|hearty soup (CO)|m
+menudo|mondongo|tripe soup (CO)|m
+atole|avena|oat drink (CO)|f
+aguas frescas|jugo|fresh juice (CO)|m
+michelada|=
+cuadra|=
+gasolinera|bomba|gas station (CO)|f
+taquería|asadero|grill restaurant (CO)|m
+fondita|corrientazo|cheap set lunch (CO)|m
+lonchería|cafetería|snack bar (CO)|f
+trapear|=
+acomodar|=
+jalar|=
+ni modo|de una|sure, right away (CO)|-
+órale|dale|okay, go for it (CO)|-
+ándale|pilas|hurry up, be alert (CO)|-
+híjole|uy|wow (CO)|-
+ahorita mismo|ya mismo|right this instant (CO)|-
+alberca|piscina|swimming pool (CO)|f
+recámara|habitación|bedroom (CO)|f
+regadera|ducha|shower (CO)|f
+closet|=
+cobija|=
+librero|estante|bookshelf (CO)|m
+foco|bombillo|lightbulb (CO)|m
+licuadora|=
+trapeador|trapero|mop (CO)|m
+elevador|ascensor|elevator (CO)|m
+vecindad|barrio|neighborhood (CO)|m
+departamento|apartamento|apartment (CO)|m
+boleto|tiquete|ticket (CO)|m
+reservación|reserva|reservation (CO)|f
+veladora|-
+posada|novena|Christmas novena (CO)|f
+aguinaldo|prima|Christmas bonus (CO)|f
+calaca|-
+pastel|torta|cake (CO)|f
+festejar|=
+presumido|=
+chistoso|=
+güero|rubio|blond (CO)|m
+hule|caucho|rubber (CO)|m
+brilloso|=
+antojito|pasabocas|snack (CO)|m
+botana|picada|snack platter (CO)|f
+refresco|gaseosa|soda (CO)|f
+pulque|aguardiente|anise liquor (CO)|m
+res|=
+ostión|ostra|oyster (CO)|f
+chayote|=
+ejote|habichuela|green bean (CO)|f
+hierbabuena|=
+cajeta|arequipe|caramel spread (CO)|m
+piloncillo|panela|raw cane sugar (CO)|f
+pan dulce|pandebono|cheese bread (CO)|m
+dona|=
+paleta|=
+raspado|=
+gordita|arepa|corn cake (CO)|f
+sope|-
+tlayuda|patacón|fried plantain (CO)|m
+tlacoyо|arepa de choclo|sweet corn arepa (CO)|f
+birria|sudado|stewed meat (CO)|m
+carnitas|lechona|stuffed roast pig (CO)|f
+cochinita pibil|bandeja paisa|Antioquian platter (CO)|f
+sabroso|=
+bici|=
+microbús|colectivo|shared minibus (CO)|m
+pesero|chiva|rustic party bus (CO)|f
+llanta|=
+claxon|pito|horn (CO)|m
+cajuela|baúl|trunk (CO)|m
+cofre|capó|hood (CO)|m
+rancho|finca|farm (CO)|f
+milpa|cafetal|coffee plantation (CO)|m
+henequén|-
+bote|caneca|trash can (CO)|f
+amparo|tutela|legal protection writ (CO)|f
+salón|=
+pizarrón|tablero|chalkboard (CO)|m
+machismo|=
+fregar|=
+cuate|parcero|buddy (CO)|m
+compa|parce|buddy (CO)|-
+carnal|llave|close friend (CO)|f
+wey|-
+chavo|pelado|guy, kid (CO)|m
+chava|pelada|girl (CO)|f
+naco|corroncho|tacky, crude (CO)|m
+fresa|gomelo|preppy, snobby (CO)|m
+gandalla|-
+mamila|-
+chismoso|=
+metiche|=
+chismear|=
+cotorrear|mamar gallo|to joke around (CO)|-
+desmadrar|-
+echar relajo|-
+buena onda|buena nota|good vibes (CO)|-
+mala onda|mala energía|bad vibes (CO)|-
+qué onda|qué más|what's up (CO)|-
+ya mero|ya casi|almost there (CO)|-
+sale|listo|okay, deal (CO)|-
+latoso|cansón|annoying (CO)|m
+fregón|bacano|awesome (CO)|m
+padrísimo|bacanísimo|super cool (CO)|m
+chidísimo|chevérisimo|super cool (CO)|m
+qué chido|qué chévere|how cool (CO)|-
+qué padre|qué bacano|how cool (CO)|-
+no manches|no joda|no way, geez (CO)|-
+ya estuvo|ya quedó|that's done (CO)|-
+echar ganas|ponerle ganas|to try hard (CO)|-
+echar la mano|=
+andar de vago|-
+ponerse las pilas|=
+echar porras|=
+aventar|=
+agarrar la onda|caer en cuenta|to realize (CO)|-
+quedarse a cuadros|-
+tener palanca|tener padrino|to have connections (CO)|-
+meter las manos|meter las narices|to meddle (CO)|-
+brincar|=
+voltear|=
+ligar|=
+delegación|localidad|district (CO)|f
+drenaje|alcantarillado|sewage (CO)|m
+bache|hueco|pothole (CO)|m
+tope|policía acostado|speed bump (CO)|m
+caseta|peaje|toll booth (CO)|m
+retorno|=
+barranca|barranco|ravine (CO)|m
+cenote|-
+comal|budare|griddle (CO)|m
+molcajete|-
+metate|-
+chiquihuite|canasto|basket (CO)|m
+charola|bandeja|tray (CO)|f
+moretón|morado|bruise (CO)|m
+pasante|-
+servicio social|-
+sinodal|jurado|thesis judge (CO)|m
+Ariel|-
+lucha libre|-
+clavados|-
+barra|barra brava|fan section (CO)|f
+porras|-
+chapulín|saltamontes|grasshopper (CO)|m
+alacrán|escorpión|scorpion (CO)|m
+víbora|serpiente|snake (CO)|f
+axolote|-
+guacamaya|=
+tlacuache|zarigüeya|opossum (CO)|f
+zorrillo|zorrino|skunk (CO)|m
+tuza|-
+sábila|=
+encino|roble|oak (CO)|m
+ahuejote|-
+bugambilia|veranera|bougainvillea (CO)|f
+cacahuate|maní|peanut (CO)|m
+durazno|=
+chabacano|albaricoque|apricot (CO)|m
+pitaya|=
+tuna|-
+tejocote|-
+zapote|=
+chicozapote|-
+mamey|=
+jícama|-
+nopales|-
+xoconostle|-
+huauzontle|-
+quelite|-
+verdolaga|=
+chepiche|-
+huitlacoche|-
+día de guadalupe|día de las velitas|Candle Day, Dec 7 (CO)|m
+exvoto|-
+rosca de reyes|-
+defeño|bogotano|person from Bogotá (CO)|m
+tlapalería|ferretería|hardware store (CO)|f
+papelería|=
+cremería|-
+miscelánea|-
+abarrotes|-
+neverías|heladerías|ice cream shops (CO)|f
+cantina|=
+pulquería|-
+antro|discoteca|nightclub (CO)|f
+botanero|-
+fonda|=
+carrito|-
+chinampas|-
+tlatelolco|monserrate|Monserrate hill, Bogotá (CO)|m
+chapultepec|usaquén|Usaquén (Bogotá neighborhood)|m
+xochimilco|guatapé|Guatapé (CO town)|m
+coyoacán|chapinero|Chapinero (Bogotá neighborhood)|m
+condesa|candelaria|La Candelaria (Bogotá)|f
+roma|laureles|Laureles (Medellín neighborhood)|m
+polanco|poblado|El Poblado (Medellín)|m
+tepito|cartagena|Cartagena (CO city)|f
+garibaldi|medellín|Medellín (CO city)|-
+bellas artes|teatro colón|Teatro Colón, Bogotá (CO)|m
+ángel de la independencia|bolívar|Simón Bolívar (CO)|m
+periférico|circunvalar|ring road (CO)|f
+insurgentes|séptima|Carrera Séptima, Bogotá (CO)|f
+reforma|el dorado|El Dorado (CO myth)|m
+tlalpan|bogotá|Bogotá (CO capital)|f
+iztapalapa|cali|Cali (CO city)|f
+ecatec|barranquilla|Barranquilla (CO city)|f
+pararse|=
+alcaldía|=
+quesillo|cuajada|fresh curd cheese (CO)|f
+huarache comida|changua|milk-and-egg soup (CO)|f
+tetela|tamal|Colombian tamale (CO)|m
+pambazo|empanada|fried turnover (CO)|f
+guajolota|almojábana|cheese-corn roll (CO)|f
+enmolada|sobrebarriga|flank steak dish (CO)|f
+enfrijolada|cazuela de mariscos|seafood stew (CO)|f
+entomatada|hogao|tomato-onion sauce (CO)|m
+memela|mazamorra|corn pudding (CO)|f
+champurrado|chocolate santafereño|hot chocolate with cheese (CO)|m
+ponche|canelazo|hot cinnamon drink (CO)|m
+sotol|guarapo|cane drink (CO)|m
+raicilla|chicha|fermented corn drink (CO)|f
+bacanora|refajo|beer and soda mix (CO)|m
+charanda|lulada|lulo drink (CO)|f
+tejuino|masato|fermented corn drink (CO)|m
+pozol|colada|corn porridge (CO)|f
+chicharrón|=
+cecina|=
+tasajo|=
+longaniza|=
+moronga|morcilla|blood sausage (CO)|f
+machaca|carne desmechada|shredded beef (CO)|f
+discada|parrillada|mixed grill (CO)|f
+cabrito|=
+mixtote|-
+adobo|=
+playera|camiseta|T-shirt (CO)|f
+pantimedia|medias veladas|pantyhose (CO)|f
+tenis calzado|tenis|sneakers (CO)|m
+paliacate|pañuelo|bandana (CO)|m
+mascada|bufanda|scarf (CO)|f
+rebozo|ruana|woolen poncho (CO)|f
+sarape|sombrero vueltiao|woven hat (CO)|m
+jorongo|poncho|poncho (CO)|m
+guayabera|=
+huipil|mochila wayuu|woven bag (CO)|f
+aretes|=
+cierre|=
+espinilla|=
+libramiento|variante|bypass road (CO)|f
+camellón|separador|median divider (CO)|m
+paradero|parada|bus stop (CO)|f
+mototaxi|=
+bicitaxi|=
+combi|-
+tren ligero|metrocable|cable car transit (CO)|m
+cablebús|transmilenio|Bogotá bus system (CO)|m
+depa|apto|apartment (CO)|m
+jacal|rancho|humble hut (CO)|m
+fraccionamiento|urbanización|housing development (CO)|f
+privada|conjunto|gated complex (CO)|m
+interfón|citófono|intercom (CO)|m
+palapa|kiosco|thatched shelter (CO)|m
+resbaladilla|rodadero|slide (CO)|m
+cisterna|=
+tinaco|tanque|rooftop water tank (CO)|m
+lavadero|=
+tabique|ladrillo|brick (CO)|m
+loseta|baldosa|floor tile (CO)|f
+zaguán|=
+cancel|biombo|room divider (CO)|m
+coladera|sumidero|drain grate (CO)|m
+enganche|cuota inicial|down payment (CO)|f
+quincena|=
+imss|eps|health insurer (CO)|f
+afore|pensión|pension fund (CO)|f
+infonavit|cesantías|severance fund (CO)|f
+sat|dian|tax authority (CO)|f
+rfc|nit|tax ID number (CO)|m
+curp|cédula|national ID card (CO)|f
+kínder|jardín|kindergarten (CO)|m
+preparatoria|-
+bachillerato|=
+apunte|=
+UNAM|uniandes|Universidad de los Andes (CO)|f
+IPN|sena|national training service (CO)|m
+SEP|icfes|education testing institute (CO)|m
+tuit|=
+mayormente|=
+topar|=
+acolitar|-
+erogar|-
+empeño|=
+retoño|=
+sazón|=
+corrido|vallenato|vallenato folk music (CO)|m
+pichel|jarra|pitcher (CO)|f
+escobeta|cepillo|scrub brush (CO)|m
+franela|=
+cubeta|balde|bucket (CO)|m
+cloro|=
+alucinante|=
+harto|=
+compadre|=
+comadre|=
+casero|arrendador|landlord (CO)|m
+tortillero|arepero|arepa maker (CO)|m
+nutriólogo|nutricionista|nutritionist (CO)|m
+regidor|concejal|city councillor (CO)|m
+refrán|=
+saco ropa|saco|blazer (CO)|m
+chamarra|chaqueta|jacket (CO)|f
+tenis|=
+epazote|culantro|long coriander herb (CO)|m
+CDMX|antioquia|Antioquia (CO region)|f
+chilango|paisa|person from Antioquia (CO)|m
+taco|salpicón|fruit cocktail drink (CO)|m
+mariachi|cumbia|cumbia music (CO)|f
+día de muertos|carnaval de barranquilla|Barranquilla Carnival (CO)|m
+mezcal|viche|Pacific coast moonshine (CO)|m
+luchador|ciclista|cyclist (CO sports hero)|m
+guadalupano|-
+virgen de guadalupe|virgen del carmen|Virgin of Carmen, patron of drivers (CO)|f
+poblano|costeño|person from the Caribbean coast (CO)|m
+oaxaqueño|cachaco|person from Bogotá (CO)|m
+yucateco|santandereano|person from Santander (CO)|m
+tortillería|arepería|arepa shop (CO)|f
+"""
 }

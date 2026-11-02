@@ -8,7 +8,7 @@ enum SearchScope: String, CaseIterable, Identifiable {
     var title: String {
         switch self {
         case .all: "All"
-        case .spanish: "🇲🇽 Español"
+        case .spanish: "\(Country.current.flag) Español"
         case .english: "🇺🇸 English"
         }
     }
@@ -108,7 +108,10 @@ enum DictionaryIndex {
         let diminutive: Diminutive?
     }
 
-    private static let entries: [Entry] = Lexicon.shared.allWords.map { word in
+    private static var entries: [Entry] { entryCache.current }
+
+    /// Built once per country, because the word list and each word's leading meaning depend on it.
+    private static let entryCache = PerCountry<[Entry]> { _ in Lexicon.shared.allWords.map { word in
         let meanings = Lexicon.shared.meanings(for: word.spanish)
         var primary = Set(englishTerms(word.english))
         var secondary: Set<String> = []
@@ -116,8 +119,8 @@ enum DictionaryIndex {
         for meaning in meanings {
             for (index, sense) in meaning.senses.enumerated() {
                 let terms = englishTerms(sense.text)
-                // The first meaning and every Mexican meaning count as primary
-                if index == 0 || sense.isMexican { primary.formUnion(terms) } else { secondary.formUnion(terms) }
+                // The first meaning and every meaning of the target country count as primary
+                if index == 0 || sense.isLocal { primary.formUnion(terms) } else { secondary.formUnion(terms) }
                 text.append(sense.text)
             }
         }
@@ -128,10 +131,12 @@ enum DictionaryIndex {
         return Entry(word: word, spanish: spanish, headlineTerms: englishTerms(word.english), primaryTerms: primary, secondaryTerms: secondary,
                      termList: termList, englishText: text.joined(separator: " ¦ ").searchKey,
                      fuzzy: fuzzyTerms, diminutive: DiminutiveResolver.resolve(word.spanish))
-    }
+    } }
 
     /// Every plural and other-sex form of a noun, so "profesoras" finds profesor.
-    private static let formIndex: [String: [Word]] = {
+    private static var formIndex: [String: [Word]] { formCache.current }
+
+    private static let formCache = PerCountry<[String: [Word]]> { _ in
         var map: [String: [Word]] = [:]
         for (headword, forms) in Extras.shared.nounForms {
             guard let word = Lexicon.shared.wordsByID[headword] else { continue }
@@ -142,7 +147,7 @@ enum DictionaryIndex {
             }
         }
         return map
-    }()
+    }
 
     /// The nouns a plural or other-sex form belongs to ("bocas" → boca), most common first.
     static func nounsWithForm(_ form: String) -> [Word] {

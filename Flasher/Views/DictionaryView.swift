@@ -310,8 +310,8 @@ private struct DictionaryRow: View {
             HStack {
                 Text(word.spanish)
                     .font(.headline)
-                if Lexicon.shared.hasMexicanMeaning(word) {
-                    Text("🇲🇽 MX")
+                if Lexicon.shared.hasLocalMeaning(word) {
+                    Text("\(Country.current.flag) \(Country.current.code)")
                         .font(.system(size: 10, weight: .bold))
                         .padding(.horizontal, 5)
                         .padding(.vertical, 1)

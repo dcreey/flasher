@@ -1,9 +1,12 @@
 import Foundation
 
-/// One meaning of a word. Mexican meanings are flagged in the data and sorted first.
+/// One meaning of a word. Meanings used in the target country are flagged and sorted first.
 struct Sense: Hashable {
     let text: String
-    let isMexican: Bool
+    /// Used in the target country (`Country.current`).
+    let isLocal: Bool
+    /// Flagged as Mexican in the bundled data, whichever country is selected.
+    let fromMexico: Bool
 
     /// Vulgar or offensive senses never become a word's one-line gloss.
     var isCrude: Bool {
@@ -13,13 +16,30 @@ struct Sense: Hashable {
     }
 
     init(raw: String) {
-        isMexican = raw.hasPrefix("§")
-        text = isMexican ? String(raw.dropFirst()) : raw
+        fromMexico = raw.hasPrefix("§")
+        isLocal = fromMexico
+        text = fromMexico ? String(raw.dropFirst()) : raw
     }
 
-    init(text: String, isMexican: Bool) {
+    init(text: String, isLocal: Bool, fromMexico: Bool) {
         self.text = text
-        self.isMexican = isMexican
+        self.isLocal = isLocal
+        self.fromMexico = fromMexico
+    }
+
+    /// The same meaning as seen from another country: local if its label names that country, with Mexico spelled out once it no longer leads.
+    func seen(from country: Country) -> Sense {
+        if country == .mexico { return Sense(text: text, isLocal: fromMexico, fromMexico: fromMexico) }
+        let labelEnd = text.hasPrefix("(") ? text.firstIndex(of: ")") : nil
+        let label = labelEnd.map { String(text[text.startIndex...$0]) } ?? ""
+        if label.contains(country.label) { return Sense(text: text, isLocal: true, fromMexico: fromMexico) }
+        guard fromMexico else { return Sense(text: text, isLocal: false, fromMexico: false) }
+        // The data drops "Mexico" from Mexican meanings, so put it back
+        let labelled: String
+        if label.hasPrefix("(also ") { labelled = text }
+        else if label.isEmpty { labelled = "(Mexico) " + text }
+        else { labelled = "(Mexico, " + text.dropFirst() }
+        return Sense(text: labelled, isLocal: false, fromMexico: true)
     }
 }
 
@@ -30,8 +50,8 @@ struct Meaning: Hashable {
     let senses: [Sense]
 }
 
-/// A Mexican meaning together with the part of speech it belongs to.
-struct MexicanMeaning: Hashable {
+/// A meaning used in the target country together with the part of speech it belongs to.
+struct LocalMeaning: Hashable {
     let text: String
     let partOfSpeech: PartOfSpeech?
 }
@@ -42,14 +62,34 @@ final class Lexicon {
     static let shared = Lexicon()
 
     let meaningsByWord: [String: [Meaning]]
-    /// Dictionary-only words, most frequent first.
-    let extraWords: [Word]
-    let allWords: [Word]
-    let wordsByID: [String: Word]
     /// Diminutive / augmentative / superlative forms Wiktionary links to a base word, keyed by accent-free form.
     let derivations: [String: (base: String, kind: String)]
+    private let firstRank: [String: Int]
 
-    func meanings(for spanish: String) -> [Meaning] { meaningsByWord[spanish] ?? [] }
+    /// The word lists depend on the target country: its deck, and which meaning leads each dictionary-only word.
+    private struct Words {
+        let extra: [Word]
+        let all: [Word]
+        let byID: [String: Word]
+    }
+    private var words: PerCountry<Words>!
+
+    /// Dictionary-only words, most frequent first.
+    var extraWords: [Word] { words.current.extra }
+    var allWords: [Word] { words.current.all }
+    var wordsByID: [String: Word] { words.current.byID }
+
+    /// A word's meanings as the target country sees them: its own meanings first.
+    func meanings(for spanish: String) -> [Meaning] { meanings(for: spanish, country: .current) }
+
+    private func meanings(for spanish: String, country: Country) -> [Meaning] {
+        guard let blocks = meaningsByWord[spanish] else { return [] }
+        if country == .mexico { return blocks }
+        return blocks.map { block in
+            let senses = block.senses.map { $0.seen(from: country) }
+            return Meaning(partOfSpeech: block.partOfSpeech, gender: block.gender, senses: senses.filter(\.isLocal) + senses.filter { !$0.isLocal })
+        }
+    }
 
     private init() {
         var meanings: [String: [Meaning]] = [:]
@@ -76,30 +116,35 @@ final class Lexicon {
             }
         }
 
-        var byID: [String: Word] = [:]
-        for word in SeedData.words where byID[word.id] == nil { byID[word.id] = word }
-        let originalCount = SeedData.words.count
+        meaningsByWord = meanings
+        derivations = derived
+        self.firstRank = firstRank
+        words = PerCountry { [unowned self] country in self.buildWords(for: country) }
+    }
 
-        let newHeadwords = meanings.keys.filter { byID[$0] == nil }
+    private func buildWords(for country: Country) -> Words {
+        let deck = SeedData.words(for: country)
+        var byID: [String: Word] = [:]
+        for word in deck where byID[word.id] == nil { byID[word.id] = word }
+        // Dictionary-only words are numbered after the full deck, so their numbers match in every country
+        let originalCount = SeedData.baseWords.count
+
+        let newHeadwords = meaningsByWord.keys.filter { byID[$0] == nil }
             .sorted { (firstRank[$0] ?? .max, $0) < (firstRank[$1] ?? .max, $1) }
         var extras: [Word] = []
         extras.reserveCapacity(newHeadwords.count)
         for (index, headword) in newHeadwords.enumerated() {
-            guard let blocks = meanings[headword], let first = blocks.first else { continue }
-            // The headline follows the block holding a Mexican meaning, if there is one
-            let main = blocks.first { $0.senses.contains { $0.isMexican } } ?? first
+            let blocks = meanings(for: headword, country: country)
+            guard let first = blocks.first else { continue }
+            // The headline follows the block holding a local meaning, if there is one
+            let main = blocks.first { $0.senses.contains { $0.isLocal } } ?? first
             let gender = main.gender == "m" || main.gender == "f" ? main.gender : nil
             let word = Word(order: originalCount + index, spanish: headword,
                             english: Self.summary(of: main.senses), partOfSpeech: main.partOfSpeech, gender: gender)
             extras.append(word)
             byID[headword] = word
         }
-
-        meaningsByWord = meanings
-        extraWords = extras
-        wordsByID = byID
-        allWords = SeedData.words + extras
-        derivations = derived
+        return Words(extra: extras, all: deck + extras, byID: byID)
     }
 
     private static func partOfSpeech(_ raw: String) -> PartOfSpeech? { PartOfSpeech(rawValue: raw) }
@@ -130,13 +175,14 @@ final class Lexicon {
         return result + rest
     }
 
-    /// "(MX)", "(Mexican)", "(Mexico)" or "(MX CDMX)" in the flashcard data marks a Mexican gloss.
-    private static let mexicanMarker = try! NSRegularExpression(pattern: #"\s*\((?:MX|Mexican|Mexico)\b[^)]*\)"#)
+    /// "(MX)", "(Mexican)", "(Mexico)" or "(MX CDMX)" in the flashcard data marks a Mexican gloss; likewise "(CO)" for Colombia.
+    private static let markers = PerCountry { try! NSRegularExpression(pattern: $0.markerPattern) }
 
-    private static func removingMexicanMarker(_ text: String) -> String? {
+    private static func removingMarker(_ text: String) -> String? {
+        let marker = markers.current
         let range = NSRange(text.startIndex..., in: text)
-        guard mexicanMarker.firstMatch(in: text, range: range) != nil else { return nil }
-        return mexicanMarker.stringByReplacingMatches(in: text, range: range, withTemplate: "")
+        guard marker.firstMatch(in: text, range: range) != nil else { return nil }
+        return marker.stringByReplacingMatches(in: text, range: range, withTemplate: "")
     }
 
     /// "(also Guatemala) submarine sandwich" reads better as "submarine sandwich (also Guatemala)".
@@ -147,36 +193,36 @@ final class Lexicon {
         return rest.isEmpty ? text : "\(rest) \(label)"
     }
 
-    /// Meanings Mexican Spanish uses: the flagged Wiktionary senses, plus anything the flashcard data marks as Mexican.
-    func mexicanMeanings(for word: Word) -> [MexicanMeaning] {
-        var result: [MexicanMeaning] = []
+    /// Meanings the target country uses: the flagged Wiktionary senses, plus anything the flashcard data marks for that country.
+    func localMeanings(for word: Word) -> [LocalMeaning] {
+        var result: [LocalMeaning] = []
         func add(_ text: String, _ pos: PartOfSpeech?) {
             let clean = Self.tidyAlsoLabel(text.trimmingCharacters(in: .whitespaces))
             if !clean.isEmpty, !result.contains(where: { $0.text.lowercased() == clean.lowercased() }) {
-                result.append(MexicanMeaning(text: clean, partOfSpeech: pos))
+                result.append(LocalMeaning(text: clean, partOfSpeech: pos))
             }
         }
-        if let gloss = Self.removingMexicanMarker(word.english) {
+        if let gloss = Self.removingMarker(word.english) {
             add(gloss, word.partOfSpeech)
         }
         for block in meanings(for: word.spanish) {
-            for sense in block.senses where sense.isMexican { add(sense.text, block.partOfSpeech) }
+            for sense in block.senses where sense.isLocal { add(sense.text, block.partOfSpeech) }
         }
         return result
     }
 
-    func hasMexicanMeaning(_ word: Word) -> Bool {
-        Self.removingMexicanMarker(word.english) != nil
-            || meanings(for: word.spanish).contains { $0.senses.contains { $0.isMexican } }
+    func hasLocalMeaning(_ word: Word) -> Bool {
+        Self.removingMarker(word.english) != nil
+            || meanings(for: word.spanish).contains { $0.senses.contains { $0.isLocal } }
     }
 
     /// A short flashcard-friendly gloss: the first couple of senses without parenthetical detail.
     static func summary(of senses: [Sense]) -> String {
         var parts: [String] = []
-        // Mexican meanings lead; vulgar ones only if nothing else exists
+        // Local meanings lead; vulgar ones only if nothing else exists
         let ordered = senses.filter { !$0.isCrude } + senses.filter { $0.isCrude }
-        let mexicanFirst = ordered.filter(\.isMexican) + ordered.filter { !$0.isMexican }
-        for sense in mexicanFirst.prefix(3) {
+        let localFirst = ordered.filter(\.isLocal) + ordered.filter { !$0.isLocal }
+        for sense in localFirst.prefix(3) {
             let short = stripParentheses(sense.text)
             if !short.isEmpty, !parts.contains(short) { parts.append(short) }
             if parts.count == 2 { break }
