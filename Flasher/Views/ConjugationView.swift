@@ -15,20 +15,28 @@ struct ConjugationView: View {
     var attached: Clitics.Match?
 
     private struct Selection: Equatable {
+        /// Which table: the simple tenses, the "-ing" tenses (estar + gerund) or the perfect tenses (haber + participle).
+        var form: VerbForm = .infinitive
         var tense: Tense
         var person: Int
         /// A negative command ("no digas"): the imperative's second row, built from the present subjunctive.
         var negative = false
     }
 
-    init(conjugation: Conjugation, examples: [ExampleSentence] = [], gloss: String = "", phrase: PhraseVerb? = nil, attached: Clitics.Match? = nil) {
+    init(conjugation: Conjugation, examples: [ExampleSentence] = [], gloss: String = "", phrase: PhraseVerb? = nil, attached: Clitics.Match? = nil, focus: ConjugationFocus? = nil) {
         self.conjugation = conjugation
         self.examples = examples
         self.gloss = gloss
         self.phrase = phrase
         self.attached = attached
         let start = attached?.selection
-        _selection = State(initialValue: Selection(tense: start?.tense ?? phrase?.start.tense ?? .present, person: start?.person ?? phrase?.start.person ?? 0))
+        if let focus {
+            _selection = State(initialValue: Selection(form: focus.form, tense: focus.tense, person: focus.person))
+        } else if case .gerund? = attached?.kind {
+            _selection = State(initialValue: Selection(form: .gerund, tense: .present, person: 0))
+        } else {
+            _selection = State(initialValue: Selection(tense: start?.tense ?? phrase?.start.tense ?? .present, person: start?.person ?? phrase?.start.person ?? 0))
+        }
     }
 
     @State private var selection: Selection
@@ -43,15 +51,23 @@ struct ConjugationView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            banner
-            if phrase == nil, !selection.negative { exampleCard }
-            Picker("Display", selection: $showFullForms) {
-                Text("Endings").tag(false)
-                Text("Full forms").tag(true)
-            }
-            .pickerStyle(.segmented)
-            chart
             nonFiniteForms
+            banner
+            if selection.form != .infinitive {
+                usageCard
+            } else if phrase == nil, !selection.negative {
+                exampleCard
+            }
+            if selection.form == .infinitive {
+                Picker("Display", selection: $showFullForms) {
+                    Text("Endings").tag(false)
+                    Text("Full forms").tag(true)
+                }
+                .pickerStyle(.segmented)
+                chart
+            } else {
+                compoundChart(selection.form)
+            }
             footer
         }
         .onChange(of: showVosotros) { _, shown in
@@ -63,10 +79,17 @@ struct ConjugationView: View {
 
     private var nonFiniteForms: some View {
         HStack(spacing: 8) {
-            nonFiniteChip("Infinitive", conjugation.infinitive, marked: attached?.kind == .infinitive, withPronouns: pronounForm(of: conjugation.infinitive))
-            nonFiniteChip("Gerund", conjugation.gerund, marked: attached?.kind == .gerund, withPronouns: pronounForm(of: conjugation.gerund))
-            nonFiniteChip("Participle", conjugation.participle, withPronouns: attached == nil || !showsPronouns ? nil : "never attached")
+            nonFiniteChip(.infinitive, conjugation.infinitive, withPronouns: pronounForm(of: conjugation.infinitive))
+            nonFiniteChip(.gerund, conjugation.gerund, withPronouns: pronounForm(of: conjugation.gerund))
+            nonFiniteChip(.participle, conjugation.participle, withPronouns: attached == nil || !showsPronouns ? nil : "never attached")
         }
+    }
+
+    /// Picking a form switches the table; a tense the new table doesn't have falls back to the present.
+    private func choose(_ form: VerbForm) {
+        guard form != selection.form else { return }
+        selection = Selection(form: form, tense: form.supports(selection.tense) ? selection.tense : .present, person: selection.person)
+        exampleIndex = 0
     }
 
     /// Pronouns only attach to a plain verb: reflexive verbs and phrases ("darse cuenta") reorder them.
@@ -77,7 +100,14 @@ struct ConjugationView: View {
         return "→ " + SpanishStress.attach(form, pronouns: attached.pronouns, person: nil)
     }
 
-    private func nonFiniteChip(_ title: String, _ value: String, marked: Bool = false, withPronouns: String? = nil) -> some View {
+    private func nonFiniteChip(_ form: VerbForm, _ value: String, withPronouns: String? = nil) -> some View {
+        let selected = selection.form == form
+        return Button { choose(form) } label: { nonFiniteLabel(form.title, value, selected: selected, withPronouns: withPronouns) }
+            .buttonStyle(.plain)
+            .accessibilityAddTraits(selected ? .isSelected : [])
+    }
+
+    private func nonFiniteLabel(_ title: String, _ value: String, selected: Bool, withPronouns: String?) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(title)
                 .font(.caption2)
@@ -97,8 +127,8 @@ struct ConjugationView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 10)
         .padding(.vertical, 8)
-        .background(Color(.secondarySystemFill), in: RoundedRectangle(cornerRadius: 10))
-        .overlay { if marked { RoundedRectangle(cornerRadius: 10).stroke(Color.accentColor, lineWidth: 2) } }
+        .background(selected ? Color.accentColor.opacity(0.14) : Color(.secondarySystemFill), in: RoundedRectangle(cornerRadius: 10))
+        .overlay { RoundedRectangle(cornerRadius: 10).stroke(selected ? Color.accentColor : Color.clear, lineWidth: 2) }
     }
 
     // MARK: - Selected form
@@ -107,8 +137,9 @@ struct ConjugationView: View {
         let tense = selection.tense
         let person = selection.person
         let subject = tense == .imperative ? Conjugation.imperativePronouns[person] : bannerPronouns[person]
+        let form = selection.form
         return VStack(alignment: .leading, spacing: 4) {
-            Text(selection.negative ? "Imperative · Negative command = no + present subjunctive" : "\(tense.mood.title) · \(tense.title) (\(tense.gloss))")
+            Text(selection.negative ? "Imperative · Negative command = no + present subjunctive" : "\(tense.mood.title) · \(form.title(of: tense)) (\(form.gloss(of: tense)))")
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(tense.mood.color)
             HStack(alignment: .firstTextBaseline, spacing: 6) {
@@ -126,7 +157,7 @@ struct ConjugationView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
-            pronounLine(tense: tense, person: person)
+            if form == .infinitive { pronounLine(tense: tense, person: person) }
             if let phrase {
                 phraseMeaning(phrase)
             }
@@ -176,7 +207,7 @@ struct ConjugationView: View {
     /// The phrase's meaning, inflected for the chosen tense and person when it reads as a verb phrase ("I have just").
     @ViewBuilder
     private func phraseMeaning(_ phrase: PhraseVerb) -> some View {
-        if let inflected = phrase.english(tense: selection.tense, person: selection.person) {
+        if selection.form == .infinitive, let inflected = phrase.english(tense: selection.tense, person: selection.person) {
             Text(inflected)
                 .font(.callout.weight(.medium))
             Text("Base meaning: \(phrase.baseMeaning)")
@@ -269,6 +300,9 @@ struct ConjugationView: View {
         if selection.negative {
             let pronouns = commandPronouns(person).joined(separator: " ")
             form = ["no", pronouns, conjugation.form(.subjunctivePresent, person) ?? "–"].filter { !$0.isEmpty }.joined(separator: " ")
+        } else if selection.form != .infinitive {
+            form = CompoundForms.form(of: conjugation, selection.form, tense, person) ?? "–"
+            if conjugation.reflexive { form = Conjugation.reflexivePronouns[person] + " " + form }
         } else if tense == .imperative, let attached = conjugation.attachedImperative {
             form = attached[person] ?? "–"
         } else {
@@ -280,6 +314,88 @@ struct ConjugationView: View {
         if !conjugation.tail.isEmpty { form += " " + conjugation.tail }
         if let phrase { form = phrase.spanish(core: form) }
         return tense == .imperative ? "¡\(form)!" : form
+    }
+
+    // MARK: - Gerund and participle tables
+
+    /// What the selected "-ing" or perfect tense is for.
+    private var usageCard: some View {
+        Text(.init(selection.form.usage(of: selection.tense)))
+            .font(.callout)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .fixedSize(horizontal: false, vertical: true)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 10)
+            .background(Color(.secondarySystemFill), in: RoundedRectangle(cornerRadius: 12))
+    }
+
+    /// The helper verb's forms in each tense with the gerund or participle fixed at the end, so a cell only shows what changes: he, has, ha…
+    private func compoundChart(_ form: VerbForm) -> some View {
+        let fixed = form == .gerund ? conjugation.gerund : conjugation.participle
+        return VStack(spacing: 6) {
+            HStack(spacing: 0) {
+                Color.clear.frame(width: labelWidth, height: 1)
+                columns { i in
+                    VStack(spacing: 0) {
+                        Text(columnTitles[i])
+                        if conjugation.reflexive {
+                            Text(Conjugation.reflexivePronouns[i]).foregroundStyle(.tertiary)
+                        }
+                    }
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity)
+                }
+            }
+            ForEach(Mood.allCases) { mood in
+                let tenses = form.tenses.filter { $0.mood == mood }
+                if !tenses.isEmpty {
+                    VStack(spacing: 3) {
+                        moodBand(mood)
+                        ForEach(tenses) { tense in compoundRow(form, tense, fixed: fixed) }
+                    }
+                }
+            }
+        }
+    }
+
+    private func compoundRow(_ form: VerbForm, _ tense: Tense, fixed: String) -> some View {
+        HStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
+                Text(form.title(of: tense))
+                    .font(.system(size: 11, weight: .semibold))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
+                Text("+ " + fixed)
+                    .font(.system(size: 10, design: .monospaced))
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
+            }
+            .frame(width: labelWidth, alignment: .leading)
+            columns { person in compoundCell(form, tense, person) }
+        }
+    }
+
+    private func compoundCell(_ form: VerbForm, _ tense: Tense, _ person: Int) -> some View {
+        let selected = Selection(form: form, tense: tense, person: person)
+        let isSelected = selection == selected
+        let color = tense.mood.color
+        return Button {
+            selection = selected
+        } label: {
+            Text(CompoundForms.auxiliary(form, tense, person) ?? "–")
+                .font(.system(size: 12, weight: .semibold, design: .rounded))
+                .foregroundStyle(color)
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+                .padding(.horizontal, 1)
+                .frame(maxWidth: .infinity, minHeight: 34)
+                .background(color.opacity(0.07), in: RoundedRectangle(cornerRadius: 6))
+                .overlay(RoundedRectangle(cornerRadius: 6).stroke(isSelected ? color : Color.clear, lineWidth: 2))
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("\(form.title(of: tense)), \(Conjugation.pronouns[person]): \(CompoundForms.form(of: conjugation, form, tense, person) ?? "none")")
     }
 
     // MARK: - Chart
@@ -467,17 +583,19 @@ struct ConjugationView: View {
 
     private var footer: some View {
         VStack(alignment: .leading, spacing: 8) {
-            if let shape = presentShapeNote {
-                Label(shape, systemImage: "shoeprints.fill")
-                    .font(.footnote)
-                    .foregroundStyle(.orange)
+            if selection.form == .infinitive {
+                if let shape = presentShapeNote {
+                    Label(shape, systemImage: "shoeprints.fill")
+                        .font(.footnote)
+                        .foregroundStyle(.orange)
+                }
+                HStack(spacing: 14) {
+                    legend(color: Mood.indicative.color.opacity(0.25), "regular ending")
+                    legend(color: Color.orange.opacity(0.4), "stem change / irregular")
+                }
+                .font(.caption2)
+                .foregroundStyle(.secondary)
             }
-            HStack(spacing: 14) {
-                legend(color: Mood.indicative.color.opacity(0.25), "regular ending")
-                legend(color: Color.orange.opacity(0.4), "stem change / irregular")
-            }
-            .font(.caption2)
-            .foregroundStyle(.secondary)
             Text(notes)
                 .font(.caption)
                 .foregroundStyle(.secondary)
@@ -511,6 +629,8 @@ struct ConjugationView: View {
 
     private var notes: String {
         var lines = ["Perfect tenses use haber + \(conjugation.participle): he \(conjugation.participle), había \(conjugation.participle)…"]
+        if selection.form == .gerund { lines = ["The “-ing” tenses use estar + \(conjugation.gerund): estoy \(conjugation.gerund), estaba \(conjugation.gerund)…"] }
+        if selection.form != .infinitive { return lines.joined(separator: "\n") }
         lines.append("Negative commands use the subjunctive: no \(conjugation.form(.subjunctivePresent, 1) ?? "").")
         if !conjugation.tail.isEmpty {
             lines.append("Forms show the verb only; “\(conjugation.tail)” follows it.")

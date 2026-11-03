@@ -543,3 +543,79 @@ final class SpanishCheckerTests: XCTestCase {
         XCTAssertNil(TranslationTraps.moodNote(spanish: "Quiero que vaya", english: "I want him to go"))
     }
 }
+
+final class TenseAlternativesTests: XCTestCase {
+    private func first(_ text: String) -> TenseSuggestion? { TenseAlternatives.suggestions(for: text).first }
+
+    func testPreteriteOffersPresentPerfect() {
+        let s = first("Ya terminé el trabajo.")
+        XCTAssertEqual(s?.rewritten, "Ya he terminado el trabajo")
+        XCTAssertEqual(s?.focus, ConjugationFocus(form: .participle, tense: .present, person: 0))
+    }
+
+    func testReflexiveKeepsItsPronoun() {
+        XCTAssertEqual(first("Se levantó temprano.")?.rewritten, "Se ha levantado temprano")
+    }
+
+    func testDefinitePastTimeGetsNoPerfect() {
+        XCTAssertNil(first("Terminé el trabajo ayer."))
+        XCTAssertNil(first("Hace dos años viajé a Cali."))
+    }
+
+    func testPerfectOffersPreterite() {
+        let s = first("No he comido todavía.")
+        XCTAssertEqual(s?.rewritten, "No comí todavía")
+        XCTAssertEqual(s?.focus, ConjugationFocus(form: .infinitive, tense: .preterite, person: 0))
+    }
+
+    func testSequenceOffersPastPerfect() {
+        XCTAssertEqual(first("Comí tacos y salí.")?.rewritten, "Ya había comido tacos cuando salí")
+        XCTAssertEqual(first("Se levantó y salió.")?.rewritten, "Ya se había levantado cuando salió")
+        XCTAssertEqual(first("Comí tacos y salí.")?.focus.tense, .imperfect)
+    }
+
+    func testSequenceNeedsPlainOrdering() {
+        XCTAssertNil(first("Cuando llegué, salió."))
+        XCTAssertNil(first("Dije que comí y salí porque quise."))
+    }
+
+    func testPastPerfectIsReorderedIntoTwoPreterites() {
+        let s = first("Cuando llegué, ya se había ido.")
+        XCTAssertEqual(s?.rewritten, "Se fue y después llegué")
+        XCTAssertTrue(s?.note.contains("loses some nuance") ?? false)
+        XCTAssertEqual(first("Ya se había ido cuando llegué.")?.rewritten, "Se fue y después llegué")
+    }
+
+    func testLonePastPerfectExplainsItNeedsAnAnchor() {
+        let s = first("Ya había comido.")
+        XCTAssertEqual(s?.rewritten, "Cuando llamaste, ya había comido")
+        XCTAssertEqual(s?.isNote, true)
+        XCTAssertTrue(s?.note.contains("follows a clause that introduced another past event") ?? false)
+        XCTAssertNotNil(first("Nunca había visto el mar."))
+        XCTAssertNil(first("Todavía no había llegado cuando llamaste."))
+    }
+
+    func testEverydayWordsAreNotVerbs() {
+        XCTAssertNil(first("Así es."))
+    }
+
+    func testPlainPresentGetsNothing() {
+        XCTAssertTrue(TenseAlternatives.suggestions(for: "Como tacos todos los días.").isEmpty)
+    }
+
+    func testCompoundForms() throws {
+        let comer = try XCTUnwrap(Conjugator.conjugate("comer"))
+        XCTAssertEqual(CompoundForms.form(of: comer, .participle, .present, 0), "he comido")
+        XCTAssertEqual(CompoundForms.form(of: comer, .participle, .imperfect, 3), "habíamos comido")
+        XCTAssertEqual(CompoundForms.form(of: comer, .gerund, .imperfect, 2), "estaba comiendo")
+        XCTAssertNil(CompoundForms.form(of: comer, .participle, .preterite, 0))
+    }
+
+    func testFocusRoundTripsThroughALink() throws {
+        let word = try XCTUnwrap(Lexicon.shared.wordsByID["comer"])
+        let focus = ConjugationFocus(form: .participle, tense: .subjunctiveImperfect, person: 4)
+        let url = try XCTUnwrap(WordLinks.url(for: word, focus: focus))
+        XCTAssertEqual(ConjugationFocus(queryItems: URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems), focus)
+        XCTAssertNil(ConjugationFocus(queryItems: nil))
+    }
+}

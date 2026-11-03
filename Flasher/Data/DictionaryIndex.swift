@@ -32,6 +32,8 @@ struct SearchHit: Identifiable, Hashable {
     var senseNote: String?
     /// Set when the query is a verb with pronouns attached ("vernos"): the page explains the form.
     var attached: Clitics.Match?
+    /// Set when a link asks for a table of the conjugation chart ("he comido": the participle table, present perfect).
+    var focus: ConjugationFocus?
     var id: String { word.id }
 }
 

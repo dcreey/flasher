@@ -18,6 +18,8 @@
 		3AD26BBAC958652C16178BD9 /* RecentWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D5754378B53E36C74817D /* RecentWords.swift */; };
 		1A301CC683839C318A0C2A86 /* extras.tsv in Resources */ = {isa = PBXBuildFile; fileRef = B3C38A555A559A897F6EE015 /* extras.tsv */; };
 		C9218132A905EB7C13C38FB1 /* TenseExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE843D21B1F70748A414EF5 /* TenseExamples.swift */; };
+		A1B2C3D4E5F60718293A4B04 /* TenseAlternatives.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B03 /* TenseAlternatives.swift */; };
+		A1B2C3D4E5F60718293A4B02 /* CompoundForms.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B01 /* CompoundForms.swift */; };
 		E6F7DBAEBB6421AE1C16251C /* Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3836E191B2653C2E5FF14105 /* Extras.swift */; };
 		D1E2F3A4B5C60718293A4B61 /* SpanishChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2F3A4B5C60718293A4B60 /* SpanishChecker.swift */; };
 		D1E2F3A4B5C60718293A4B63 /* SpanishRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2F3A4B5C60718293A4B62 /* SpanishRules.swift */; };
@@ -87,6 +89,8 @@
 		968D5754378B53E36C74817D /* RecentWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWords.swift; sourceTree = "<group>"; };
 		B3C38A555A559A897F6EE015 /* extras.tsv */ = {isa = PBXFileReference; lastKnownFileType = text; path = extras.tsv; sourceTree = "<group>"; };
 		6EE843D21B1F70748A414EF5 /* TenseExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenseExamples.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B03 /* TenseAlternatives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenseAlternatives.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B01 /* CompoundForms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundForms.swift; sourceTree = "<group>"; };
 		3836E191B2653C2E5FF14105 /* Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extras.swift; sourceTree = "<group>"; };
 		D1E2F3A4B5C60718293A4B60 /* SpanishChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpanishChecker.swift; sourceTree = "<group>"; };
 		D1E2F3A4B5C60718293A4B62 /* SpanishRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpanishRules.swift; sourceTree = "<group>"; };
@@ -118,6 +122,8 @@
 				968D5754378B53E36C74817D /* RecentWords.swift */,
 				B3C38A555A559A897F6EE015 /* extras.tsv */,
 				6EE843D21B1F70748A414EF5 /* TenseExamples.swift */,
+				A1B2C3D4E5F60718293A4B03 /* TenseAlternatives.swift */,
+				A1B2C3D4E5F60718293A4B01 /* CompoundForms.swift */,
 				3836E191B2653C2E5FF14105 /* Extras.swift */,
 				D1E2F3A4B5C60718293A4B60 /* SpanishChecker.swift */,
 				D1E2F3A4B5C60718293A4B62 /* SpanishRules.swift */,
@@ -330,6 +336,8 @@
 				C01B3EA18F73D830D0CAA12A /* RaptorRoomView.swift in Sources */,
 				3AD26BBAC958652C16178BD9 /* RecentWords.swift in Sources */,
 				C9218132A905EB7C13C38FB1 /* TenseExamples.swift in Sources */,
+				A1B2C3D4E5F60718293A4B04 /* TenseAlternatives.swift in Sources */,
+				A1B2C3D4E5F60718293A4B02 /* CompoundForms.swift in Sources */,
 				E6F7DBAEBB6421AE1C16251C /* Extras.swift in Sources */,
 				D1E2F3A4B5C60718293A4B61 /* SpanishChecker.swift in Sources */,
 				D1E2F3A4B5C60718293A4B63 /* SpanishRules.swift in Sources */,

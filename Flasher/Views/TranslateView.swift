@@ -702,7 +702,8 @@ struct TranslateView: View {
         let english = output.direction == .toSpanish ? output.input : output.translation
         let traps = Array(TranslationTraps.find(english: english, spanish: spanish).prefix(3))
         let mood = output.direction == .toEnglish ? TranslationTraps.moodNote(spanish: spanish, english: output.translation) : nil
-        let hasWords = output.readAs != nil || !output.adjusted.isEmpty || !slang.isEmpty || !alternatives.isEmpty || !traps.isEmpty || mood != nil
+        let tenses = TenseAlternatives.suggestions(for: spanish)
+        let hasWords = output.readAs != nil || !output.adjusted.isEmpty || !slang.isEmpty || !alternatives.isEmpty || !traps.isEmpty || mood != nil || !tenses.isEmpty
         VStack(alignment: .leading, spacing: 24) {
             // Lines only separate sections that both have something in them
             if hasNatural || hasWords { Divider().padding(.horizontal, 28) }
@@ -720,6 +721,7 @@ struct TranslateView: View {
                     .padding(.horizontal, 12).padding(.vertical, 10)
                     .background(Color.orange.opacity(0.12), in: RoundedRectangle(cornerRadius: 12))
             }
+            ForEach(tenses) { tenseCard($0) }
             if let readAs = output.readAs {
                 note("Read as", readAs, symbol: "text.magnifyingglass")
             }
@@ -752,6 +754,25 @@ struct TranslateView: View {
                         ForEach(alternatives, id: \.0) { Text("\($0.0) → **\($0.1)**") }
                     }
                 }
+            }
+        }
+    }
+
+    /// A neighbouring tense that would also fit, with how the meaning shifts and a link to that tense in the verb's chart.
+    private func tenseCard(_ suggestion: TenseSuggestion) -> some View {
+        card(title: suggestion.isNote ? "Good to know · \(suggestion.title)" : "Also possible · \(suggestion.title)", copy: suggestion.rewritten) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(WordLinks.linked(suggestion.rewritten)).font(.callout).textSelection(.enabled)
+                Text(.init(suggestion.note)).font(.footnote).foregroundStyle(.secondary)
+                Button { router?.showWord(suggestion.verb, focus: suggestion.focus) } label: {
+                    HStack(spacing: 4) {
+                        Text("See “\(suggestion.verb.spanish)” in \(suggestion.focus.form.title(of: suggestion.focus.tense).lowercased())")
+                        Image(systemName: "chevron.right").font(.caption2)
+                    }
+                    .font(.footnote.weight(.semibold))
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(Color.accentColor)
             }
         }
     }

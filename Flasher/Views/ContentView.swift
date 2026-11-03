@@ -10,10 +10,10 @@ final class AppRouter {
     /// The tab a word was opened from; going back from that word returns there instead of to the dictionary's search.
     private var returnTab: AppTab?
 
-    func showWord(_ word: Word, attached: Clitics.Match? = nil) {
+    func showWord(_ word: Word, attached: Clitics.Match? = nil, focus: ConjugationFocus? = nil) {
         if tab != .dictionary { returnTab = tab }
         dictionaryPath = NavigationPath()
-        dictionaryPath.append(SearchHit(word: word, diminutive: DiminutiveResolver.resolve(word.spanish), attached: attached))
+        dictionaryPath.append(SearchHit(word: word, diminutive: DiminutiveResolver.resolve(word.spanish), attached: attached, focus: focus))
         tab = .dictionary
     }
 

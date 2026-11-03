@@ -4,14 +4,22 @@ import SwiftUI
 enum VerbForms {
     struct Slot { let infinitive: String; let tense: Tense; let person: Int }
 
-    private static let built: (forms: [String: [Slot]], gerunds: [String: String], participles: Set<String>) = {
+    private static let built: (forms: [String: [Slot]], gerunds: [String: String], participles: Set<String>, owners: [String: String]) = {
         var map: [String: [Slot]] = [:]
         var gerunds: [String: String] = [:]
         var participles: Set<String> = []
+        var owners: [String: String] = [:]
         for word in Lexicon.shared.allWords where word.partOfSpeech == .infinitive {
             guard let conjugation = Conjugator.conjugate(word.spanish) else { continue }
             participles.insert(conjugation.participle.lowercased())
             participles.insert(conjugation.gerund.lowercased())
+            // The plain verb owns the participle, not its reflexive twin or a phrase built on it
+            let participle = conjugation.participle.lowercased()
+            if !word.spanish.contains(" "), let owner = owners[participle] {
+                if owner.hasSuffix("se"), !word.spanish.hasSuffix("se") { owners[participle] = word.spanish }
+            } else if !word.spanish.contains(" ") {
+                owners[participle] = word.spanish
+            }
             // First single-word verb wins: "dando" is dar's, not darse cuenta's
             if !word.spanish.contains(" ") { gerunds[conjugation.gerund.searchKey] = gerunds[conjugation.gerund.searchKey] ?? word.spanish }
             for (tense, forms) in conjugation.forms {
@@ -21,12 +29,14 @@ enum VerbForms {
                 }
             }
         }
-        return (map, gerunds, participles)
+        return (map, gerunds, participles, owners)
     }()
 
     static var index: [String: [Slot]] { built.forms }
     /// Every participle and gerund as written ("tenido", "viendo"), which the form index doesn't hold.
     static var nonFiniteForms: Set<String> { built.participles }
+    /// Participle as written → its verb ("comido" → comer, "dicho" → decir).
+    static var participleOwners: [String: String] { built.owners }
     /// Accent-free gerund → infinitive ("viendo" → ver).
     static var gerunds: [String: String] { built.gerunds }
 }
@@ -661,11 +671,11 @@ enum WordLinks {
     }
 
     /// `form` is what was written when it is a verb with pronouns attached, so the page can explain it.
-    static func url(for word: Word, form: String? = nil) -> URL? {
+    static func url(for word: Word, form: String? = nil, focus: ConjugationFocus? = nil) -> URL? {
         var parts = URLComponents()
         parts.scheme = "elpie"
         parts.host = "word"
-        parts.queryItems = [URLQueryItem(name: "id", value: word.id)] + (form.map { [URLQueryItem(name: "form", value: $0)] } ?? [])
+        parts.queryItems = [URLQueryItem(name: "id", value: word.id)] + (form.map { [URLQueryItem(name: "form", value: $0)] } ?? []) + (focus?.queryItems ?? [])
         return parts.url
     }
 
@@ -707,11 +717,12 @@ private struct WordLinkNavigation: ViewModifier {
                       let id = items?.first(where: { $0.name == "id" })?.value,
                       let word = Lexicon.shared.wordsByID[id] else { return .systemAction }
                 let attached = items?.first(where: { $0.name == "form" })?.value.flatMap(Clitics.resolve)
-                if opensInDictionary, let router { router.showWord(word, attached: attached) }
-                else { target = SearchHit(word: word, diminutive: nil, attached: attached) }
+                let focus = ConjugationFocus(queryItems: items)
+                if opensInDictionary, let router { router.showWord(word, attached: attached, focus: focus) }
+                else { target = SearchHit(word: word, diminutive: nil, attached: attached, focus: focus) }
                 return .handled
             })
-            .navigationDestination(item: $target) { WordDetailView(word: $0.word, diminutive: $0.diminutive, attached: $0.attached) }
+            .navigationDestination(item: $target) { WordDetailView(word: $0.word, diminutive: $0.diminutive, attached: $0.attached, focus: $0.focus) }
     }
 }
 

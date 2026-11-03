@@ -7,6 +7,8 @@ struct WordDetailView: View {
     var diminutive: Diminutive?
     /// Set when the user arrived through a verb with pronouns attached ("vernos", "dímelo").
     var attached: Clitics.Match?
+    /// Set when a link wants a particular table of the conjugation chart open ("he comido": participle, present perfect).
+    var focus: ConjugationFocus?
 
     @State private var confirmation: String?
 
@@ -452,7 +454,7 @@ struct WordDetailView: View {
     private func conjugationSection(_ conjugation: Conjugation) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             sectionTitle("Conjugation")
-            ConjugationView(conjugation: conjugation, examples: TenseExamples.pool(for: word), gloss: word.english, attached: attached)
+            ConjugationView(conjugation: conjugation, examples: TenseExamples.pool(for: word), gloss: word.english, attached: attached, focus: focus)
         }
     }
 

@@ -102,6 +102,19 @@ Not checked. A missing `¿` or `¡` is common in informal writing, so the engine
 
 False friends that look like English but mean something else. They are shown separately, with a yellow highlight, and are never counted as mistakes: *embarazada*, *constipado*, *éxito*, *actualmente*, *carpeta*, *librería*, *sensible*, *asistir*, *realizar*, *soportar*, *decepción*, *disgusto*, *largo*, *fábrica*, *introducir*, *pretender*, *molestar*, *lectura*, *colegio*, *campo*, *preservativo*, *arena* (and their plurals).
 
+## Tense alternatives (not mistakes)
+
+`Flasher/Data/TenseAlternatives.swift` adds an "Also possible" card to Translate when a sentence has a close neighbour tense. The sentence is correct as written; the card shows the rewrite, how the meaning shifts, and a link to that tense in the verb's conjugation chart.
+
+| Sentence has | Card offers |
+| --- | --- |
+| One preterite (*ya terminé*), no definite past time (*ayer*, *hace dos años*, *cuando*) | Present perfect (*ya he terminado*): completed but relevant to now |
+| A present perfect (*no he comido*) | Preterite (*no comí*): finished, without the link to now |
+| Two preterites in sequence joined by *y*, *luego*, *después* (*comí tacos y salí*) | Past perfect (*ya había comido tacos cuando salí*) |
+| A past perfect anchored by *cuando* (*cuando llegué, ya se había ido*) | Two preterites in the order things happened, reordered (*se fue y después llegué*), noting it loses the "already before" nuance. A past perfect with no other past verb (*ya había comido*) gets a "Good to know" note: it is correct, but only after a clause that introduced another past event, with an example (*cuando llamaste, ya había comido*) |
+
+Only forms that are unambiguously one preterite person are used (*fue*, *di*, *vivimos* are skipped), and sentences with *cuando*, *porque*, *que*, *si*... are left alone for the sequence rule. At most two cards are shown.
+
 ## Dictionary search
 
 The same pronoun logic powers the dictionary search:
