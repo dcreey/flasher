@@ -113,6 +113,27 @@ False friends that look like English but mean something else. They are shown sep
 | Two preterites in sequence joined by *y*, *luego*, *después* (*comí tacos y salí*) | Past perfect (*ya había comido tacos cuando salí*) |
 | A past perfect anchored by *cuando* (*cuando llegué, ya se había ido*) | Two preterites in the order things happened, reordered (*se fue y después llegué*), noting it loses the "already before" nuance. A past perfect with no other past verb (*ya había comido*) gets a "Good to know" note: it is correct, but only after a clause that introduced another past event, with an example (*cuando llamaste, ya había comido*) |
 
+Three or more preterites in a row, or several *luego* / *después*, get a "Good to know" note instead of a rewrite (a chain is best told in plain preterites). *Cuando* with two preterites gets a note that the second happened right after the first, with the past-perfect version (*cuando llegué, ya había salido*) as the example.
+
+### Subjunctive cards
+
+`Flasher/Data/SubjunctiveRules.swift` adds "Tense match" cards, each with the corrected sentence and why:
+
+| Sentence has | Card offers |
+| --- | --- |
+| Past verb of wishing + *que* + present subjunctive (*quería que vengas*) | Imperfect subjunctive (*vinieras*) |
+| The same with the perfect subjunctive (*esperaba que hayas llegado*) | Pluperfect subjunctive (*hubieras llegado*) |
+| Present volition verb + *que* + imperfect subjunctive (*quiero que vinieras*) | Present subjunctive (*vengas*) |
+| The same with the pluperfect (*quiero que hubieras venido*) | Perfect subjunctive (*hayas venido*) |
+| Present trigger + present subjunctive + a finished time (*dudo que llegue ayer*) | Perfect subjunctive (*haya llegado*) |
+| *Si* + conditional (*si tendría tiempo*), or *si habría sabido* | Imperfect (*tuviera*) or pluperfect (*hubiera sabido*) subjunctive. Skipped after *no sé si*, *me pregunto si*, *como si* |
+| *Cuando*, *en cuanto*, *hasta que*, *después de que*… + future (*cuando llegaré*) | Present subjunctive (*cuando llegue*) |
+| *Como si* + indicative (*habla como si es el jefe*) | Imperfect subjunctive (*fuera*), or pluperfect (*hubiera ganado*) |
+| *Buscar / necesitar / querer* + *un*, *algún*, *alguien*… + *que* + present indicative (*busco un coche que tiene*) | Present subjunctive (*tenga*). Silent with a definite thing (*el coche que tiene*) |
+| *Aunque* + present indicative + a future word like *mañana* (*aunque llueve mañana*) | "Good to know": present subjunctive (*llueva*) when it isn't certain; the indicative is fine for a known fact |
+| -se imperfect subjunctive (*tuviese*) | The -ra form (*tuviera*), noting -se feels formal |
+| Future subjunctive (*si hubiere*) | A note that it is archaic, with today's alternatives |
+
 Only forms that are unambiguously one preterite person are used (*fue*, *di*, *vivimos* are skipped), and sentences with *cuando*, *porque*, *que*, *si*... are left alone for the sequence rule. At most two cards are shown.
 
 ## Dictionary search

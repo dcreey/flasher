@@ -14,25 +14,27 @@ struct TenseSuggestion: Identifiable {
     let focus: ConjugationFocus
     /// A heads-up about the sentence as written, with an example, rather than a different way to say it.
     var isNote = false
+    /// Replaces the card's usual "Also possible" / "Good to know" title ("Tense match").
+    var heading: String?
 }
 
 /// Finds sentences whose tense could be swapped for a close neighbour:
 /// preterite ↔ present perfect, and two finished actions in a row ↔ past perfect.
 /// These are not mistakes: the sentence is right as written, another tense just says it a little differently.
 enum TenseAlternatives {
-    private static let perfectHelper = ["he", "has", "ha", "hemos", "habéis", "han"]
-    private static let pastHelper = ["había", "habías", "había", "habíamos", "habíais", "habían"]
-    private static let clitics: Set<String> = ["me", "te", "se", "nos", "os", "lo", "la", "los", "las", "le", "les"]
-    private static let adverbs: Set<String> = ["ya", "nunca", "jamás", "todavía", "aún", "siempre", "también"]
+    static let perfectHelper = ["he", "has", "ha", "hemos", "habéis", "han"]
+    static let pastHelper = ["había", "habías", "había", "habíamos", "habíais", "habían"]
+    static let clitics: Set<String> = ["me", "te", "se", "nos", "os", "lo", "la", "los", "las", "le", "les"]
+    static let adverbs: Set<String> = ["ya", "nunca", "jamás", "todavía", "aún", "siempre", "también"]
     /// Words that look like a preterite but are everyday words ("así" is also asir's *yo* form).
-    private static let notVerbs: Set<String> = ["así", "allí", "ahí", "sí", "mí", "dé", "fe", "ti"]
+    static let notVerbs: Set<String> = ["así", "allí", "ahí", "sí", "mí", "dé", "fe", "ti"]
     /// A sentence tied to a definite moment in the past, where the present perfect doesn't fit.
     private static let definitePast = try! NSRegularExpression(pattern: #"\b(?:ayer|anoche|anteayer|antier|anteanoche|hace\s+\p{L}+\s+(?:días?|semanas?|meses|años?|horas?|minutos?)|hace\s+(?:un|una)\s+\p{L}+|(?:el|la)\s+\p{L}+\s+pasad[oa]|el\s+otro\s+día|esa\s+vez|aquella?\s+(?:vez|día|noche)|ese\s+día|de\s+(?:niñ|pequeñ)[oa]|en\s+(?:19|20)\d\d|en\s+(?:enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)|cuando|entonces|de\s+repente|(?:19|20)\d\d)\b"#, options: .caseInsensitive)
     /// Words that tie two verbs together in ways other than "one after the other".
     private static let notSequence: Set<String> = ["cuando", "mientras", "porque", "que", "si", "aunque", "pero", "apenas", "cuanto", "hasta", "como"]
     private static let sequenceLink = try! NSRegularExpression(pattern: #"^(.*?)[,\s]*\b(?:(?:y|e)\s+(?:luego|después|entonces|enseguida)|y|e|luego|después|entonces|enseguida)\s*$"#, options: .caseInsensitive)
 
-    private struct Token {
+    struct Token {
         let text: String
         let raw: String
         let range: Range<String.Index>
@@ -71,6 +73,7 @@ enum TenseAlternatives {
         let tokens: [Token] = letters.matches(in: sentence, range: NSRange(sentence.startIndex..., in: sentence)).compactMap { match in
             Range(match.range, in: sentence).map { Token(text: sentence[$0].lowercased(), raw: String(sentence[$0]), range: $0) }
         }
+        if let subjunctive = subjunctiveSuggestion(tokens, in: sentence) { return subjunctive }
         let events = scan(tokens, in: sentence)
         guard !events.isEmpty else { return nil }
         if let event = events.first(where: { $0.kind == .pluperfect }) {
@@ -79,8 +82,19 @@ enum TenseAlternatives {
         }
         if let event = events.first(where: { $0.kind == .perfect }) { return perfectToPreterite(event, in: sentence) }
         let preterites = events.filter { $0.kind == .preterite }
-        if preterites.count >= 2 { return sequenceToPastPerfect(preterites[0], preterites[1], tokens: tokens, in: sentence) }
-        if let only = preterites.first { return preteriteToPerfect(only, in: sentence) }
+        let links = tokens.filter { ["luego", "después", "entonces", "enseguida"].contains($0.text) }.count
+        // "que", "porque", "si"… make it something other than a plain story
+        if tokens.contains(where: { notSequence.contains($0.text) && $0.text != "cuando" }) { return nil }
+        if preterites.count >= 3 || links >= 2 { return chainNote(preterites[0]) }
+        if preterites.count == 2 {
+            if let swapped = sequenceToPastPerfect(preterites[0], preterites[1], tokens: tokens, in: sentence) { return swapped }
+            return tokens.contains(where: { $0.text == "cuando" }) ? cuandoNote(preterites[1], tokens: tokens, in: sentence) : nil
+        }
+        if let only = preterites.first {
+            // Another verb in the sentence (even one that can't be placed, like an unaccented "tome") would be left in the old tense
+            let others = tokens.contains { $0.range != only.range && isVerbForm($0.text) }
+            return others ? nil : preteriteToPerfect(only, in: sentence)
+        }
         return nil
     }
 
@@ -149,8 +163,15 @@ enum TenseAlternatives {
                      participle: nil, adverb: nil, raw: tokens[i].raw)
     }
 
+    /// Any conjugated verb form, whichever tense it is in. Everyday words that share a spelling with one ("como", "así") don't count.
+    static func isVerbForm(_ word: String) -> Bool {
+        guard VerbForms.index[word] != nil else { return false }
+        if let entry = Lexicon.shared.wordsByID[word], entry.partOfSpeech != .infinitive { return false }
+        return !notVerbs.contains(word)
+    }
+
     /// "levantarse" → "levantar" when that is also a verb of its own.
-    private static func baseVerb(_ infinitive: String) -> String {
+    static func baseVerb(_ infinitive: String) -> String {
         guard infinitive.hasSuffix("se") else { return infinitive }
         let plain = String(infinitive.dropLast(2))
         return Lexicon.shared.wordsByID[plain]?.partOfSpeech == .infinitive ? plain : infinitive
@@ -158,15 +179,15 @@ enum TenseAlternatives {
 
     // MARK: - The four swaps
 
-    private static func capital(_ original: String, _ text: String) -> String { CountryTranslation.matchingCapital(of: original, in: text) }
+    static func capital(_ original: String, _ text: String) -> String { CountryTranslation.matchingCapital(of: original, in: text) }
 
-    private static func make(_ id: String, _ title: String, _ original: String, _ rewritten: String, _ note: String, verb: String, focus: ConjugationFocus) -> TenseSuggestion? {
+    static func make(_ id: String, _ title: String, _ original: String, _ rewritten: String, _ note: String, verb: String, focus: ConjugationFocus, heading: String? = nil) -> TenseSuggestion? {
         guard let word = Lexicon.shared.wordsByID[verb] else { return nil }
         return TenseSuggestion(id: id, title: title, original: original.trimmingCharacters(in: .whitespaces), rewritten: rewritten.trimmingCharacters(in: .whitespaces),
-                               note: note, verb: word, focus: focus)
+                               note: note, verb: word, focus: focus, heading: heading)
     }
 
-    private static var country: String { Country.current.name }
+    static var country: String { Country.current.name }
 
     /// 1. A finished action in the preterite that could be the present perfect when it still matters now.
     private static func preteriteToPerfect(_ event: Event, in sentence: String) -> TenseSuggestion? {
@@ -250,6 +271,29 @@ enum TenseAlternatives {
         return make("simple-\(event.infinitive)", "Preterite", sentence, rewritten,
                     "Two preterites told in the order things happened (**“\(form)”** first) say the same story in a shorter, everyday way. It loses some nuance: the past perfect said it was already done before the other moment, while the preterites only list what happened one after the other.",
                     verb: event.infinitive, focus: ConjugationFocus(form: .infinitive, tense: .preterite, person: event.person))
+    }
+
+    /// Three or more finished actions in a row, or several *luego* / *después*: a story, which plain preterites tell best.
+    private static func chainNote(_ first: Event) -> TenseSuggestion? {
+        guard let word = Lexicon.shared.wordsByID[first.infinitive] else { return nil }
+        return TenseSuggestion(id: "chain-\(first.infinitive)", title: "Past perfect", original: "", rewritten: "",
+                               note: "This tells a chain of finished actions, and plain preterites are the natural way to do that. The past perfect only says that one thing was already done before another moment, so putting one verb in it would change the story. Use it for a single “already done” point, like *ya había comido cuando salí*.",
+                               verb: word, focus: ConjugationFocus(form: .participle, tense: .imperfect, person: first.person), isNote: true)
+    }
+
+    /// *Cuando* with two preterites means the second happened right after the first. Saying it was already done needs the past perfect.
+    private static func cuandoNote(_ second: Event, tokens: [Token], in sentence: String) -> TenseSuggestion? {
+        guard let word = Lexicon.shared.wordsByID[second.infinitive] else { return nil }
+        var example = ""
+        if tokens.first?.text == "cuando", let participle = Conjugator.conjugate(second.infinitive)?.participle,
+           let comma = sentence.firstIndex(of: ","), comma < second.start {
+            let pronouns = String(sentence[second.start..<second.range.lowerBound]).lowercased()
+            example = String(sentence[..<second.start]) + "ya " + pronouns + pastHelper[second.person] + " " + participle + String(sentence[second.range.upperBound...])
+        }
+        return TenseSuggestion(id: "cuando-\(second.infinitive)", title: "Past perfect", original: sentence.trimmingCharacters(in: .whitespaces),
+                               rewritten: example.trimmingCharacters(in: .whitespaces),
+                               note: "With **cuando**, two preterites mean the second thing happened right after the first (*cuando llegué, salió*: he left once I arrived). To say it was already done when the first happened, put it in the past perfect\(example.isEmpty ? "" : ", as above").",
+                               verb: word, focus: ConjugationFocus(form: .participle, tense: .imperfect, person: second.person), isNote: true)
     }
 
     /// A past perfect with no other past verb in the sentence: it is right, but only after something that introduced another past event.

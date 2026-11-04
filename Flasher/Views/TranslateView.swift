@@ -702,7 +702,8 @@ struct TranslateView: View {
         let english = output.direction == .toSpanish ? output.input : output.translation
         let traps = Array(TranslationTraps.find(english: english, spanish: spanish).prefix(3))
         let mood = output.direction == .toEnglish ? TranslationTraps.moodNote(spanish: spanish, english: output.translation) : nil
-        let tenses = TenseAlternatives.suggestions(for: spanish)
+        // With mistakes in the text (a missing accent) the rewrite would repeat them, so the cards wait until they are fixed
+        let tenses = showChecks && issues.contains { $0.kind != .tip } ? [] : TenseAlternatives.suggestions(for: spanish)
         let hasWords = output.readAs != nil || !output.adjusted.isEmpty || !slang.isEmpty || !alternatives.isEmpty || !traps.isEmpty || mood != nil || !tenses.isEmpty
         VStack(alignment: .leading, spacing: 24) {
             // Lines only separate sections that both have something in them
@@ -760,9 +761,9 @@ struct TranslateView: View {
 
     /// A neighbouring tense that would also fit, with how the meaning shifts and a link to that tense in the verb's chart.
     private func tenseCard(_ suggestion: TenseSuggestion) -> some View {
-        card(title: suggestion.isNote ? "Good to know · \(suggestion.title)" : "Also possible · \(suggestion.title)", copy: suggestion.rewritten) {
+        card(title: "\(suggestion.heading ?? (suggestion.isNote ? "Good to know" : "Also possible")) · \(suggestion.title)", copy: suggestion.rewritten.isEmpty ? nil : suggestion.rewritten) {
             VStack(alignment: .leading, spacing: 8) {
-                Text(WordLinks.linked(suggestion.rewritten)).font(.callout).textSelection(.enabled)
+                if !suggestion.rewritten.isEmpty { Text(WordLinks.linked(suggestion.rewritten)).font(.callout).textSelection(.enabled) }
                 Text(.init(suggestion.note)).font(.footnote).foregroundStyle(.secondary)
                 Button { router?.showWord(suggestion.verb, focus: suggestion.focus) } label: {
                     HStack(spacing: 4) {

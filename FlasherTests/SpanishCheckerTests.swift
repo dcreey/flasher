@@ -575,8 +575,23 @@ final class TenseAlternativesTests: XCTestCase {
     }
 
     func testSequenceNeedsPlainOrdering() {
-        XCTAssertNil(first("Cuando llegué, salió."))
         XCTAssertNil(first("Dije que comí y salí porque quise."))
+    }
+
+    func testChainsGetANoteInsteadOfARewrite() {
+        for text in ["Comí y bebí y salí.", "Hice un café, lo tomé y salí.", "Comí y luego salí y después dormí.", "Comí y luego, después de eso, salí."] {
+            let s = first(text)
+            XCTAssertEqual(s?.isNote, true, text)
+            XCTAssertEqual(s?.rewritten, "", text)
+            XCTAssertTrue(s?.note.contains("chain of finished actions") ?? false, text)
+        }
+    }
+
+    func testCuandoWithTwoPreteritesExplainsTheShift() {
+        let s = first("Cuando llegué, salió.")
+        XCTAssertEqual(s?.isNote, true)
+        XCTAssertEqual(s?.rewritten, "Cuando llegué, ya había salido")
+        XCTAssertTrue(s?.note.contains("right after the first") ?? false)
     }
 
     func testPastPerfectIsReorderedIntoTwoPreterites() {
@@ -593,6 +608,12 @@ final class TenseAlternativesTests: XCTestCase {
         XCTAssertTrue(s?.note.contains("follows a clause that introduced another past event") ?? false)
         XCTAssertNotNil(first("Nunca había visto el mar."))
         XCTAssertNil(first("Todavía no había llegado cuando llamaste."))
+    }
+
+    func testPerfectIsNotOfferedWhenAnotherVerbWouldStayBehind() {
+        // "tome" without its accent could be tomé, tome or tomes: the second verb can't be placed, so no half-rewritten sentence
+        XCTAssertNil(first("Hice un cafe y despues lo tome."))
+        XCTAssertEqual(first("Hice un café y después lo tomé.")?.rewritten, "Ya había hecho un café cuando lo tomé")
     }
 
     func testEverydayWordsAreNotVerbs() {
@@ -617,5 +638,53 @@ final class TenseAlternativesTests: XCTestCase {
         let url = try XCTUnwrap(WordLinks.url(for: word, focus: focus))
         XCTAssertEqual(ConjugationFocus(queryItems: URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems), focus)
         XCTAssertNil(ConjugationFocus(queryItems: nil))
+    }
+}
+
+final class SubjunctiveCardsTests: XCTestCase {
+    private func first(_ text: String) -> TenseSuggestion? { TenseAlternatives.suggestions(for: text).first }
+
+    func testEveryRule() {
+        let cases: [(String, String)] = [
+            ("Quería que vengas.", "Quería que vinieras"),
+            ("Esperaba que hayas llegado.", "Esperaba que hubieras llegado"),
+            ("Quiero que vinieras.", "Quiero que vengas"),
+            ("Quiero que hubieras venido.", "Quiero que hayas venido"),
+            ("Dudo que llegue ayer.", "Dudo que haya llegado ayer"),
+            ("Si tendría tiempo, iría.", "Si tuviera tiempo, iría"),
+            ("Si habría sabido, habría venido.", "Si hubiera sabido, habría venido"),
+            ("Cuando llegaré, te llamo.", "Cuando llegue, te llamo"),
+            ("Si tuviese tiempo, iría.", "Si tuviera tiempo, iría"),
+        ]
+        for (text, expected) in cases {
+            let s = first(text)
+            print("CASE \(text) → \(s?.heading ?? "-") · \(s?.title ?? "-") | \(s?.rewritten ?? "nil") | \(s?.note ?? "")")
+            XCTAssertEqual(s?.rewritten, expected, text)
+        }
+        let future = first("Si hubiere necesidad, avise.")
+        print("CASE future → \(future?.title ?? "nil") | \(future?.note ?? "")")
+        XCTAssertEqual(future?.title, "Future subjunctive")
+    }
+
+    func testComoSiUnknownThingAndAunque() {
+        XCTAssertEqual(first("Habla como si es el jefe.")?.rewritten, "Habla como si fuera el jefe")
+        XCTAssertEqual(first("Habla como si ha ganado.")?.rewritten, "Habla como si hubiera ganado")
+        XCTAssertEqual(first("Busco un coche que tiene cuatro puertas.")?.rewritten, "Busco un coche que tenga cuatro puertas")
+        let aunque = first("Aunque llueve mañana, iré.")
+        XCTAssertEqual(aunque?.rewritten, "Aunque llueva mañana, iré")
+        XCTAssertEqual(aunque?.heading, "Good to know")
+    }
+
+    func testOtherMoodSentencesStaySilent() {
+        for text in ["Habla como si fuera el jefe.", "Busco el coche que tiene cuatro puertas.", "Tengo un coche que tiene cuatro puertas.", "Aunque llueve ahora, voy.",
+                     "Aunque llueve por la mañana, voy.", "No dudo que es verdad.", "Es verdad que practicas.", "Creo que es verdad."] {
+            XCTAssertNil(TenseAlternatives.suggestions(for: text).first { $0.heading != nil }, text)
+        }
+    }
+
+    func testCorrectSentencesStaySilent() {
+        for text in ["Quería que vinieras.", "Quiero que vengas.", "No sé si tendría tiempo.", "Cuando llegue, te llamo.", "Si tuviera tiempo, iría.", "Espero que hayas llegado.", "Cuando llegué, te llamé."] {
+            XCTAssertNil(TenseAlternatives.suggestions(for: text).first { $0.heading == "Tense match" || $0.id.hasPrefix("se-") || $0.id.hasPrefix("future-") }, text)
+        }
     }
 }
