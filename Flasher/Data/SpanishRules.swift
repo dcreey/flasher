@@ -105,6 +105,8 @@ extension SpanishChecker {
             }) else { continue }
             // "¿Para que sirve?" is “para qué” written without its accent, not a trigger
             if trigger == ["para", "que"], isInQuestion(at: tokens[i].range.location, in: text) { continue }
+            // "no dudo que es verdad" takes the indicative: the negative flips "dudo que"
+            if trigger == ["dudo", "que"], i > 0, tokens[i - 1].lower == "no", adjacent(i - 1) { continue }
             var last = i + trigger.count - 1
             while last + 1 < tokens.count, adjacent(last), subjects.contains(tokens[last + 1].lower) || tokens[last + 1].lower == "no" || pronounWords.contains(tokens[last + 1].lower) { last += 1 }
             guard last + 1 < tokens.count, adjacent(last), !tokens[last + 1].isCapitalized else { continue }
@@ -117,6 +119,42 @@ extension SpanishChecker {
             let fix = best.flatMap { Clitics.formOf($0.infinitive, .subjunctivePresent, $0.person) }
             let said = trigger.joined(separator: " ")
             add(.verb, span(i, last + 1), "After “\(said)” Spanish uses the subjunctive, but “\(verb.text)” is indicative\(fix.map { ": “\($0)”" } ?? "").", fix)
+        }
+    }
+
+    // MARK: - Indicative after a statement of belief: "creo que tengas"
+
+    private static let indicativeTriggers: [[String]] = [
+        ["creo", "que"], ["crees", "que"], ["cree", "que"], ["creemos", "que"], ["creen", "que"],
+        ["pienso", "que"], ["piensas", "que"], ["piensa", "que"], ["pensamos", "que"], ["opino", "que"], ["supongo", "que"],
+        ["me", "parece", "que"], ["te", "parece", "que"], ["le", "parece", "que"],
+        ["es", "verdad", "que"], ["es", "cierto", "que"], ["es", "obvio", "que"], ["es", "evidente", "que"], ["está", "claro", "que"],
+        ["sé", "que"], ["sabes", "que"], ["sabe", "que"], ["digo", "que"], ["dice", "que"], ["veo", "que"], ["noto", "que"],
+        ["no", "dudo", "que"], ["no", "niego", "que"],
+    ].sorted { $0.count > $1.count }
+
+    /// Saying what you think or know takes the indicative, so a subjunctive right after one is a mistake.
+    /// Negated ("no creo que tengas") and in a question ("¿crees que tenga?") the subjunctive is fine, and those are left alone.
+    static func indicativeRules(_ tokens: [Token], text: NSString, adjacent: (Int) -> Bool, span: (Int, Int) -> NSRange, add: SpanishIssueAdder) {
+        let subjects = Set(["yo", "tú", "él", "ella", "usted", "nosotros", "nosotras", "vosotros", "vosotras", "ellos", "ellas", "ustedes"])
+        for i in tokens.indices {
+            guard let trigger = indicativeTriggers.first(where: { trigger in
+                i + trigger.count <= tokens.count
+                    && (0..<trigger.count).allSatisfy { tokens[i + $0].lower == trigger[$0] && ($0 == 0 || adjacent(i + $0 - 1)) }
+            }) else { continue }
+            // "no creo que", "no me parece que": the negative brings the subjunctive back
+            if trigger.first != "no", i > 0, tokens[i - 1].lower == "no", adjacent(i - 1) { continue }
+            if isInQuestion(at: tokens[i].range.location, in: text) { continue }
+            var last = i + trigger.count - 1
+            while last + 1 < tokens.count, adjacent(last), subjects.contains(tokens[last + 1].lower) || pronounWords.contains(tokens[last + 1].lower) { last += 1 }
+            guard last + 1 < tokens.count, adjacent(last), !tokens[last + 1].isCapitalized else { continue }
+            let verb = tokens[last + 1]
+            let options = Clitics.formOptions(verb.lower).filter { $0.tense == .subjunctivePresent && !$0.infinitive.contains(" ") }
+            // Only a form that can be nothing but a present subjunctive of one verb; "no dudo que" keeps its own wording
+            guard let best = options.first, Set(options.map(\.infinitive)).count == 1, Clitics.formOptions(verb.lower).allSatisfy({ $0.tense == .subjunctivePresent || $0.tense == .imperative || $0.infinitive != best.infinitive }),
+                  let fix = Clitics.formOf(best.infinitive, .present, best.person) else { continue }
+            let said = trigger.joined(separator: " ")
+            add(.verb, span(i, last + 1), "After “\(said)” Spanish uses the indicative: “\(fix)”. The subjunctive comes back when it is negative (*no creo que tengas*) or a question.", fix)
         }
     }
 

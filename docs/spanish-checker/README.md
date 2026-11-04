@@ -86,6 +86,8 @@ Gender is only trusted when the dictionary's gender agrees with what the ending 
 | Subjunctive after a trigger (`quiero que`, `espero que`, `ojalá`, `es importante que`, `no creo que`, `para que`, `antes de que`, `sin que`...) | *quiero que vienes* → *vengas* | ✅ *quiero que vengas*, *creo que viene*, *¿para que sirve?* (`para qué` without its accent), *me temo que perderemos* |
 | An irregular verb conjugated as if it were regular | *tenió* → *tuvo*, *hací* → *hice* | ✅ *tuvo*, *vos tenés*, capitalised words |
 
+| The subjunctive after a statement of belief or certainty (*creo que*, *pienso que*, *me parece que*, *es verdad que*, *sé que*, *no dudo que*) | *creo que tengas* → *tienes* | ✅ *no creo que tengas*, *¿crees que tengas…?*, *creo que tienes* |
+
 The subjunctive rule only looks at the verb right after the trigger (skipping `no`, subject and object pronouns). If a noun phrase comes first (*quiero que los niños vengan*) it stays silent.
 
 ### Style

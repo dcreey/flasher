@@ -544,6 +544,22 @@ final class SpanishCheckerTests: XCTestCase {
     }
 }
 
+final class IndicativeAfterBeliefTests: XCTestCase {
+    private func mistakes(_ text: String) -> [SpanishIssue] { SpanishChecker.check(text).filter { $0.kind != .tip } }
+
+    func testSubjunctiveAfterBeliefIsFlagged() {
+        XCTAssertEqual(mistakes("Creo que tengas buen día").first?.suggestion, "tienes")
+        XCTAssertEqual(mistakes("Pienso que vengas mañana").first?.suggestion, "vienes")
+        XCTAssertEqual(mistakes("Es verdad que seas mi amigo").first?.suggestion, "eres")
+    }
+
+    func testCorrectMoodIsLeftAlone() {
+        for text in ["Creo que tienes buen día", "No creo que tengas buen día", "¿Crees que tengas tiempo?", "No me parece que sea verdad", "Quiero que tengas buen día", "No dudo que es verdad"] {
+            XCTAssertTrue(mistakes(text).isEmpty, text)
+        }
+    }
+}
+
 final class TenseAlternativesTests: XCTestCase {
     private func first(_ text: String) -> TenseSuggestion? { TenseAlternatives.suggestions(for: text).first }
 
