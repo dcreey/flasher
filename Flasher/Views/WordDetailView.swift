@@ -291,38 +291,24 @@ struct WordDetailView: View {
 
     // MARK: - Actions
 
-    /// Small icon buttons in the top-right corner: move to the front of the queue, flag to learn again.
+    /// One icon button in the top-right corner: move the word to the front of the queue (which also flags it to learn again), or take it back out.
     @ViewBuilder
     private var queueButtons: some View {
         let inQueue = progress.priorityDate != nil
-        let relearning = progress.flaggedForRelearn && !progress.effectivelyLearned
 
         Button {
             if inQueue {
                 store.removeFromQueue(wordID: word.spanish)
-                confirm("Removed from the front of the queue")
+                confirm("Removed from flashcard queue")
             } else {
                 store.moveToTopOfQueue(wordID: word.spanish)
-                confirm("Moved to the top of your next study session")
+                confirm("Added to flashcard queue")
             }
         } label: {
             Image(systemName: inQueue ? "arrow.up.to.line.circle.fill" : "arrow.up.to.line")
                 .foregroundStyle(inQueue ? Color.blue : Color.primary)
         }
         .accessibilityLabel(inQueue ? "Remove from queue" : "Study next")
-
-        Button {
-            if relearning || inQueue {
-                confirm(inQueue ? "Already first in your queue" : "Already flagged to learn again")
-            } else {
-                store.flagForRelearning(wordID: word.spanish)
-                confirm("Flagged to learn again")
-            }
-        } label: {
-            Image(systemName: relearning || inQueue ? "flag.fill" : "flag")
-                .foregroundStyle(relearning || inQueue ? Color.orange : Color.primary)
-        }
-        .accessibilityLabel("Learn again")
     }
 
     private func confirm(_ message: String) {

@@ -3,6 +3,8 @@ import SwiftUI
 struct DictionaryView: View {
     @State private var recents = RecentWords.shared
     @State private var searchText: String = ""
+    /// A short message after a row's queue button is tapped.
+    @State private var toast: String?
     @State private var scope: SearchScope = .all
     /// What the searched adjective should describe ("rich" + food); nil leaves the search unfiltered.
     @State private var typeFilter: TypeCategory?
@@ -62,6 +64,18 @@ struct DictionaryView: View {
             }
         }
         .background { SearchStateReader(isSearching: $isSearching) }
+        .overlay(alignment: .bottom) {
+            if let toast {
+                Text(toast)
+                    .font(.subheadline)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
+                    .background(.thickMaterial, in: Capsule())
+                    .padding(.bottom, 90)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                    .allowsHitTesting(false)
+            }
+        }
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: scope.prompt)
         .searchScopes($scope, activation: .onSearchPresentation) {
             ForEach(SearchScope.allCases) { Text($0.title).tag($0) }
@@ -194,7 +208,7 @@ struct DictionaryView: View {
             List {
                 listHeader("Recent") { recents.clear() }
                 ForEach(recentHits) { hit in
-                    NavigationLink(value: hit) { DictionaryRow(hit: hit) }
+                    NavigationLink(value: hit) { DictionaryRow(hit: hit, onQueueChange: showToast) }
                 }
             }
             .listStyle(.plain)
@@ -242,10 +256,18 @@ struct DictionaryView: View {
         }
     }
 
+    private func showToast(_ message: String) {
+        withAnimation { toast = message }
+        Task {
+            try? await Task.sleep(for: .seconds(1.6))
+            withAnimation { toast = nil }
+        }
+    }
+
     private var resultsList: some View {
         List {
             ForEach(results.prefix(displayCount)) { hit in
-                NavigationLink(value: hit) { DictionaryRow(hit: hit) }
+                NavigationLink(value: hit) { DictionaryRow(hit: hit, onQueueChange: showToast) }
             }
             if displayCount < results.count {
                 ProgressView()
@@ -304,6 +326,8 @@ private struct SearchStateReader: View {
 private struct DictionaryRow: View {
     @Environment(ProgressStore.self) private var store
     let hit: SearchHit
+    /// Told what happened when the queue button is tapped, so the list can show a message.
+    var onQueueChange: (String) -> Void = { _ in }
 
     var body: some View {
         let word = hit.word
@@ -320,11 +344,7 @@ private struct DictionaryRow: View {
                         .background(Color.green.opacity(0.18), in: Capsule())
                         .foregroundStyle(Color.green)
                 }
-                if p.priorityDate != nil {
-                    Image(systemName: "arrow.up.to.line")
-                        .font(.caption)
-                        .foregroundStyle(.blue)
-                } else if p.flaggedForRelearn && !p.effectivelyLearned {
+                if p.priorityDate == nil, p.flaggedForRelearn && !p.effectivelyLearned {
                     Image(systemName: "flag.fill")
                         .font(.caption)
                         .foregroundStyle(.orange)
@@ -342,6 +362,30 @@ private struct DictionaryRow: View {
         .padding(.vertical, 2)
         .frame(maxWidth: .infinity, alignment: .leading)
         .contentShape(Rectangle())
+        .overlay(alignment: .trailing) { queueButton(inQueue: p.priorityDate != nil) }
+    }
+
+    /// Puts the word first in the next study session, or takes it back out, and adds it to the recent words. Tapping it doesn't open the word.
+    private func queueButton(inQueue: Bool) -> some View {
+        Button {
+            RecentWords.shared.record(hit.word)
+            if inQueue {
+                store.removeFromQueue(wordID: hit.word.spanish)
+                onQueueChange("Removed from flashcard queue")
+            } else {
+                store.moveToTopOfQueue(wordID: hit.word.spanish)
+                onQueueChange("Added to flashcard queue")
+            }
+        } label: {
+            Image(systemName: inQueue ? "arrow.up.to.line.circle.fill" : "arrow.up.to.line")
+                .font(.body)
+                .foregroundStyle(inQueue ? Color.blue : Color.secondary)
+                .frame(width: 40, height: 40)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.borderless)
+        .padding(.trailing, 4)
+        .accessibilityLabel(inQueue ? "Remove \(hit.word.spanish) from queue" : "Study \(hit.word.spanish) next")
     }
 
     private var diminutiveNote: String? {
