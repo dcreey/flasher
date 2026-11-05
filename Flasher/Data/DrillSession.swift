@@ -84,8 +84,13 @@ struct DrillItem: Codable {
     var wrong = 0
     var lastCorrectRound = -99
     var lastReview = Date.distantPast
-    /// Non-nil means the learner queued it: it comes first in the next round that includes its tense.
+    /// Non-nil means the learner queued it: it comes first in every round that includes its tense until it has been
+    /// answered right `DrillProgress.queuePractices` times since it was queued.
     var priorityDate: Date?
+    /// Right answers since it was queued (nil for items saved before the queue counted them).
+    var queuedCorrect: Int?
+    /// The last sentence shown for it, so the next one is different.
+    var lastSentence: String?
     var learned: Bool { correct >= DrillProgress.needed }
     var inProgress: Bool { !learned && (correct > 0 || wrong > 0) }
 }
@@ -96,6 +101,8 @@ final class DrillProgress {
 
     /// Right answers, in different rounds, before a verb counts as mastered in a tense.
     static let needed = 3
+    /// Right answers, in different rounds, before a queued verb leaves the queue.
+    static let queuePractices = 3
 
     private let defaults: UserDefaults
     private(set) var items: [String: DrillItem] = [:]
@@ -132,10 +139,19 @@ final class DrillProgress {
     func record(_ card: DrillSentences.Card, correct isCorrect: Bool, countsTowardMastery: Bool = true) {
         var entry = item(card.infinitive, card.drill)
         entry.lastReview = Date()
+        entry.lastSentence = card.sentence
         if countsTowardMastery {
             total += 1
-            if isCorrect { correct += 1; entry.correct = min(entry.correct + 1, Self.needed); entry.lastCorrectRound = round; entry.priorityDate = nil }
-            else { entry.wrong += 1 }
+            if isCorrect {
+                correct += 1
+                entry.correct = min(entry.correct + 1, Self.needed)
+                entry.lastCorrectRound = round
+                // A queued verb stays queued until it has been practised right three times
+                if entry.priorityDate != nil {
+                    let done = (entry.queuedCorrect ?? 0) + 1
+                    if done >= Self.queuePractices { entry.priorityDate = nil; entry.queuedCorrect = nil } else { entry.queuedCorrect = done }
+                }
+            } else { entry.wrong += 1 }
         }
         items[Self.key(card.infinitive, card.drill)] = entry
         save()
@@ -150,6 +166,7 @@ final class DrillProgress {
         var entry = item(infinitive, drill)
         if entry.learned { entry.correct = 0; entry.lastCorrectRound = -99 }
         entry.priorityDate = Date()
+        entry.queuedCorrect = 0
         items[Self.key(infinitive, drill)] = entry
         save()
     }
@@ -157,6 +174,7 @@ final class DrillProgress {
     func unqueue(_ infinitive: String, _ drill: DrillTense) {
         var entry = item(infinitive, drill)
         entry.priorityDate = nil
+        entry.queuedCorrect = nil
         items[Self.key(infinitive, drill)] = entry
         save()
     }
@@ -222,9 +240,19 @@ enum DrillDeck {
         return list
     }
 
-    private static func card(_ infinitive: String, _ drill: DrillTense) -> DrillSentences.Card? {
-        guard let subject = DrillSentences.subjects(for: infinitive, drill).randomElement() else { return nil }
-        return DrillSentences.card(infinitive, drill, subject: subject)
+    /// A card for the verb in the tense with a random subject and a random variant of the sentence, never the one it
+    /// had last time, so a verb practised again comes with different objects, time words and context.
+    private static func card(_ infinitive: String, _ drill: DrillTense, progress: DrillProgress) -> DrillSentences.Card? {
+        let subjects = DrillSentences.subjects(for: infinitive, drill)
+        guard !subjects.isEmpty else { return nil }
+        let last = progress.item(infinitive, drill).lastSentence
+        var fallback: DrillSentences.Card?
+        for _ in 0..<12 {
+            guard let made = DrillSentences.card(infinitive, drill, subject: subjects.randomElement()!, variant: Int.random(in: 1..<1_000_000)) else { continue }
+            if made.sentence != last { return made }
+            fallback = made
+        }
+        return fallback
     }
 
     /// A round in one tense, built like the flashcard queue:
@@ -238,7 +266,7 @@ enum DrillDeck {
         var used = Set<String>()
 
         for entry in progress.queued where entry.drill == drill && deck.count < count {
-            if let made = card(entry.infinitive, drill) { deck.append(made); used.insert(entry.infinitive) }
+            if let made = card(entry.infinitive, drill, progress: progress) { deck.append(made); used.insert(entry.infinitive) }
         }
 
         // Candidates by kind. A verb answered right last round rests a round, as in the flashcards.
@@ -270,7 +298,7 @@ enum DrillDeck {
         while deck.count < count, misses < 4 {
             if let infinitive = lists[wantIrregular]?.first {
                 lists[wantIrregular]!.removeFirst()
-                if let made = card(infinitive, drill), !used.contains(infinitive) { deck.append(made); used.insert(infinitive); misses = 0 }
+                if let made = card(infinitive, drill, progress: progress), !used.contains(infinitive) { deck.append(made); used.insert(infinitive); misses = 0 }
             } else { misses += 1 }
             wantIrregular.toggle()
         }
@@ -281,7 +309,7 @@ enum DrillDeck {
 
     /// A round from the verbs the learner queued, whatever the tense.
     static func makeQueued(count: Int = 10, progress: DrillProgress = .shared) -> [DrillSentences.Card] {
-        progress.queued.prefix(count).compactMap { card($0.infinitive, $0.drill) }
+        progress.queued.prefix(count).compactMap { card($0.infinitive, $0.drill, progress: progress) }
     }
 
     /// Mixed practice: queued verbs, then ones in progress, then one new verb from each of several tenses.
@@ -295,7 +323,7 @@ enum DrillDeck {
             return (parts.infinitive, parts.drill, value.lastReview)
         }.sorted { $0.2 < $1.2 }
         for (infinitive, drill, _) in started where deck.count < count / 2 && !used.contains(infinitive) {
-            if let made = card(infinitive, drill) { deck.append(made); used.insert(infinitive) }
+            if let made = card(infinitive, drill, progress: progress) { deck.append(made); used.insert(infinitive) }
         }
         var tries = 0
         while deck.count < count, tries < 100 {

@@ -212,6 +212,62 @@ final class DrillMixTests: XCTestCase {
         XCTAssertTrue(progress.queued.isEmpty)
     }
 
+    func testQueuedVerbStaysUntilItIsRightThreeTimes() throws {
+        let progress = freshProgress()
+        let drill = DrillTense(kind: .simple, tense: .present)
+        let card = try XCTUnwrap(DrillSentences.subjects(for: "pelear", drill).first.flatMap { DrillSentences.card("pelear", drill, subject: $0) })
+        progress.queue("pelear", drill)
+        progress.record(card, correct: true)
+        XCTAssertTrue(progress.isQueued("pelear", drill), "one right answer is not enough")
+        progress.record(card, correct: false)
+        XCTAssertEqual(progress.item("pelear", drill).queuedCorrect, 1, "a miss does not count")
+        progress.record(card, correct: true)
+        XCTAssertTrue(progress.isQueued("pelear", drill))
+        XCTAssertEqual(DrillDeck.make(drill, count: 10, progress: progress).first?.infinitive, "pelear")
+        progress.record(card, correct: true)
+        XCTAssertFalse(progress.isQueued("pelear", drill), "three right answers take it out")
+        XCTAssertTrue(progress.queued.isEmpty)
+        // Queueing it again starts the count over
+        progress.queue("pelear", drill)
+        XCTAssertEqual(progress.item("pelear", drill).queuedCorrect, 0)
+    }
+
+    /// What the word page queues is the table and tense on screen, and the round asks for exactly that tense.
+    func testWordPageQueuesTheExactTenseThatIsShowing() throws {
+        var checked = 0
+        for form in VerbForm.allCases {
+            for tense in form.tenses {
+                guard let drill = DrillTense.forWordPage(form: form, tense: tense) else { XCTFail("no drill for \(form) \(tense)"); continue }
+                XCTAssertEqual(drill.tense, tense)
+                XCTAssertEqual(drill.kind, form == .infinitive ? .simple : form == .gerund ? .progressive : .perfect)
+                let progress = freshProgress()
+                progress.queue("comer", drill)
+                let cards = DrillDeck.makeQueued(count: 10, progress: progress)
+                XCTAssertEqual(cards.map(\.drill), [drill], "\(form) \(tense)")
+                XCTAssertEqual(cards.first?.infinitive, "comer")
+                // That tense's round leads with it, and no other tense's round does
+                XCTAssertEqual(DrillDeck.make(drill, count: 10, progress: progress).first?.infinitive, "comer")
+                for other in DrillTense.all where other != drill {
+                    XCTAssertFalse(DrillDeck.make(other, count: 10, progress: progress).contains { $0.infinitive == "comer" && progress.isQueued("comer", other) })
+                }
+                checked += 1
+            }
+        }
+        XCTAssertEqual(checked, 21)   // 8 simple + 7 progressive + 6 perfect
+    }
+
+    func testTwoTensesOfOneVerbAreQueuedSeparately() {
+        let progress = freshProgress()
+        let past = DrillTense(kind: .simple, tense: .preterite)
+        let future = DrillTense(kind: .simple, tense: .future)
+        progress.queue("comer", past)
+        progress.queue("comer", future)
+        XCTAssertEqual(progress.queued.count, 2)
+        progress.unqueue("comer", past)
+        XCTAssertTrue(progress.isQueued("comer", future))
+        XCTAssertFalse(progress.isQueued("comer", past))
+    }
+
     func testQueueingAMasteredVerbStartsItOver() throws {
         let progress = freshProgress()
         let drill = DrillTense(kind: .simple, tense: .present)
@@ -468,5 +524,186 @@ final class DrillSelectionSummaryTests: XCTestCase {
         let all = DrillSelectionSummary.make(mood: nil, time: nil, moment: nil)
         XCTAssertEqual(all.headline, "All \(DrillTense.all.count) tenses")
         XCTAssertTrue(all.lines.isEmpty)
+    }
+}
+
+final class DrillVarietyAndSubjectTests: XCTestCase {
+    private func freshProgress() -> DrillProgress { DrillProgress(defaults: UserDefaults(suiteName: "drill-test-\(UUID().uuidString)")!) }
+
+    func testTheSameVerbTenseAndSubjectGivesDifferentSentencesAcrossVariants() throws {
+        let drill = DrillTense(kind: .simple, tense: .preterite)
+        let subject = DrillSubject(text: "él", person: 2)
+        let base = try XCTUnwrap(DrillSentences.card("comprar", drill, subject: subject))
+        XCTAssertEqual(base.sentence, DrillSentences.sentence("comprar", drill, subject: subject), "variant 0 is the fixed one")
+        let sentences = Set((1..<60).compactMap { DrillSentences.card("comprar", drill, subject: subject, variant: $0)?.sentence })
+        XCTAssertGreaterThan(sentences.count, 15)
+        // él, ella, usted and a noun subject share a person, but no longer share a sentence
+        let people = ["él", "ella", "usted", "mi hermana"].compactMap { DrillSentences.card("comprar", drill, subject: DrillSubject(text: $0, person: 2), variant: 7)?.sentence }
+        XCTAssertEqual(people.count, 4)
+    }
+
+    func testAVerbPractisedAgainNeverComesBackWithTheSameSentence() throws {
+        let progress = freshProgress()
+        let drill = DrillTense(kind: .simple, tense: .preterite)
+        progress.queue("comprar", drill)
+        var previous: String?
+        for round in 0..<25 {
+            let card = try XCTUnwrap(DrillDeck.makeQueued(count: 1, progress: progress).first)
+            XCTAssertNotEqual(card.sentence, previous, "round \(round) repeated the last sentence")
+            previous = card.sentence
+            progress.record(card, correct: false)   // stays queued
+        }
+    }
+
+    func testEveryCardSaysWhoItIsAbout() {
+        XCTAssertEqual(DrillSubject(text: "yo", person: 0).label, "yo (I)")
+        XCTAssertEqual(DrillSubject(text: "tú", person: 1).label, "tú (you, informal)")
+        XCTAssertEqual(DrillSubject(text: "ustedes", person: 5).label, "ustedes (you all)")
+        XCTAssertEqual(DrillSubject(text: "mi hermana", person: 2).label, "mi hermana (my sister)")
+        XCTAssertEqual(DrillSubject(text: "", person: 2).label, "no subject (weather)")
+        XCTAssertEqual(DrillSubject(text: "la puerta", person: 2).label, "la puerta")
+        for subject in DrillSentences.subjects(for: "hablar", DrillTense(kind: .simple, tense: .present)) { XCTAssertFalse(subject.label.isEmpty) }
+    }
+
+    func testASentenceThatFitsTwoTensesOffersBoth() throws {
+        let future = DrillTense(kind: .simple, tense: .future)
+        let subject = DrillSubject(text: "él", person: 2)
+        // Find a "Mañana …" future card
+        let card = try XCTUnwrap((0..<200).compactMap { DrillSentences.card("comprar", future, subject: subject, variant: $0) }.first { $0.sentence.contains("Mañana") })
+        let options = DrillAlternates.options(for: card)
+        XCTAssertEqual(options.map(\.drill.title), ["Ir a (ahora)", "Presente"])
+        // Picking one changes the answer and the sentence, and the blank stays where it was
+        let irA = card.choosing(options[0].drill)
+        XCTAssertEqual(irA.answer, "va a comprar")
+        XCTAssertTrue(irA.sentence.contains("Mañana él va a comprar"), irA.sentence)
+        XCTAssertEqual(irA.drill, options[0].drill)
+        XCTAssertEqual(card.choosing(card.drill), card)
+        // The answer is graded for the tense that was picked
+        XCTAssertEqual(DrillChecker.grade("va a comprar", answer: irA.answer, infinitive: "comprar"), .correct)
+    }
+
+    func testOnlyTheKnownAmbiguousSentencesOfferChoices() throws {
+        // A sudden event ("de repente") has one answer; "ayer" also allows the present perfect, as heard in Mexico
+        let preterite = DrillTense(kind: .simple, tense: .preterite)
+        let subject = DrillSubject(text: "él", person: 2)
+        let sudden = try XCTUnwrap((0..<200).compactMap { DrillSentences.card("caer", preterite, subject: subject, variant: $0) }.first { $0.sentence.contains("De repente") })
+        XCTAssertTrue(DrillAlternates.options(for: sudden).isEmpty)
+        let yesterday = try XCTUnwrap((0..<200).compactMap { DrillSentences.card("comprar", preterite, subject: subject, variant: $0) }.first { $0.sentence.contains("Ayer") })
+        XCTAssertEqual(DrillAlternates.options(for: yesterday).map(\.drill.title), ["Presente perfecto"])
+        XCTAssertTrue(yesterday.choosing(DrillTense(kind: .perfect, tense: .present)).sentence.contains("Ayer él ha comprado"))
+        // The explanations no longer call the other tense wrong
+        let contrast = DrillExplainer.contrasts["simple preterite|perfect present"] ?? ""
+        XCTAssertTrue(contrast.contains("also used"), contrast)
+        let card = try XCTUnwrap(DrillSentences.card("comprar", preterite, subject: subject))
+        _ = card
+        // "Hoy …" present perfect allows the preterite
+        let perfect = DrillTense(kind: .perfect, tense: .present)
+        let hoy = try XCTUnwrap(DrillSentences.card("comprar", perfect, subject: DrillSubject(text: "él", person: 2)))
+        XCTAssertEqual(DrillAlternates.options(for: hoy).map(\.drill.title), ["Pretérito"])
+        XCTAssertEqual(hoy.choosing(DrillTense(kind: .simple, tense: .preterite)).sentence, hoy.prompt.replacingOccurrences(of: "______", with: "compró"))
+        // Every alternate is a real drill tense
+        for drill in DrillTense.all {
+            for variant in 0..<6 {
+                guard let subject = DrillSentences.subjects(for: "hablar", drill).first, let made = DrillSentences.card("hablar", drill, subject: subject, variant: variant) else { continue }
+                for option in DrillAlternates.options(for: made) { XCTAssertTrue(DrillTense.all.contains(option.drill)) }
+            }
+        }
+    }
+}
+
+final class DrillInterchangeabilityTests: XCTestCase {
+    private func card(_ verb: String, _ drill: DrillTense, containing text: String, subject: DrillSubject = DrillSubject(text: "él", person: 2)) throws -> DrillSentences.Card {
+        try XCTUnwrap((0..<400).compactMap { DrillSentences.card(verb, drill, subject: subject, variant: $0) }.first { $0.sentence.lowercased().contains(text.lowercased()) }, "no \(drill.title) card with “\(text)”")
+    }
+    private func titles(_ card: DrillSentences.Card) -> [String] { DrillAlternates.options(for: card).map(\.drill.title) }
+
+    func testThePluperfectIsNotInterchangeableWithThePreterite() throws {
+        let card = try card("comprar", DrillTense(kind: .perfect, tense: .imperfect), containing: "cuando llegué, ya")
+        XCTAssertTrue(DrillAlternates.options(for: card).isEmpty)
+    }
+
+    func testEachAuditedRowOffersExactlyWhatTheAuditSays() throws {
+        func t(_ kind: DrillTense.Kind, _ tense: Tense) -> DrillTense { DrillTense(kind: kind, tense: tense) }
+        XCTAssertEqual(titles(try card("comprar", t(.simple, .preterite), containing: "ayer")), ["Presente perfecto"])
+        XCTAssertEqual(titles(try card("comprar", t(.perfect, .present), containing: "hoy")), ["Pretérito"])
+        XCTAssertEqual(titles(try card("comprar", t(.simple, .future), containing: "mañana")), ["Ir a (ahora)", "Presente"])
+        // "Algún día" goes with verbs about states and understanding
+        XCTAssertEqual(titles(try card("comprender", t(.simple, .future), containing: "algún día")), ["Ir a (ahora)"])
+        XCTAssertEqual(titles(try card("comprar", t(.irA, .present), containing: "mañana")), ["Futuro", "Presente"])
+        XCTAssertEqual(titles(try card("comprar", t(.progressive, .present), containing: "ahora")), ["Presente"])
+        XCTAssertEqual(titles(try card("comprar", t(.progressive, .preterite), containing: "toda la tarde")), ["Pretérito"])
+        XCTAssertEqual(titles(try card("comprar", t(.progressive, .imperfect), containing: "cuando llamaste")), ["Imperfecto"])
+        XCTAssertEqual(titles(try card("comprar", t(.progressive, .future), containing: "mañana a esta hora")), ["Futuro"])
+        XCTAssertEqual(titles(try card("comprar", t(.progressive, .conditional), containing: "si hubiera tiempo")), ["Condicional"])
+        XCTAssertEqual(titles(try card("comprar", t(.simple, .conditional), containing: "si hubiera tiempo")), ["Imperfecto"])
+        XCTAssertEqual(titles(try card("comprar", t(.perfect, .conditional), containing: "si hubiera habido tiempo")), ["Pluscuamperfecto de subjuntivo"])
+        XCTAssertEqual(titles(try card("comprar", t(.perfect, .future), containing: "para el viernes")), ["Futuro", "Ir a (ahora)"])
+        XCTAssertEqual(titles(try card("comprar", t(.estarPor, .present), containing: "ahora")), ["Ir a (ahora)"])
+        XCTAssertEqual(titles(try card("comprar", t(.estarPor, .imperfect), containing: "cuando llamaste")), ["Ir a (antes)"])
+        XCTAssertEqual(titles(try card("comprar", t(.estarPor, .preterite), containing: "no pasó nada")), ["Ir a (antes)"])
+        // Cards with no row have one answer
+        XCTAssertTrue(DrillAlternates.options(for: try card("comprar", t(.acabarDe, .imperfect), containing: "cuando llegué")).isEmpty)
+        XCTAssertTrue(DrillAlternates.options(for: try card("comprar", t(.simple, .subjunctivePresent), containing: "espero que")).isEmpty)
+        XCTAssertTrue(DrillAlternates.options(for: try card("comprar", t(.simple, .imperfect), containing: "antes")).isEmpty)
+    }
+
+    func testNosotrosCommandsAcceptVamosA() throws {
+        let imperative = DrillTense(kind: .simple, tense: .imperative)
+        let card = try card("comprar", imperative, containing: "!", subject: DrillSubject(text: "nosotros", person: 3))
+        let options = DrillAlternates.options(for: card)
+        XCTAssertEqual(options.map(\.drill.title), ["Ir a (ahora)"])
+        let chosen = card.choosing(options[0].drill)
+        XCTAssertEqual(chosen.answer, "vamos a comprar")
+        XCTAssertTrue(chosen.sentence.contains("¡Vamos a comprar"), chosen.sentence)
+        // A command to tú has one answer
+        let tu = try self.card("comprar", imperative, containing: "!", subject: DrillSubject(text: "tú", person: 1))
+        XCTAssertTrue(DrillAlternates.options(for: tu).isEmpty)
+    }
+
+    func testColloquialOptionsAreLabelled() throws {
+        let card = try card("comprar", DrillTense(kind: .simple, tense: .conditional), containing: "si hubiera tiempo")
+        XCTAssertEqual(DrillAlternates.options(for: card).map(\.colloquial), [true])
+        let standard = try self.card("comprar", DrillTense(kind: .simple, tense: .future), containing: "mañana")
+        XCTAssertTrue(DrillAlternates.options(for: standard).allSatisfy { !$0.colloquial })
+    }
+
+    func testTheSeFormOfTheImperfectSubjunctiveIsTheSameAnswer() throws {
+        let subjunctive = DrillTense(kind: .simple, tense: .subjunctiveImperfect)
+        let card = try card("comprar", subjunctive, containing: "quería que")
+        XCTAssertTrue(card.answer.hasSuffix("ara") || card.answer.hasSuffix("aran") || card.answer.hasSuffix("aras") || card.answer.hasSuffix("áramos"), card.answer)
+        let seForm = try XCTUnwrap(DrillAlternates.equivalentForms(for: card).first)
+        XCTAssertTrue(seForm.contains("ase") || seForm.contains("ásemos"), seForm)
+        XCTAssertEqual(DrillChecker.grade(seForm, answer: seForm, infinitive: "comprar"), .correct)
+        // Spot-check the transformation
+        func seOf(_ answer: String) -> String? {
+            let made = DrillSentences.Card(infinitive: "x", drill: subjunctive, subject: DrillSubject(text: "él", person: 2), prompt: "", sentence: "", answer: answer)
+            return DrillAlternates.equivalentForms(for: made).first
+        }
+        XCTAssertEqual(seOf("comiera"), "comiese")
+        XCTAssertEqual(seOf("comiéramos"), "comiésemos")
+        XCTAssertEqual(seOf("hablaran"), "hablasen")
+        XCTAssertEqual(seOf("hubiera comido"), "hubiese comido")
+        XCTAssertEqual(seOf("estuviéramos hablando"), "estuviésemos hablando")
+        XCTAssertEqual(seOf("fuera"), "fuese")
+        // Other tenses have no -se spelling
+        let present = DrillSentences.Card(infinitive: "x", drill: DrillTense(kind: .simple, tense: .present), subject: DrillSubject(text: "él", person: 2), prompt: "", sentence: "", answer: "come")
+        XCTAssertTrue(DrillAlternates.equivalentForms(for: present).isEmpty)
+    }
+
+    func testEveryAlternateBuildsForRealVerbs() {
+        for drill in DrillTense.all {
+            for verb in ["hablar", "comer", "vivir", "ir", "tener", "hacer"] {
+                for variant in 0..<12 {
+                    guard let subject = DrillSentences.subjects(for: verb, drill).first, let made = DrillSentences.card(verb, drill, subject: subject, variant: variant) else { continue }
+                    for option in DrillAlternates.options(for: made) {
+                        let other = made.choosing(option.drill)
+                        XCTAssertEqual(other.drill, option.drill)
+                        XCTAssertFalse(other.answer.isEmpty)
+                        XCTAssertFalse(other.sentence.contains("______"), other.sentence)
+                        XCTAssertFalse(option.why.isEmpty)
+                    }
+                }
+            }
+        }
     }
 }

@@ -84,6 +84,18 @@ extension DrillTense {
         }
     }
 
+    /// The drill for the table and tense a word page is showing: the simple table gives the simple tense, the "-ing"
+    /// table the progressive one, the perfect table the perfect one. nil when the drill has no such tense.
+    static func forWordPage(form: VerbForm, tense: Tense) -> DrillTense? {
+        let kind: Kind = switch form {
+        case .infinitive: .simple
+        case .gerund: .progressive
+        case .participle: .perfect
+        }
+        let drill = DrillTense(kind: kind, tense: tense)
+        return all.contains(drill) ? drill : nil
+    }
+
     /// The tenses that match every filter that is set.
     static func matching(mood: DrillMood?, time: DrillTime?, moment: DrillMoment?) -> [DrillTense] {
         all.filter { drill in

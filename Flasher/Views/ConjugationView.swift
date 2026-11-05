@@ -228,13 +228,8 @@ struct ConjugationView: View {
     /// The drill for the table and tense on screen, nil when the drill can't build sentences for this verb in it.
     private var drillForSelection: DrillTense? {
         guard phrase == nil, !selection.negative else { return nil }
-        let kind: DrillTense.Kind = switch selection.form {
-        case .infinitive: .simple
-        case .gerund: .progressive
-        case .participle: .perfect
-        }
-        let drill = DrillTense(kind: kind, tense: selection.tense)
-        guard DrillTense.all.contains(drill), !DrillSentences.subjects(for: conjugation.infinitive, drill).isEmpty else { return nil }
+        guard let drill = DrillTense.forWordPage(form: selection.form, tense: selection.tense) else { return nil }
+        guard !DrillSentences.subjects(for: conjugation.infinitive, drill).isEmpty else { return nil }
         return drill
     }
 
@@ -247,7 +242,7 @@ struct ConjugationView: View {
                 if queued { DrillProgress.shared.unqueue(conjugation.infinitive, drill) }
                 else { DrillProgress.shared.queue(conjugation.infinitive, drill) }
             } label: {
-                Label(queued ? "In drill queue" : "Add to drill queue", systemImage: queued ? "checkmark" : "plus")
+                Label(queued ? "In drill queue · \(DrillProgress.shared.item(conjugation.infinitive, drill).queuedCorrect ?? 0) of \(DrillProgress.queuePractices)" : "Add to drill queue", systemImage: queued ? "checkmark" : "plus")
                     .font(.subheadline.weight(.semibold))
                     .frame(maxWidth: .infinity)
             }

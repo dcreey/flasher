@@ -31,7 +31,7 @@ enum DrillExplainer {
             context: "The other sentence says how things are now, which shows the first was how they used to be."),
         "simple future": Entry(
             short: "what will happen",
-            rule: "The future says what will happen after now.",
+            rule: "The future says what will happen after now. In everyday Latin American speech ir a + infinitive is more common for plans; the future is used more in writing and for guesses.",
             markers: [("mañana", "“Mañana” is a later time."), ("algún día", "“Algún día” means some day in the future.")],
             context: "The other sentence says how things are now. The future says what comes next."),
         "simple conditional": Entry(
@@ -92,7 +92,7 @@ enum DrillExplainer {
         "perfect present": Entry(
             short: "something done in a period that is not over, or that still matters",
             rule: "He/has/ha + participle looks back from now at something already done.",
-            markers: [(" hoy ", "“Hoy” is a period that has not ended yet, so it takes the present perfect, not the preterite.")],
+            markers: [(" hoy ", "“Hoy” is a period that has not ended yet, so the present perfect fits. In Mexico the preterite is actually the more common choice here.")],
             context: "The other sentence is about a finished time (yesterday, last year), which would take the preterite."),
         "perfect imperfect": Entry(
             short: "something already done before another past moment",
@@ -131,7 +131,7 @@ enum DrillExplainer {
             context: "The other sentence describes the scene at that moment."),
         "irA present": Entry(
             short: "a plan, or what is about to happen",
-            rule: "Ir a + infinitive says what is going to happen after now.",
+            rule: "Ir a + infinitive says what is going to happen after now. It is the most common way to say a plan in everyday Latin American speech.",
             markers: [("mañana", "“Mañana” plus ir a is a plan for tomorrow.")],
             context: "The other sentence is about another time, to contrast with the plan."),
         "irA imperfect": Entry(
@@ -141,7 +141,7 @@ enum DrillExplainer {
             context: "The scene-setting sentence is in the imperfect, as is the plan."),
         "estarPor present": Entry(
             short: "something about to happen",
-            rule: "Estar por + infinitive means “about to”: it is right at the edge of happening.",
+            rule: "Estar por + infinitive means “about to”: it is right at the edge of happening. In several Latin American countries it is used this way; elsewhere it can mean having the intention or the temptation to do it.",
             markers: [("ahora", "“Ahora” (now) with estar por means it is about to happen at this moment.")],
             context: "The other sentence says what comes next."),
         "estarPor imperfect": Entry(
@@ -160,8 +160,8 @@ enum DrillExplainer {
     static let contrasts: [String: String] = [
         "simple preterite|simple imperfect": "The imperfect describes a background or a habit. This sentence has one finished event, so it takes the preterite.",
         "simple imperfect|simple preterite": "The preterite is for one finished event. This sentence describes a habit or how things were, so it takes the imperfect.",
-        "simple preterite|perfect present": "The present perfect is for a time that is not over (hoy, esta semana). A finished moment like “ayer” takes the preterite.",
-        "perfect present|simple preterite": "The preterite is for finished times. “Hoy” is not over yet, so the present perfect is the one.",
+        "simple preterite|perfect present": "The present perfect looks back from now, and fits best for a time that is not over (hoy, esta semana). In Mexico the preterite is the usual choice for a finished moment like “ayer” (about 80 to 90 percent of past-tense uses in studies), but the present perfect is also used.",
+        "perfect present|simple preterite": "The preterite also works with “hoy”, and in Mexico it is the more common choice. This drill asks for the present perfect, which looks back from now.",
         "simple present|simple preterite": "The preterite is a finished past event. This sentence is about now or a habit.",
         "simple preterite|simple present": "The present is for now. This sentence tells something that already happened, so it needs the preterite.",
         "simple imperfect|simple present": "The present is for now. This sentence says what used to happen, so it needs the imperfect.",
@@ -171,7 +171,7 @@ enum DrillExplainer {
         "simple subjunctivePresent|simple subjunctiveImperfect": "“Espero que” and “es importante que” are in the present, so the subjunctive is the present one. The imperfect subjunctive goes with a past trigger.",
         "simple conditional|simple future": "The future says what will happen. An unreal condition (“si hubiera tiempo”) calls for “would”, the conditional.",
         "simple future|simple conditional": "The conditional says what would happen. “Mañana” is a plain later time, so the future is the one.",
-        "simple conditional|simple imperfect": "The imperfect describes a past habit. This is an imagined result, so it is “would”: the conditional.",
+        "simple conditional|simple imperfect": "In everyday speech the imperfect often stands in for the conditional, but the conditional is the standard form for an imagined result.",
         "perfect imperfect|simple imperfect": "The imperfect describes the scene at the moment. “Ya” says this was done before that moment, which takes había + participle.",
         "perfect imperfect|simple preterite": "The preterite is the event itself. “Ya” says this was finished before another past moment, so use había + participle.",
         "perfect imperfect|perfect present": "He/has/ha + participle looks back from now. This sentence looks back from a past moment (“cuando llegué”), so it needs había.",
@@ -190,6 +190,15 @@ enum DrillExplainer {
         "acabarDe imperfect|acabarDe present": "“Cuando llegué” is a past moment, so acabar goes in the imperfect: acababa de.",
         "estarPor imperfect|estarPor present": "“Cuando llamaste” is a past moment, so estar goes in the imperfect: estaba por.",
         "estarPor preterite|estarPor imperfect": "Estaba por is “was about to”. If it almost happened once and did not, use estuvo por.",
+        "progressive preterite|simple preterite": "Both say it is over. Estuvo + gerund stresses that the activity went on during that time.",
+        "progressive future|simple future": "Both place the action at that future moment. Estaré + gerund stresses that you will be in the middle of it.",
+        "progressive conditional|simple conditional": "Both say what would happen. Estaría + gerund stresses that it would be in progress.",
+        "perfect conditional|perfect subjunctiveImperfect": "In the result part of an unreal past condition both “habría comprado” and “hubiera comprado” are accepted. “Habría” is the standard form.",
+        "perfect subjunctiveImperfect|perfect conditional": "After “ojalá” the wish needs the subjunctive (hubiera + participle). The conditional is for results, not wishes.",
+        "simple imperative|irA present": "“Vamos a + infinitive” is the everyday way to say “let’s”, but it can also be a plain “we are going to”. The command form (“comamos”) is only an exhortation.",
+        "estarPor imperfect|irA imperfect": "Iba a + infinitive says what was planned or about to happen. Estaba por is closer to “was about to”.",
+        "estarPor preterite|irA imperfect": "Iba a + infinitive says what almost happened. Estuvo por stresses that it came close once and did not.",
+        "irA present|estarPor present": "Estar por is closer to “about to”. Ir a + infinitive is a plan, which can be further away.",
     ]
 
     private static let personNames = ["yo", "tú", "él / ella / usted", "nosotros", "vosotros", "ellos / ustedes"]

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D7A100000000000000000B02 /* DrillAlternates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A100000000000000000B01 /* DrillAlternates.swift */; };
 		D7A100000000000000000A04 /* DrillExplainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A100000000000000000A03 /* DrillExplainer.swift */; };
 		D7A100000000000000000A02 /* DrillGrouping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A100000000000000000A01 /* DrillGrouping.swift */; };
 		D7A1000000000000000009E2 /* DrillAdjectives.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A1000000000000000009E1 /* DrillAdjectives.swift */; };
@@ -80,6 +81,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D7A100000000000000000B01 /* DrillAlternates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillAlternates.swift; sourceTree = "<group>"; };
 		D7A100000000000000000A03 /* DrillExplainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillExplainer.swift; sourceTree = "<group>"; };
 		D7A100000000000000000A01 /* DrillGrouping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillGrouping.swift; sourceTree = "<group>"; };
 		D7A1000000000000000009E1 /* DrillAdjectives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillAdjectives.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				A1B2C3D4E5F60718293A4B60 /* VerbUsage.swift */,
 				A1B2C3D4E5F60718293A4B50 /* DrillSentences.swift */,
 				D7A1000000000000000009C1 /* DrillContexts.swift */,
+				D7A100000000000000000B01 /* DrillAlternates.swift */,
 				D7A100000000000000000A03 /* DrillExplainer.swift */,
 				D7A100000000000000000A01 /* DrillGrouping.swift */,
 				D7A1000000000000000009E1 /* DrillAdjectives.swift */,
@@ -388,6 +391,7 @@
 				A1B2C3D4E5F60718293A4B70 /* VerbUsage.swift in Sources */,
 				A1B2C3D4E5F60718293A4B51 /* DrillSentences.swift in Sources */,
 				D7A1000000000000000009C2 /* DrillContexts.swift in Sources */,
+				D7A100000000000000000B02 /* DrillAlternates.swift in Sources */,
 				D7A100000000000000000A04 /* DrillExplainer.swift in Sources */,
 				D7A100000000000000000A02 /* DrillGrouping.swift in Sources */,
 				D7A1000000000000000009E2 /* DrillAdjectives.swift in Sources */,

@@ -73,11 +73,26 @@ enum DrillSentences {
         let sentence: String
         /// What goes in the blank ("comió", "estaba comiendo", "me gusta").
         let answer: String
+
+        /// The same sentence answered in another tense that fits it ("Mañana ellos van a comer" for "comerán").
+        func choosing(_ chosen: DrillTense) -> Card {
+            guard chosen != drill, let phrase = DrillSentences.verbPhrase(infinitive, chosen, person: subject.person) else { return self }
+            // The blank stays where it was; a phrase at the start of a sentence gets its capital
+            var text = prompt
+            if let blank = text.range(of: "______") {
+                let before = text[..<blank.lowerBound].trimmingCharacters(in: CharacterSet(charactersIn: " ¡¿"))
+                let atStart = before.isEmpty || before.hasSuffix(".") || before.hasSuffix("!") || before.hasSuffix("?")
+                text.replaceSubrange(blank, with: atStart ? phrase.prefix(1).uppercased() + phrase.dropFirst() : phrase)
+            }
+            return Card(infinitive: infinitive, drill: chosen, subject: subject, prompt: prompt, sentence: text, answer: phrase)
+        }
     }
 
-    static func card(_ infinitive: String, _ drill: DrillTense, subject: DrillSubject) -> Card? {
+    /// `variant` picks a different object, time word and context sentence for the same verb, tense and subject.
+    /// Variant 0 is the fixed one the tests rely on.
+    static func card(_ infinitive: String, _ drill: DrillTense, subject: DrillSubject, variant: Int = 0) -> Card? {
         // Only the target sentence is searched, so a verb that also appears in the context sentence ("fue") is not blanked there
-        guard let built = build(infinitive, drill, subject: subject),
+        guard let built = build(infinitive, drill, subject: subject, variant: variant),
               let range = built.target.range(of: built.verb, options: [.caseInsensitive, .diacriticInsensitive]) else { return nil }
         var blanked = built.target
         blanked.replaceSubrange(range, with: "______")
@@ -123,9 +138,9 @@ enum DrillSentences {
         [.preterite, .imperfect, .subjunctiveImperfect].contains(drill.tense)
     }
 
-    private static func build(_ infinitive: String, _ drill: DrillTense, subject: DrillSubject) -> (before: String, target: String, after: String, verb: String, text: String)? {
+    private static func build(_ infinitive: String, _ drill: DrillTense, subject: DrillSubject, variant: Int = 0) -> (before: String, target: String, after: String, verb: String, text: String)? {
         guard let usage = VerbUsage.of(infinitive), var verb = verbPhrase(infinitive, drill, person: subject.person), !verb.isEmpty else { return nil }
-        let seed = stableSeed(infinitive, drill, subject.person)
+        let seed = (stableSeed(infinitive, drill, subject.person) &+ variant &* 7919) & Int.max
         let profile = VerbProfiles.profile(infinitive)
         let people = subject.isPerson
         var shown = dropped.contains(subject.text) ? "" : subject.text

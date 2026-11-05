@@ -10,7 +10,7 @@ final class DrillSentencesTests: XCTestCase {
         }.sorted()
     }
 
-    private func check(_ verbs: [String], everyNth: Int = 1) -> (total: Int, problems: [String]) {
+    private func check(_ verbs: [String], everyNth: Int = 1, variant: Int = 0) -> (total: Int, problems: [String]) {
         var total = 0
         var problems: [String] = []
         for verb in verbs {
@@ -18,7 +18,7 @@ final class DrillSentencesTests: XCTestCase {
                 let subjects = DrillSentences.subjects(for: verb, drill)
                 if subjects.isEmpty { continue }
                 let subject = subjects[(verb.count + ti) % subjects.count]
-                guard let text = DrillSentences.sentence(verb, drill, subject: subject) else { problems.append("\(verb) \(drill.label): no sentence"); continue }
+                guard let text = DrillSentences.card(verb, drill, subject: subject, variant: variant)?.sentence else { problems.append("\(verb) \(drill.label): no sentence"); continue }
                 total += 1
                 if text.contains("  ") || text.contains(" .") || text.contains(" ,") { problems.append("spacing: \(text)") }
                 if !(text.hasSuffix(".") || text.hasSuffix("!")) { problems.append("ending: \(text)") }
@@ -51,6 +51,22 @@ final class DrillSentencesTests: XCTestCase {
         let verbs = rest.enumerated().filter { $0.offset % 3 == 0 }.map(\.element)
         let (total, problems) = check(verbs)
         XCTAssertGreaterThan(total, 18_000)
+        XCTAssertTrue(problems.isEmpty, "\(problems.count) problems, first:\n" + problems.prefix(25).joined(separator: "\n"))
+    }
+
+    /// The drill picks a random variant of each sentence, so the other variants must be clean too: every 25th verb of
+    /// the whole list, in every tense, in five different variants.
+    func testSentenceVariantsPassTheChecker() {
+        let verbs = DrillSentences.verbList.enumerated().filter { $0.offset % 25 == 0 }.map(\.element)
+        XCTAssertGreaterThan(verbs.count, 150)
+        var total = 0
+        var problems: [String] = []
+        for variant in [1, 2, 3, 4, 5] {
+            let result = check(verbs, variant: variant)
+            total += result.total
+            problems += result.problems
+        }
+        XCTAssertGreaterThan(total, 20_000)
         XCTAssertTrue(problems.isEmpty, "\(problems.count) problems, first:\n" + problems.prefix(25).joined(separator: "\n"))
     }
 

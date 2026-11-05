@@ -1,4 +1,5 @@
 import SwiftUI
+import Translation
 
 /// The Drill tab: pick a tense, then fill in the blank in ten short sentences built from the rules engine.
 /// Tenses are grouped by mood and can be narrowed by the time the sentence is anchored to and by where the action sits
@@ -17,7 +18,7 @@ struct DrillView: View {
             if !progress.queued.isEmpty {
                 Section {
                     Button { started = DrillSetup(mode: .queue) } label: {
-                        row("Queue", detail: "\(progress.queued.count) \(progress.queued.count == 1 ? "verb" : "verbs") you added", systemImage: "arrow.up.to.line")
+                        row("Queue", detail: "\(progress.queued.count) \(progress.queued.count == 1 ? "verb" : "verbs") you added, each until it is right \(DrillProgress.queuePractices) times", systemImage: "arrow.up.to.line")
                     }
                 }
             }
@@ -144,6 +145,10 @@ struct DrillSessionView: View {
     /// Cards already asked a second time after a miss.
     @State private var retried: Set<DrillSentences.Card> = []
     @State private var finished = false
+    /// The tense picked on a card that more than one tense fits (nil: the one the drill asked for).
+    @State private var chosen: DrillTense?
+    /// Set when the answer was another spelling of the same tense (-se for -ra).
+    @State private var spellingNote: String?
     @FocusState private var focused: Bool
 
     private static let roundSize = 10
@@ -189,13 +194,18 @@ struct DrillSessionView: View {
         missedCards = []
         retried = []
         finished = false
+        chosen = nil
+        spellingNote = nil
         typed = ""
         grade = nil
         focused = true
     }
 
-    private func cardView(_ card: DrillSentences.Card) -> some View {
-        ScrollView {
+    private func cardView(_ original: DrillSentences.Card) -> some View {
+        // Some sentences fit more than one tense. The learner picks, and the card follows the pick.
+        let options = DrillAlternates.options(for: original)
+        let card = chosen.map { original.choosing($0) } ?? original
+        return ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("\(card.drill.title) · \(card.drill.gloss)")
@@ -205,14 +215,27 @@ struct DrillSessionView: View {
                     if let meaning = Self.meaning(of: card.infinitive) {
                         Text(meaning).font(.subheadline).foregroundStyle(.secondary)
                     }
+                    // Who the verb is about: the blank hides the ending, and Spanish drops "yo", "tú" and "nosotros"
+                    Text(subjectLine(card))
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(.indigo)
+                        .padding(.top, 4)
                 }
+
+                if grade == nil, !options.isEmpty { tensePicker(original, options) }
 
                 Text(grade == nil ? card.prompt : card.sentence)
                     .font(.title3)
                     .fixedSize(horizontal: false, vertical: true)
 
+                // After answering, the whole sentence in English
+                if grade != nil, #available(iOS 18.0, *) {
+                    DrillEnglishView(spanish: card.sentence).id(card.sentence)
+                }
+
                 if let grade {
                     feedback(grade, card)
+                    if !options.isEmpty { alsoFits(original, card, options) }
                     Button { next() } label: {
                         Text(index + 1 < deck.count ? "Next" : "Finish").frame(maxWidth: .infinity)
                     }
@@ -225,8 +248,8 @@ struct DrillSessionView: View {
                         .autocorrectionDisabled()
                         .focused($focused)
                         .submitLabel(.done)
-                        .onSubmit { check(card) }
-                    Button { check(card) } label: {
+                        .onSubmit { check(card, original: original, options: options) }
+                    Button { check(card, original: original, options: options) } label: {
                         Text("Check").frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)
@@ -239,17 +262,59 @@ struct DrillSessionView: View {
         .scrollDismissesKeyboard(.interactively)
     }
 
+    private func subjectLine(_ card: DrillSentences.Card) -> String {
+        card.drill.kind == .simple && card.drill.tense == .imperative ? "Command to: \(card.subject.label)" : "Subject: \(card.subject.label)"
+    }
+
+    /// Choose which tense to answer in when the sentence works with more than one.
+    private func tensePicker(_ original: DrillSentences.Card, _ options: [DrillAlternates.Option]) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("More than one tense fits this sentence. Pick the one you will answer in:")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 6) {
+                    ForEach([original.drill] + options.map(\.drill), id: \.self) { drill in
+                        let colloquial = options.first { $0.drill == drill }?.colloquial == true
+                        let selected = (chosen ?? original.drill) == drill
+                        Button { chosen = drill == original.drill ? nil : drill } label: {
+                            Text(colloquial ? "\(drill.title) · colloquial" : drill.title)
+                                .font(.subheadline.weight(.medium))
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(selected ? Color.teal : Color(.secondarySystemFill), in: Capsule())
+                                .foregroundStyle(selected ? Color.white : Color.primary)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+            }
+        }
+    }
+
+    /// After answering: the other tenses that would have fit, and what the answer counted for.
+    private func alsoFits(_ original: DrillSentences.Card, _ answered: DrillSentences.Card, _ options: [DrillAlternates.Option]) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            if answered.drill != original.drill {
+                Text("This round asked for the \(original.drill.title.lowercased()). You answered in the \(answered.drill.title.lowercased()), which fits too, so it counted for that tense.")
+            }
+            ForEach(options.filter { $0.drill != answered.drill }, id: \.drill) { option in
+                Text("Also fits: the \(option.drill.title.lowercased()) (\(option.drill.example)). \(option.why)\(option.colloquial ? " Heard in everyday speech, not the standard form." : "")")
+            }
+        }
+        .font(.footnote)
+        .foregroundStyle(.secondary)
+        .fixedSize(horizontal: false, vertical: true)
+    }
+
     @ViewBuilder
     private func feedback(_ grade: DrillGrade, _ card: DrillSentences.Card) -> some View {
         switch grade {
         case .correct:
             Label("Correct", systemImage: "checkmark.circle.fill").foregroundStyle(.green)
-            DisclosureGroup("Why the \(card.drill.title.lowercased())?") { explanation(card) }
-                .font(.subheadline)
+            if let spellingNote { Text(spellingNote).font(.footnote).foregroundStyle(.secondary) }
         case .accent:
             Label("Right. Mind the accent: \(card.answer)", systemImage: "checkmark.circle").foregroundStyle(.green)
-            DisclosureGroup("Why the \(card.drill.title.lowercased())?") { explanation(card) }
-                .font(.subheadline)
         case .wrong:
             VStack(alignment: .leading, spacing: 4) {
                 Label(card.answer, systemImage: "xmark.circle.fill").foregroundStyle(.red).font(.title3.weight(.semibold))
@@ -258,14 +323,15 @@ struct DrillSessionView: View {
             Text(DrillExplainer.diagnose(typed, card: card))
                 .font(.callout)
                 .fixedSize(horizontal: false, vertical: true)
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Why the \(card.drill.title.lowercased())?").font(.subheadline.weight(.semibold))
-                explanation(card)
-            }
-            .padding(12)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
         }
+        // Why this tense, always open: right answers learn the reason too
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Why the \(card.drill.title.lowercased())?").font(.subheadline.weight(.semibold))
+            explanation(card)
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
     }
 
     /// The rule, the clue in this sentence, where the action sits in time, and how the other sentence relates.
@@ -305,9 +371,21 @@ struct DrillSessionView: View {
         }
     }
 
-    private func check(_ card: DrillSentences.Card) {
+    private func check(_ shown: DrillSentences.Card, original: DrillSentences.Card, options: [DrillAlternates.Option]) {
         guard grade == nil else { return }
-        let result = DrillChecker.grade(typed, answer: card.answer, infinitive: card.infinitive)
+        // Typing the form of another tense that fits the sentence counts as picking it
+        var card = shown
+        if DrillChecker.grade(typed, answer: card.answer, infinitive: card.infinitive) == .wrong,
+           let option = options.first(where: { DrillChecker.grade(typed, answer: original.choosing($0.drill).answer, infinitive: original.infinitive) != .wrong }) {
+            card = original.choosing(option.drill)
+            chosen = option.drill
+        }
+        var result = DrillChecker.grade(typed, answer: card.answer, infinitive: card.infinitive)
+        // The -se form of the imperfect subjunctive is as right as the -ra form
+        if result == .wrong, let other = DrillAlternates.equivalentForms(for: card).first(where: { DrillChecker.grade(typed, answer: $0, infinitive: card.infinitive) != .wrong }) {
+            result = .correct
+            spellingNote = "“\(card.answer)” and “\(other)” are the same tense: the -ra and -se forms are interchangeable here."
+        }
         grade = result
         focused = false
         let right = result != .wrong
@@ -327,6 +405,8 @@ struct DrillSessionView: View {
     private func next() {
         if index + 1 < deck.count {
             index += 1
+            chosen = nil
+            spellingNote = nil
             typed = ""
             grade = nil
             focused = true
@@ -342,5 +422,44 @@ struct DrillSessionView: View {
         guard var text = plain?.text else { return nil }
         if text.hasPrefix("("), let close = text.firstIndex(of: ")") { text = String(text[text.index(after: close)...]) }
         return text.trimmingCharacters(in: .whitespaces)
+    }
+}
+
+
+/// What the translator already said, so a sentence that comes up again (a missed card asked a second time) shows at once.
+enum DrillEnglishCache {
+    static var sentences: [String: String] = [:]
+}
+
+/// The English for a Spanish drill sentence, from the same offline translator as the Translate tab. It stays empty
+/// when the translator or its language packs aren't available, so the card works without it.
+@available(iOS 18.0, *)
+private struct DrillEnglishView: View {
+    let spanish: String
+    @State private var english: String?
+    @State private var configuration: TranslationSession.Configuration?
+
+    var body: some View {
+        Group {
+            if let english {
+                Text(english)
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .translationTask(configuration) { session in
+            guard let response = try? await session.translate(spanish) else { return }
+            let text = TranslationTraps.fixingEnglish(response.targetText, spanish: spanish)
+            DrillEnglishCache.sentences[spanish] = text
+            english = text
+        }
+        .onAppear {
+            if let cached = DrillEnglishCache.sentences[spanish] {
+                english = cached
+            } else {
+                configuration = TranslationSession.Configuration(source: Locale.Language(identifier: "es"), target: Locale.Language(identifier: "en"))
+            }
+        }
     }
 }

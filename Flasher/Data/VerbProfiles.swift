@@ -60,6 +60,18 @@ enum VerbProfiles {
 
 /// One target subject for a drill: the words to show and the column of the conjugation chart it needs.
 struct DrillSubject: Hashable {
+    /// The subject spelled out for the learner, with what it means in English: "yo (I)", "mis padres (my parents)".
+    /// The blank hides the verb, and Spanish drops "yo", "tú" and "nosotros", so the card always says who it is about.
+    var label: String {
+        if text.isEmpty { return "no subject (weather)" }
+        let gloss: [String: String] = [
+            "yo": "I", "tú": "you, informal", "él": "he", "ella": "she", "usted": "you, formal", "nosotros": "we",
+            "vosotros": "you all, Spain", "ellos": "they", "ustedes": "you all", "mi hermana": "my sister",
+            "mis padres": "my parents", "mi amigo y yo": "my friend and I",
+        ]
+        return gloss[text].map { "\(text) (\($0))" } ?? text
+    }
+
     let text: String
     /// True for people ("yo", "mi hermana"); false for animals and things, which get different sentence frames.
     var isPerson: Bool { ["yo", "tú", "él", "ella", "usted", "nosotros", "vosotros", "ellos", "ustedes"].contains(text) || text.hasPrefix("mi ") || text.hasPrefix("mis ") }
