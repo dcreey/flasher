@@ -430,3 +430,43 @@ final class DrillExplainerTests: XCTestCase {
         XCTAssertEqual(DrillExplainer.diagnose("", card: made), "Nothing was typed.")
     }
 }
+
+final class DrillSelectionSummaryTests: XCTestCase {
+    func testSummaryListsTheTensesAndTheirExamples() {
+        let past = DrillSelectionSummary.make(mood: .indicative, time: .past, moment: .before)
+        XCTAssertEqual(past.lines, ["Pluscuamperfecto · había comido"])
+        XCTAssertTrue(past.headline.contains("Indicative · Past · Before"))
+        XCTAssertTrue(past.headline.contains("1 tense"))
+        // Any mood: every past tense that is already done by then, from the perfect forms and "acababa de"
+        let anyMood = DrillSelectionSummary.make(mood: nil, time: .past, moment: .before).lines.joined(separator: "\n")
+        XCTAssertTrue(anyMood.contains("había comido"))
+        XCTAssertTrue(anyMood.contains("acababa de comer"))
+        XCTAssertTrue(anyMood.contains("habría comido"))
+    }
+
+    func testExamplesChangeWithTheSelection() {
+        let a = DrillSelectionSummary.make(mood: .indicative, time: .present, moment: .during)
+        let b = DrillSelectionSummary.make(mood: .indicative, time: .future, moment: .during)
+        XCTAssertNotEqual(a.lines, b.lines)
+        XCTAssertTrue(a.lines.joined().contains("come"))
+        XCTAssertTrue(b.lines.joined().contains("comerá"))
+        // No example text is baked into the explanation of a moment any more
+        for moment in DrillMoment.allCases { XCTAssertFalse(moment.blurb.contains("comer") || moment.blurb.contains("comido")) }
+    }
+
+    func testAnImpossibleSelectionSaysWhatWouldWork() {
+        // The screenshot case: subjunctive, present, after
+        let none = DrillSelectionSummary.make(mood: .subjunctive, time: .present, moment: .after)
+        XCTAssertTrue(none.lines.isEmpty)
+        XCTAssertTrue(none.headline.contains("no tense fits"))
+        let hint = none.hint ?? ""
+        XCTAssertTrue(hint.contains("Moment could be Before or During"), hint)
+        XCTAssertTrue(hint.contains("Mood could be Phrases"), hint)
+    }
+
+    func testNothingSelectedCountsAllTenses() {
+        let all = DrillSelectionSummary.make(mood: nil, time: nil, moment: nil)
+        XCTAssertEqual(all.headline, "All \(DrillTense.all.count) tenses")
+        XCTAssertTrue(all.lines.isEmpty)
+    }
+}

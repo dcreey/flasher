@@ -30,20 +30,12 @@ struct DrillView: View {
                 chips("Mood", DrillMood.allCases, $mood, \.title)
                 chips("Time", DrillTime.allCases, $time, \.title)
                 chips("Moment", DrillMoment.allCases, $moment, \.title)
-                if let moment {
-                    Text(moment.blurb).font(.footnote).foregroundStyle(.secondary)
-                } else if let mood {
-                    Text(mood.blurb).font(.footnote).foregroundStyle(.secondary)
-                }
+                summaryView
                 if filtering, !shown.isEmpty {
                     Button { started = DrillSetup(mode: .set(shown)) } label: {
                         row("Practice these", detail: "\(shown.count) \(shown.count == 1 ? "tense" : "tenses")", systemImage: "play.fill")
                     }
                 }
-            }
-
-            if shown.isEmpty {
-                Section { Text("No tense fits all three. Clear one to see more.").foregroundStyle(.secondary) }
             }
 
             ForEach(DrillMood.allCases) { group in
@@ -64,6 +56,20 @@ struct DrillView: View {
         .buttonStyle(.plain)
         .navigationTitle("Drill")
         .fullScreenCover(item: $started) { DrillSessionView(setup: $0) }
+    }
+
+    /// What the chosen filters mean and which tenses they leave, with example conjugations that change as the filters do.
+    private var summaryView: some View {
+        let summary = DrillSelectionSummary.make(mood: mood, time: time, moment: moment)
+        return VStack(alignment: .leading, spacing: 6) {
+            Text(summary.headline).font(.footnote.weight(.semibold))
+            ForEach(summary.lines, id: \.self) { line in
+                Text(line).font(.footnote).foregroundStyle(.secondary)
+            }
+            if let note = summary.note { Text(note).font(.footnote).foregroundStyle(.tertiary) }
+            if let hint = summary.hint { Text(hint).font(.footnote).foregroundStyle(.secondary) }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     /// One row of filter chips. Tapping the chosen one clears it.

@@ -43,9 +43,9 @@ enum DrillMoment: String, CaseIterable, Identifiable {
 
     var blurb: String {
         switch self {
-        case .before: "Already done by then (he comido, había comido, acaba de)"
-        case .during: "Happening at that moment (como, comía, estaba comiendo)"
-        case .after: "Still to come from there (voy a comer, iba a comer, está por comer)"
+        case .before: "Already done by that moment"
+        case .during: "Happening at that moment"
+        case .after: "Still to come from that moment"
         }
     }
 }
@@ -89,5 +89,56 @@ extension DrillTense {
         all.filter { drill in
             (mood == nil || drill.mood == mood) && (time == nil || drill.time == time) && (moment == nil || drill.moment == moment)
         }
+    }
+}
+
+/// The message at the top of the selector: what the chosen filters mean and which tenses they leave, with example conjugations.
+struct DrillSelectionSummary: Equatable {
+    /// "Subjunctive · Present · After" and how many tenses that leaves.
+    let headline: String
+    /// One line per tense that applies: "Pluscuamperfecto · había comido".
+    let lines: [String]
+    /// What the chosen mood and moment mean.
+    let note: String?
+    /// When nothing fits: which values of the other filters would.
+    let hint: String?
+
+    /// Examples show the verb "comer" in the third person, as on the tense rows.
+    static func make(mood: DrillMood?, time: DrillTime?, moment: DrillMoment?, limit: Int = 8) -> DrillSelectionSummary {
+        let chosen = [mood?.title, time?.title, moment?.title].compactMap { $0 }
+        let matches = DrillTense.matching(mood: mood, time: time, moment: moment)
+        let note = [mood.map { "\($0.title): \($0.blurb.lowercased())" }, moment.map { "\($0.title): \($0.blurb.lowercased())" }]
+            .compactMap { $0 }.joined(separator: ". ")
+
+        guard !chosen.isEmpty else {
+            return DrillSelectionSummary(headline: "All \(matches.count) tenses", lines: [], note: nil,
+                                         hint: "Pick a mood, a time or a moment to narrow them.")
+        }
+        guard !matches.isEmpty else {
+            return DrillSelectionSummary(headline: "\(chosen.joined(separator: " · ")): no tense fits", lines: [],
+                                         note: note.isEmpty ? nil : note, hint: emptyHint(mood: mood, time: time, moment: moment))
+        }
+        var lines = matches.prefix(limit).map { "\($0.title) · \($0.example)" }
+        if matches.count > limit { lines.append("and \(matches.count - limit) more below") }
+        return DrillSelectionSummary(headline: "\(chosen.joined(separator: " · ")): \(matches.count) \(matches.count == 1 ? "tense" : "tenses")",
+                                     lines: lines, note: note.isEmpty ? nil : note, hint: nil)
+    }
+
+    /// For an empty selection, what each filter could be if the others stayed as they are.
+    private static func emptyHint(mood: DrillMood?, time: DrillTime?, moment: DrillMoment?) -> String? {
+        var parts: [String] = []
+        if mood != nil {
+            let options = Set(DrillTense.matching(mood: nil, time: time, moment: moment).map(\.mood))
+            if !options.isEmpty { parts.append("Mood could be " + DrillMood.allCases.filter(options.contains).map(\.title).joined(separator: " or ")) }
+        }
+        if time != nil {
+            let options = Set(DrillTense.matching(mood: mood, time: nil, moment: moment).map(\.time))
+            if !options.isEmpty { parts.append("Time could be " + DrillTime.allCases.filter(options.contains).map(\.title).joined(separator: " or ")) }
+        }
+        if moment != nil {
+            let options = Set(DrillTense.matching(mood: mood, time: time, moment: nil).map(\.moment))
+            if !options.isEmpty { parts.append("Moment could be " + DrillMoment.allCases.filter(options.contains).map(\.title).joined(separator: " or ")) }
+        }
+        return parts.isEmpty ? "Clear a filter to see more." : parts.joined(separator: ". ") + "."
     }
 }
