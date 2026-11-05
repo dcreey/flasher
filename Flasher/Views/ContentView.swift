@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum AppTab: Hashable { case dictionary, translate, flashcards }
+enum AppTab: Hashable { case dictionary, translate, flashcards, drill }
 
 /// Lets any screen send the user to a word's page in the Dictionary tab.
 @Observable
@@ -60,6 +60,12 @@ struct ContentView: View {
             }
             .tabItem { Label("Flashcards", systemImage: "rectangle.on.rectangle.angled") }
             .tag(AppTab.flashcards)
+
+            NavigationStack {
+                DrillView()
+            }
+            .tabItem { Label("Drill", systemImage: "pencil.and.list.clipboard") }
+            .tag(AppTab.drill)
         }
         .id(country)
         .environment(router)

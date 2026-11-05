@@ -64,14 +64,19 @@ struct VerbUsage: Hashable {
     // MARK: - Complements
 
     private static let objectBanks: [Character: [String]] = [
-        "f": ["la comida", "el desayuno", "una manzana", "el café", "la cena"],
+        "f": ["la comida", "el desayuno", "una manzana", "un taco", "la cena"],
+        "y": ["un café", "agua", "un jugo", "un té"],
+        "d": ["la puerta", "la ventana", "la caja", "la tienda", "el libro"],
         "t": ["el libro", "la mesa", "un regalo", "las llaves", "el paquete"],
         "p": ["a la maestra", "al vecino", "a los niños", "a un amigo", "a la doctora"],
         "x": ["la carta", "el mensaje", "el informe", "la receta", "el correo"],
-        "v": ["el coche", "la bicicleta", "el teléfono", "la computadora", "la puerta"],
+        "v": ["el coche", "la bicicleta", "el teléfono", "la computadora", "la moto"],
         "a": ["el problema", "la idea", "el plan", "la respuesta", "el error"],
         "m": ["la película", "el partido", "el programa", "la serie"],
-        "h": ["la tarea", "el trabajo", "la lección", "un favor"],
+        "h": ["la tarea", "el trabajo", "la lección", "el ejercicio"],
+        "r": ["un problema", "un accidente", "una pérdida", "un golpe"],
+        "c": ["la calle", "el parque", "la plaza", "la ciudad"],
+        "z": ["un mosquito", "una mosca", "el tiempo", "un insecto"],
         "j": ["un trabajo", "un boleto", "el permiso", "ayuda"],
         "w": ["el autobús", "la respuesta", "a un amigo", "el tren"],
         "l": ["la ciudad", "el parque", "la casa", "el centro", "el museo"],
@@ -97,11 +102,22 @@ struct VerbUsage: Hashable {
     ]
 
     /// What follows the verb when the subject is a person or an animal. `seed` varies the choice but stays the same for the same card.
-    func complement(for infinitive: String, seed: Int) -> String {
+    /// Meals a verb already names, so "cenar la cena" and "almorzar el desayuno" never come up.
+    private static let cognates: [String: Set<String>] = [
+        "cenar": ["la cena", "el desayuno"], "desayunar": ["el desayuno", "la cena"], "almorzar": ["el desayuno", "la cena"],
+        "merendar": ["el desayuno", "la cena"],
+    ]
+
+    /// `past` is true when the sentence is told in the past, so a clause after the verb moves back too
+    /// ("dijo que ya era tarde", not "dijo que ya es tarde").
+    func complement(for infinitive: String, seed: Int, past: Bool = false) -> String {
         func pick(_ list: [String]) -> String { list.isEmpty ? "" : list[seed % list.count] }
+        let base = infinitive.hasSuffix("se") ? String(infinitive.dropLast(2)) : infinitive
         switch valency {
-        case "T": return pick(Self.objectBanks[object] ?? [])
-        case "S": return pick(object == "i" ? ["si ya es tarde", "qué hora es", "dónde está la casa"] : ["que ya es tarde", "que todo está bien", "que la tienda abre a las nueve"])
+        case "T": return pick((Self.objectBanks[object] ?? []).filter { !(Self.cognates[base]?.contains($0) ?? false) })
+        case "S":
+            if object == "i" { return pick(past ? ["si ya era tarde", "qué hora era", "dónde estaba la casa"] : ["si ya es tarde", "qué hora es", "dónde está la casa"]) }
+            return pick(past ? ["que ya era tarde", "que todo estaba bien", "que la tienda abría a las nueve"] : ["que ya es tarde", "que todo está bien", "que la tienda abre a las nueve"])
         case "M": return pick(object == "o" ? ["de casa", "de la oficina", "del trabajo", "de la escuela"] : ["a la escuela", "al mercado", "a casa", "al trabajo", "a la oficina"])
         case "C":
             switch object {
@@ -131,6 +147,7 @@ struct VerbUsage: Hashable {
         switch pool {
         case "openable": list = ["a las nueve", "a las ocho"]
         case "event": list = ["a las ocho", "a las nueve", "tarde"]
+        case "happening": list = ["de repente", "otra vez", "a veces"]
         case "priced": list = ["mucho", "poco"]
         case "shaky": list = ["un poco", "mucho"]
         case "machine": list = ["bien", "mal"]

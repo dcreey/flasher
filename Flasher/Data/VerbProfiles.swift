@@ -129,6 +129,10 @@ enum DrillSubjects {
     private static let thingPools: [String: [DrillSubject]] = [
         "generic": [DrillSubject(text: "la película", person: 2), DrillSubject(text: "el libro", person: 2), DrillSubject(text: "la idea", person: 2),
                     DrillSubject(text: "las clases", person: 5), DrillSubject(text: "los precios", person: 5)],
+        // Things that can be described with an adjective: "La puerta está abierta", "La sopa es picante"
+        "adjectival": [DrillSubject(text: "la puerta", person: 2), DrillSubject(text: "el libro", person: 2), DrillSubject(text: "la casa", person: 2),
+                       DrillSubject(text: "la sopa", person: 2), DrillSubject(text: "las ventanas", person: 5), DrillSubject(text: "los zapatos", person: 5)],
+        "happening": [DrillSubject(text: "el accidente", person: 2), DrillSubject(text: "el cambio", person: 2), DrillSubject(text: "los problemas", person: 5)],
         "event": [DrillSubject(text: "la película", person: 2), DrillSubject(text: "la reunión", person: 2), DrillSubject(text: "el concierto", person: 2),
                   DrillSubject(text: "las clases", person: 5)],
         "openable": [DrillSubject(text: "la puerta", person: 2), DrillSubject(text: "la tienda", person: 2), DrillSubject(text: "las ventanas", person: 5)],

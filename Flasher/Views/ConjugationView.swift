@@ -58,6 +58,7 @@ struct ConjugationView: View {
             } else if phrase == nil, !selection.negative {
                 exampleCard
             }
+            drillButton
             if selection.form == .infinitive {
                 Picker("Display", selection: $showFullForms) {
                     Text("Endings").tag(false)
@@ -219,6 +220,39 @@ struct ConjugationView: View {
             Text("Meaning of the base phrase")
                 .font(.caption)
                 .foregroundStyle(.secondary)
+        }
+    }
+
+    // MARK: - Drill queue
+
+    /// The drill for the table and tense on screen, nil when the drill can't build sentences for this verb in it.
+    private var drillForSelection: DrillTense? {
+        guard phrase == nil, !selection.negative else { return nil }
+        let kind: DrillTense.Kind = switch selection.form {
+        case .infinitive: .simple
+        case .gerund: .progressive
+        case .participle: .perfect
+        }
+        let drill = DrillTense(kind: kind, tense: selection.tense)
+        guard DrillTense.all.contains(drill), !DrillSentences.subjects(for: conjugation.infinitive, drill).isEmpty else { return nil }
+        return drill
+    }
+
+    /// Adds this verb in this tense to the front of the Drill queue, or takes it back out.
+    @ViewBuilder
+    private var drillButton: some View {
+        if let drill = drillForSelection {
+            let queued = DrillProgress.shared.isQueued(conjugation.infinitive, drill)
+            Button {
+                if queued { DrillProgress.shared.unqueue(conjugation.infinitive, drill) }
+                else { DrillProgress.shared.queue(conjugation.infinitive, drill) }
+            } label: {
+                Label(queued ? "In drill queue" : "Add to drill queue", systemImage: queued ? "checkmark" : "plus")
+                    .font(.subheadline.weight(.semibold))
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .tint(queued ? .green : .accentColor)
         }
     }
 

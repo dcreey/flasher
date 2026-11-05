@@ -711,3 +711,25 @@ final class SubjunctiveCardsTests: XCTestCase {
         XCTAssertTrue(SpanishChecker.check("Creo que los precios suben.").filter { $0.kind != .tip }.isEmpty)
     }
 }
+
+final class SeguroDeInfinitiveTests: XCTestCase {
+    private func fixes(_ text: String) -> [String] {
+        SpanishChecker.check(text).filter { $0.kind == .grammar }.compactMap(\.suggestion)
+    }
+
+    func testMissingDeBeforeAnInfinitiveIsCaught() {
+        XCTAssertEqual(fixes("No estoy seguro podernos hacer la actividad hoy."), ["estoy seguro de podernos"])
+        XCTAssertEqual(fixes("Estoy seguro ir mañana."), ["Estoy seguro de ir"])
+        XCTAssertEqual(fixes("Estamos convencidos ganar el partido."), ["Estamos convencidos de ganar"])
+        XCTAssertEqual(fixes("Estaba segura poder hacerlo."), ["Estaba segura de poder"])
+    }
+
+    func testCorrectSentencesAreLeftAlone() {
+        XCTAssertTrue(fixes("No estoy seguro de podernos hacer la actividad hoy.").isEmpty)
+        XCTAssertTrue(fixes("Estoy seguro de que viene.").isEmpty)
+        XCTAssertTrue(fixes("Estoy seguro del plan.").isEmpty)
+        XCTAssertTrue(fixes("Ella está segura en casa.").isEmpty)
+        // "lugar" ends in -ar but is a noun
+        XCTAssertTrue(fixes("Estoy seguro lugar.").isEmpty)
+    }
+}

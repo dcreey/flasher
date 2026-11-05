@@ -57,6 +57,27 @@ extension SpanishChecker {
             let fixed = String(found.dropLast(3)) + "de que"
             return ("“estar seguro” and “estar convencido” need “de” before “que”: “\(fixed)”.", fixed)
         },
+        // "estoy seguro podernos hacer": before an infinitive these adjectives take "de" ("estoy seguro de podernos hacer")
+        PhraseRule(pattern: bounded("(estoy|estás|está|estamos|están|estaba|estaban|estuve|estuvo|estaré|estaría)\\s+(seguro|segura|seguros|seguras|convencido|convencida|convencidos|convencidas)\\s+(\\p{L}*(?:ar|er|ir|ír)(?:me|te|se|nos|os|lo|la|los|las|le|les)*)"), kind: .grammar) { m, text in
+            let next = text.substring(with: m.range(at: 3))
+            // Strip attached pronouns ("podernos" → "poder") and check what is left really is a verb in the infinitive
+            var base = next.lowercased()
+            var stripped = true
+            while stripped {
+                stripped = false
+                for clitic in ["me", "te", "se", "nos", "os", "lo", "la", "los", "las", "le", "les"] where base.hasSuffix(clitic) && base.count > clitic.count + 2 {
+                    let shorter = String(base.dropLast(clitic.count))
+                    if Lexicon.shared.meaningsByWord[shorter]?.contains(where: { $0.partOfSpeech == .infinitive }) == true { base = shorter; stripped = false; break }
+                    if let last = shorter.last, "aeiouáéíó".contains(last) == false { base = shorter; stripped = true; break }
+                }
+            }
+            let accentless = base.folding(options: .diacriticInsensitive, locale: nil)
+            guard Lexicon.shared.meaningsByWord[base]?.contains(where: { $0.partOfSpeech == .infinitive }) == true
+                    || Lexicon.shared.meaningsByWord[accentless]?.contains(where: { $0.partOfSpeech == .infinitive }) == true else { return nil }
+            let verb = text.substring(with: m.range(at: 1)), adjective = text.substring(with: m.range(at: 2))
+            let fixed = "\(verb) \(adjective) de \(next)"
+            return ("“estar seguro” and “estar convencido” take “de” before an infinitive: “\(fixed)”.", fixed)
+        },
         // redundancies
         PhraseRule(pattern: bounded("(sub(?:o|es|e|imos|en|ir|ió|í|iste|ieron|iendo)|baj(?:o|as|a|amos|an|ar|ó|é|aste|aron|ando))\\s+para\\s+(arriba|abajo)"), kind: .style) { m, text in
             let verb = text.substring(with: m.range(at: 1))

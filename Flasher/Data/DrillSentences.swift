@@ -34,6 +34,9 @@ enum DrillSentences {
         }
     }
 
+    /// Verbs that have a command form on paper but are never used as one.
+    private static let noCommand: Set<String> = ["poder", "deber", "soler", "merecer", "caber", "convenir", "valer", "costar", "ocurrir", "suceder", "pertenecer", "parecer"]
+
     /// Subjects that fit this verb in this drill. Empty when the drill skips the verb or tense.
     static func subjects(for infinitive: String, _ drill: DrillTense) -> [DrillSubject] {
         guard let usage = VerbUsage.of(infinitive), !VerbProfiles.isRare(infinitive) else { return [] }
@@ -41,6 +44,8 @@ enum DrillSentences {
         if drill.kind == .acabarDe || drill.kind == .estarPor, usage.aspect == "s" { return [] }
         if drill.kind == .estarPor, usage.valency == "D" { return [] }
         if drill.tense == .imperative, drill.kind == .simple, "DWCS".contains(usage.valency) { return [] }
+        // Nobody says "¡Pueda ayudar!" or "¡Deba salir!"
+        if drill.tense == .imperative, noCommand.contains(infinitive.hasSuffix("se") ? String(infinitive.dropLast(2)) : infinitive) { return [] }
         if drill.kind != .simple, drill.tense == .imperative { return [] }
         return DrillSubjects.subjects(for: infinitive, tense: drill.tense)
     }
@@ -54,6 +59,71 @@ enum DrillSentences {
 
     /// A full sentence for any verb the drill supports. The complement and cue words come from the verb's usage.
     static func sentence(_ infinitive: String, _ drill: DrillTense, subject: DrillSubject) -> String? {
+        build(infinitive, drill, subject: subject)?.text
+    }
+
+    /// A drill card: the sentence with the verb phrase left blank, and the phrase that fills it.
+    struct Card: Hashable {
+        let infinitive: String
+        let drill: DrillTense
+        let subject: DrillSubject
+        /// "Ayer ella ______ la cena."
+        let prompt: String
+        /// The full sentence, shown after answering.
+        let sentence: String
+        /// What goes in the blank ("comió", "estaba comiendo", "me gusta").
+        let answer: String
+    }
+
+    static func card(_ infinitive: String, _ drill: DrillTense, subject: DrillSubject) -> Card? {
+        // Only the target sentence is searched, so a verb that also appears in the context sentence ("fue") is not blanked there
+        guard let built = build(infinitive, drill, subject: subject),
+              let range = built.target.range(of: built.verb, options: [.caseInsensitive, .diacriticInsensitive]) else { return nil }
+        var blanked = built.target
+        blanked.replaceSubrange(range, with: "______")
+        return Card(infinitive: infinitive, drill: drill, subject: subject,
+                    prompt: [built.before, blanked, built.after].filter { !$0.isEmpty }.joined(separator: " "),
+                    sentence: built.text, answer: built.verb)
+    }
+
+    /// A second sentence in a different tense that sets the scene or follows on, so the card reads like a little
+    /// piece of talk and the learner has to notice which tense the blank needs. It comes from a pool of 50 chosen for
+    /// the tense, and the ones that fit the kind of verb most closely are favoured (`DrillContexts.pick`).
+    private static func context(_ drill: DrillTense, seed: Int, category: DrillContexts.Category, subject: String, avoiding target: String) -> (before: String, after: String) {
+        func before(_ pool: String) -> (String, String) { (DrillContexts.pick(pool, for: category, seed: seed, subject: subject, avoiding: target), "") }
+        func after(_ pool: String) -> (String, String) { ("", DrillContexts.pick(pool, for: category, seed: seed, subject: subject, avoiding: target)) }
+        switch (drill.kind, drill.tense) {
+        case (.simple, .present): return after("timeContrasts")
+        case (.simple, .preterite): return before("imperfectScenes")
+        case (.simple, .imperfect): return after("nowContrasts")
+        case (.simple, .future), (.simple, .conditional), (.simple, .imperative): return before("presentStates")
+        case (.simple, .subjunctivePresent): return after("futureCloses")
+        case (.simple, .subjunctiveImperfect): return after("pastCloses")
+        case (.progressive, .present): return before("imperfectScenes")
+        case (.progressive, .preterite), (.progressive, .imperfect): return after("pastCloses")
+        case (.progressive, .future), (.progressive, .conditional), (.progressive, .subjunctiveImperfect): return before("presentStates")
+        case (.progressive, _): return after("futureCloses")
+        case (.perfect, .present): return after("timeContrasts")
+        case (.perfect, .imperfect): return after("imperfectCloses")
+        case (.perfect, .future): return before("presentStates")
+        case (.perfect, .subjunctivePresent): return after("futureCloses")
+        case (.perfect, _): return after("nowContrasts")
+        case (.acabarDe, .present): return after("pastCloses")
+        case (.acabarDe, _): return after("imperfectCloses")
+        case (.irA, .present): return after("timeContrasts")
+        case (.irA, _): return before("imperfectScenes")
+        case (.estarPor, .present): return after("futureCloses")
+        case (.estarPor, .imperfect): return after("pastCloses")
+        case (.estarPor, _): return before("imperfectScenes")
+        }
+    }
+
+    /// Whether the sentence is told in the past, so clauses after the verb are in the past too.
+    private static func toldInPast(_ drill: DrillTense) -> Bool {
+        [.preterite, .imperfect, .subjunctiveImperfect].contains(drill.tense)
+    }
+
+    private static func build(_ infinitive: String, _ drill: DrillTense, subject: DrillSubject) -> (before: String, target: String, after: String, verb: String, text: String)? {
         guard let usage = VerbUsage.of(infinitive), var verb = verbPhrase(infinitive, drill, person: subject.person), !verb.isEmpty else { return nil }
         let seed = stableSeed(infinitive, drill, subject.person)
         let profile = VerbProfiles.profile(infinitive)
@@ -70,7 +140,13 @@ enum DrillSentences {
             complement = subject.text
             shown = ""
         default:
-            complement = (people || animal) ? usage.complement(for: infinitive, seed: seed) : VerbUsage.thingComplement(pool: profile.pool, seed: seed)
+            let base = infinitive.hasSuffix("se") ? String(infinitive.dropLast(2)) : infinitive
+            if usage.valency == "C", let adjective = DrillAdjectives.complement(verb: base, subject: subject, seed: seed), !(people && base == "quedar" && seed % 2 == 0) {
+                // ser, estar, resultar, quedar: an adjective tagged for this kind of subject ("quedar" also takes a place, for people)
+                complement = adjective
+            } else {
+                complement = (people || animal) ? usage.complement(for: infinitive, seed: seed, past: toldInPast(drill)) : VerbUsage.thingComplement(pool: profile.pool, seed: seed)
+            }
         }
         let cue = usage.cue(drill.tense)
         let weather = usage.valency == "W"
@@ -116,8 +192,10 @@ enum DrillSentences {
         var text = parts.filter { !$0.isEmpty && $0 != "," }.joined(separator: " ")
         text = text.replacingOccurrences(of: "  ", with: " ").replacingOccurrences(of: " ,", with: ",").replacingOccurrences(of: ", ,", with: ",")
         if text.hasSuffix(",") { text.removeLast() }
-        if drill.tense == .imperative, drill.kind == .simple { return capitalized(text) }
-        return capitalized(text) + "."
+        let target = drill.tense == .imperative && drill.kind == .simple ? capitalized(text) : capitalized(text) + "."
+        let around = context(drill, seed: seed, category: DrillContexts.category(infinitive, usage: usage, subjectIsPerson: people || animal), subject: subject.text, avoiding: target)
+        let full = [around.before, target, around.after].filter { !$0.isEmpty }.joined(separator: " ")
+        return (around.before, target, around.after, verb, full)
     }
 
     private static func capitalized(_ text: String) -> String {

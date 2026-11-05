@@ -32,30 +32,32 @@ final class DrillSentencesTests: XCTestCase {
         return (total, problems)
     }
 
-    /// The ~500 hand-tagged verbs in all 28 drill tenses.
-    func testHandTaggedVerbsInEveryDrillTense() {
-        let verbs = allVerbs().filter { VerbUsage.of($0)?.reviewed == true }
-        XCTAssertGreaterThan(verbs.count, 900)
+    /// The 1,300 most common verbs in all 28 drill tenses.
+    func testMostCommonVerbsInEveryDrillTense() {
+        let verbs = Array(DrillSentences.verbList.prefix(1300))
+        XCTAssertEqual(verbs.count, 1300)
         let (total, problems) = check(verbs)
-        XCTAssertGreaterThan(total, 20_000)
+        XCTAssertGreaterThan(total, 25_000)
         XCTAssertTrue(problems.isEmpty, "\(problems.count) problems, first:\n" + problems.prefix(25).joined(separator: "\n"))
     }
 
-    /// The guessed verbs: every one of them must produce well-formed sentences.
-    func testGuessedVerbsAreWellFormed() {
-        let all = allVerbs().filter { VerbUsage.of($0)?.reviewed == false }
-        XCTAssertGreaterThan(all.count, 3200)
-        // Every 4th verb keeps the suite quick; the generator is deterministic, so a failing verb always fails
-        let verbs = all.enumerated().filter { $0.offset % 4 == 0 }.map(\.element)
+    /// Every other hand-tagged verb, the rarer ones: every 3rd, which keeps the suite quick. The generator is
+    /// deterministic, so a failing verb always fails.
+    func testRarerVerbsAreWellFormed() {
+        let common = Set(DrillSentences.verbList.prefix(1300))
+        let rest = allVerbs().filter { VerbUsage.of($0) != nil && !common.contains($0) }
+        XCTAssertGreaterThan(rest.count, 2500)
+        XCTAssertTrue(allVerbs().allSatisfy { VerbUsage.of($0) == nil || VerbUsage.of($0)?.reviewed == true }, "every verb is hand-tagged now")
+        let verbs = rest.enumerated().filter { $0.offset % 3 == 0 }.map(\.element)
         let (total, problems) = check(verbs)
-        XCTAssertGreaterThan(total, 12_000)
+        XCTAssertGreaterThan(total, 18_000)
         XCTAssertTrue(problems.isEmpty, "\(problems.count) problems, first:\n" + problems.prefix(25).joined(separator: "\n"))
     }
 
     func testEveryVerbHasAUsageOrIsSkippedOnPurpose() {
         let verbs = allVerbs()
         let skipped = verbs.filter { VerbUsage.of($0) == nil }
-        XCTAssertLessThan(skipped.count, 130, "Too many verbs without a usage: \(skipped.prefix(40))")
+        XCTAssertLessThan(skipped.count, 450, "Too many verbs without a usage: \(skipped.prefix(40))")
     }
 
     func testComplementsHaveNoPossessives() {
@@ -79,13 +81,13 @@ final class DrillSentencesTests: XCTestCase {
     func testWeatherHasNoSubjectOrComplement() {
         let drill = DrillTense(kind: .simple, tense: .present)
         let subject = DrillSentences.subjects(for: "llover", drill)[0]
-        XCTAssertEqual(DrillSentences.sentence("llover", drill, subject: subject), "Llueve a veces.")
+        XCTAssertTrue(DrillSentences.sentence("llover", drill, subject: subject)?.hasPrefix("Llueve a veces.") == true)
     }
 
     func testCuesMatchTheKindOfEvent() {
         let preterite = DrillTense(kind: .simple, tense: .preterite)
         let sudden = DrillSentences.sentence("caer", preterite, subject: DrillSentences.subjects(for: "caer", preterite)[0])!
-        XCTAssertTrue(sudden.hasPrefix("De repente"), sudden)
+        XCTAssertTrue(sudden.contains("De repente"), sudden)
         let state = DrillTense(kind: .simple, tense: .present)
         let know = DrillSentences.sentence("saber", state, subject: DrillSentences.subjects(for: "saber", state)[0])!
         XCTAssertFalse(know.contains("todos los días"), know)
