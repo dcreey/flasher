@@ -703,4 +703,11 @@ final class SubjunctiveCardsTests: XCTestCase {
             XCTAssertNil(TenseAlternatives.suggestions(for: text).first { $0.heading == "Tense match" || $0.id.hasPrefix("se-") || $0.id.hasPrefix("future-") }, text)
         }
     }
+
+    func testNounPhraseAfterTriggerIsNotTheVerb() {
+        // "luces" is also a form of lucir, but here it is the subject
+        XCTAssertTrue(SpanishChecker.check("Espero que las luces empiecen a funcionar.").filter { $0.kind != .tip }.isEmpty)
+        XCTAssertTrue(SpanishChecker.check("Quiero que mi hermana venga.").filter { $0.kind != .tip }.isEmpty)
+        XCTAssertTrue(SpanishChecker.check("Creo que los precios suben.").filter { $0.kind != .tip }.isEmpty)
+    }
 }

@@ -84,6 +84,9 @@ extension SpanishChecker {
 
     // MARK: - Mood after a trigger: "quiero que vienes"
 
+    /// A word that starts a noun phrase: the next word is the subject ("que las luces empiecen"), not the verb.
+    private static let nounPhraseStarters: Set<String> = ["el", "la", "los", "las", "un", "una", "unos", "unas", "mi", "mis", "tu", "tus", "su", "sus", "nuestro", "nuestra", "nuestros", "nuestras", "este", "esta", "estos", "estas", "ese", "esa", "esos", "esas"]
+
     private static let subjunctiveTriggers: [[String]] = [
         ["quiero", "que"], ["quieres", "que"], ["quiere", "que"], ["queremos", "que"], ["quieren", "que"],
         ["espero", "que"], ["esperas", "que"], ["esperamos", "que"], ["esperan", "que"],
@@ -108,8 +111,8 @@ extension SpanishChecker {
             // "no dudo que es verdad" takes the indicative: the negative flips "dudo que"
             if trigger == ["dudo", "que"], i > 0, tokens[i - 1].lower == "no", adjacent(i - 1) { continue }
             var last = i + trigger.count - 1
-            while last + 1 < tokens.count, adjacent(last), subjects.contains(tokens[last + 1].lower) || tokens[last + 1].lower == "no" || pronounWords.contains(tokens[last + 1].lower) { last += 1 }
-            guard last + 1 < tokens.count, adjacent(last), !tokens[last + 1].isCapitalized else { continue }
+            while last + 1 < tokens.count, adjacent(last), !nounPhraseStarters.contains(tokens[last + 1].lower), subjects.contains(tokens[last + 1].lower) || tokens[last + 1].lower == "no" || pronounWords.contains(tokens[last + 1].lower) { last += 1 }
+            guard last + 1 < tokens.count, adjacent(last), !tokens[last + 1].isCapitalized, !nounPhraseStarters.contains(tokens[last + 1].lower) else { continue }
             let verb = tokens[last + 1]
             let options = Clitics.formOptions(verb.lower)
             let tenses = Set(options.map(\.tense))
@@ -146,8 +149,8 @@ extension SpanishChecker {
             if trigger.first != "no", i > 0, tokens[i - 1].lower == "no", adjacent(i - 1) { continue }
             if isInQuestion(at: tokens[i].range.location, in: text) { continue }
             var last = i + trigger.count - 1
-            while last + 1 < tokens.count, adjacent(last), subjects.contains(tokens[last + 1].lower) || pronounWords.contains(tokens[last + 1].lower) { last += 1 }
-            guard last + 1 < tokens.count, adjacent(last), !tokens[last + 1].isCapitalized else { continue }
+            while last + 1 < tokens.count, adjacent(last), !nounPhraseStarters.contains(tokens[last + 1].lower), subjects.contains(tokens[last + 1].lower) || pronounWords.contains(tokens[last + 1].lower) { last += 1 }
+            guard last + 1 < tokens.count, adjacent(last), !tokens[last + 1].isCapitalized, !nounPhraseStarters.contains(tokens[last + 1].lower) else { continue }
             let verb = tokens[last + 1]
             let options = Clitics.formOptions(verb.lower).filter { $0.tense == .subjunctivePresent && !$0.infinitive.contains(" ") }
             // Only a form that can be nothing but a present subjunctive of one verb; "no dudo que" keeps its own wording
