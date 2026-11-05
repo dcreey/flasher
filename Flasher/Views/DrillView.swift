@@ -11,15 +11,11 @@ struct DrillView: View {
     @State private var moment: DrillMoment?
 
     private var shown: [DrillTense] { DrillTense.matching(mood: mood, time: time, moment: moment) }
-    private var filtering: Bool { mood != nil || time != nil || moment != nil }
 
     var body: some View {
         List {
-            Section {
-                Button { started = DrillSetup(mode: .mixed) } label: {
-                    row("Mixed practice", detail: "Queued and in-progress verbs first", systemImage: "shuffle")
-                }
-                if !progress.queued.isEmpty {
+            if !progress.queued.isEmpty {
+                Section {
                     Button { started = DrillSetup(mode: .queue) } label: {
                         row("Queue", detail: "\(progress.queued.count) \(progress.queued.count == 1 ? "verb" : "verbs") you added", systemImage: "arrow.up.to.line")
                     }
@@ -31,11 +27,11 @@ struct DrillView: View {
                 chips("Time", DrillTime.allCases, $time, \.title)
                 chips("Moment", DrillMoment.allCases, $moment, \.title)
                 summaryView
-                if filtering, !shown.isEmpty {
-                    Button { started = DrillSetup(mode: .set(shown)) } label: {
-                        row("Practice these", detail: "\(shown.count) \(shown.count == 1 ? "tense" : "tenses")", systemImage: "play.fill")
-                    }
+                // Always there: with nothing selected it practises every tense, mixed
+                Button { started = DrillSetup(mode: .set(shown)) } label: {
+                    row("Practice these", detail: shown.isEmpty ? "No tenses to practice" : shown.count == DrillTense.all.count ? "All \(shown.count) tenses" : "\(shown.count) \(shown.count == 1 ? "tense" : "tenses")", systemImage: "play.fill")
                 }
+                .disabled(shown.isEmpty)
             }
 
             ForEach(DrillMood.allCases) { group in
@@ -121,16 +117,15 @@ struct DrillView: View {
 
 /// What a round is made of.
 struct DrillSetup: Identifiable {
-    enum Mode { case tense(DrillTense), mixed, queue, set([DrillTense]) }
+    enum Mode { case tense(DrillTense), queue, set([DrillTense]) }
     let id = UUID()
     let mode: Mode
 
     var title: String {
         switch mode {
         case .tense(let drill): drill.title
-        case .mixed: "Mixed practice"
         case .queue: "Queue"
-        case .set: "Selected tenses"
+        case .set(let drills): drills.count == DrillTense.all.count ? "Mixed practice" : "Selected tenses"
         }
     }
 }
@@ -185,7 +180,6 @@ struct DrillSessionView: View {
         DrillProgress.shared.beginRound()
         switch setup.mode {
         case .tense(let drill): deck = DrillDeck.make(drill, count: Self.roundSize)
-        case .mixed: deck = DrillDeck.makeMixed(count: Self.roundSize)
         case .queue: deck = DrillDeck.makeQueued(count: Self.roundSize)
         case .set(let drills): deck = drills.count == 1 ? DrillDeck.make(drills[0], count: Self.roundSize) : DrillDeck.makeMixed(count: Self.roundSize, drills: drills)
         }
