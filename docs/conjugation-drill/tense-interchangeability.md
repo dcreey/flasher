@@ -10,9 +10,9 @@ Confidence: **R** = backed by the sources below. **G** = general grammar knowled
 
 | Card (target tense and cue) | Also fits | Condition | Status |
 |---|---|---|---|
-| Pretérito + "ayer" | Presente perfecto | A recent past. In Mexico the simple past is the usual choice (about 80–88% of past-tense uses), the compound is also used. | R, and confirmed by a Mexican speaker |
+| Pretérito + "ayer" | Pretérito perfecto | A recent past. In Mexico the simple past is the usual choice (about 80–88% of past-tense uses), the compound is also used. | R, and confirmed by a Mexican speaker |
 | Pretérito + "de repente" | nothing | A sudden event is one finished moment. | G |
-| Presente perfecto + "hoy" | Pretérito | "Hoy" is unfinished. In American Spanish both can refer to today, and in Mexico the preterite is more common. | R |
+| Pretérito perfecto + "hoy" | Pretérito | "Hoy" is unfinished. In American Spanish both can refer to today, and in Mexico the preterite is more common. | R |
 | Imperfecto + "antes… cada semana" | nothing | Habit in the past. | G |
 | Futuro + "mañana" | Ir a (ahora), Presente | In everyday American speech ir a is the preferred form; the future is for writing and guesses; the present works with a time word. | R |
 | Futuro + "algún día" | Ir a (ahora) | Distant time: the plain present does not fit. | R / G |
@@ -20,6 +20,9 @@ Confidence: **R** = backed by the sources below. **G** = general grammar knowled
 | Condicional + "si hubiera tiempo" | Imperfecto, *colloquial* | The imperfect often replaces the conditional in the result part, but it is not standard. | R (a course handout, not a normative source) |
 | Condicional perfecto + "si hubiera habido tiempo" | Pluscuamperfecto de subjuntivo | The result part of an unreal past condition accepts both "habría" and "hubiera" (never "si habría"). | R |
 | Pluscuamperfecto + "cuando llegué, ya" | **nothing** | Not interchangeable with the preterite: it changes the sense (a before/after becomes a sequence). | R |
+| Pretérito perfecto + "todavía no" | Pretérito | Still open up to now. In Mexico the preterite is also common: "todavía no lo compró". | R (same Mexican-usage sources) |
+| Pluscuamperfecto + "todavía no" | **nothing** | Up to that past moment it had not happened: not interchangeable with the preterite. | R |
+| Pretérito perfecto de subjuntivo + "no creo que … todavía" | nothing | Doubt triggers the subjunctive; "todavía" is up to now. | G |
 | Presente progresivo + "ahora" | Presente | The simple present can say what is happening now; the progressive stresses that it is in progress. | R |
 | Pretérito progresivo + "toda la tarde" | Pretérito | A limited stretch of time takes the preterite. Not the imperfect. | R |
 | Imperfecto progresivo + "cuando llamaste" | Imperfecto | The simple imperfect says it was going on too. | G |
@@ -33,6 +36,12 @@ Confidence: **R** = backed by the sources below. **G** = general grammar knowled
 | Acabar de (antes) | nothing | "Acababa de" stresses immediacy, "había + participio" does not. | R |
 | Subjuntivo imperfecto, same tense | the **-se form** | "-ra" and "-se" are interchangeable, except when "-ra" stands for the conditional. Accepted as the same answer. | R |
 | Subjuntivo presente after "espero que" / "es importante que" | nothing | The trigger requires the subjunctive. | G |
+
+## The moment of the perfect
+
+The perfect looks back from a moment, and it covers two readings: done by then ("ya lo ha hecho") and **still open up to then**
+("todavía no lo ha hecho", "ha vivido aquí desde 2010"). So in the selector the perfect tenses count as both **Before** and **During**
+(`DrillTense.moments`). "Acabar de" is only Before, and "ir a" and "estar por" are only After.
 
 ## Rules the code follows
 
@@ -66,3 +75,26 @@ Confidence: **R** = backed by the sources below. **G** = general grammar knowled
 - Present progressive vs simple present: [Happy Languages](https://www.happylanguages.co.uk/presente-and-estar-mas-gerundio/) and learner sources; no normative source found.
 
 The searches did not reach the RAE's Nueva gramática text itself, so every "R" above is from secondary sources that cite it.
+
+
+## Second audit: one tense, several moments
+
+A tense is not tied to one moment. `Flasher/Data/DrillReadings.swift` now lists every reading of each of the 28 tenses
+(time it is anchored to, where the action sits, example, note); the first is the main one. The Time and Moment filters, the
+selector summary and the "why this tense" card all use these readings.
+
+| Tense | Readings beyond the main one |
+|---|---|
+| Presente | future with a time word (mañana viajo); still true since (vivo aquí desde 2010); historical present |
+| Imperfecto | future of the past in reported speech (dijo que venía), informal |
+| Futuro | guess about now (estará durmiendo) |
+| Condicional | future of the past (dijo que vendría); guess about the past (serían las ocho) |
+| Subj. presente | present and future (cuando llegue) |
+| Subj. imperfecto | past, and unreal present or future (si tuviera, ojalá viniera mañana) |
+| Imperativo | now, or later (mañana llámame) |
+| Perfect tenses | done by the moment, or still open up to it (todavía no); futuro perfecto and condicional perfecto also guess/future of the past |
+| Subj. presente perfecto | done before a future moment (cuando hayas terminado) |
+
+Sources: RAE (Gramática, presente/futuro compuesto de subjuntivo), Castellano Actual (udep.edu.pe), Gutiérrez Araus on the
+imperfect, Yepes on future and conditional, SpanishDict/Lawless Spanish on the progressive. The pluperfect to preterite
+swap stays out of the alternates: it is only acceptable when context fixes the order.

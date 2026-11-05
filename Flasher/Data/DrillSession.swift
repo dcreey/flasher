@@ -27,12 +27,12 @@ extension DrillTense {
             }
         case .perfect:
             switch tense {
-            case .present: "Presente perfecto"
+            case .present: "Pretérito perfecto"
             case .preterite: "Pretérito anterior"
             case .imperfect: "Pluscuamperfecto"
             case .future: "Futuro perfecto"
             case .conditional: "Condicional perfecto"
-            case .subjunctivePresent: "Presente perfecto de subjuntivo"
+            case .subjunctivePresent: "Pretérito perfecto de subjuntivo"
             default: "Pluscuamperfecto de subjuntivo"
             }
         case .acabarDe: tense == .present ? "Acabar de (ahora)" : "Acabar de (antes)"
@@ -315,7 +315,7 @@ enum DrillDeck {
     /// Mixed practice: queued verbs, then ones in progress, then one new verb from each of several tenses.
     /// `drills` limits the tenses (the ones left showing after the selector's filters); queued and in-progress verbs
     /// only come up in those tenses too.
-    static func makeMixed(count: Int = 10, drills: [DrillTense] = DrillTense.all, progress: DrillProgress = .shared) -> [DrillSentences.Card] {
+    static func makeMixed(count: Int = 10, drills: [DrillTense] = DrillTense.available, progress: DrillProgress = .shared) -> [DrillSentences.Card] {
         var deck = makeQueued(count: count, progress: progress).filter { drills.contains($0.drill) }
         var used = Set(deck.map(\.infinitive))
         let started = progress.items.compactMap { key, value -> (String, DrillTense, Date)? in

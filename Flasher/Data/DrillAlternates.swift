@@ -22,6 +22,8 @@ enum DrillAlternates {
         // Finished past and "ayer": the simple past is the usual choice in Mexico, and the present perfect is heard too
         case "simple preterite" where has(" ayer "):
             found = [Option(drill: drill(.perfect, .present), why: "In Mexico the preterite is the usual choice, about 80 to 90 percent of past-tense uses in studies, but the present perfect is also used, even for a recent past like “ayer”.")]
+        case "perfect present" where has("todavía no"):
+            found = [Option(drill: drill(.simple, .preterite), why: "In Mexico the preterite is also heard here: “todavía no lo compró”. The present perfect says it is still open up to now.")]
         case "perfect present" where has(" hoy "):
             found = [Option(drill: drill(.simple, .preterite), why: "“Hoy” is not over yet, so the present perfect fits. In Mexico the preterite is actually the more common choice here.")]
         // Talking about what comes next: ir a, the future and the present overlap

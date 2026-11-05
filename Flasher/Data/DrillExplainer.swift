@@ -92,12 +92,14 @@ enum DrillExplainer {
         "perfect present": Entry(
             short: "something done in a period that is not over, or that still matters",
             rule: "He/has/ha + participle looks back from now at something already done.",
-            markers: [(" hoy ", "“Hoy” is a period that has not ended yet, so the present perfect fits. In Mexico the preterite is actually the more common choice here.")],
+            markers: [(" hoy ", "“Hoy” is a period that has not ended yet, so the present perfect fits. In Mexico the preterite is actually the more common choice here."),
+                      ("todavía no", "“Todavía no” says it has not happened up to now and is still open, so the present perfect fits. In Mexico the preterite is also common: “todavía no lo compró”.")],
             context: "The other sentence is about a finished time (yesterday, last year), which would take the preterite."),
         "perfect imperfect": Entry(
             short: "something already done before another past moment",
             rule: "Había + participle (pluscuamperfecto) is the past of the past: done before another past moment.",
-            markers: [(" ya ", "“Cuando llegué” is the past moment, and “ya” (already) says this was done before it.")],
+            markers: [(" ya ", "“Cuando llegué” is the past moment, and “ya” (already) says this was done before it."),
+                      ("todavía no", "“Todavía no” says that up to that past moment it had not happened yet: había + participle.")],
             context: "The other sentence describes the scene at that moment, in the imperfect."),
         "perfect future": Entry(
             short: "something that will be finished before a future moment",
@@ -112,7 +114,8 @@ enum DrillExplainer {
         "perfect subjunctivePresent": Entry(
             short: "a hope about something that should already be done",
             rule: "Haya + participle: a wish or feeling about something that should already have happened.",
-            markers: [("espero que", "“Espero que” is a wish, and the thing hoped for should already be done: haya + participle.")],
+            markers: [("espero que", "“Espero que” is a wish, and the thing hoped for should already be done: haya + participle."),
+                      ("no creo que", "“No creo que” (I don’t think that) expresses doubt, which calls for the subjunctive, and “todavía” means up to now: haya + participle.")],
             context: "The other sentence reacts to it or says what follows."),
         "perfect subjunctiveImperfect": Entry(
             short: "a wish about the past (“if only it had…”)",
@@ -205,7 +208,22 @@ enum DrillExplainer {
 
     /// The line for the moment: where the action sits compared with the anchor time.
     static func momentLine(_ drill: DrillTense) -> String {
+        let base = mainMomentLine(drill)
+        // Name the other things the tense can say, so "why this tense" is never the whole story
+        let others = drill.readings.dropFirst().filter(\.standard).prefix(2).map { "\($0.note) (\($0.example))" }
+        return others.isEmpty ? base : base + " It can also say: " + others.joined(separator: " ")
+    }
+
+    private static func mainMomentLine(_ drill: DrillTense) -> String {
         if drill.mood == .conditional { return "Imagined: what would happen, not what does." }
+        // The perfect looks back from the moment, and covers what is still open up to it ("todavía no")
+        if drill.kind == .perfect {
+            switch drill.time {
+            case .past: return "Before a moment in the past: it was already done by then, or it still had not happened up to then."
+            case .present: return "Before now: it is done and still matters, or it has not happened yet up to now (todavía no)."
+            case .future: return "Before a moment in the future: it will be done by then."
+            }
+        }
         switch (drill.moment, drill.time) {
         case (.before, .past): return "Before a moment in the past: it was already done by then."
         case (.before, .present): return "Before now: it is done and still matters."

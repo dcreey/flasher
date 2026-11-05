@@ -104,9 +104,14 @@ enum DrillSentences {
     /// A second sentence in a different tense that sets the scene or follows on, so the card reads like a little
     /// piece of talk and the learner has to notice which tense the blank needs. It comes from a pool of 50 chosen for
     /// the tense, and the ones that fit the kind of verb most closely are favoured (`DrillContexts.pick`).
-    private static func context(_ drill: DrillTense, seed: Int, category: DrillContexts.Category, subject: String, avoiding target: String) -> (before: String, after: String) {
-        func before(_ pool: String) -> (String, String) { (DrillContexts.pick(pool, for: category, seed: seed, subject: subject, avoiding: target), "") }
-        func after(_ pool: String) -> (String, String) { ("", DrillContexts.pick(pool, for: category, seed: seed, subject: subject, avoiding: target)) }
+    private static func context(_ drill: DrillTense, seed: Int, category: DrillContexts.Category, subject: String, avoiding target: String, related: DrillRelatedContext.Source?, infinitive: String) -> (before: String, after: String) {
+        // A sentence about the object of the first sentence when it has one, otherwise one of the general pools
+        func line(_ pool: String) -> String {
+            if let related, let text = DrillRelatedContext.sentence(pool: pool, source: related, seed: seed, infinitive: infinitive, target: target) { return text }
+            return DrillContexts.pick(pool, for: category, seed: seed, subject: subject, avoiding: target)
+        }
+        func before(_ pool: String) -> (String, String) { (line(pool), "") }
+        func after(_ pool: String) -> (String, String) { ("", line(pool)) }
         switch (drill.kind, drill.tense) {
         case (.simple, .present): return after("timeContrasts")
         case (.simple, .preterite): return before("imperfectScenes")
@@ -130,6 +135,32 @@ enum DrillSentences {
         case (.estarPor, .present): return after("futureCloses")
         case (.estarPor, .imperfect): return after("pastCloses")
         case (.estarPor, _): return before("imperfectScenes")
+        }
+    }
+
+    /// What the second sentence can be about: the object of the verb, where it goes, who it is done with, the thing that
+    /// is its subject, what is said, or what is wanted. nil when the sentence has none of these.
+    private static func relatedSource(_ usage: VerbUsage, complement: String, subject: DrillSubject, people: Bool) -> DrillRelatedContext.Source? {
+        func thing(_ text: String, _ kind: Character?) -> DrillRelatedContext.Source? {
+            guard let kind, let found = DrillRelatedContext.thing(from: text, kind: kind) else { return nil }
+            return .thing(found)
+        }
+        // A thing that is the subject ("La película empieza", "Me gusta el libro"): the second sentence is about it
+        func aboutTheSubject() -> DrillRelatedContext.Source? {
+            let noun = subject.text.split(separator: " ").last.map(String.init) ?? subject.text
+            return thing(subject.text, DrillRelatedContext.kind(forNoun: noun))
+        }
+        if usage.valency == "D" { return aboutTheSubject() }
+        if !people { return aboutTheSubject() }
+        switch usage.valency {
+        case "T": return thing(complement, usage.object)
+        case "M": return thing(complement, "l")
+        case "P":
+            let key = (usage.preposition ?? "") + (usage.object == "-" ? "-" : String(usage.object))
+            return thing(complement, DrillRelatedContext.kind(forPreposition: key))
+        case "S": return complement.isEmpty ? nil : .clause(complement)
+        case "X": return complement.split(separator: " ").last.map { .action(String($0)) }
+        default: return nil
         }
     }
 
@@ -170,6 +201,8 @@ enum DrillSentences {
             if sameSubject { return past ? "Era importante que" : "Es importante que" }
             return past ? "Quería que" : "Espero que"
         }
+        // About a third of the perfect cards are about something that has not happened yet
+        let still = (seed / 7) % 3 == 0
         let withChange = weather ? "Si hubiera nubes," : "Con ese cambio,"
         let ifClause = weather ? "" : "si hubiera tiempo"
         let ifPerfect = weather ? "" : "si hubiera habido tiempo"
@@ -188,10 +221,12 @@ enum DrillSentences {
         case (.progressive, .imperfect): parts = ["Cuando llamaste,", shown, verb, complement]
         case (.progressive, .future): parts = ["Mañana a esta hora", shown, verb, complement]
         case (.progressive, .conditional): parts = people ? [shown, verb, complement, "ahora", ifClause] : [withChange, shown, verb, complement]
-        case (.progressive, .subjunctivePresent), (.perfect, .subjunctivePresent): parts = [trigger(past: false), shown, verb, complement]
+        case (.progressive, .subjunctivePresent): parts = [trigger(past: false), shown, verb, complement]
+        case (.perfect, .subjunctivePresent): parts = still && !sameSubject ? ["No creo que", shown, verb, complement, "todavía"] : [trigger(past: false), shown, verb, complement]
         case (.progressive, .subjunctiveImperfect): parts = ["Si", shown, verb, complement, "ahora, se notaría"]
-        case (.perfect, .present): parts = ["Hoy", shown, verb, complement]
-        case (.perfect, .imperfect): parts = ["Cuando llegué, ya", shown, verb, complement]
+        // The perfect also says it is still open up to the moment: "Él todavía no ha comprado el paquete"
+        case (.perfect, .present): parts = still ? [shown, "todavía no", verb, complement] : ["Hoy", shown, verb, complement]
+        case (.perfect, .imperfect): parts = still ? ["Cuando llegué,", shown, "todavía no", verb, complement] : ["Cuando llegué, ya", shown, verb, complement]
         case (.perfect, .future): parts = ["Para el viernes", shown, verb, complement]
         case (.perfect, .conditional): parts = people ? [shown, verb, complement, ifPerfect] : [withChange, shown, verb, complement]
         case (.perfect, .subjunctiveImperfect): parts = ["Ojalá", shown, verb, complement]
@@ -208,7 +243,8 @@ enum DrillSentences {
         text = text.replacingOccurrences(of: "  ", with: " ").replacingOccurrences(of: " ,", with: ",").replacingOccurrences(of: ", ,", with: ",")
         if text.hasSuffix(",") { text.removeLast() }
         let target = drill.tense == .imperative && drill.kind == .simple ? capitalized(text) : capitalized(text) + "."
-        let around = context(drill, seed: seed, category: DrillContexts.category(infinitive, usage: usage, subjectIsPerson: people || animal), subject: subject.text, avoiding: target)
+        let related = relatedSource(usage, complement: complement, subject: subject, people: people || animal)
+        let around = context(drill, seed: seed, category: DrillContexts.category(infinitive, usage: usage, subjectIsPerson: people || animal), subject: subject.text, avoiding: target, related: related, infinitive: infinitive)
         let full = [around.before, target, around.after].filter { !$0.isEmpty }.joined(separator: " ")
         return (around.before, target, around.after, verb, full)
     }

@@ -153,7 +153,7 @@ enum DrillContexts {
     ]
 
     /// Time words that would repeat if the target sentence already has them ("Mañana vamos a… Mañana la puerta…").
-    private static let timeWords = ["ayer", "mañana", "hoy", "ahora", "antes", "luego", "después"]
+    private static let timeWords = ["ayer", "mañana", "hoy", "ahora", "antes", "luego", "después", "todavía"]
 
     /// A sentence from the pool, for a verb of this category and a target sentence.
     /// - Sentences that clash with the verb are never used, and neither are ones that repeat a time word of the target.

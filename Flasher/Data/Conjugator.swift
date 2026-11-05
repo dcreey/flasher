@@ -267,7 +267,7 @@ enum Conjugator {
         Entry("venir", true, Irr(yoStem: "veng", pretStem: "vin", futStem: "vendr", tu: "ven")),
         Entry("poner", true, Irr(yoStem: "pong", pretStem: "pus", futStem: "pondr", participle: "puesto", tu: "pon")),
         Entry("hacer", true, Irr(yoStem: "hag", pretStem: "hic", futStem: "har", participle: "hecho", tu: "haz")),
-        Entry("decir", true, Irr(yoStem: "dig", pretStem: "dij", participle: "dicho", tu: "di")),
+        Entry("decir", true, Irr(yoStem: "dig", pretStem: "dij", futStem: "dir", participle: "dicho", tu: "di")),
         Entry("traer", true, Irr(yoStem: "traig", pretStem: "traj")),
         Entry("salir", true, Irr(yoStem: "salg", futStem: "saldr", tu: "sal")),
         Entry("valer", true, Irr(yoStem: "valg", futStem: "valdr")),
@@ -384,6 +384,8 @@ enum Conjugator {
             boot = Conjugator.lookup(Conjugator.boots, lower)?.value ?? .none
             participleOverride = Conjugator.lookup(Conjugator.participles, lower).map { $0.prefix + $0.value }
             if ["bendecir", "maldecir"].contains(lower) { self.irr.participle = nil }
+            // Only decir, desdecir and the like have "diré"; predecir, contradecir, bendecir and maldecir have a regular future ("predeciré")
+            if ["predecir", "contradecir", "bendecir", "maldecir"].contains(lower) { self.irr.futStem = nil }
             let s = stem
             let uarStressed = lower.hasSuffix("uar") && !s.hasSuffix("gu") && !s.hasSuffix("qu")
             stressed = Conjugator.stressedStemVowel[lower] ?? (uarStressed ? "u" : nil)

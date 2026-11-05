@@ -2,6 +2,8 @@ import SwiftUI
 
 enum AppSettings {
     static let showVosotrosKey = "show_vosotros"
+    /// Whether the drill includes the progressive (estar + -ando) tenses.
+    static let drillProgressiveKey = "drill_progressive"
     static let showSpanishChecksKey = "show_spanish_checks"
     static let appearanceKey = "appearance"
     static let conjugationDisplayKey = "conjugation_display"
@@ -71,6 +73,7 @@ final class PerCountry<Value> {
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @AppStorage(AppSettings.showVosotrosKey) private var showVosotros = true
+    @AppStorage(AppSettings.drillProgressiveKey) private var drillProgressive = true
     @AppStorage(AppSettings.showSpanishChecksKey) private var showSpanishChecks = true
     @AppStorage(AppSettings.appearanceKey) private var appearance = AppSettings.Appearance.system.rawValue
     @AppStorage(AppSettings.conjugationDisplayKey) private var conjugationDisplay = AppSettings.ConjugationDisplay.endings.rawValue
@@ -106,6 +109,14 @@ struct SettingsView: View {
                     Text("Translate")
                 } footer: {
                     Text("Points out likely mistakes in Spanish text: pronoun order, accents, agreement, verb forms and more.")
+                }
+
+                Section {
+                    Toggle("Progressive tenses", isOn: $drillProgressive)
+                } header: {
+                    Text("Drill")
+                } footer: {
+                    Text("Turn off to leave out the progressive tenses (estoy comiendo, estaba comiendo…) from the tense list and from mixed practice.")
                 }
 
                 Section {

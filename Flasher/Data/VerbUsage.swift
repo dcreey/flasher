@@ -86,6 +86,11 @@ struct VerbUsage: Hashable {
         "b": ["la cuenta", "el alquiler", "la comida"],
     ]
 
+    /// The nouns of the objects a kind of verb takes: "libro", "maestra" (used by the tests to find the object in a sentence).
+    static func objectNouns(_ kind: Character) -> [String] {
+        (objectBanks[kind] ?? []).map { $0.split(separator: " ").last.map(String.init) ?? $0 }
+    }
+
     private static let infinitives = ["comer", "salir", "trabajar", "ayudar", "viajar", "estudiar"]
 
     private static let prepositionBanks: [String: [String]] = [

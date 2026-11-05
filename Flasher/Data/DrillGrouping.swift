@@ -44,7 +44,7 @@ enum DrillMoment: String, CaseIterable, Identifiable {
     var blurb: String {
         switch self {
         case .before: "Already done by that moment"
-        case .during: "Happening at that moment"
+        case .during: "Happening at that moment, or still open up to it (todavía no ha llegado)"
         case .after: "Still to come from that moment"
         }
     }
@@ -64,25 +64,12 @@ extension DrillTense {
         }
     }
 
-    /// The moment the sentence is anchored to. For the phrases it is the moment of the helper verb ("acabo de" now, "acababa de" then).
-    var time: DrillTime {
-        switch tense {
-        case .present, .subjunctivePresent, .imperative: return .present
-        case .preterite, .imperfect, .subjunctiveImperfect: return .past
-        case .future: return .future
-        // "I would eat" imagines now or later; "I would have eaten" imagines the past
-        case .conditional: return kind == .perfect ? .past : .present
-        }
-    }
+    /// The moment the tense is mainly about: its first reading. The phrases are anchored at the helper verb ("acabo de" now,
+    /// "acababa de" then).
+    var time: DrillTime { readings.first?.time ?? .present }
 
-    /// Where the action sits compared with the anchor moment.
-    var moment: DrillMoment {
-        switch kind {
-        case .simple, .progressive: return .during
-        case .perfect, .acabarDe: return .before
-        case .irA, .estarPor: return .after
-        }
-    }
+    /// Where the action sits compared with that moment, in the tense's main reading.
+    var moment: DrillMoment { readings.first?.moment ?? .during }
 
     /// The drill for the table and tense a word page is showing: the simple table gives the simple tense, the "-ing"
     /// table the progressive one, the perfect table the perfect one. nil when the drill has no such tense.
@@ -96,10 +83,16 @@ extension DrillTense {
         return all.contains(drill) ? drill : nil
     }
 
+    /// The tenses the learner has switched on in Settings: all of them, or all but the progressive ones.
+    static var available: [DrillTense] {
+        let progressive = UserDefaults.standard.object(forKey: AppSettings.drillProgressiveKey) as? Bool ?? true
+        return progressive ? all : all.filter { $0.kind != .progressive }
+    }
+
     /// The tenses that match every filter that is set.
     static func matching(mood: DrillMood?, time: DrillTime?, moment: DrillMoment?) -> [DrillTense] {
-        all.filter { drill in
-            (mood == nil || drill.mood == mood) && (time == nil || drill.time == time) && (moment == nil || drill.moment == moment)
+        available.filter { drill in
+            (mood == nil || drill.mood == mood) && drill.fits(time: time, moment: moment)
         }
     }
 }
@@ -130,10 +123,32 @@ struct DrillSelectionSummary: Equatable {
             return DrillSelectionSummary(headline: "\(chosen.joined(separator: " · ")): no tense fits", lines: [],
                                          note: note.isEmpty ? nil : note, hint: emptyHint(mood: mood, time: time, moment: moment))
         }
-        var lines = matches.prefix(limit).map { "\($0.title) · \($0.example)" }
+        var lines = matches.prefix(limit).map { drill -> String in
+            // A tense listed for a reading that is not its main one says which: "Presente · come (also: Mañana viajo.)"
+            var line = "\(drill.title) · \(drill.example)"
+            if (time != nil && drill.time != time) || (moment != nil && drill.moment != moment),
+               let other = drill.reading(time: time, moment: moment) { line += " (also: \(other.example))" }
+            return line
+        }
         if matches.count > limit { lines.append("and \(matches.count - limit) more below") }
         return DrillSelectionSummary(headline: "\(chosen.joined(separator: " · ")): \(matches.count) \(matches.count == 1 ? "tense" : "tenses")",
-                                     lines: lines, note: note.isEmpty ? nil : note, hint: nil)
+                                     lines: lines, note: note.isEmpty ? nil : note, hint: hiddenHint(mood: mood, time: time, moment: moment, shown: matches))
+    }
+
+    /// The tenses the Moment filter is hiding: they fit the mood and the time but sit at another moment. "Clear Moment to
+    /// add: Presente de subjuntivo (During)", so a tense is never missing without saying why.
+    private static func hiddenHint(mood: DrillMood?, time: DrillTime?, moment: DrillMoment?, shown: [DrillTense]) -> String? {
+        var parts: [String] = []
+        func add(_ label: String, _ others: [DrillTense], _ value: (DrillTense) -> String) {
+            let hidden = others.filter { !shown.contains($0) }
+            guard !hidden.isEmpty else { return }
+            let names = hidden.prefix(4).map { "\($0.title) (\(value($0)))" }.joined(separator: ", ")
+            parts.append("Clear \(label) to add: \(names)\(hidden.count > 4 ? " and \(hidden.count - 4) more" : "")")
+        }
+        // Only the moment is worth explaining: a tense that fits the mood and the time but sits at another moment
+        // (the perfect under Before, the simple tenses under During) is the one people look for and don't find
+        if moment != nil, mood != nil || time != nil { add("Moment", DrillTense.matching(mood: mood, time: time, moment: nil)) { drill in DrillMoment.allCases.filter { drill.fits(time: time, moment: $0) }.map(\.title).joined(separator: ", ") } }
+        return parts.isEmpty ? nil : parts.joined(separator: ". ") + "."
     }
 
     /// For an empty selection, what each filter could be if the others stayed as they are.
@@ -144,13 +159,43 @@ struct DrillSelectionSummary: Equatable {
             if !options.isEmpty { parts.append("Mood could be " + DrillMood.allCases.filter(options.contains).map(\.title).joined(separator: " or ")) }
         }
         if time != nil {
-            let options = Set(DrillTense.matching(mood: mood, time: nil, moment: moment).map(\.time))
+            let options = Set(DrillTense.matching(mood: mood, time: nil, moment: moment).flatMap(\.times))
             if !options.isEmpty { parts.append("Time could be " + DrillTime.allCases.filter(options.contains).map(\.title).joined(separator: " or ")) }
         }
         if moment != nil {
-            let options = Set(DrillTense.matching(mood: mood, time: time, moment: nil).map(\.moment))
+            let options = Set(DrillTense.matching(mood: mood, time: time, moment: nil).flatMap(\.moments))
             if !options.isEmpty { parts.append("Moment could be " + DrillMoment.allCases.filter(options.contains).map(\.title).joined(separator: " or ")) }
         }
         return parts.isEmpty ? "Clear a filter to see more." : parts.joined(separator: ". ") + "."
     }
+}
+
+/// The tenses the learner has toggled on to study. Saved as text so it survives launches.
+struct DrillSelection: Equatable {
+    private(set) var keys: Set<String>
+
+    init(raw: String) {
+        keys = Set(raw.split(separator: ",").map(String.init).filter { key in DrillTense.all.contains { $0.key == key } })
+    }
+
+    var raw: String { keys.sorted().joined(separator: ",") }
+    var isEmpty: Bool { keys.isEmpty }
+    func contains(_ drill: DrillTense) -> Bool { keys.contains(drill.key) }
+
+    /// The selected tenses in the order the drill lists them.
+    var tenses: [DrillTense] { DrillTense.available.filter(contains) }
+
+    mutating func toggle(_ drill: DrillTense) {
+        if keys.contains(drill.key) { keys.remove(drill.key) } else { keys.insert(drill.key) }
+    }
+
+    mutating func add(_ drills: [DrillTense]) { drills.forEach { keys.insert($0.key) } }
+    mutating func remove(_ drills: [DrillTense]) { drills.forEach { keys.remove($0.key) } }
+    mutating func clear() { keys.removeAll() }
+
+    /// What "Practice" practises: the selected tenses, or whatever the filters show when nothing is selected.
+    func practiceSet(shown: [DrillTense]) -> [DrillTense] { isEmpty ? shown : tenses }
+
+    /// How many selected tenses the filters are hiding right now.
+    func hiddenCount(shown: [DrillTense]) -> Int { tenses.filter { !shown.contains($0) }.count }
 }

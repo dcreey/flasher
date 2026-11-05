@@ -10,8 +10,16 @@ struct DrillView: View {
     @State private var mood: DrillMood?
     @State private var time: DrillTime?
     @State private var moment: DrillMoment?
+    /// The tenses toggled on to study, kept between launches.
+    @AppStorage("drillSelectedTenses") private var selectedRaw = ""
 
     private var shown: [DrillTense] { DrillTense.matching(mood: mood, time: time, moment: moment) }
+    private var selection: DrillSelection { DrillSelection(raw: selectedRaw) }
+    private func change(_ edit: (inout DrillSelection) -> Void) {
+        var next = selection
+        edit(&next)
+        selectedRaw = next.raw
+    }
 
     var body: some View {
         List {
@@ -28,11 +36,8 @@ struct DrillView: View {
                 chips("Time", DrillTime.allCases, $time, \.title)
                 chips("Moment", DrillMoment.allCases, $moment, \.title)
                 summaryView
-                // Always there: with nothing selected it practises every tense, mixed
-                Button { started = DrillSetup(mode: .set(shown)) } label: {
-                    row("Practice these", detail: shown.isEmpty ? "No tenses to practice" : shown.count == DrillTense.all.count ? "All \(shown.count) tenses" : "\(shown.count) \(shown.count == 1 ? "tense" : "tenses")", systemImage: "play.fill")
-                }
-                .disabled(shown.isEmpty)
+                practiceRow
+                selectionButtons
             }
 
             ForEach(DrillMood.allCases) { group in
@@ -40,8 +45,12 @@ struct DrillView: View {
                 if !items.isEmpty {
                     Section {
                         ForEach(items, id: \.self) { drill in
-                            Button { started = DrillSetup(mode: .tense(drill)) } label: {
-                                row(drill.title, detail: "Example: \(drill.example)", trailing: mastered(drill))
+                            Button { change { $0.toggle(drill) } } label: {
+                                row(drill.title, detail: "Example: \(drill.example)", trailing: mastered(drill), selected: selection.contains(drill))
+                            }
+                            .accessibilityAddTraits(selection.contains(drill) ? .isSelected : [])
+                            .contextMenu {
+                                Button { started = DrillSetup(mode: .tense(drill)) } label: { Label("Practice just this tense", systemImage: "play.fill") }
                             }
                         }
                     } header: {
@@ -67,6 +76,40 @@ struct DrillView: View {
             if let hint = summary.hint { Text(hint).font(.footnote).foregroundStyle(.secondary) }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    /// Practises the tenses toggled on, or every tense the filters show when none is toggled.
+    private var practiceRow: some View {
+        let chosen = selection.practiceSet(shown: shown)
+        let hidden = selection.hiddenCount(shown: shown)
+        let detail: String
+        if selection.isEmpty {
+            detail = shown.isEmpty ? "No tenses to practice" : shown.count == DrillTense.available.count ? "All \(shown.count) tenses. Tap tenses below to pick your own." : "\(shown.count) \(shown.count == 1 ? "tense" : "tenses") shown. Tap tenses below to pick your own."
+        } else {
+            detail = "\(chosen.count) selected" + (hidden > 0 ? " (\(hidden) hidden by the filters)" : "")
+        }
+        return Button { started = DrillSetup(mode: .set(chosen)) } label: {
+            row(selection.isEmpty ? "Practice these" : "Practice selected", detail: detail, systemImage: "play.fill")
+        }
+        .disabled(chosen.isEmpty)
+    }
+
+    /// Toggle everything on screen at once, or start over.
+    @ViewBuilder
+    private var selectionButtons: some View {
+        HStack(spacing: 16) {
+            let allShownSelected = !shown.isEmpty && shown.allSatisfy(selection.contains)
+            Button(allShownSelected ? "Deselect shown" : "Select shown") {
+                change { allShownSelected ? $0.remove(shown) : $0.add(shown) }
+            }
+            .disabled(shown.isEmpty)
+            if !selection.isEmpty {
+                Button("Clear selection", role: .destructive) { change { $0.clear() } }
+            }
+            Spacer()
+        }
+        .font(.subheadline)
+        .buttonStyle(.borderless)
     }
 
     /// One row of filter chips. Tapping the chosen one clears it.
@@ -98,8 +141,14 @@ struct DrillView: View {
         return "\(set.mastered) of \(set.size)"
     }
 
-    private func row(_ title: String, detail: String, systemImage: String? = nil, trailing: String? = nil) -> some View {
+    private func row(_ title: String, detail: String, systemImage: String? = nil, trailing: String? = nil, selected: Bool? = nil) -> some View {
         HStack(spacing: 12) {
+            if let selected {
+                Image(systemName: selected ? "checkmark.circle.fill" : "circle")
+                    .foregroundStyle(selected ? Color.accentColor : Color.secondary.opacity(0.5))
+                    .imageScale(.large)
+                    .frame(width: 24)
+            }
             if let systemImage {
                 Image(systemName: systemImage).foregroundStyle(Color.accentColor).frame(width: 24)
             }
@@ -126,7 +175,7 @@ struct DrillSetup: Identifiable {
         switch mode {
         case .tense(let drill): drill.title
         case .queue: "Queue"
-        case .set(let drills): drills.count == DrillTense.all.count ? "Mixed practice" : "Selected tenses"
+        case .set(let drills): drills.count == 1 ? drills[0].title : drills.count == DrillTense.available.count ? "Mixed practice" : "Selected tenses"
         }
     }
 }

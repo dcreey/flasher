@@ -733,3 +733,29 @@ final class SeguroDeInfinitiveTests: XCTestCase {
         XCTAssertTrue(fixes("Estoy seguro lugar.").isEmpty)
     }
 }
+
+final class DecirFutureTests: XCTestCase {
+    func testDecirHasTheIrregularFutureAndConditional() throws {
+        let decir = try XCTUnwrap(Conjugator.conjugate("decir"))
+        XCTAssertEqual((0..<6).compactMap { decir.form(.future, $0) }, ["diré", "dirás", "dirá", "diremos", "diréis", "dirán"])
+        XCTAssertEqual((0..<6).compactMap { decir.form(.conditional, $0) }, ["diría", "dirías", "diría", "diríamos", "diríais", "dirían"])
+        XCTAssertEqual(decir.form(.present, 0), "digo")
+        XCTAssertEqual(decir.form(.preterite, 2), "dijo")
+        XCTAssertEqual(decir.participle, "dicho")
+    }
+
+    func testVerbsBuiltOnDecirFollowTheAcademyForms() throws {
+        // These four have a regular future and conditional
+        for (verb, future, conditional) in [("predecir", "predeciré", "predeciría"), ("contradecir", "contradeciré", "contradeciría"),
+                                             ("bendecir", "bendeciré", "bendeciría"), ("maldecir", "maldeciré", "maldeciría")] {
+            let c = try XCTUnwrap(Conjugator.conjugate(verb), verb)
+            XCTAssertEqual(c.form(.future, 0), future, verb)
+            XCTAssertEqual(c.form(.conditional, 0), conditional, verb)
+        }
+        // The rest of their forms still follow decir
+        XCTAssertEqual(Conjugator.conjugate("predecir")?.form(.preterite, 2), "predijo")
+        XCTAssertEqual(Conjugator.conjugate("contradecir")?.form(.present, 0), "contradigo")
+        // desdecir is fully like decir
+        XCTAssertEqual(Conjugator.conjugate("desdecir")?.form(.future, 0), "desdiré")
+    }
+}

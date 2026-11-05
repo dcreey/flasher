@@ -414,9 +414,13 @@ final class DrillGroupingTests: XCTestCase {
         // Before a past moment: had done it; just before: had just done it
         XCTAssertEqual(titles(.indicative, .past, .before), ["Pluscuamperfecto"])
         XCTAssertEqual(titles(.indicative, .future, .before), ["Futuro perfecto"])
-        XCTAssertTrue(titles(.indicative, .present, .before).contains("Presente perfecto"))
+        XCTAssertTrue(titles(.indicative, .present, .before).contains("Pretérito perfecto"))
         XCTAssertTrue(titles(.phrases, .past, .after).contains("Ir a (antes)"))
-        XCTAssertEqual(titles(.indicative, .past, .during), ["Pretérito", "Imperfecto", "Pretérito progresivo", "Imperfecto progresivo"])
+        // The perfect is also "during": it can say something is still open up to that moment (todavía no)
+        XCTAssertTrue(titles(.indicative, .past, .during).isSuperset(of: ["Pretérito", "Imperfecto", "Pretérito progresivo", "Imperfecto progresivo", "Pluscuamperfecto"]))
+        // Tenses can sit at more than one time: the present also says the future ("mañana viajo")
+        XCTAssertTrue(titles(.indicative, .future, .during).contains("Presente"))
+        XCTAssertTrue(titles(.subjunctive, .future, .during).contains("Presente de subjuntivo"))
         XCTAssertTrue(titles(.conditional, .past, .before) == ["Condicional perfecto"])
         // Every filter combination leaves something or nothing, never a tense twice
         for drill in DrillTense.all { XCTAssertEqual(DrillTense.matching(mood: drill.mood, time: drill.time, moment: drill.moment).filter { $0 == drill }.count, 1) }
@@ -589,7 +593,7 @@ final class DrillVarietyAndSubjectTests: XCTestCase {
         let sudden = try XCTUnwrap((0..<200).compactMap { DrillSentences.card("caer", preterite, subject: subject, variant: $0) }.first { $0.sentence.contains("De repente") })
         XCTAssertTrue(DrillAlternates.options(for: sudden).isEmpty)
         let yesterday = try XCTUnwrap((0..<200).compactMap { DrillSentences.card("comprar", preterite, subject: subject, variant: $0) }.first { $0.sentence.contains("Ayer") })
-        XCTAssertEqual(DrillAlternates.options(for: yesterday).map(\.drill.title), ["Presente perfecto"])
+        XCTAssertEqual(DrillAlternates.options(for: yesterday).map(\.drill.title), ["Pretérito perfecto"])
         XCTAssertTrue(yesterday.choosing(DrillTense(kind: .perfect, tense: .present)).sentence.contains("Ayer él ha comprado"))
         // The explanations no longer call the other tense wrong
         let contrast = DrillExplainer.contrasts["simple preterite|perfect present"] ?? ""
@@ -624,7 +628,7 @@ final class DrillInterchangeabilityTests: XCTestCase {
 
     func testEachAuditedRowOffersExactlyWhatTheAuditSays() throws {
         func t(_ kind: DrillTense.Kind, _ tense: Tense) -> DrillTense { DrillTense(kind: kind, tense: tense) }
-        XCTAssertEqual(titles(try card("comprar", t(.simple, .preterite), containing: "ayer")), ["Presente perfecto"])
+        XCTAssertEqual(titles(try card("comprar", t(.simple, .preterite), containing: "ayer")), ["Pretérito perfecto"])
         XCTAssertEqual(titles(try card("comprar", t(.perfect, .present), containing: "hoy")), ["Pretérito"])
         XCTAssertEqual(titles(try card("comprar", t(.simple, .future), containing: "mañana")), ["Ir a (ahora)", "Presente"])
         // "Algún día" goes with verbs about states and understanding
@@ -705,5 +709,290 @@ final class DrillInterchangeabilityTests: XCTestCase {
                 }
             }
         }
+    }
+}
+
+final class DrillRelatedContextTests: XCTestCase {
+    func testTheObjectIsReadFromTheComplement() throws {
+        func thing(_ text: String, _ kind: Character) -> DrillRelatedContext.Thing? { DrillRelatedContext.thing(from: text, kind: kind) }
+        let maestra = try XCTUnwrap(thing("a la maestra", "p"))
+        XCTAssertEqual([maestra.definite, maestra.noun], ["la maestra", "maestra"])
+        XCTAssertTrue(maestra.feminine && !maestra.plural)
+        let vecino = try XCTUnwrap(thing("al vecino", "p"))
+        XCTAssertEqual(vecino.definite, "el vecino")
+        XCTAssertFalse(vecino.feminine)
+        let ninos = try XCTUnwrap(thing("a los niños", "p"))
+        XCTAssertTrue(ninos.plural && !ninos.feminine)
+        let regalo = try XCTUnwrap(thing("un regalo", "t"))
+        XCTAssertEqual(regalo.definite, "el regalo")
+        XCTAssertEqual(regalo.phrase, "un regalo")
+        let llaves = try XCTUnwrap(thing("las llaves", "t"))
+        XCTAssertTrue(llaves.plural && llaves.feminine)
+        let agua = try XCTUnwrap(thing("agua", "y"))
+        XCTAssertEqual(agua.definite, "el agua")
+        XCTAssertTrue(agua.feminine)
+        // Not a noun phrase, or a kind that is not described
+        XCTAssertNil(thing("ayuda", "j"))
+        XCTAssertNil(thing("dinero", "g"))
+        XCTAssertNil(thing("el libro", "q"))
+    }
+
+    func testTheSecondSentenceIsAboutTheObjectOfTheFirst() {
+        let verbs = ["comprar", "ver", "leer", "escribir", "romper", "comer", "ayudar", "abrir", "llamar", "cuidar", "visitar", "vender", "preparar", "limpiar", "buscar"]
+        var covered = 0, mentioned = 0
+        for verb in verbs {
+            guard let usage = VerbUsage.of(verb), usage.valency == "T", DrillRelatedContext.adjectives[usage.object] != nil else { continue }
+            for drill in DrillTense.all {
+                for subject in DrillSentences.subjects(for: verb, drill).prefix(2) {
+                    for variant in 0..<3 {
+                        guard let card = DrillSentences.card(verb, drill, subject: subject, variant: variant) else { continue }
+                        covered += 1
+                        // The noun of the object comes up in the sentence at least twice: in the first sentence and in the second
+                        let nouns = Set(VerbUsage.objectNouns(usage.object))
+                        if nouns.contains(where: { noun in card.sentence.lowercased().components(separatedBy: noun).count - 1 >= 2 }) { mentioned += 1 }
+                    }
+                }
+            }
+        }
+        XCTAssertGreaterThan(covered, 500)
+        XCTAssertGreaterThan(Double(mentioned) / Double(covered), 0.9, "\(mentioned) of \(covered) cards mention the object twice")
+    }
+
+    func testAdjectivesAgreeWithThePluralFeminineObject() throws {
+        let llaves = try XCTUnwrap(DrillRelatedContext.thing(from: "las llaves", kind: "t"))
+        for pool in ["imperfectScenes", "presentStates", "pastCloses", "futureCloses", "nowContrasts", "imperfectCloses", "timeContrasts"] {
+            for seed in 0..<60 {
+                guard let text = DrillRelatedContext.sentence(pool: pool, thing: llaves, seed: seed, infinitive: "comprar", target: "") else { continue }
+                let words = text.lowercased().components(separatedBy: CharacterSet(charactersIn: " ."))
+                XCTAssertFalse(words.contains { ["estaba", "era", "está", "es", "fue", "estuvo", "será", "estará"].contains($0) }, "singular verb with “las llaves”: \(text)")
+                for word in words where ["sucio", "limpio", "listo", "roto", "mojado", "grande", "pequeño", "bonito", "nuevo", "viejo", "caro", "barato"].contains(word) {
+                    XCTFail("masculine singular adjective with “las llaves”: \(text)")
+                }
+            }
+        }
+    }
+
+    func testTheSecondSentenceNeverGivesAwayOrContradictsTheVerb() throws {
+        let libro = try XCTUnwrap(DrillRelatedContext.thing(from: "el libro", kind: "d"))
+        for seed in 0..<80 {
+            for pool in ["imperfectScenes", "presentStates", "pastCloses", "futureCloses", "nowContrasts", "imperfectCloses", "timeContrasts"] {
+                if let text = DrillRelatedContext.sentence(pool: pool, thing: libro, seed: seed, infinitive: "abrir", target: "") { XCTAssertFalse(text.contains("abierto"), text) }
+                if let text = DrillRelatedContext.sentence(pool: pool, thing: libro, seed: seed, infinitive: "cerrar", target: "") { XCTAssertFalse(text.contains("cerrado"), text) }
+            }
+        }
+        let paquete = try XCTUnwrap(DrillRelatedContext.thing(from: "el paquete", kind: "t"))
+        for seed in 0..<80 {
+            if let text = DrillRelatedContext.sentence(pool: "imperfectScenes", thing: paquete, seed: seed, infinitive: "romper", target: "") { XCTAssertFalse(text.contains("roto"), text) }
+        }
+    }
+
+    func testItDoesNotRepeatTheTimeWordOrTheVerbOfTheFirstSentence() throws {
+        let libro = try XCTUnwrap(DrillRelatedContext.thing(from: "el libro", kind: "t"))
+        for seed in 0..<80 {
+            if let text = DrillRelatedContext.sentence(pool: "timeContrasts", thing: libro, seed: seed, infinitive: "comprar", target: "Ayer él compró el libro.") {
+                XCTAssertFalse(text.lowercased().contains("ayer"), text)
+            }
+            if let text = DrillRelatedContext.sentence(pool: "imperfectScenes", thing: libro, seed: seed, infinitive: "buscar", target: "") {
+                XCTAssertFalse(text.contains("buscaban"), text)
+            }
+            if let text = DrillRelatedContext.sentence(pool: "pastCloses", thing: libro, seed: seed, infinitive: "hablar", target: "") {
+                XCTAssertFalse(text.contains("hablaron"), text)
+            }
+        }
+    }
+
+    func testEveryAdjectiveCarriesTheLexiconTagForItsKindOfObject() {
+        let needed: [Character: Set<String>] = [
+            "f": ["f"], "y": ["f"], "p": ["p"], "l": ["l"], "c": ["l"],
+            "t": ["t"], "d": ["t"], "v": ["t"], "n": ["t"], "m": ["t"], "b": ["t"], "a": ["i", "t"], "x": ["i", "t"], "h": ["i", "t"], "e": ["i", "t"],
+        ]
+        for (kind, words) in DrillRelatedContext.adjectives {
+            for word in words.ser + words.estar {
+                let tags = Set((Extras.shared.adjectiveCategories[word] ?? []).flatMap { $0 })
+                XCTAssertFalse(tags.isDisjoint(with: needed[kind] ?? []), "\(word) is not tagged \(needed[kind] ?? []) for objects of kind \(kind)")
+            }
+        }
+    }
+}
+
+final class DrillRelatedSourcesTests: XCTestCase {
+    private func sources(_ verb: String, _ drill: DrillTense, subject: DrillSubject? = nil) -> [String] {
+        let subjects = DrillSentences.subjects(for: verb, drill)
+        guard let subject = subject ?? subjects.first else { return [] }
+        return (1..<40).compactMap { DrillSentences.card(verb, drill, subject: subject, variant: $0)?.sentence }
+    }
+
+    func testDestinationsAndPeopleAfterAPrepositionAreDescribed() {
+        let preterite = DrillTense(kind: .simple, tense: .preterite)
+        // A verb of motion: the second sentence is about where it goes
+        let ir = sources("ir", preterite, subject: DrillSubject(text: "él", person: 2))
+        XCTAssertTrue(ir.allSatisfy { sentence in sentence.contains("al trabajo") || ["escuela", "mercado", "oficina", "casa", "centro"].contains { sentence.lowercased().components(separatedBy: $0).count >= 3 } || sentence.contains("a casa") })
+        // Not "el tiempo estaba preocupado"
+        let luchar = sources("luchar", preterite, subject: DrillSubject(text: "él", person: 2))
+        XCTAssertFalse(luchar.contains { $0.contains("El tiempo estaba") || $0.contains("Se necesitaba al tiempo") || $0.contains("Todos buscaban al tiempo") })
+        // Not "el trabajo estaba vacío"
+        let volver = sources("volver", DrillTense(kind: .simple, tense: .present), subject: DrillSubject(text: "él", person: 2))
+        XCTAssertFalse(volver.contains { $0.contains("el trabajo estaba") || $0.contains("El trabajo estaba") || $0.contains("el trabajo es ") })
+    }
+
+    func testWhatIsSaidAndWantedHasRelatedSentences() {
+        let preterite = DrillTense(kind: .simple, tense: .preterite)
+        let decir = sources("decir", preterite, subject: DrillSubject(text: "él", person: 2))
+        // "que ya era tarde" goes with a sentence about the hour or the night
+        for sentence in decir where sentence.contains("ya era tarde") {
+            XCTAssertTrue(sentence.contains("de noche") || sentence.contains("las ocho") || sentence.contains("largo"), sentence)
+        }
+        let querer = sources("querer", preterite, subject: DrillSubject(text: "él", person: 2))
+        for sentence in querer where sentence.contains("trabajar") { XCTAssertTrue(sentence.contains("trabajo"), sentence) }
+        for sentence in querer where sentence.contains("estudiar") { XCTAssertTrue(sentence.contains("examen"), sentence) }
+    }
+
+    func testThingsThatAreTheSubjectGetSentencesAboutThem() {
+        let present = DrillTense(kind: .simple, tense: .present)
+        for sentence in sources("funcionar", present) { XCTAssertGreaterThanOrEqual(sentence.lowercased().components(separatedBy: "lavadora").count + sentence.lowercased().components(separatedBy: "teléfono").count + sentence.lowercased().components(separatedBy: "coche").count, 5, sentence) }
+        // gustar: the thing that is liked
+        let gustar = sources("gustar", present)
+        XCTAssertFalse(gustar.isEmpty)
+        for sentence in gustar { XCTAssertTrue(["libro", "idea", "clases", "película", "serie", "programa"].contains { sentence.lowercased().components(separatedBy: $0).count >= 3 }, sentence) }
+    }
+
+    func testTheDifferencesBetweenFilteredTensesAreSaid() {
+        // The perfect shows under During too, so nothing is hidden here
+        let during = DrillSelectionSummary.make(mood: .subjunctive, time: .present, moment: .during)
+        XCTAssertEqual(during.lines.count, 5)  // the imperfect subjunctive also says unreal present
+        XCTAssertTrue(during.lines.joined().contains("haya comido"))
+        XCTAssertNil(during.hint)
+        // Before holds only the perfect, and says what Before leaves out
+        let before = DrillSelectionSummary.make(mood: .subjunctive, time: .present, moment: .before)
+        XCTAssertEqual(before.lines, ["Pretérito perfecto de subjuntivo · haya comido"])
+        let hint = before.hint ?? ""
+        XCTAssertTrue(hint.contains("Clear Moment to add: Presente de subjuntivo (During)"), hint)
+        // Nothing hidden: no hint
+        XCTAssertNil(DrillSelectionSummary.make(mood: .imperative, time: nil, moment: nil).hint)
+    }
+}
+
+final class DrillStillOpenTests: XCTestCase {
+    private func cards(_ verb: String, _ drill: DrillTense, containing text: String, subject: DrillSubject = DrillSubject(text: "él", person: 2)) -> [DrillSentences.Card] {
+        (0..<300).compactMap { DrillSentences.card(verb, drill, subject: subject, variant: $0) }.filter { $0.sentence.lowercased().contains(text) }
+    }
+
+    func testPerfectTensesAlsoCountAsDuring() {
+        for moment in [DrillMoment.before, .during] {
+            let titles = Set(DrillTense.matching(mood: nil, time: nil, moment: moment).map(\.title))
+            XCTAssertTrue(titles.contains("Pretérito perfecto"), "\(moment)")
+            XCTAssertTrue(titles.contains("Pretérito perfecto de subjuntivo"), "\(moment)")
+            XCTAssertTrue(titles.contains("Pluscuamperfecto"), "\(moment)")
+            XCTAssertTrue(titles.contains("Futuro perfecto"), "\(moment)")
+        }
+        // The phrases are not: "acaba de" is just before, "va a" is after
+        XCTAssertFalse(DrillTense.matching(mood: .phrases, time: nil, moment: .during).contains { $0.kind == .acabarDe })
+        // Every tense has at least one reading, and the first is its main one
+        XCTAssertTrue(DrillTense.all.allSatisfy { !$0.readings.isEmpty })
+    }
+
+    func testPresentPerfectCardsAboutSomethingNotYetDone() throws {
+        let perfect = DrillTense(kind: .perfect, tense: .present)
+        let made = cards("comprar", perfect, containing: "todavía no")
+        XCTAssertFalse(made.isEmpty, "no “todavía no” card among 300 variants")
+        for card in made {
+            XCTAssertTrue(card.sentence.contains("todavía no ha comprado"), card.sentence)
+            XCTAssertTrue(card.prompt.contains("todavía no ______"), card.prompt)
+            XCTAssertEqual(card.answer, "ha comprado")
+            XCTAssertNotNil(DrillExplainer.explain(card).clue)
+            XCTAssertTrue(DrillExplainer.explain(card).clue?.contains("Todavía no") == true)
+            XCTAssertEqual(DrillAlternates.options(for: card).map(\.drill.title), ["Pretérito"])
+        }
+        // “Hoy” cards still exist
+        XCTAssertFalse(cards("comprar", perfect, containing: "hoy").isEmpty)
+    }
+
+    func testThePluperfectAndTheSubjunctiveHaveStillOpenFramesToo() throws {
+        let pluperfect = DrillTense(kind: .perfect, tense: .imperfect)
+        let past = cards("comprar", pluperfect, containing: "todavía no")
+        XCTAssertFalse(past.isEmpty)
+        for card in past {
+            XCTAssertTrue(card.sentence.contains("Cuando llegué, él todavía no había comprado"), card.sentence)
+            XCTAssertTrue(DrillAlternates.options(for: card).isEmpty, "the pluperfect is not interchangeable with the preterite")
+            XCTAssertNotNil(DrillExplainer.explain(card).clue)
+        }
+        let subjunctive = DrillTense(kind: .perfect, tense: .subjunctivePresent)
+        let doubt = cards("comprar", subjunctive, containing: "no creo que")
+        XCTAssertFalse(doubt.isEmpty)
+        for card in doubt {
+            XCTAssertTrue(card.sentence.contains("No creo que él haya comprado"), card.sentence)
+            XCTAssertTrue(card.sentence.contains("todavía"), card.sentence)
+            XCTAssertTrue(DrillExplainer.explain(card).clue?.contains("No creo que") == true)
+        }
+        // A same-subject card keeps the plain trigger ("No creo que yo haya…" would be odd)
+        let same = cards("comprar", subjunctive, containing: "importante que", subject: DrillSubject(text: "yo", person: 0))
+        XCTAssertTrue(cards("comprar", subjunctive, containing: "no creo que", subject: DrillSubject(text: "yo", person: 0)).isEmpty)
+        XCTAssertFalse(same.isEmpty)
+    }
+
+    func testTheMomentLineSaysTheStillOpenReading() {
+        XCTAssertTrue(DrillExplainer.momentLine(DrillTense(kind: .perfect, tense: .present)).contains("todavía no"))
+        XCTAssertTrue(DrillExplainer.momentLine(DrillTense(kind: .perfect, tense: .imperfect)).contains("still had not happened"))
+        // Acabar de is just before, and does not claim it
+        XCTAssertFalse(DrillExplainer.momentLine(DrillTense(kind: .acabarDe, tense: .present)).contains("todavía"))
+    }
+}
+
+final class DrillSelectionTests: XCTestCase {
+    func testTappingATenseTogglesItAndTheChoiceIsSaved() {
+        var selection = DrillSelection(raw: "")
+        let preterite = DrillTense(kind: .simple, tense: .preterite)
+        let future = DrillTense(kind: .simple, tense: .future)
+        XCTAssertTrue(selection.isEmpty)
+        selection.toggle(preterite)
+        selection.toggle(future)
+        XCTAssertTrue(selection.contains(preterite) && selection.contains(future))
+        selection.toggle(preterite)
+        XCTAssertFalse(selection.contains(preterite))
+        // Saved text comes back the same
+        XCTAssertEqual(DrillSelection(raw: selection.raw), selection)
+        XCTAssertEqual(DrillSelection(raw: selection.raw).tenses, [future])
+    }
+
+    func testPracticeUsesTheSelectedTensesOrWhatTheFiltersShow() {
+        let shown = DrillTense.matching(mood: .subjunctive, time: nil, moment: nil)
+        var selection = DrillSelection(raw: "")
+        XCTAssertEqual(selection.practiceSet(shown: shown), shown, "nothing toggled: the filtered tenses")
+        let preterite = DrillTense(kind: .simple, tense: .preterite)
+        selection.toggle(preterite)
+        XCTAssertEqual(selection.practiceSet(shown: shown), [preterite], "toggled tenses win, even when the filters hide them")
+        XCTAssertEqual(selection.hiddenCount(shown: shown), 1)
+        selection.add(shown)
+        XCTAssertEqual(selection.practiceSet(shown: shown).count, shown.count + 1)
+        XCTAssertEqual(selection.hiddenCount(shown: shown), 1)
+        selection.remove(shown)
+        XCTAssertEqual(selection.tenses, [preterite])
+        selection.clear()
+        XCTAssertTrue(selection.isEmpty)
+    }
+
+    func testTheSelectionIsKeptInTheDrillsOwnOrder() {
+        var selection = DrillSelection(raw: "")
+        selection.add(Array(DrillTense.all.reversed().prefix(5)))
+        XCTAssertEqual(selection.tenses, Array(DrillTense.all.suffix(5)))
+    }
+
+    func testSavedTextWithUnknownTensesIsIgnored() {
+        let selection = DrillSelection(raw: "simple present,not a tense,,perfect future")
+        XCTAssertEqual(selection.tenses.map(\.title), ["Presente", "Futuro perfecto"])
+    }
+}
+
+final class DrillProgressiveSettingTests: XCTestCase {
+    override func tearDown() { UserDefaults.standard.removeObject(forKey: AppSettings.drillProgressiveKey) }
+
+    func testTurningProgressiveOffLeavesThemOutEverywhere() {
+        UserDefaults.standard.set(false, forKey: AppSettings.drillProgressiveKey)
+        XCTAssertFalse(DrillTense.available.contains { $0.kind == .progressive })
+        XCTAssertFalse(DrillTense.matching(mood: nil, time: nil, moment: nil).contains { $0.kind == .progressive })
+        let saved = DrillSelection(raw: DrillTense.all.map(\.key).joined(separator: ","))
+        XCTAssertFalse(saved.tenses.contains { $0.kind == .progressive })
+        UserDefaults.standard.set(true, forKey: AppSettings.drillProgressiveKey)
+        XCTAssertEqual(DrillTense.available.count, DrillTense.all.count)
     }
 }
