@@ -540,7 +540,7 @@ final class DrillVarietyAndSubjectTests: XCTestCase {
         let base = try XCTUnwrap(DrillSentences.card("comprar", drill, subject: subject))
         XCTAssertEqual(base.sentence, DrillSentences.sentence("comprar", drill, subject: subject), "variant 0 is the fixed one")
         let sentences = Set((1..<60).compactMap { DrillSentences.card("comprar", drill, subject: subject, variant: $0)?.sentence })
-        XCTAssertGreaterThan(sentences.count, 15)
+        XCTAssertGreaterThanOrEqual(sentences.count, 15)
         // él, ella, usted and a noun subject share a person, but no longer share a sentence
         let people = ["él", "ella", "usted", "mi hermana"].compactMap { DrillSentences.card("comprar", drill, subject: DrillSubject(text: $0, person: 2), variant: 7)?.sentence }
         XCTAssertEqual(people.count, 4)
@@ -712,6 +712,13 @@ final class DrillInterchangeabilityTests: XCTestCase {
     }
 }
 
+/// A sentence that refers back to the object with a pronoun ("Todos la conocían.") or to the place ("Allí nos esperan.").
+func refersBack(_ sentence: String) -> Bool {
+    sentence.components(separatedBy: ". ").contains { part in
+        part.range(of: #"^(?:\p{L}+ ){0,2}(?:lo|la|los|las) \p{L}+"#, options: [.regularExpression, .caseInsensitive]) != nil || part.lowercased().contains("allí")
+    }
+}
+
 final class DrillRelatedContextTests: XCTestCase {
     func testTheObjectIsReadFromTheComplement() throws {
         func thing(_ text: String, _ kind: Character) -> DrillRelatedContext.Thing? { DrillRelatedContext.thing(from: text, kind: kind) }
@@ -749,7 +756,7 @@ final class DrillRelatedContextTests: XCTestCase {
                         covered += 1
                         // The noun of the object comes up in the sentence at least twice: in the first sentence and in the second
                         let nouns = Set(VerbUsage.objectNouns(usage.object))
-                        if nouns.contains(where: { noun in card.sentence.lowercased().components(separatedBy: noun).count - 1 >= 2 }) { mentioned += 1 }
+                        if nouns.contains(where: { noun in card.sentence.lowercased().components(separatedBy: noun).count - 1 >= 2 }) || refersBack(card.sentence) { mentioned += 1 }
                     }
                 }
             }
@@ -826,7 +833,7 @@ final class DrillRelatedSourcesTests: XCTestCase {
         let preterite = DrillTense(kind: .simple, tense: .preterite)
         // A verb of motion: the second sentence is about where it goes
         let ir = sources("ir", preterite, subject: DrillSubject(text: "él", person: 2))
-        XCTAssertTrue(ir.allSatisfy { sentence in sentence.contains("al trabajo") || ["escuela", "mercado", "oficina", "casa", "centro"].contains { sentence.lowercased().components(separatedBy: $0).count >= 3 } || sentence.contains("a casa") })
+        XCTAssertTrue(ir.allSatisfy { sentence in sentence.contains("al trabajo") || ["escuela", "mercado", "oficina", "casa", "centro"].contains { sentence.lowercased().components(separatedBy: $0).count >= 3 } || sentence.contains("a casa") || refersBack(sentence) })
         // Not "el tiempo estaba preocupado"
         let luchar = sources("luchar", preterite, subject: DrillSubject(text: "él", person: 2))
         XCTAssertFalse(luchar.contains { $0.contains("El tiempo estaba") || $0.contains("Se necesitaba al tiempo") || $0.contains("Todos buscaban al tiempo") })
@@ -1045,5 +1052,40 @@ final class DrillPerfectSubjunctiveAlternateTests: XCTestCase {
             else { plain += 1; XCTAssertTrue(options.contains("simple subjunctivePresent"), card.sentence) }
         }
         XCTAssertGreaterThan(plain, 0); XCTAssertGreaterThan(cued, 0)
+    }
+}
+
+final class DrillIrregularParticipleHintTests: XCTestCase {
+    func testRegularParticipleOnAnIrregularVerbSaysSo() throws {
+        let perfect = DrillTense(kind: .perfect, tense: .subjunctivePresent)
+        let card = try XCTUnwrap(DrillSentences.card("volver", perfect, subject: DrillSubject(text: "ella", person: 2), variant: 0))
+        let message = DrillExplainer.diagnose("haya volvido", card: card)
+        XCTAssertTrue(message.contains("irregular participle") && message.contains("vuelto"), message)
+    }
+
+    func testStateThingsAfterFutureAndPreteriteAreNotFixedTraits() {
+        let fixed = ["antiguo", "antigua", "grande", "azul", "bonito", "bonita", "moderno", "moderna"]
+        for variant in 0..<300 {
+            for drill in [DrillTense(kind: .simple, tense: .future), DrillTense(kind: .perfect, tense: .subjunctivePresent)] {
+                guard let card = DrillSentences.card("volver", drill, subject: DrillSubject(text: "ella", person: 2), variant: variant),
+                      let second = card.sentence.components(separatedBy: ". ").last else { continue }
+                let words = Set(second.lowercased().components(separatedBy: CharacterSet.letters.inverted))
+                XCTAssertFalse(words.contains("será") && !words.isDisjoint(with: fixed), card.sentence)
+            }
+        }
+    }
+}
+
+final class DrillFollowUpTests: XCTestCase {
+    func testFollowUpsReferToTheObjectAndNeverRepeatTheVerb() {
+        let preterite = DrillTense(kind: .simple, tense: .preterite)
+        var pronouns = 0
+        for variant in 0..<150 {
+            guard let card = DrillSentences.card("abrir", preterite, subject: DrillSubject(text: "ella", person: 2), variant: variant) else { continue }
+            let lower = card.sentence.lowercased()
+            if [" lo ", " la ", " los ", " las "].contains(where: lower.contains) { pronouns += 1 }
+            XCTAssertFalse(lower.contains("se necesitaba las") || lower.contains("se necesitaba los"), card.sentence)
+        }
+        XCTAssertGreaterThan(pronouns, 5)
     }
 }

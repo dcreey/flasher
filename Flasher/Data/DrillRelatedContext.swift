@@ -190,6 +190,73 @@ enum DrillRelatedContext {
 
     /// The sentences that fit the pool's role (the tense the second sentence has to be in) and describe the object.
     /// `infinitive` and `target` keep it from repeating the verb of the first sentence or its time word.
+    /// The pronoun that stands for the object: lo, la, los, las.
+    private static func clitic(_ thing: Thing) -> String {
+        thing.plural ? (thing.feminine ? "las" : "los") : (thing.feminine ? "la" : "lo")
+    }
+
+    /// Follow-ups that refer back to the object with a pronoun, so they make sense whatever the first verb did:
+    /// "Compró el libro. Todos lo conocían." Each comes with the verb it uses, so the first sentence's verb is never repeated.
+    /// What it says depends on the kind of object (you use a tool, you do not use a problem) and on the pool's tense.
+    private static func followUps(pool: String, thing: Thing) -> [(verb: String, text: String)] {
+        let it = clitic(thing)
+        enum Group { case place, person, food, tool, idea }
+        let group: Group = switch thing.kind {
+        case "l", "c": .place
+        case "p": .person
+        case "f", "y": .food
+        case "t", "d", "v": .tool
+        default: .idea
+        }
+        // What can be said about anything, then what only fits some kinds
+        var lines: [(String, String)]
+        switch pool {
+        case "imperfectScenes", "imperfectCloses":
+            lines = [("conocer", "Todos \(it) conocían."), ("olvidar", "Nadie \(it) olvidaba."), ("recordar", "Siempre \(it) recordábamos.")]
+            switch group {
+            case .place: lines += [("esperar", "Allí nos esperaban."), ("ir", "Siempre íbamos allí.")]
+            case .person: lines += [("querer", "Todos \(it) querían."), ("ayudar", "Siempre \(it) ayudábamos.")]
+            case .food: lines += [("comer", "Siempre \(it) comíamos."), ("preparar", "Mi mamá \(it) preparaba.")]
+            case .tool: lines += [("usar", "Siempre \(it) usábamos."), ("necesitar", "\(it.capitalized) necesitábamos mucho.")]
+            case .idea: lines += [("entender", "Nadie \(it) entendía.")]
+            }
+        case "presentStates", "nowContrasts":
+            lines = [("conocer", "Todos \(it) conocen."), ("recordar", "Todos \(it) recuerdan.")]
+            switch group {
+            case .place: lines += [("esperar", "Allí nos esperan."), ("visitar", "Casi nadie \(it) visita.")]
+            case .person: lines += [("querer", "Todos \(it) queremos."), ("ayudar", "Siempre \(it) ayudamos.")]
+            case .food: lines += [("comer", "\(it.capitalized) comemos mucho."), ("preparar", "Mi mamá \(it) prepara.")]
+            case .tool: lines += [("usar", "\(it.capitalized) usamos mucho."), ("necesitar", "\(it.capitalized) necesitamos.")]
+            case .idea: lines += [("entender", "Nadie \(it) entiende.")]
+            }
+        case "pastCloses":
+            lines = [("conocer", "Todos \(it) conocieron."), ("olvidar", "Nadie \(it) olvidó."), ("recordar", "Todos \(it) recordaron.")]
+            switch group {
+            case .place: lines += [("esperar", "Allí nos esperaron."), ("visitar", "Después \(it) visitamos.")]
+            case .person: lines += [("querer", "Todos \(it) quisieron."), ("ayudar", "Todos \(it) ayudaron.")]
+            case .food: lines += [("probar", "Todos \(it) probaron."), ("comer", "\(it.capitalized) comimos.")]
+            case .tool: lines += [("usar", "\(it.capitalized) usamos mucho."), ("necesitar", "\(it.capitalized) necesitamos.")]
+            case .idea: lines += [("entender", "Nadie \(it) entendió.")]
+            }
+        case "futureCloses":
+            lines = []
+            switch group {
+            case .place: lines += [("visitar", "Pronto \(it) visitamos."), ("esperar", "Allí nos esperan.")]
+            case .person: lines += [("ayudar", "Después \(it) ayudamos."), ("llamar", "Luego \(it) llamamos."), ("recordar", "Siempre \(it) recordaremos.")]
+            case .food: lines += [("probar", "Pronto \(it) probamos."), ("comer", "Luego \(it) comemos.")]
+            case .tool: lines += [("usar", "Pronto \(it) usamos."), ("necesitar", "\(it.capitalized) vamos a necesitar.")]
+            case .idea: lines += [("entender", "Pronto \(it) vamos a entender.")]
+            }
+        default:
+            lines = []
+        }
+        return lines.map { (verb: $0.0, text: $0.1) }
+    }
+
+    /// A random state of the object ("La caja estará limpia") rarely follows from what the first sentence did, so it is off:
+    /// the second sentence talks about the object, needs it or looks for it instead.
+    private static let describeStates = false
+
     static func sentence(pool: String, thing: Thing, seed: Int, infinitive: String, target: String) -> String? {
         guard let words = adjectives[thing.kind] else { return nil }
         let subject = capitalized(thing.definite)
@@ -205,7 +272,10 @@ enum DrillRelatedContext {
         /// "El libro era caro.": a trait with ser, or a state with estar. Falls back to the other when a kind has only one.
         func describe(_ form: String, prefix: String = "", subjectText: String? = nil) -> String? {
             let isSer = ["era", "es", "fue", "será"].contains(form)
-            let list = isSer ? (words.ser.isEmpty ? words.estar : words.ser) : (words.estar.isEmpty ? words.ser : words.estar)
+            // Only states (estar): "La tienda estaba cerrada" follows from the first sentence. A trait with ser ("La oficina
+            // será antigua") says nothing about what just happened, so it is left out and the other sentence kinds are used.
+            guard !isSer, describeStates else { return nil }
+            let list = words.estar
             guard let adj = adjective(list, form.count) else { return nil }
             let form = words.estar.isEmpty && !isSer ? (["estaba": "era", "está": "es", "estuvo": "fue", "estará": "será"][form] ?? form) : form
             let usedForm = words.ser.isEmpty && isSer ? (["era": "estaba", "es": "está", "fue": "estuvo", "será": "estará"][form] ?? form) : form
@@ -215,15 +285,17 @@ enum DrillRelatedContext {
         let places = thing.kind == "l" || thing.kind == "c"
         let wantTalk = !infinitive.hasPrefix("habl") && !infinitive.hasPrefix("pregunt") && !infinitive.hasPrefix("coment")
         var found: [String?] = []
+        let base = infinitive.hasSuffix("se") ? String(infinitive.dropLast(2)) : infinitive
+        let referring = followUps(pool: pool, thing: thing).filter { $0.verb != base }.map { Optional($0.text) }
         switch pool {
         case "imperfectScenes":
             found = [describe("estaba"), describe("era"),
-                     wantNeeded && !places ? "Se necesitaba \(thing.direct)." : nil,
+                     wantNeeded && !places ? "Se necesita\(thing.plural ? "ban" : "ba") \(thing.direct)." : nil,
                      wantNeeded ? "Todos buscaban \(thing.direct)." : nil,
                      wantTalk ? "Todos hablaban \(de(thing.definite))." : nil]
         case "presentStates":
             found = [describe("está"), describe("es"),
-                     wantNeeded && !places ? "Se necesita \(thing.direct)." : nil,
+                     wantNeeded && !places ? "Se necesita\(thing.plural ? "n" : "") \(thing.direct)." : nil,
                      wantTalk ? "Todos hablan \(de(thing.definite))." : nil]
         case "pastCloses":
             found = [describe("fue"), describe("estuvo"),
@@ -246,6 +318,7 @@ enum DrillRelatedContext {
         default:
             return nil
         }
+        found += referring
         // Not the same time word as the first sentence ("Ayer … Ayer …")
         let used = timeWords.filter { target.lowercased().contains($0) }
         let usable = found.compactMap { $0 }.filter { candidate in !used.contains { candidate.lowercased().contains($0) } }

@@ -305,6 +305,17 @@ enum DrillExplainer {
             let wrote = "“\(given)” is the \(other.title.lowercased()) (\(entries[other.key]?.short ?? other.gloss))."
             return contrast.map { "\(wrote) \($0)" } ?? "\(wrote) This sentence needs the \(card.drill.title.lowercased()) (\(entries[card.drill.key]?.short ?? card.drill.gloss))."
         }
+        // A regular participle or gerund on a verb that has an irregular one: "haya volvido" for "haya vuelto"
+        let stem = String(card.infinitive.dropLast(2))
+        let ar = card.infinitive.hasSuffix("ar")
+        let answerWords = card.answer.split(separator: " ").map(String.init)
+        if let last = answerWords.last, answerWords.count > 1 || card.drill.kind == .progressive {
+            let regular = card.drill.kind == .perfect ? stem + (ar ? "ado" : "ido") : card.drill.kind == .progressive ? stem + (ar ? "ando" : "iendo") : nil
+            if let regular, regular != last, given.lowercased() == (answerWords.dropLast() + [regular]).joined(separator: " ") {
+                let part = card.drill.kind == .perfect ? "participle" : "gerund"
+                return "“\(card.infinitive)” has an irregular \(part): “\(last)”, not “\(regular)”. The answer is “\(card.answer)”."
+            }
+        }
         if distance(given.lowercased(), card.answer.lowercased()) <= 2 {
             return "Close. Check the spelling: “\(card.answer)”."
         }
