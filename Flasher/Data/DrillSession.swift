@@ -325,12 +325,20 @@ enum DrillDeck {
         for (infinitive, drill, _) in started where deck.count < count / 2 && !used.contains(infinitive) {
             if let made = card(infinitive, drill, progress: progress) { deck.append(made); used.insert(infinitive) }
         }
-        var tries = 0
-        while deck.count < count, tries < 100 {
-            tries += 1
-            guard let drill = drills.randomElement(), let made = make(drill, count: 1, progress: progress).first, !used.contains(made.infinitive) else { continue }
-            deck.append(made)
-            used.insert(made.infinitive)
+        // Each tense lines up its own next verbs; the round takes one at a time from random tenses. (Asking a tense for
+        // just one verb always gave its top verb, so a round could never be longer than the number of tenses.)
+        var pools: [DrillTense: [DrillSentences.Card]] = [:]
+        var open = drills
+        while deck.count < count, !open.isEmpty {
+            let drill = open.randomElement()!
+            if pools[drill] == nil { pools[drill] = make(drill, count: count, progress: progress).shuffled() }
+            while let made = pools[drill]?.popLast() {
+                if used.contains(made.infinitive) { continue }
+                deck.append(made)
+                used.insert(made.infinitive)
+                break
+            }
+            if pools[drill]?.isEmpty ?? true { open.removeAll { $0 == drill } }
         }
         return deck.shuffled()
     }

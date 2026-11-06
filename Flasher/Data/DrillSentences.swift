@@ -187,7 +187,7 @@ enum DrillSentences {
             shown = ""
         default:
             let base = infinitive.hasSuffix("se") ? String(infinitive.dropLast(2)) : infinitive
-            if usage.valency == "C", let adjective = DrillAdjectives.complement(verb: base, subject: subject, seed: seed), !(people && base == "quedar" && seed % 2 == 0) {
+            if usage.valency == "C", let adjective = DrillAdjectives.complement(verb: base, subject: subject, seed: seed, perfect: drill.kind == .perfect), !(people && base == "quedar" && seed % 2 == 0) {
                 // ser, estar, resultar, quedar: an adjective tagged for this kind of subject ("quedar" also takes a place, for people)
                 complement = adjective
             } else {
@@ -222,7 +222,7 @@ enum DrillSentences {
         case (.progressive, .future): parts = ["Mañana a esta hora", shown, verb, complement]
         case (.progressive, .conditional): parts = people ? [shown, verb, complement, "ahora", ifClause] : [withChange, shown, verb, complement]
         case (.progressive, .subjunctivePresent): parts = [trigger(past: false), shown, verb, complement]
-        case (.perfect, .subjunctivePresent): parts = still && !sameSubject ? ["No creo que", shown, verb, complement, "todavía"] : [trigger(past: false), shown, verb, complement]
+        case (.perfect, .subjunctivePresent): parts = still && !sameSubject ? ["No creo que", shown, verb, complement, "todavía"] : (seed / 13) % 2 == 0 ? [trigger(past: false), shown, "ya", verb, complement] : [trigger(past: false), shown, verb, complement]
         case (.progressive, .subjunctiveImperfect): parts = ["Si", shown, verb, complement, "ahora, se notaría"]
         // The perfect also says it is still open up to the moment: "Él todavía no ha comprado el paquete"
         case (.perfect, .present): parts = still ? [shown, "todavía no", verb, complement] : ["Hoy", shown, verb, complement]

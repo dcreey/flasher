@@ -52,6 +52,9 @@ enum DrillAlternates {
             found = [Option(drill: drill(.simple, .imperfect), why: "In everyday speech the imperfect often stands in for the conditional. The conditional is the standard form.", colloquial: true)]
         case "perfect conditional" where has("si hubiera habido tiempo"):
             found = [Option(drill: drill(.perfect, .subjunctiveImperfect), why: "In the result part of an unreal past condition both are accepted: “habría comprado” and “hubiera comprado”. Only “si habría…” is wrong.")]
+        // "Espero que ella haya sido amable": with no "ya" or "todavía", hoping about now or later (sea) fits as well
+        case "perfect subjunctivePresent" where !has(" ya ") && !has("todavía") && !has("cuando"):
+            found = [Option(drill: drill(.simple, .subjunctivePresent), why: "Nothing in the sentence says it should already be done, so hoping about now or later fits too: “Espero que sea…”. The perfect (“haya sido”) says it is already done.")]
         // Before another past moment: the pluperfect, not the preterite (the sources say they are not interchangeable)
         // Nosotros: "vamos a" is the everyday way to say "let's"
         case "simple imperative" where card.subject.text == "nosotros":

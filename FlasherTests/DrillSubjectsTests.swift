@@ -996,3 +996,54 @@ final class DrillProgressiveSettingTests: XCTestCase {
         XCTAssertEqual(DrillTense.available.count, DrillTense.all.count)
     }
 }
+
+final class DrillRoundSizeTests: XCTestCase {
+    func testEveryTenseFillsATenQuestionRound() {
+        let progress = DrillProgress(defaults: UserDefaults(suiteName: "drill-test-\(UUID().uuidString)")!)
+        for drill in DrillTense.all {
+            for _ in 0..<5 { XCTAssertEqual(DrillDeck.make(drill, count: 10, progress: progress).count, 10, drill.title) }
+        }
+    }
+}
+
+final class DrillMixedRoundSizeTests: XCTestCase {
+    func testAFewSelectedTensesStillGiveTenQuestions() {
+        let progress = DrillProgress(defaults: UserDefaults(suiteName: "drill-test-\(UUID().uuidString)")!)
+        let few = Array(DrillTense.all.prefix(3))
+        for _ in 0..<5 {
+            let round = DrillDeck.makeMixed(count: 10, drills: few, progress: progress)
+            XCTAssertEqual(round.count, 10)
+            XCTAssertEqual(Set(round.map(\.infinitive)).count, 10, "a verb twice in one round")
+        }
+        XCTAssertEqual(DrillDeck.makeMixed(count: 10, drills: [few[0]], progress: progress).count, 10)
+    }
+}
+
+final class DrillPerfectSerTests: XCTestCase {
+    func testSerInThePerfectNeverTakesATraitThatDoesNotChange() {
+        let perfect = DrillTense(kind: .perfect, tense: .subjunctivePresent)
+        let fixed = ["alto", "alta", "bajo", "baja", "joven", "viejo", "vieja", "guapo", "guapa", "azul", "rojo", "roja", "grande", "pequeño", "pequeña"]
+        for person in 0..<6 {
+            for variant in 0..<120 {
+                guard let card = DrillSentences.card("ser", perfect, subject: DrillSubject(text: ["yo", "tú", "él", "nosotros", "vosotros", "ellos"][person], person: person), variant: variant) else { continue }
+                let words = card.sentence.lowercased().components(separatedBy: CharacterSet.letters.inverted)
+                XCTAssertTrue(Set(words).isDisjoint(with: fixed), card.sentence)
+            }
+        }
+    }
+}
+
+final class DrillPerfectSubjunctiveAlternateTests: XCTestCase {
+    func testWithoutACueThePresentSubjunctiveFitsToo() {
+        let perfect = DrillTense(kind: .perfect, tense: .subjunctivePresent)
+        var plain = 0, cued = 0
+        for variant in 0..<200 {
+            guard let card = DrillSentences.card("ser", perfect, subject: DrillSubject(text: "ella", person: 2), variant: variant),
+                  card.sentence.hasPrefix("Espero") || card.sentence.contains("Ojalá") else { continue }
+            let options = DrillAlternates.options(for: card).map(\.drill.key)
+            if card.sentence.lowercased().contains(" ya ") { cued += 1; XCTAssertFalse(options.contains("simple subjunctivePresent"), card.sentence) }
+            else { plain += 1; XCTAssertTrue(options.contains("simple subjunctivePresent"), card.sentence) }
+        }
+        XCTAssertGreaterThan(plain, 0); XCTAssertGreaterThan(cued, 0)
+    }
+}

@@ -64,15 +64,27 @@ enum DrillAdjectives {
         return word + "es"
     }
 
+    /// "Ha sido alta", "ha sido azul" say nothing: a trait that does not change is not something that "has been" a certain
+    /// way. After ser in the perfect only what can be judged over time stays: behaviour, usefulness, quality.
+    private static let judgedOverTime: [Character: Set<String>] = [
+        "p": ["paciente", "responsable", "amable", "simpático", "honesto", "serio", "gracioso", "trabajador", "inteligente", "famoso"],
+        "t": ["útil", "importante", "caro", "barato", "normal", "especial", "sencillo", "simple"],
+        "f": ["rico", "sabroso", "casero", "fresco"],
+        "l": ["popular", "famoso", "seguro", "tranquilo", "ideal"],
+    ]
+
     /// An adjective for the subject and the verb, or nil when the verb takes something else (a place, an adverb).
-    static func complement(verb base: String, subject: DrillSubject, seed: Int) -> String? {
+    /// `perfect` is true for the perfect tenses, where ser only takes adjectives that can be judged over time.
+    static func complement(verb base: String, subject: DrillSubject, seed: Int, perfect: Bool = false) -> String? {
         let kind: Kind
         switch base {
         case "ser", "resultar": kind = .ser
         case "estar", "quedar": kind = .estar
         default: return nil
         }
-        let list = bank[category(of: subject)]?[kind] ?? []
+        let category = category(of: subject)
+        var list = bank[category]?[kind] ?? []
+        if perfect, kind == .ser { list = list.filter { judgedOverTime[category]?.contains($0) == true } }
         guard !list.isEmpty else { return nil }
         let agree = agreement(of: subject)
         return inflect(list[seed % list.count], feminine: agree.feminine, plural: agree.plural)

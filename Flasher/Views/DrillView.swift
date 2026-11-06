@@ -198,7 +198,10 @@ struct DrillSessionView: View {
     @State private var chosen: DrillTense?
     /// Set when the answer was another spelling of the same tense (-se for -ra).
     @State private var spellingNote: String?
+    /// After a miss: the right answer, typed out before moving on, as in the flashcards.
+    @State private var retype = ""
     @FocusState private var focused: Bool
+    @FocusState private var retypeFocused: Bool
 
     private static let roundSize = 10
 
@@ -246,6 +249,7 @@ struct DrillSessionView: View {
         chosen = nil
         spellingNote = nil
         typed = ""
+        retype = ""
         grade = nil
         focused = true
     }
@@ -285,11 +289,26 @@ struct DrillSessionView: View {
                 if let grade {
                     feedback(grade, card)
                     if !options.isEmpty { alsoFits(original, card, options) }
+                    if grade == .wrong {
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text("Type the right answer to continue. This card comes back later in the round.")
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
+                            TextField(card.answer, text: $retype)
+                                .textFieldStyle(.roundedBorder)
+                                .textInputAutocapitalization(.never)
+                                .autocorrectionDisabled()
+                                .focused($retypeFocused)
+                                .submitLabel(.next)
+                                .onSubmit { if retypedRight(card) { next() } }
+                        }
+                    }
                     Button { next() } label: {
                         Text(index + 1 < deck.count ? "Next" : "Finish").frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)
                     .controlSize(.large)
+                    .disabled(grade == .wrong && !retypedRight(card))
                 } else {
                     TextField("Missing verb", text: $typed)
                         .textFieldStyle(.roundedBorder)
@@ -440,15 +459,23 @@ struct DrillSessionView: View {
         let right = result != .wrong
         let firstTime = !retried.contains(card)
         DrillProgress.shared.record(card, correct: right, countsTowardMastery: firstTime)
-        guard firstTime else { return }
-        firstTry.append(card)
-        if right { rightCount += 1 } else {
-            missedCards.append(card)
-            // A missed card comes back later in the round, as in the flashcards
+        if firstTime {
+            firstTry.append(card)
+            if right { rightCount += 1 } else { missedCards.append(card) }
+        }
+        if !right {
+            // A missed card comes back later in the round, and keeps coming back until it is right, as in the flashcards
             retried.insert(card)
             let spot = Int.random(in: min(index + 3, deck.count)...deck.count)
             deck.insert(card, at: spot)
+            retype = ""
+            retypeFocused = true
         }
+    }
+
+    /// Whether what was typed after a miss is the right answer (a missing accent is forgiven).
+    private func retypedRight(_ card: DrillSentences.Card) -> Bool {
+        DrillChecker.grade(retype, answer: card.answer, infinitive: card.infinitive) != .wrong
     }
 
     private func next() {
@@ -457,6 +484,7 @@ struct DrillSessionView: View {
             chosen = nil
             spellingNote = nil
             typed = ""
+            retype = ""
             grade = nil
             focused = true
         } else {
@@ -489,15 +517,14 @@ private struct DrillEnglishView: View {
     @State private var configuration: TranslationSession.Configuration?
 
     var body: some View {
-        Group {
-            if let english {
-                Text(english)
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-        }
+        // Always one line of text, so the translation task has a view to run on before the English arrives
+        Text(english ?? " ")
+            .font(.callout)
+            .foregroundStyle(.secondary)
+            .fixedSize(horizontal: false, vertical: true)
+            .frame(maxWidth: .infinity, alignment: .leading)
         .translationTask(configuration) { session in
+            do { try await session.prepareTranslation() } catch { return }  // missing packs: the system asks to download them
             guard let response = try? await session.translate(spanish) else { return }
             let text = TranslationTraps.fixingEnglish(response.targetText, spanish: spanish)
             DrillEnglishCache.sentences[spanish] = text
