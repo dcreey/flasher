@@ -190,7 +190,14 @@ final class ProgressStore {
     }
 
     /// Flags the word for relearning and moves it to the front of the next study session.
+    /// Words in the flashcard queue, most recently queued first.
+    var queuedWordIDs: [String] {
+        progress.filter { $0.value.priorityDate != nil }.sorted { $0.value.priorityDate! > $1.value.priorityDate! }.map(\.key)
+    }
+
     func moveToTopOfQueue(wordID: String) {
+        // Queued words are kept in the saved list for good, even after they're studied
+        SavedWords.shared.add(wordID)
         flagForRelearning(wordID: wordID)
         var p = progressFor(wordID)
         p.priorityDate = Date()

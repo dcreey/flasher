@@ -931,10 +931,13 @@ final class DrillStillOpenTests: XCTestCase {
             XCTAssertTrue(card.sentence.contains("todavía"), card.sentence)
             XCTAssertTrue(DrillExplainer.explain(card).clue?.contains("No creo que") == true)
         }
-        // A same-subject card never uses a wish or purpose trigger (“espero que yo haya…” takes an infinitive)
-        let same = cards("comprar", subjunctive, containing: "es posible que", subject: DrillSubject(text: "yo", person: 0))
-        XCTAssertTrue(cards("comprar", subjunctive, containing: "espero que", subject: DrillSubject(text: "yo", person: 0)).isEmpty)
-        XCTAssertFalse(same.isEmpty)
+        // About the speaker's own finished action, no wish and no doubt (“Dudo que yo haya comprado…”): you'd know.
+        // Regrets and judgements remain.
+        let yo = DrillSubject(text: "yo", person: 0)
+        XCTAssertTrue(cards("comprar", subjunctive, containing: "espero que", subject: yo).isEmpty)
+        XCTAssertTrue(cards("comprar", subjunctive, containing: "es posible que", subject: yo).isEmpty)
+        XCTAssertTrue(cards("comprar", subjunctive, containing: "dudo que", subject: yo).isEmpty)
+        XCTAssertFalse(cards("comprar", subjunctive, containing: "es una lástima que", subject: yo).isEmpty && cards("comprar", subjunctive, containing: "es raro que", subject: yo).isEmpty)
     }
 
     func testTheMomentLineSaysTheStillOpenReading() {

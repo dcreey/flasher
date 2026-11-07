@@ -34,7 +34,7 @@ struct MoodTrigger: Identifiable, Hashable {
         var explanation: String {
             switch self {
             case .subjunctive: "Nothing in the clause is being claimed: it is wanted, felt about, doubted, not real yet. Subjunctive every time."
-            case .subjunctiveWithNo: "Said plainly they claim the clause: indicative. Negated, the clause is only brought up to be rejected: subjunctive. Asking ¿no crees que…? or saying no creas que… brings the indicative back."
+            case .subjunctiveWithNo: "Said plainly they claim the clause: indicative. Negated, you no longer vouch for the clause (you doubt it, without claiming the opposite): subjunctive. Asking ¿no crees que…? or saying no creas que… brings the indicative back."
             case .indicativeWithNo: "These reject the clause, so they take the subjunctive. Negated they turn into a claim, and the indicative comes back (the subjunctive still works)."
             case .meaning: "Both moods are correct, and they say different things: the indicative passes on a fact, the subjunctive asks for something or reacts to it."
             case .depends: "The word allows both. The indicative for a fact, a habit or the past; the subjunctive for what is still to come, unknown or only possible."
@@ -131,7 +131,7 @@ enum MoodTriggers {
         t("no hay duda de que", "there's no doubt (that)", .indicative, "Certainty: indicative.", ind: "No hay duda de que tienes razón.", keys: [], node: "doubt.certain"),
 
         // Believing, thinking, seeming, saying (1.4)
-        t("creer que", "to believe, think (that)", .subjunctiveWithNo, "Creo que: you claim it. No creo que: you bring it up to reject it. Compare creo que no viene (indicative): same meaning, but now you claim “he isn't coming”.", ind: "Creo que viene.", subj: "No creo que venga.", keys: ["creer"], node: "belief.no"),
+        t("creer que", "to believe, think (that)", .subjunctiveWithNo, "Creo que: you claim it. No creo que: you don't vouch for it; you doubt it, without claiming the opposite. That's weaker than creo que no viene (indicative), which does claim “he isn't coming”. See the table.", ind: "Creo que viene.", subj: "No creo que venga.", keys: ["creer"], node: "belief.no"),
         t("pensar que", "to think (that)", .subjunctiveWithNo, "Like creer. Pensar que + subjunctive can also mean planning: he pensado que vayas tú.", ind: "Pienso que tienes razón.", subj: "No pienso que sea justo.", keys: ["pensar"], node: "belief.no"),
         t("parecer que", "to seem (that)", .subjunctiveWithNo, "Parece que: indicative. No parece que: subjunctive. But me parece bien / mal que and parece mentira que take the subjunctive.", ind: "Parece que va a llover.", subj: "No parece que vaya a llover.", keys: ["parecer"], node: "belief.parece"),
         t("opinar que", "to be of the opinion (that)", .subjunctiveWithNo, "An opinion is a claim; negated it isn't.", ind: "Opino que es caro.", subj: "No opino que sea caro.", keys: ["opinar"], node: "belief.no"),
@@ -241,4 +241,33 @@ enum MoodTriggers {
     }()
 
     static func triggers(for spanish: String) -> [MoodTrigger] { byKey[spanish] ?? [] }
+
+    /// One row of a "with and without no" table.
+    struct MatrixRow: Hashable {
+        let spanish: String
+        let subjunctive: Bool
+        let english: String
+    }
+
+    /// Where the no goes changes the meaning as well as the mood, so these words get the four combinations side by side.
+    static let matrices: [String: [MatrixRow]] = [
+        "creer que": [
+            MatrixRow(spanish: "Creo que viene.", subjunctive: false, english: "I think he's coming. (a claim)"),
+            MatrixRow(spanish: "Creo que no viene.", subjunctive: false, english: "I think he isn't coming. (a claim of the opposite)"),
+            MatrixRow(spanish: "No creo que venga.", subjunctive: true, english: "I don't think he's coming: I doubt it, without claiming he won't."),
+            MatrixRow(spanish: "No creo que no venga.", subjunctive: true, english: "I don't think he won't come: he probably will."),
+        ],
+        "pensar que": [
+            MatrixRow(spanish: "Pienso que tiene razón.", subjunctive: false, english: "I think he's right. (a claim)"),
+            MatrixRow(spanish: "Pienso que no tiene razón.", subjunctive: false, english: "I think he's wrong. (a claim of the opposite)"),
+            MatrixRow(spanish: "No pienso que tenga razón.", subjunctive: true, english: "I don't think he's right: I doubt it."),
+            MatrixRow(spanish: "No pienso que no tenga razón.", subjunctive: true, english: "I don't think he's wrong: he may well be right."),
+        ],
+        "dudar que": [
+            MatrixRow(spanish: "Dudo que venga.", subjunctive: true, english: "I doubt he's coming."),
+            MatrixRow(spanish: "Dudo que no venga.", subjunctive: true, english: "I doubt he won't come: he probably will."),
+            MatrixRow(spanish: "No dudo que viene.", subjunctive: false, english: "I'm sure he's coming. (venga also works)"),
+            MatrixRow(spanish: "No dudo que no viene.", subjunctive: false, english: "I'm sure he isn't coming."),
+        ],
+    ]
 }

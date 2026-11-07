@@ -101,40 +101,73 @@ enum DictionaryIndex {
     private struct Entry {
         let word: Word
         let spanish: String
-        let headlineTerms: [String]       // the word's own one-line gloss ("sit down")
-        let primaryTerms: Set<String>     // English terms of the first meaning ("ant", "run")
-        let secondaryTerms: Set<String>   // English terms of later meanings
+        /// Every English term of the word with how early it comes: 0 for the one-line gloss, the first meaning of each
+        /// part of speech and the target country's meanings, then 1, 2… for later meanings ("test" is prueba's 2nd).
+        let terms: [String: Int]
         let termList: [String]
         let englishText: String
         let fuzzy: [[UInt8]]              // Spanish headword first, then English terms
         let diminutive: Diminutive?
     }
 
-    private static var entries: [Entry] { entryCache.current }
+    /// The entries plus lookup tables, so the strongest matches are found without scanning every word.
+    private struct Index {
+        let entries: [Entry]
+        /// English term → (entry, position of the meaning).
+        let english: [String: [(entry: Int, position: Int)]]
+        /// A word inside a longer English term ("test" in "multiple-choice test") → (entry, position).
+        let englishWords: [String: [(entry: Int, position: Int)]]
+        /// Spanish headword → entries.
+        let spanish: [String: [Int]]
+        /// Every English term, sorted, so a prefix is a binary search instead of a scan.
+        let sortedTerms: [(term: String, entry: Int, position: Int)]
+    }
+
+    private static var entries: [Entry] { indexCache.current.entries }
+    private static var index: Index { indexCache.current }
 
     /// Built once per country, because the word list and each word's leading meaning depend on it.
     /// The woman version of a noun is folded into the pair ("dueña" shows as "el dueño / la dueña"), unless it has meanings of its own.
-    private static let entryCache = PerCountry<[Entry]> { _ in Lexicon.shared.allWords.filter { !PersonNouns.isMergedFeminine($0) }.map { word in
-        let meanings = Lexicon.shared.meanings(for: word.spanish)
-        var primary = Set(englishTerms(word.english))
-        var secondary: Set<String> = []
-        var text = [word.english]
-        for meaning in meanings {
-            for (index, sense) in meaning.senses.enumerated() {
-                let terms = englishTerms(sense.text)
-                // The first meaning and every meaning of the target country count as primary
-                if index == 0 || sense.isLocal { primary.formUnion(terms) } else { secondary.formUnion(terms) }
-                text.append(sense.text)
+    private static let indexCache = PerCountry<Index> { _ in
+        let entries: [Entry] = Lexicon.shared.allWords.filter { !PersonNouns.isMergedFeminine($0) }.map { word in
+            let meanings = Lexicon.shared.meanings(for: word.spanish)
+            var terms: [String: Int] = [:]
+            func add(_ term: String, _ position: Int) { if terms[term].map({ position < $0 }) ?? true { terms[term] = position } }
+            for term in englishTerms(word.english) { add(term, 0) }
+            var text = [word.english]
+            for (block, meaning) in meanings.enumerated() {
+                for (index, sense) in meaning.senses.enumerated() {
+                    // A later part of speech starts one step down; the target country's meanings count as first
+                    let position = sense.isLocal ? 0 : index + (block > 0 && index > 0 ? 1 : 0)
+                    for term in englishTerms(sense.text) { add(term, position) }
+                    text.append(sense.text)
+                }
+            }
+            let spanish = word.spanish.searchKey
+            let termList = terms.sorted { $0.value < $1.value }.map(\.key)
+            let fuzzyTerms = [Array(spanish.utf8)] + termList.prefix(12).map { Array($0.utf8) }
+            return Entry(word: word, spanish: spanish, terms: terms, termList: termList, englishText: text.joined(separator: " ¦ ").searchKey,
+                         fuzzy: fuzzyTerms, diminutive: DiminutiveResolver.resolve(word.spanish))
+        }
+        var english: [String: [(entry: Int, position: Int)]] = [:]
+        var englishWords: [String: [(entry: Int, position: Int)]] = [:]
+        var spanish: [String: [Int]] = [:]
+        for (i, entry) in entries.enumerated() {
+            spanish[entry.spanish, default: []].append(i)
+            for (term, position) in entry.terms {
+                english[term, default: []].append((i, position))
+                guard term.contains(" ") || term.contains("-") else { continue }
+                var seen: Set<Substring> = []
+                for part in term.split(whereSeparator: { $0 == " " || $0 == "-" }) where part.count > 1 && seen.insert(part).inserted {
+                    englishWords[String(part), default: []].append((i, position))
+                }
             }
         }
-        secondary.subtract(primary)
-        let spanish = word.spanish.searchKey
-        let termList = Array(primary) + Array(secondary)
-        let fuzzyTerms = [Array(spanish.utf8)] + (Array(primary) + Array(secondary).prefix(8)).map { Array($0.utf8) }
-        return Entry(word: word, spanish: spanish, headlineTerms: englishTerms(word.english), primaryTerms: primary, secondaryTerms: secondary,
-                     termList: termList, englishText: text.joined(separator: " ¦ ").searchKey,
-                     fuzzy: fuzzyTerms, diminutive: DiminutiveResolver.resolve(word.spanish))
-    } }
+        var sortedTerms: [(term: String, entry: Int, position: Int)] = []
+        for (term, hits) in english { for hit in hits { sortedTerms.append((term, hit.entry, hit.position)) } }
+        sortedTerms.sort { $0.term < $1.term }
+        return Index(entries: entries, english: english, englishWords: englishWords, spanish: spanish, sortedTerms: sortedTerms)
+    }
 
     /// Every plural and other-sex form of a noun, so "profesoras" finds profesor.
     private static var formIndex: [String: [Word]] { formCache.current }
@@ -186,7 +219,7 @@ enum DictionaryIndex {
             .split(whereSeparator: { ",;/:".contains($0) })
             .map { term -> String in
                 var t = term.trimmingCharacters(in: .whitespaces)
-                for article in ["to ", "a ", "an ", "the "] where t.hasPrefix(article) {
+                for article in ["to ", "a ", "an ", "the ", "or ", "and "] where t.hasPrefix(article) {
                     t = String(t.dropFirst(article.count))
                     break
                 }
@@ -240,7 +273,7 @@ enum DictionaryIndex {
         }
         var formIDs = Set(formWords.map(\.id))
         // "vernos" / "dámelo" / "hacerlo": a verb with pronouns attached, when it isn't an entry of its own
-        if scope != .english, !q.contains(" "), !entries.contains(where: { $0.spanish == q }), let attached = Clitics.resolve(q) ?? Clitics.resolveApproximately(q),
+        if scope != .english, !q.contains(" "), index.spanish[q] == nil, let attached = Clitics.resolve(q) ?? Clitics.resolveApproximately(q),
            attached.verb.id != diminutive?.base.id, formIDs.insert(attached.verb.id).inserted {
             ranked.append((0, 0, SearchHit(word: attached.verb, diminutive: nil, senseNote: attached.note, attached: attached)))
         }
@@ -257,34 +290,70 @@ enum DictionaryIndex {
         var reflexiveBase: String?
         if q.count > 5, ["arse", "erse", "irse"].contains(where: q.hasSuffix) { reflexiveBase = String(q.dropLast(2)) }
 
-        for entry in entries where entry.word.id != diminutive?.base.id && !formIDs.contains(entry.word.id) {
-            var best: (tier: Int, language: Int)?
-            if scope != .english {
-                let direct = spanishTier(q, entry.spanish)
-                let viaBare = bare.flatMap { spanishTier($0, entry.spanish) }.map { $0 + 1 }
-                let viaReflexive = entry.word.partOfSpeech == .infinitive && entry.spanish == reflexiveBase ? 1 : nil
-                if let tier = [direct, viaBare, viaReflexive].compactMap({ $0 }).min() { best = (tier, 0) }
+        // Every other entry is placed in a band by how strongly it matches, strongest first:
+        //   0 exact: the Spanish word, or an English meaning that is exactly the query
+        //   2 the query as a whole word of a longer meaning ("test" in "multiple-choice test"), or the query + more words
+        //   4 a prefix (testament), 6 contained in the word or its meanings, 8+ a misspelling
+        // Inside a band, a word ranks higher the earlier the matching meaning comes and the more common the word is.
+        var matched: [Int: (band: Int, position: Int, language: Int)] = [:]
+        func consider(_ i: Int, _ band: Int, _ position: Int, _ language: Int) {
+            let entry = entries[i]
+            guard entry.word.id != diminutive?.base.id, !formIDs.contains(entry.word.id) else { return }
+            if let old = matched[i], (old.band, old.position) <= (band, position) { return }
+            matched[i] = (band, position, language)
+        }
+        let index = self.index
+        if scope != .english {
+            for i in index.spanish[q] ?? [] { consider(i, 0, 0, 0) }
+            if let bare { for i in index.spanish[bare] ?? [] { consider(i, 0, 0, 0) } }
+            if let reflexiveBase { for i in index.spanish[reflexiveBase] ?? [] where entries[i].word.partOfSpeech == .infinitive { consider(i, 2, 0, 0) } }
+        }
+        if scope != .spanish {
+            for hit in index.english[englishQuery] ?? [] { consider(hit.entry, 0, hit.position, 1) }
+            if !englishQuery.contains(" ") { for hit in index.englishWords[englishQuery] ?? [] { consider(hit.entry, 2, hit.position, 1) } }
+        }
+        // English prefixes: a binary search in the sorted terms ("test" → "test drive" band 2, "testament" band 4)
+        if scope != .spanish, englishQuery.count >= 2 {
+            let terms = index.sortedTerms
+            var low = 0, high = terms.count
+            while low < high { let mid = (low + high) / 2; if terms[mid].term < englishQuery { low = mid + 1 } else { high = mid } }
+            while low < terms.count, terms[low].term.hasPrefix(englishQuery) {
+                let t = terms[low]
+                if t.term != englishQuery { consider(t.entry, t.term.hasPrefix(englishQuery + " ") ? 2 : 4, t.position, 1) }
+                low += 1
             }
-            if scope != .spanish, let tier = englishTier(englishQuery, entry), best == nil || tier < best!.tier { best = (tier, 1) }
-
-            if let best {
-                ranked.append((best.tier * 2, best.language,
-                               SearchHit(word: entry.word, diminutive: entry.diminutive, matchedEnglish: best.language == 1)))
-            } else if maxTypos > 0 {
-                var closest: (distance: Int, language: Int)?
+        }
+        // Spanish prefixes and substrings: a scan of the short headwords; skipped for one-letter queries
+        if scope != .english, q.count >= 2 {
+            for (i, entry) in entries.enumerated() where matched[i].map({ $0.band > 2 }) ?? true {
+                if entry.spanish.hasPrefix(q) || bare.map(entry.spanish.hasPrefix) == true { consider(i, entry.spanish.hasPrefix(q + " ") ? 2 : 4, 0, 0) }
+                else if entry.spanish.contains(q) { consider(i, 6, 0, 0) }
+            }
+        }
+        // English text containing the query anywhere: the slowest scan, so only when the stronger matches are few
+        if scope != .spanish, englishQuery.count >= 3, matched.count < 60 {
+            for (i, entry) in entries.enumerated() where matched[i] == nil && entry.englishText.contains(englishQuery) { consider(i, 6, 3, 1) }
+        }
+        // Misspellings only when the direct matches are few: a typo search over every word is the slowest part
+        if maxTypos > 0, matched.count < 8 {
+            for (i, entry) in entries.enumerated() where matched[i] == nil {
+                var closest: (distance: Int, language: Int, position: Int)?
                 for (index, term) in entry.fuzzy.enumerated() {
                     if index == 0 ? scope == .english : scope == .spanish { continue }
                     let isSpanish = index == 0
                     let allowed = isSpanish ? typos(q) : typos(englishQuery)
                     if let d = editDistance(isSpanish ? queryBytes : englishBytes, term, limit: allowed), closest == nil || d < closest!.distance {
-                        closest = (d, index == 0 ? 0 : 1)
+                        closest = (d, isSpanish ? 0 : 1, isSpanish ? 0 : (entry.terms[entry.termList[index - 1]] ?? 0))
                     }
                 }
-                if let closest {
-                    ranked.append(((5 + closest.distance) * 2, closest.language,
-                                   SearchHit(word: entry.word, diminutive: entry.diminutive, matchedEnglish: closest.language == 1)))
-                }
+                if let closest { consider(i, 8 + closest.distance * 2, closest.position, closest.language) }
             }
+        }
+        var scores: [String: Double] = [:]
+        for (i, match) in matched {
+            let entry = entries[i]
+            ranked.append((match.band, match.language, SearchHit(word: entry.word, diminutive: entry.diminutive, matchedEnglish: match.language == 1)))
+            scores[entry.word.id] = weight(position: match.position, order: entry.word.order)
         }
         // "it reminds me of" / "it seems like": drop the subject and the trailing particles, and find the verb
         if scope != .spanish, !isFallback, let core = englishCore(englishQuery) {
@@ -316,10 +385,17 @@ enum DictionaryIndex {
         return ranked
             .sorted {
                 if $0.rank != $1.rank { return $0.rank < $1.rank }
-                if $0.hit.word.order != $1.hit.word.order { return $0.hit.word.order < $1.hit.word.order }
+                let a = scores[$0.hit.id] ?? weight(position: 0, order: $0.hit.word.order)
+                let b = scores[$1.hit.id] ?? weight(position: 0, order: $1.hit.word.order)
+                if a != b { return a < b }
                 return $0.language < $1.language
             }
             .map(\.hit)
+    }
+
+    /// Lower is better: each later meaning costs about as much as the word being three times rarer.
+    private static func weight(position: Int, order: Int) -> Double {
+        Double(min(position, 8)) * 1.6 + log2(Double(order) + 2)
     }
 
     /// "it reminds me of" → ["remind", "reminds", ...]: the verb of an English phrase with its subject and trailing particles removed.
@@ -361,23 +437,6 @@ enum DictionaryIndex {
         }
         // Adjectives nobody has tagged yet stay available, after the ones known to fit
         return tagged + open.prefix(10)
-    }
-
-    private static func spanishTier(_ q: String, _ spanish: String) -> Int? {
-        if spanish == q { return 0 }
-        if spanish.hasPrefix(q) { return 2 }
-        if spanish.contains(q) { return 3 }
-        return nil
-    }
-
-    private static func englishTier(_ q: String, _ entry: Entry) -> Int? {
-        // The word's own gloss leads: "sit" finds sentarse ("to sit down") before words that only mention sitting
-        if entry.headlineTerms.contains(where: { $0 == q || $0.hasPrefix(q + " ") }) { return 0 }
-        if entry.primaryTerms.contains(q) { return 1 }
-        if entry.primaryTerms.contains(where: { $0.hasPrefix(q + " ") }) || entry.secondaryTerms.contains(q) { return 2 }
-        if entry.termList.contains(where: { $0.hasPrefix(q) }) { return 3 }
-        if entry.englishText.contains(q) { return 4 }
-        return nil
     }
 
     /// Damerau-Levenshtein (adjacent swaps count as one edit). Returns nil once the

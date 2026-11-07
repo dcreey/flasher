@@ -78,7 +78,7 @@ enum MoodMap {
         MoodNode(id: "doubt.nodudo", level: 4, parent: "doubt", title: "No dudo que: both work", rule: "Not doubting is close to certainty: the indicative is normal, the subjunctive also works.", example: "No dudo que es / sea verdad."),
         MoodNode(id: "doubt.certain", level: 4, parent: "doubt", title: "No cabe duda: certainty", rule: "No cabe duda de que, no hay duda de que, estoy seguro de que: indicative.", example: "No cabe duda de que es él."),
 
-        MoodNode(id: "belief.no", level: 3, parent: "belief", title: "Negated: subjunctive", rule: "No creo que, no pienso que, no parece que take the subjunctive: the clause is brought up only to be rejected, so nobody claims it.", example: "No creo que tenga razón."),
+        MoodNode(id: "belief.no", level: 3, parent: "belief", title: "Negated: subjunctive", rule: "No creo que, no pienso que, no parece que take the subjunctive: you don't vouch for the clause (you doubt it), so nobody claims it.", example: "No creo que tenga razón."),
         MoodNode(id: "belief.claim", level: 4, parent: "belief.no", title: "Who claims it? Not the word no", rule: "The mood follows who stands behind the clause, not whether there's a no. Creo que no viene: you claim “he isn't coming” (indicative). No sabía que estabas: it was true and you say so, so the indicative is usual. Dudo que: no no, still subjunctive.", example: "Creo que no viene · No creo que venga · Espero que no venga (a wish stays subjunctive)"),
         MoodNode(id: "belief.question", level: 4, parent: "belief.no", title: "¿No crees que…? and no creas que", rule: "A question asking you to agree, and a 'don't think that…' command, take the indicative.", example: "¿No crees que ya es tarde? · No creas que me gusta."),
 
@@ -142,7 +142,7 @@ enum MoodMap {
         root(form("root.8", "root", "You want him to call.", "Le pido que me ___.", ["llama", "llame"], [1], "Asking for something that hasn't happened: subjunctive."), 1),
         root(form("root.9", "root", "He did call, you're telling someone.", "Te cuento que me ___ ayer.", ["llamó", "llamara"], [0], "Telling what happened: indicative."), 0),
         MoodItem(id: "root.5", node: "root", kind: .flip, context: "Right now it takes the indicative (tiene). Make the subjunctive (tenga) right.", prompt: "Creo que tiene razón.",
-                 choices: ["Creo → No creo", "Creo → Sé", "tiene → tenía"], correct: [0], note: "With creo que you claim “he's right”. With no creo que you only bring it up to reject it, so nobody claims it: No creo que tenga razón. It isn't the word no: creo que no tiene razón keeps the indicative, because now you claim “he isn't right”.",
+                 choices: ["Creo → No creo", "Creo → Sé", "tiene → tenía"], correct: [0], note: "With creo que you claim “he's right”. With no creo que you don't vouch for it (you doubt it), so nobody claims it: No creo que tenga razón. It isn't the word no: creo que no tiene razón keeps the indicative, because now you claim “he isn't right”.",
                  why: ["Now nobody claims the clause is true", "Sé is stronger than creo", "The past tense changes the mood"], whyRight: 0),
 
         // Wanting
@@ -161,7 +161,7 @@ enum MoodMap {
 
         // Who claims it
         form("belief.claim.1", "belief.claim", "You think he isn't coming.", "Creo que no ___.", ["viene", "venga"], [0], "You claim “he isn't coming”: indicative. The no is inside the clause."),
-        form("belief.claim.2", "belief.claim", "Same idea, said the other way.", "No creo que ___.", ["viene", "venga"], [1], "Now “he comes” is brought up only to be rejected: subjunctive. Same meaning as creo que no viene, different mood."),
+        form("belief.claim.2", "belief.claim", "You doubt he's coming, without claiming he won't.", "No creo que ___.", ["viene", "venga"], [1], "Now nobody vouches for “he comes”: you doubt it, so subjunctive. Close to creo que no viene, but weaker: you aren't claiming he won't come, only that you don't think he will."),
         form("belief.claim.3", "belief.claim", "Your friend was there; you hadn't noticed.", "No me di cuenta de que ___ ahí.", ["estabas", "estuvieras"], [0], "There's a no, but it was true, and you're saying so: indicative. Knowing and realizing keep the indicative."),
         form("belief.claim.4", "belief.claim", "Surprise: your friend is here.", "No sabía que ___ aquí.", ["estabas", "estuvieras"], [0, 1], "Both are correct. Estabas: you're telling them it's true, you just didn't know (the usual way). Estuvieras: you don't vouch for it."),
         meaning("belief.claim.5", "belief.claim", "About someone who denies science.", "Juan no cree que la Tierra es redonda.", ["The speaker knows it's round; Juan doesn't believe it.", "The speaker isn't sure it's round either."], 0, "The indicative after no cree que means the speaker stands behind the clause. With sea, the speaker takes no side."),

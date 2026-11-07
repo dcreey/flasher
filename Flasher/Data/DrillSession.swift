@@ -304,7 +304,22 @@ enum DrillDeck {
         }
         // The queued verbs lead; the rest are shuffled
         let leading = deck.prefix { progress.isQueued($0.infinitive, $0.drill) }
-        return Array(leading) + deck.dropFirst(leading.count).shuffled()
+        return withCurveBalls(Array(leading) + deck.dropFirst(leading.count).shuffled())
+    }
+
+    /// In a subjunctive round, about two cards in ten become curve balls: the same verb after a trigger that takes the
+    /// indicative, so the learner has to decide the mood instead of filling in the subjunctive every time.
+    static func withCurveBalls(_ deck: [DrillSentences.Card]) -> [DrillSentences.Card] {
+        var deck = deck
+        let candidates = deck.indices.filter { $0 > 0 && DrillSentences.curveBalls[deck[$0].drill] != nil && deck[$0].curve == nil }
+        let wanted = min(candidates.count, max(candidates.isEmpty ? 0 : 1, deck.count / 5))
+        for index in candidates.shuffled().prefix(wanted) {
+            let card = deck[index]
+            if let curve = DrillSentences.curveCard(card.infinitive, for: card.drill, subject: card.subject, variant: Int.random(in: 1..<1_000_000)) {
+                deck[index] = curve
+            }
+        }
+        return deck
     }
 
     /// A round from the verbs the learner queued, whatever the tense.

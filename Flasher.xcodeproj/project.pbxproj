@@ -77,6 +77,7 @@
 		A1B2C3D4E5F60718293A4B51 /* DrillSentences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B50 /* DrillSentences.swift */; };
 		A1B2C3D4E5F60718293A4B41 /* DrillSentencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B40 /* DrillSentencesTests.swift */; };
 		F3067F8EE57A4D4D84A9CE1B /* MoodMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C244BAAC67394F2F8CD60BB5 /* MoodMapTests.swift */; };
+		9F19F3D1CAAE4739B2210B9F /* SearchRankingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82B012114424BFFA1827B8E /* SearchRankingTests.swift */; };
 		A1B2C3D4E5F60718293A4B70 /* VerbUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B60 /* VerbUsage.swift */; };
 		A1B2C3D4E5F60718293A4B71 /* VerbUsageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B61 /* VerbUsageData.swift */; };
 /* End PBXBuildFile section */
@@ -165,6 +166,7 @@
 		A1B2C3D4E5F60718293A4B50 /* DrillSentences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSentences.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B40 /* DrillSentencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSentencesTests.swift; sourceTree = "<group>"; };
 		C244BAAC67394F2F8CD60BB5 /* MoodMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapTests.swift; sourceTree = "<group>"; };
+		D82B012114424BFFA1827B8E /* SearchRankingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRankingTests.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B60 /* VerbUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbUsage.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B61 /* VerbUsageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbUsageData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -302,6 +304,7 @@
 				9D1FA2CB60F4886AD163AA56 /* SpanishCheckerTests.swift */,
 				A1B2C3D4E5F60718293A4B40 /* DrillSentencesTests.swift */,
 				C244BAAC67394F2F8CD60BB5 /* MoodMapTests.swift */,
+				D82B012114424BFFA1827B8E /* SearchRankingTests.swift */,
 				A1B2C3D4E5F60718293A4B30 /* DrillSubjectsTests.swift */,
 			);
 			path = FlasherTests;
@@ -476,6 +479,7 @@
 				936299D414BDB758B390BDAD /* SpanishCheckerTests.swift in Sources */,
 				A1B2C3D4E5F60718293A4B41 /* DrillSentencesTests.swift in Sources */,
 				F3067F8EE57A4D4D84A9CE1B /* MoodMapTests.swift in Sources */,
+				9F19F3D1CAAE4739B2210B9F /* SearchRankingTests.swift in Sources */,
 				A1B2C3D4E5F60718293A4B31 /* DrillSubjectsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

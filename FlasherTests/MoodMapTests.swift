@@ -98,7 +98,8 @@ final class MoodMapTests: XCTestCase {
     /// The trigger list and the app's Spanish checker must agree: no example the list teaches is flagged as wrong.
     func testTriggerExamplesPassTheChecker() {
         for trigger in MoodTriggers.all {
-            for text in [trigger.indicative, trigger.subjunctive].compactMap({ $0 }) {
+            let matrix = MoodTriggers.matrices[trigger.phrase]?.map(\.spanish) ?? []
+            for text in [trigger.indicative, trigger.subjunctive].compactMap({ $0 }) + matrix {
                 let bad = SpanishChecker.check(text).filter { $0.kind != .tip }
                 XCTAssertTrue(bad.isEmpty, "\(trigger.phrase): \(text) <<< \(bad.map(\.message))")
             }
@@ -128,6 +129,31 @@ final class MoodMapTests: XCTestCase {
         let progress = MoodMapProgress(defaults: defaults)
         progress.markSeen(["conditional"])
         XCTAssertTrue(MoodMapProgress(defaults: defaults).seenTenses.contains("conditional"))
+    }
+
+    /// Curve balls: an indicative trigger, the indicative answer, and never "me dijeron que" about the speaker.
+    func testCurveBallsAreIndicativeAndSensible() {
+        let drill = DrillTense(kind: .simple, tense: .subjunctivePresent)
+        var made = 0
+        for (i, verb) in DrillSentences.verbList.prefix(60).enumerated() {
+            for subject in DrillSentences.subjects(for: verb, drill) {
+                guard let card = DrillSentences.curveCard(verb, for: drill, subject: subject, variant: i * 31 + 7) else { continue }
+                made += 1
+                XCTAssertEqual(card.drill, DrillTense(kind: .simple, tense: .present), card.sentence)
+                XCTAssertNotNil(card.curve)
+                XCTAssertTrue(card.prompt.contains("______"), card.prompt)
+                if subject.person == 0 || subject.person == 3 { XCTAssertFalse(card.sentence.hasPrefix("Me dijeron"), card.sentence) }
+                let bad = SpanishChecker.check(card.sentence).filter { $0.kind != .tip }
+                XCTAssertTrue(bad.isEmpty, "\(card.sentence) <<< \(bad.map(\.message))")
+            }
+        }
+        XCTAssertGreaterThan(made, 50)
+        // A subjunctive round gets about two in ten
+        let round = DrillDeck.withCurveBalls((0..<10).compactMap { i in
+            let verb = DrillSentences.verbList[i]
+            return DrillSentences.subjects(for: verb, drill).first.flatMap { DrillSentences.card(verb, drill, subject: $0) }
+        })
+        XCTAssertGreaterThanOrEqual(round.filter { $0.curve != nil }.count, 1)
     }
 
     func testUnlockingAndMastery() {

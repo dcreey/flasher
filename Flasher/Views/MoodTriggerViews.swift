@@ -34,12 +34,36 @@ struct MoodTriggerSummary: View {
                 MoodTriggerTag(behavior: trigger.behavior)
             }
             Text(trigger.rule).font(.subheadline).foregroundStyle(.secondary)
-            if let ind = trigger.indicative { example("Indicative", ind) }
-            if let subj = trigger.subjunctive { example("Subjunctive", subj) }
+            if let rows = MoodTriggers.matrices[trigger.phrase] {
+                matrix(rows)
+            } else {
+                if let ind = trigger.indicative { example("Indicative", ind) }
+                if let subj = trigger.subjunctive { example("Subjunctive", subj) }
+            }
         }
         .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(trigger.behavior.color.opacity(0.07), in: RoundedRectangle(cornerRadius: 12))
+    }
+
+    /// The four combinations of no: the sentence, its mood and what it means.
+    private func matrix(_ rows: [MoodTriggers.MatrixRow]) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            ForEach(rows, id: \.self) { row in
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(spacing: 6) {
+                        Text(row.spanish).font(.subheadline.weight(.semibold)).italic()
+                        Text(row.subjunctive ? "subj" : "ind")
+                            .font(.system(size: 10, weight: .semibold))
+                            .padding(.horizontal, 5).padding(.vertical, 1)
+                            .background((row.subjunctive ? Color.purple : Color.blue).opacity(0.15), in: Capsule())
+                            .foregroundStyle(row.subjunctive ? Color.purple : Color.blue)
+                    }
+                    Text(row.english).font(.caption).foregroundStyle(.secondary)
+                }
+            }
+        }
+        .padding(.top, 2)
     }
 
     private func example(_ label: String, _ text: String) -> some View {

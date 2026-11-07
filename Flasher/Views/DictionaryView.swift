@@ -97,7 +97,9 @@ struct DictionaryView: View {
         .toolbarBackground(Color(.systemBackground), for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) { AboutButton() }
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                NavigationLink { SavedWordsView() } label: { Image(systemName: "bookmark") }
+                    .accessibilityLabel("Saved words")
                 Button { showSettings = true } label: { Image(systemName: "gearshape") }
                     .accessibilityLabel("Settings")
             }
@@ -308,6 +310,62 @@ struct DictionaryView: View {
             }
         }
         .listStyle(.plain)
+    }
+}
+
+/// The words the learner has queued for flashcards, kept even after they're studied. Swipe to remove one.
+private struct SavedWordsView: View {
+    @Environment(ProgressStore.self) private var store
+    @State private var saved = SavedWords.shared
+    @State private var filter = ""
+    @State private var toast: String?
+
+    private var hits: [SearchHit] {
+        let key = filter.searchKey
+        return saved.words
+            .filter { key.isEmpty || $0.spanish.searchKey.contains(key) || $0.english.searchKey.contains(key) }
+            .map { SearchHit(word: $0, diminutive: DiminutiveResolver.resolve($0.spanish)) }
+    }
+
+    var body: some View {
+        List {
+            ForEach(hits) { hit in
+                NavigationLink(value: hit) { DictionaryRow(hit: hit, onQueueChange: show) }
+            }
+            .onDelete { offsets in
+                let words = hits
+                for offset in offsets { saved.remove(words[offset].word.id) }
+            }
+        }
+        .listStyle(.plain)
+        .overlay {
+            if saved.ids.isEmpty {
+                ContentUnavailableView("No saved words", systemImage: "bookmark",
+                                       description: Text("Words you add to the flashcard queue are saved here, even after you study them."))
+            } else if hits.isEmpty {
+                ContentUnavailableView.search(text: filter)
+            }
+        }
+        .overlay(alignment: .bottom) {
+            if let toast {
+                Text(toast).font(.subheadline).padding(.horizontal, 16).padding(.vertical, 10)
+                    .background(.thickMaterial, in: Capsule()).padding(.bottom, 90)
+            }
+        }
+        .searchable(text: $filter, placement: .navigationBarDrawer(displayMode: .automatic), prompt: "Search saved words")
+        .autocorrectionDisabled()
+        .textInputAutocapitalization(.never)
+        .navigationTitle("Saved words")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar { if !saved.ids.isEmpty { EditButton() } }
+        .onAppear {
+            saved.seedIfNeeded(with: store.queuedWordIDs)
+        }
+    }
+
+    private func show(_ message: String) {
+        withAnimation { toast = message }
+        Task { try? await Task.sleep(for: .seconds(1.6)); withAnimation { toast = nil } }
     }
 }
 

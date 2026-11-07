@@ -217,8 +217,12 @@ extension SpanishChecker {
             // "sea" is yo or él: only an explicit "yo" makes it the first person
             let saidYo = last >= i + trigger.count && tokens[(i + trigger.count)...last].contains { $0.lower == "yo" }
             let ordered = saidYo ? options : options.sorted { ($0.person == 0 ? 1 : 0) < ($1.person == 0 ? 1 : 0) }
-            // Only a form that can be nothing but a present subjunctive of one verb; "no dudo que" keeps its own wording
-            guard let best = ordered.first, Set(options.map(\.infinitive)).count == 1, Clitics.formOptions(verb.lower).allSatisfy({ $0.tense == .subjunctivePresent || $0.tense == .imperative || $0.infinitive != best.infinitive }),
+            // Only a form that can be nothing but a present subjunctive of one verb; "no dudo que" keeps its own wording.
+            // A form that is also the indicative of a more common verb ("vives" from vivir, not vivar; "cena" from cenar, not ceñir)
+            // is left alone; one whose other reading is rarer ("vengas" from vengar) is still a subjunctive of venir.
+            func commonness(_ infinitive: String) -> Int { Lexicon.shared.wordsByID[infinitive]?.order ?? Int.max }
+            guard let best = ordered.first, Set(options.map(\.infinitive)).count == 1,
+                  Clitics.formOptions(verb.lower).allSatisfy({ $0.tense == .subjunctivePresent || $0.tense == .imperative || ($0.infinitive != best.infinitive && commonness($0.infinitive) > commonness(best.infinitive)) }),
                   let fix = Clitics.formOf(best.infinitive, .present, best.person) else { continue }
             let said = trigger.joined(separator: " ")
             if ifClause {

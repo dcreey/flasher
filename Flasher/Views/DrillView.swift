@@ -256,14 +256,15 @@ struct DrillSessionView: View {
 
     private func cardView(_ original: DrillSentences.Card) -> some View {
         // Some sentences fit more than one tense. The learner picks, and the card follows the pick.
-        let options = DrillAlternates.options(for: original)
+        // A curve ball hides its tense, so it offers no tense picker either
+        let options = original.curve == nil ? DrillAlternates.options(for: original) : []
         let card = chosen.map { original.choosing($0) } ?? original
         return ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("\(card.drill.title) · \(card.drill.gloss)")
+                    Text(moodHidden(card) ? "Indicative or subjunctive? · \(timeOnly(card))" : "\(card.drill.title) · \(card.drill.gloss)")
                         .font(.footnote.weight(.semibold))
-                        .foregroundStyle(.teal)
+                        .foregroundStyle(moodHidden(card) ? .orange : .teal)
                     Text(card.infinitive).font(.title.bold())
                     if let meaning = Self.meaning(of: card.infinitive) {
                         Text(meaning).font(.subheadline).foregroundStyle(.secondary)
@@ -281,9 +282,9 @@ struct DrillSessionView: View {
                     .font(.title3)
                     .fixedSize(horizontal: false, vertical: true)
 
-                // After answering, the whole sentence in English
-                if grade != nil, #available(iOS 18.0, *) {
-                    DrillEnglishView(spanish: card.sentence).id(card.sentence)
+                // The whole sentence in English: translated as soon as the card appears, shown once it's answered
+                if #available(iOS 18.0, *) {
+                    DrillEnglishView(spanish: card.sentence, revealed: grade != nil).id(card.sentence)
                 }
 
                 if let grade {
@@ -328,6 +329,20 @@ struct DrillSessionView: View {
             .padding(16)
         }
         .scrollDismissesKeyboard(.interactively)
+    }
+
+    /// Subjunctive cards and the curve balls among them hide the mood until answered, so the header doesn't give it away.
+    private func moodHidden(_ card: DrillSentences.Card) -> Bool {
+        grade == nil && (card.curve != nil || DrillSentences.curveBalls[card.drill] != nil)
+    }
+
+    /// The time the blank is about, without the mood: present, past or "has done".
+    private func timeOnly(_ card: DrillSentences.Card) -> String {
+        switch (card.drill.kind, card.drill.tense) {
+        case (.perfect, _): "has done"
+        case (_, .imperfect), (_, .subjunctiveImperfect): "past"
+        default: "present"
+        }
     }
 
     private func subjectLine(_ card: DrillSentences.Card) -> String {
@@ -394,6 +409,11 @@ struct DrillSessionView: View {
         }
         // Why this tense, always open: right answers learn the reason too
         VStack(alignment: .leading, spacing: 8) {
+            if let curve = card.curve {
+                Label("Curve ball: \(curve.why)", systemImage: "arrow.uturn.right")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(.orange)
+            }
             Text("Why the \(card.drill.title.lowercased())?").font(.subheadline.weight(.semibold))
             explanation(card)
         }
@@ -513,16 +533,21 @@ enum DrillEnglishCache {
 @available(iOS 18.0, *)
 private struct DrillEnglishView: View {
     let spanish: String
+    /// False while the question is open: the translation runs, but nothing shows until the card is answered.
+    var revealed = true
     @State private var english: String?
     @State private var configuration: TranslationSession.Configuration?
 
     var body: some View {
         // Always one line of text, so the translation task has a view to run on before the English arrives
-        Text(english ?? " ")
+        Text(revealed ? (english ?? " ") : " ")
             .font(.callout)
             .foregroundStyle(.secondary)
             .fixedSize(horizontal: false, vertical: true)
             .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(height: revealed ? nil : 0)
+            .opacity(revealed ? 1 : 0)
+            .accessibilityHidden(!revealed)
         .translationTask(configuration) { session in
             do { try await session.prepareTranslation() } catch { return }  // missing packs: the system asks to download them
             guard let response = try? await session.translate(spanish) else { return }

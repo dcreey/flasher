@@ -33,7 +33,7 @@ literally it is false, as these pairs show:
 
 | Sentence | Mood | What it shows |
 |---|---|---|
-| *Creo que **no** viene.* / *No creo que **venga**.* | ind / subj | Nearly the same meaning, different mood. So the mood isn't about how negative the content is. |
+| *Creo que **no** viene.* / *No creo que **venga**.* | ind / subj | Close in meaning, different mood. *No creo que venga* is weaker ("I doubt he's coming"); *creo que no viene* claims the opposite ("I think he isn't"). Either way the mood isn't about how negative the content is. |
 | *No sabía que estabas aquí. No me di cuenta de que estabas.* | ind | A *no* with no subjunctive. Knowing verbs keep the clause true, so the speaker still vouches for it. |
 | *Dudo que venga.* / *No dudo que viene.* | subj / ind | No *no* at all, yet subjunctive; adding *no* brings the **indicative** back. The *no* works in both directions. |
 | *Juan no cree que la Tierra **es** redonda.* / *…**sea** redonda.* | ind / subj | Same main clause. The indicative means the speaker vouches for "it's round"; with *sea* the speaker stays neutral (F, Michael/Panamá example in 1.4). |
@@ -43,7 +43,16 @@ literally it is false, as these pairs show:
 | *No esperaba que **vinieras**.* | subj | True (they came), but it's a reaction (surprise), the second way a clause misses being claimed. Compare *No sabía que **estabas***, which reports the fact. (RK) |
 
 What decides is **who stands behind the clause**. *Creo que X* commits you to X (hedged, but a claim). *No creo que X* asserts
-something about your belief. X itself is only brought up to be rejected, so nobody in the sentence claims it, and it takes the subjunctive.
+something about your belief. X itself is not vouched for: you doubt it, without claiming the opposite, so nobody in the sentence claims it, and it takes the subjunctive.
+
+| Sentence | Mood | Meaning |
+|---|---|---|
+| *Creo que viene* | ind | I think he's coming (a claim) |
+| *Creo que no viene* | ind | I think he isn't coming (a claim of the opposite) |
+| *No creo que venga* | subj | I don't think he's coming: I doubt it, without claiming he won't |
+| *No creo que no venga* | subj | I don't think he won't come: he probably will |
+| *Dudo que venga* | subj | I doubt he's coming |
+| *No dudo que viene* | ind | I'm sure he's coming (*venga* also works) |
 *Creo que no X* commits you to "not X", so it is indicative again. The Learn tab teaches this as the step "Who claims it? Not the word no".
 
 **Where the subjunctive comes from.** Not every verb triggers it. It comes from two places:
@@ -373,6 +382,8 @@ Relaxations:
 | Learn tab | `Flasher/Data/MoodMapRules.swift`, `MoodMapProgress.swift`, `Flasher/Views/MoodMapView.swift` | The rules of this document as a short course: the big rule, then 14 lessons, each with steps (the rule, "watch out", "fine point"), every caveat opening after the rule it qualifies; 89 steps in all, with about 307 hand-written cards (section 12 lists them by README section). The screen shows one "Up next" step, the lessons with progress dots, and each lesson's steps in order with the rule written out. Each card is a choice between neighbours (minimal pairs, "what does it mean?", "which change flips the mood?"), followed by "why?". A node counts a right answer only when both are right; two open its children, three master it, and mastered nodes come back after 1, 3, 7 and 14 days. Rounds mix a rule with its siblings. Every right answer is run through the Spanish checker in the tests. |
 | Trigger words | `Flasher/Data/MoodTriggers.swift`, `Flasher/Views/MoodTriggerViews.swift` | About 120 words and phrases, each tagged with what it does to the mood (the six tags above), with a rule, an example in each mood and the Learn step that teaches it. The tag shows in dictionary search results and on the word page (with the examples), and Learn → Trigger words lists them all with a filter per tag. The tests check that each tagged headword is in the dictionary and that every example passes the Spanish checker. |
 | Drill sentences | `Flasher/Data/DrillSentences.swift` (`trigger(past:)`, `reactions`) | Picks a trigger by tense and subject: about 27 present triggers (wishes, doubt, feelings, necessity, *puede que*, *hace falta*, *más vale*, *en caso de que*, *con tal de que*, *a menos que*, *espera a que*, *no es que*, time words), about 18 past ones (*me sorprendió, me molestó, fue una lástima, me gustaría, sería mejor, para que, sin que, antes de que, como si*…). Same subject leaves out triggers that would need an infinitive; *usted / ustedes* leave out tú commands and *te*. Feelings and regrets get a reaction as the second sentence instead of a forward-looking one. *No es que* goes with *no* (*No es que no quiera*). |
+| Speaker as subject | `DrillSentences.swift` (`speaker`) | When the speaker is part of the subject (*yo, nosotros, mi amigo y yo*), perfect and progressive cards leave out doubt, *maybe*, hope and fear (*\*Dudo que hayamos vuelto a la oficina*): you know what you've done or are doing. They use feelings, regrets and judgements instead (*Me alegra que hayamos…*; with *yo* alone only *Es una lástima / Es raro que*, since a feeling about your own action takes the infinitive). |
+| Curve balls | `DrillSentences.curveBalls`, `DrillDeck.withCurveBalls` | In a subjunctive round about two cards in ten use a trigger that takes the indicative (*Sé que, Creo que, Es verdad que, Estoy seguro de que, Me dijeron que, Es obvio que*; past *Sabía que, Creía que, Me dijo que, Era obvio que*; perfect *Me contaron que*). Every subjunctive card hides its mood in the header until answered ("Indicative or subjunctive? · present"), so the trigger decides. About the speaker, curve balls use only *Es verdad / Es obvio que* (not *me dijeron que* about yourself). |
 | Explanations | `Flasher/Data/DrillExplainer.swift` (`markers`) | Quotes the trigger in the sentence and says why it takes that mood and tense. |
 | Accepted answers | `Flasher/Data/DrillAlternates.swift` | *Quizás* cards accept the indicative. *Ojalá* cards accept the other tense (present ↔ imperfect, perfect ↔ pluperfect), with the difference in meaning. *Espero que* + perfect accepts the simple subjunctive when nothing says it is done. |
 | Mood / Time / Moment | `Flasher/Data/DrillReadings.swift` | Every use above has a reading, so the filters list the subjunctive tenses that can say it. |

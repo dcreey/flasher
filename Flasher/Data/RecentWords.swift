@@ -34,6 +34,47 @@ final class RecentWords {
     }
 }
 
+/// Every word the learner has put in the flashcard queue, newest first. Unlike the queue it stays after the word is
+/// studied; only the learner removes words from it.
+@Observable
+final class SavedWords {
+    static let shared = SavedWords()
+
+    private static let key = "saved_dictionary_words_v1"
+
+    private(set) var ids: [String] = []
+
+    var words: [Word] { ids.compactMap { Lexicon.shared.wordsByID[$0] } }
+
+    private init() {
+        ids = UserDefaults.standard.stringArray(forKey: Self.key) ?? []
+    }
+
+    func add(_ id: String) {
+        ids.removeAll { $0 == id }
+        ids.insert(id, at: 0)
+        save()
+    }
+
+    func remove(_ id: String) {
+        ids.removeAll { $0 == id }
+        save()
+    }
+
+    func contains(_ id: String) -> Bool { ids.contains(id) }
+
+    /// The first time the list exists, the words already in the queue go into it.
+    func seedIfNeeded(with queued: [String]) {
+        guard UserDefaults.standard.object(forKey: Self.key) == nil else { return }
+        ids = queued
+        save()
+    }
+
+    private func save() {
+        UserDefaults.standard.set(ids, forKey: Self.key)
+    }
+}
+
 /// Queries the user typed in the dictionary, most recent first. A query is saved when it looks finished
 /// (a result was tapped, Search was pressed, the text sat still, or the search was closed on it), never per keystroke.
 @Observable

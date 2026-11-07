@@ -73,6 +73,8 @@ enum DrillSentences {
         let sentence: String
         /// What goes in the blank ("comió", "estaba comiendo", "me gusta").
         let answer: String
+        /// Set on a curve ball: an indicative card slipped into a subjunctive round, with the trigger that decides it.
+        var curve: CurveBall? = nil
 
         /// The same sentence answered in another tense that fits it ("Mañana ellos van a comer" for "comerán").
         func choosing(_ chosen: DrillTense) -> Card {
@@ -84,8 +86,61 @@ enum DrillSentences {
                 let atStart = before.isEmpty || before.hasSuffix(".") || before.hasSuffix("!") || before.hasSuffix("?")
                 text.replaceSubrange(blank, with: atStart ? phrase.prefix(1).uppercased() + phrase.dropFirst() : phrase)
             }
-            return Card(infinitive: infinitive, drill: chosen, subject: subject, prompt: prompt, sentence: text, answer: phrase)
+            return Card(infinitive: infinitive, drill: chosen, subject: subject, prompt: prompt, sentence: text, answer: phrase, curve: curve)
         }
+    }
+
+    /// A trigger that takes the indicative, used to test the learner in a subjunctive round.
+    struct CurveBall: Hashable {
+        let trigger: String
+        let why: String
+    }
+
+    /// Indicative triggers for each subjunctive drill: the indicative tense the clause takes and why.
+    static let curveBalls: [DrillTense: (indicative: DrillTense, triggers: [CurveBall])] = [
+        DrillTense(kind: .simple, tense: .subjunctivePresent): (DrillTense(kind: .simple, tense: .present), [
+            CurveBall(trigger: "Sé que", why: "Sé que states it as a fact you know: indicative."),
+            CurveBall(trigger: "Creo que", why: "Creo que claims it: indicative. Only no creo que would take the subjunctive."),
+            CurveBall(trigger: "Es verdad que", why: "Es verdad que asserts it: indicative. No es verdad que would take the subjunctive."),
+            CurveBall(trigger: "Estoy seguro de que", why: "Being sure is a claim: indicative."),
+            CurveBall(trigger: "Me dijeron que", why: "Passing on news is a claim: indicative."),
+            CurveBall(trigger: "Es obvio que", why: "Es obvio que asserts it: indicative."),
+        ]),
+        DrillTense(kind: .simple, tense: .subjunctiveImperfect): (DrillTense(kind: .simple, tense: .imperfect), [
+            CurveBall(trigger: "Sabía que", why: "Sabía que states what you knew: indicative."),
+            CurveBall(trigger: "Creía que", why: "Creía que claimed it at the time: indicative. No creía que would take the subjunctive."),
+            CurveBall(trigger: "Me dijo que", why: "Reporting what someone said is a claim: indicative."),
+            CurveBall(trigger: "Era obvio que", why: "Era obvio que asserts it: indicative."),
+        ]),
+        DrillTense(kind: .perfect, tense: .subjunctivePresent): (DrillTense(kind: .perfect, tense: .present), [
+            CurveBall(trigger: "Sé que", why: "Sé que states it as a fact you know: indicative."),
+            CurveBall(trigger: "Es verdad que", why: "Es verdad que asserts it: indicative."),
+            CurveBall(trigger: "Me contaron que", why: "Passing on news is a claim: indicative."),
+            CurveBall(trigger: "Creo que", why: "Creo que claims it: indicative. Only no creo que would take the subjunctive."),
+        ]),
+    ]
+
+    /// The same verb and subject in the indicative after an indicative trigger ("Sé que ella ______ pan todos los días").
+    static func curveCard(_ infinitive: String, for subjunctive: DrillTense, subject: DrillSubject, variant: Int) -> Card? {
+        guard let plan = curveBalls[subjunctive], !plan.triggers.isEmpty,
+              let built = build(infinitive, plan.indicative, subject: subject, variant: variant) else { return nil }
+        // About the speaker, "me dijeron que" or "creo que" (someone told me what I do) is odd: admit it instead
+        let aboutSpeaker = subject.person == 0 || subject.person == 3 || subject.text.hasSuffix(" yo")
+        let triggers = aboutSpeaker ? plan.triggers.filter { ["Es verdad que", "Es obvio que", "Era obvio que", "Sabía que"].contains($0.trigger) } : plan.triggers
+        guard !triggers.isEmpty else { return nil }
+        let curve = triggers[abs(variant / 11) % triggers.count]
+        // "Ella come…" → "Sé que ella come…"; a name keeps its capital
+        let firstWord = built.target.split(separator: " ").first.map(String.init) ?? ""
+        let keepCapital = firstWord == subject.text && subject.text.first?.isUppercase == true
+        let body = keepCapital ? built.target : built.target.prefix(1).lowercased() + built.target.dropFirst()
+        let target = curve.trigger + " " + body
+        guard let range = target.range(of: built.verb, options: [.caseInsensitive, .diacriticInsensitive], range: target.index(target.startIndex, offsetBy: curve.trigger.count)..<target.endIndex) else { return nil }
+        var blanked = target
+        blanked.replaceSubrange(range, with: "______")
+        let full = [built.before, target, built.after].filter { !$0.isEmpty }.joined(separator: " ")
+        return Card(infinitive: infinitive, drill: plan.indicative, subject: subject,
+                    prompt: [built.before, blanked, built.after].filter { !$0.isEmpty }.joined(separator: " "),
+                    sentence: full, answer: built.verb, curve: curve)
     }
 
     /// `variant` picks a different object, time word and context sentence for the same verb, tense and subject.
@@ -200,6 +255,11 @@ enum DrillSentences {
         // What comes before the subjunctive: wishes, doubt, feelings, necessity, purpose, time words. Only triggers that fit the tense and the subject are offered;
         // with the same subject Spanish uses an infinitive after wishes, purpose and "antes de" ("quiero comer"), so those are left out.
         let progressiveOrPerfect = drill.kind == .progressive || drill.kind == .perfect
+        // The speaker is part of the subject (yo, nosotros, "mi amigo y yo"): you know what you've done or are doing,
+        // so doubt and "maybe" ("Dudo que hayamos vuelto a la oficina") don't make sense about a finished or ongoing action
+        let speaker = sameSubject || subject.person == 3
+        let doubtOrMaybe: Set<String> = ["Dudo que", "No creo que", "Quizás", "Puede que", "Es posible que", "Dudaba que", "No creía que", "Era posible que",
+                                          "Espero que", "Ojalá", "Temo que"]
         func trigger(past: Bool) -> String {
             let options: [String]
             switch (past, sameSubject, progressiveOrPerfect) {
@@ -223,6 +283,14 @@ enum DrillSentences {
             var usable = formal ? options.filter { !$0.hasPrefix("Llámame") && !$0.hasPrefix("Te ") && !$0.hasPrefix("Espera") } : options
             // "Espera a que (tú) salgas": telling you to wait for yourself
             if subject.person == 1 { usable.removeAll { $0.hasPrefix("Espera") } }
+            if speaker, progressiveOrPerfect {
+                usable.removeAll { doubtOrMaybe.contains($0) }
+                // Feelings about something you did yourself take the infinitive with yo alone (me alegro de haber…), so only with nosotros
+                if usable.isEmpty || sameSubject && subject.person == 0 {
+                    usable = subject.person == 0 ? ["Es una lástima que", "Es raro que"]
+                        : ["Me alegra que", "Es una lástima que", "Me sorprende que", "Es raro que"]
+                }
+            }
             return usable[(seed / 17) % usable.count]
         }
         // About a third of the perfect cards are about something that has not happened yet
@@ -249,15 +317,19 @@ enum DrillSentences {
         case (.progressive, .subjunctivePresent): parts = [trigger(past: false), shown, verb, complement]
         case (.perfect, .subjunctivePresent):
             let t = trigger(past: false)
-            parts = still && !sameSubject ? ["No creo que", shown, verb, complement, "todavía"] : t == "No es que" ? [t, shown, "no", verb, complement]
-                : (seed / 13) % 2 == 0 ? [t, shown, "ya", verb, complement] : [t, shown, verb, complement]
+            parts = still && !speaker ? ["No creo que", shown, verb, complement, "todavía"] : t == "No es que" ? [t, shown, "no", verb, complement]
+                // "ya" doesn't go with "hasta que" (until it has happened)
+                : (seed / 13) % 2 == 0 && t != "Me quedo hasta que" ? [t, shown, "ya", verb, complement] : [t, shown, verb, complement]
         case (.progressive, .subjunctiveImperfect): parts = ["Si", shown, verb, complement, "ahora, se notaría"]
         // The perfect also says it is still open up to the moment: "Él todavía no ha comprado el paquete"
         case (.perfect, .present): parts = still ? [shown, "todavía no", verb, complement] : ["Hoy", shown, verb, complement]
         case (.perfect, .imperfect): parts = still ? ["Cuando llegué,", shown, "todavía no", verb, complement] : ["Cuando llegué, ya", shown, verb, complement]
         case (.perfect, .future): parts = ["Para el viernes", shown, verb, complement]
         case (.perfect, .conditional): parts = people ? [shown, verb, complement, ifPerfect] : [withChange, shown, verb, complement]
-        case (.perfect, .subjunctiveImperfect): parts = [["Ojalá", "Me habría gustado que", "Dudaba que", "Era una lástima que", "Me sorprendió que", "Era como si"][(seed / 17) % 6], shown, verb, complement]
+        case (.perfect, .subjunctiveImperfect):
+            // About the speaker, doubting what you had done doesn't make sense either
+            let options = speaker ? ["Ojalá", "Me habría gustado que", "Era una lástima que", "Era como si"] : ["Ojalá", "Me habría gustado que", "Dudaba que", "Era una lástima que", "Me sorprendió que", "Era como si"]
+            parts = [options[(seed / 17) % options.count], shown, verb, complement]
         case (.acabarDe, .present): parts = [shown, verb, complement]
         case (.acabarDe, _): parts = ["Cuando llegué,", shown, verb, complement]
         case (.irA, .present): parts = ["Mañana", shown, verb, complement]
