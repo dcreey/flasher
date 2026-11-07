@@ -589,7 +589,7 @@ final class MoodResearchCheckerTests: XCTestCase {
                      "Quizás viene", "Quizás venga", "A lo mejor viene", "No sé si vaya", "Habla como si fuera el jefe", "Si bien es caro, vale la pena",
                      "Si tengo tiempo, te llamo", "Si tuviera tiempo, te llamaría", "Por si llueve, llévate un paraguas", "No es mentira que es caro",
                      "¿No es verdad que viene?", "No es verdad que venga", "Puede que venga", "Es que no tengo tiempo", "Lo importante es que estés bien",
-                     "Quiero ir", "Quiero que vayas", "No cabe duda de que es él", "Todos estamos un poco tristes"] {
+                     "Quiero ir", "Quiero que vayas", "No cabe duda de que es él", "Todos estamos un poco tristes", "¿No crees que ya es tarde?", "¿No piensas que es mejor así?", "Espero que pueda ir", "Es mejor que me vaya", "Trabajé hasta que me cansé", "Me alegro de que hayamos ganado", "Quiero que vayamos juntos"] {
             XCTAssertTrue(mistakes(text).isEmpty, "\(text): \(mistakes(text).map(\.message))")
         }
     }

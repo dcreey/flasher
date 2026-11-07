@@ -1101,4 +1101,27 @@ final class WordArticleTests: XCTestCase {
         XCTAssertEqual(word("hablar", .infinitive, nil).withArticle, "hablar")
         XCTAssertEqual(word("rojo", .adjective, nil).withArticle, "rojo")
     }
+
+    /// People and animals that change with sex show both forms, and the woman's version folds into the pair.
+    func testPersonNounsShowBothForms() {
+        func word(_ s: String) -> Word { Word(order: 0, spanish: s, english: "", partOfSpeech: .noun, gender: "m") }
+        XCTAssertEqual(word("dueño").withArticle, "el dueño / la dueña")
+        XCTAssertEqual(word("actor").withArticle, "el actor / la actriz")
+        XCTAssertEqual(word("caballo").withArticle, "el caballo / la yegua")
+        XCTAssertEqual(word("presidente").withArticle, "el presidente / la presidenta")
+        XCTAssertEqual(Word(order: 0, spanish: "testigo", english: "", partOfSpeech: .noun, gender: "mf").withArticle, "el/la testigo (m/f)")
+        XCTAssertEqual(Word(order: 0, spanish: "juez", english: "", partOfSpeech: .noun, gender: "mf").withArticle, "el/la juez, la jueza (m/f)")
+        XCTAssertEqual(word("libro").withArticle, "el libro (m)")
+        XCTAssertEqual(word("caso").withArticle, "el caso (m)")
+        // Only the woman version: folded into the pair. Its own meaning: kept.
+        let dueña = Lexicon.shared.wordsByID["dueña"]!
+        XCTAssertTrue(PersonNouns.isMergedFeminine(dueña))
+        XCTAssertFalse(PersonNouns.isMergedFeminine(Lexicon.shared.wordsByID["música"]!))
+        XCTAssertFalse(PersonNouns.isMergedFeminine(Lexicon.shared.wordsByID["casa"]!))
+        // Searching the woman version finds the pair
+        XCTAssertTrue(DictionaryIndex.search("dueña", scope: .spanish).contains { $0.word.spanish == "dueño" })
+        XCTAssertFalse(DictionaryIndex.search("dueña", scope: .spanish).contains { $0.word.spanish == "dueña" })
+        XCTAssertTrue(DictionaryIndex.search("presidenta", scope: .spanish).contains { $0.word.spanish == "presidente" })
+        XCTAssertTrue(DictionaryIndex.search("música", scope: .spanish).contains { $0.word.spanish == "música" })
+    }
 }

@@ -50,6 +50,32 @@ struct WordDetailView: View {
         return rows
     }
 
+    /// For a pair (el músico / la música): the feminine's meanings of its own. For that feminine's own page: the pair it belongs to.
+    private var pairNote: (title: String, text: String)? {
+        guard word.partOfSpeech == .noun else { return nil }
+        if let forms = PersonNouns.feminine[word.spanish] {
+            let own = forms.filter { $0 != word.spanish }.compactMap { form -> String? in
+                let senses = PersonNouns.ownSenses(of: form).prefix(3).map(\.text)
+                return senses.isEmpty ? nil : "la \(form): \(senses.joined(separator: "; "))"
+            }
+            return own.isEmpty ? nil : ("For a woman too, and it also means", own.joined(separator: "\n"))
+        }
+        if let masculine = PersonNouns.masculine[word.spanish], let pair = Lexicon.shared.wordsByID[masculine] {
+            return ("Also the word for a woman", "\(pair.withArticle): \(pair.english)")
+        }
+        return nil
+    }
+
+    private func pairCard(_ note: (title: String, text: String)) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(note.title).font(.caption.weight(.semibold)).foregroundStyle(.secondary).textCase(.uppercase)
+            Text(WordLinks.linked(note.text)).font(.subheadline).tint(.primary)
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+    }
+
     private var nounFormsSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             sectionTitle("Plural & gender")
@@ -120,6 +146,7 @@ struct WordDetailView: View {
                 header
                 if let attached { attachedCard(attached) }
                 if let shownDiminutive { diminutiveCard(shownDiminutive) }
+                if let note = pairNote { pairCard(note) }
                 if !nounFormRows.isEmpty { nounFormsSection }
                 if let conjugation { conjugationSection(conjugation) }
                 if let phraseVerb { phraseSection(phraseVerb) }

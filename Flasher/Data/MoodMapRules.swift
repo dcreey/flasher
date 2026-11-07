@@ -45,69 +45,72 @@ struct MoodItem: Identifiable, Hashable {
 }
 
 enum MoodMap {
-    static let nodes: [MoodNode] = [
+    /// Verbs on the cards that the drill's verb list doesn't have, so their tenses can still be named.
+    static let extraVerbs = ["llover", "haber", "pasar", "sentarse", "sentar"]
+
+    private static let baseNodes: [MoodNode] = [
         MoodNode(id: "root", level: 1, parent: nil, title: "Asserted or not",
                  rule: "Indicative: you put the clause forward as news, something you claim is so. Subjunctive: you don't. Either nobody claims it (it's wanted, doubted, denied, not real yet), or it's already given and you only react to it (feelings, judgements).",
                  example: "Sé que viene (I know he's coming) · Espero que venga (I hope he comes)"),
 
         // Families
         MoodNode(id: "want", level: 2, parent: "root", title: "Wanting and asking", rule: "Wanting, asking, ordering, advising or allowing something of someone else takes the subjunctive.", example: "Quiero que vengas."),
-        MoodNode(id: "feel", level: 2, parent: "root", title: "Feelings and judgements", rule: "A feeling or a judgement about something takes the subjunctive, even when it is true.", example: "Me alegra que estés aquí."),
+        MoodNode(id: "feel", level: 2, parent: "root", title: "Feelings and judgements", rule: "A feeling or a judgement about something takes the subjunctive, even when it is true: the fact is given, and the point is your reaction.", example: "Me alegra que estés aquí."),
         MoodNode(id: "doubt", level: 2, parent: "root", title: "Doubt and denial", rule: "Doubting or denying takes the subjunctive.", example: "Dudo que sea verdad."),
-        MoodNode(id: "belief", level: 2, parent: "root", title: "Believing and knowing", rule: "Saying what you believe, know, see or say takes the indicative.", example: "Creo que tiene razón."),
-        MoodNode(id: "impersonal", level: 2, parent: "root", title: "Es + adjective + que", rule: "Need, value and possibility take the subjunctive. Truth and evidence take the indicative.", example: "Es posible que llueva · Es verdad que llueve"),
+        MoodNode(id: "belief", level: 2, parent: "root", title: "Believing and knowing", rule: "Saying what you believe, know, see or say, affirmed, takes the indicative: you claim it. Negated or doubted, it can take the subjunctive (next steps).", example: "Creo que tiene razón."),
+        MoodNode(id: "impersonal", level: 2, parent: "root", title: "Es + adjective + que", rule: "Es + adjective follows the same three cases: truth and evidence are a claim (indicative); need and possibility claim nothing (subjunctive); judgements react to it (subjunctive). With an infinitive instead of que it's about people in general.", example: "Es posible que llueva · Es verdad que llueve"),
         MoodNode(id: "unknown", level: 2, parent: "root", title: "Known or unknown things", rule: "Describing something known takes the indicative. Something wanted, unknown or that doesn't exist takes the subjunctive.", example: "Busco un piso que tenga balcón."),
         MoodNode(id: "time", level: 2, parent: "root", title: "Time words", rule: "Cuando, hasta que, en cuanto…: the subjunctive for what is still to come, the indicative for habits and the past.", example: "Cuando llegues, cenamos · Cuando llego, ceno"),
-        MoodNode(id: "condition", level: 2, parent: "root", title: "Conditions", rule: "Si takes the indicative or the imperfect subjunctive. Every other condition word takes the subjunctive.", example: "Si llueve… · En caso de que llueva…"),
+        MoodNode(id: "condition", level: 2, parent: "root", title: "Conditions", rule: "Si takes the indicative (real) or the imperfect subjunctive (unlikely or unreal), never the present subjunctive. Most other condition words (en caso de que, a menos que, con tal de que) take the subjunctive; por si takes the indicative or the imperfect subjunctive.", example: "Si llueve… · En caso de que llueva…"),
         MoodNode(id: "purpose", level: 2, parent: "root", title: "Purpose and other fixed connectors", rule: "Para que, sin que, antes de que, como si always take the subjunctive.", example: "Te lo digo para que lo sepas."),
         MoodNode(id: "concession", level: 2, parent: "root", title: "Even though, even if", rule: "Aunque and its relatives: the indicative for a fact, the subjunctive for a possibility or a point waved away.", example: "Aunque llueve, salgo · Aunque llueva, saldré"),
         MoodNode(id: "alone", level: 2, parent: "root", title: "On its own: ojalá, maybe, que…", rule: "With no main verb: ojalá always takes the subjunctive, the 'maybe' words depend on the word and where it goes, and que + subjunctive is a wish.", example: "Ojalá llueva · Quizás venga · ¡Que te vaya bien!"),
         MoodNode(id: "sequence", level: 2, parent: "root", title: "Which subjunctive tense", rule: "The main verb picks the tense: present with present, past with past.", example: "Quiero que vengas · Quería que vinieras"),
 
         // Rules, switches and exceptions
-        MoodNode(id: "want.same", level: 3, parent: "want", title: "Same person: infinitive", rule: "When the one who wants is the one who does it, use the infinitive, not que.", example: "Quiero ir (not quiero que yo vaya)."),
+        MoodNode(id: "want.same", level: 3, parent: "subject", title: "Same person: infinitive", rule: "When the one who wants is the one who does it, use the infinitive, not que.", example: "Quiero ir (not quiero que yo vaya)."),
         MoodNode(id: "want.decir", level: 4, parent: "want", title: "Decir: telling or ordering", rule: "Decir que + indicative passes on information. Decir que + subjunctive gives an order.", example: "Me dijo que venía · Me dijo que viniera"),
-        MoodNode(id: "want.meaning", level: 5, parent: "want", title: "Verbs that change meaning", rule: "Sentir, pensar, decidir, comprender, insistir: the indicative and the subjunctive mean different things.", example: "Siento que hace frío (I feel) · Siento que te vayas (I'm sorry)"),
+        MoodNode(id: "want.meaning", level: 5, parent: "want.decir", title: "Verbs that change meaning", rule: "Sentir, pensar, decidir, comprender, insistir, recordar, quejarse de: the indicative and the subjunctive mean different things.", example: "Siento que hace frío (I feel) · Siento que te vayas (I'm sorry)"),
 
         MoodNode(id: "feel.true", level: 3, parent: "feel", title: "Even when it's true", rule: "The feeling doesn't make it less real: it is still the subjunctive.", example: "Me molesta que llegues tarde."),
-        MoodNode(id: "feel.temerse", level: 5, parent: "feel", title: "Me temo que, menos mal que", rule: "Me temo que (I suspect) and menos mal que (thank goodness) take the indicative.", example: "Me temo que vamos a llegar tarde."),
+        MoodNode(id: "feel.temerse", level: 5, parent: "feel.true", title: "Me temo que, menos mal que", rule: "Me temo que (I suspect) and menos mal que (thank goodness) take the indicative.", example: "Me temo que vamos a llegar tarde."),
 
         MoodNode(id: "doubt.nodudo", level: 4, parent: "doubt", title: "No dudo que: both work", rule: "Not doubting is close to certainty: the indicative is normal, the subjunctive also works.", example: "No dudo que es / sea verdad."),
         MoodNode(id: "doubt.certain", level: 4, parent: "doubt", title: "No cabe duda: certainty", rule: "No cabe duda de que, no hay duda de que, estoy seguro de que: indicative.", example: "No cabe duda de que es él."),
 
         MoodNode(id: "belief.no", level: 3, parent: "belief", title: "Negated: subjunctive", rule: "No creo que, no pienso que, no parece que take the subjunctive: the clause is brought up only to be rejected, so nobody claims it.", example: "No creo que tenga razón."),
-        MoodNode(id: "belief.claim", level: 4, parent: "belief", title: "Who claims it? Not the word no", rule: "The mood follows who stands behind the clause, not whether there's a no. Creo que no viene: you claim “he isn't coming” (indicative). No sabía que estabas: it was true, so the indicative stays. Dudo que: no no, still subjunctive.", example: "Creo que no viene · No creo que venga · Espero que no venga (a wish stays subjunctive)"),
-        MoodNode(id: "belief.question", level: 4, parent: "belief", title: "¿No crees que…? and no creas que", rule: "A question asking you to agree, and a 'don't think that…' command, take the indicative.", example: "¿No crees que ya es tarde? · No creas que me gusta."),
+        MoodNode(id: "belief.claim", level: 4, parent: "belief.no", title: "Who claims it? Not the word no", rule: "The mood follows who stands behind the clause, not whether there's a no. Creo que no viene: you claim “he isn't coming” (indicative). No sabía que estabas: it was true and you say so, so the indicative is usual. Dudo que: no no, still subjunctive.", example: "Creo que no viene · No creo que venga · Espero que no venga (a wish stays subjunctive)"),
+        MoodNode(id: "belief.question", level: 4, parent: "belief.no", title: "¿No crees que…? and no creas que", rule: "A question asking you to agree, and a 'don't think that…' command, take the indicative.", example: "¿No crees que ya es tarde? · No creas que me gusta."),
 
         MoodNode(id: "impersonal.truth", level: 3, parent: "impersonal", title: "Truth: indicative", rule: "Es verdad, es cierto, es obvio, está claro que: indicative. Negated (no es verdad que): subjunctive.", example: "Es verdad que llueve · No es verdad que llueva"),
-        MoodNode(id: "impersonal.puede", level: 4, parent: "impersonal", title: "Puede que vs a lo mejor", rule: "Puede que always takes the subjunctive. A lo mejor (maybe) takes the indicative.", example: "Puede que llueva · A lo mejor llueve"),
+        MoodNode(id: "impersonal.puede", level: 4, parent: "impersonal", title: "Puede que vs a lo mejor", rule: "Puede que always takes the subjunctive. A lo mejor (maybe) takes the indicative in about 98% of uses; a lo mejor + subjunctive is heard, mostly in Latin America, and the RAE doesn't rule it out.", example: "Puede que llueva · A lo mejor llueve"),
 
         MoodNode(id: "unknown.none", level: 3, parent: "unknown", title: "Nadie, nada, no hay", rule: "Something that doesn't exist takes the subjunctive.", example: "No hay nadie que sepa la respuesta."),
-        MoodNode(id: "unknown.superlative", level: 5, parent: "unknown", title: "The best… that", rule: "After a superlative the indicative is the plain statement, the subjunctive adds emphasis. Both work.", example: "Es la mejor película que he / haya visto."),
+        MoodNode(id: "unknown.superlative", level: 5, parent: "unknown", title: "The best… that", rule: "After a superlative or el único / el primero que, about something known, the indicative is the plain statement and the subjunctive adds emphasis: both work. About someone not yet known, the subjunctive is required: el primero que llegue abre.", example: "Es la mejor película que he / haya visto."),
 
         MoodNode(id: "time.before", level: 3, parent: "time", title: "Antes de que: always", rule: "Antes de que always takes the subjunctive, even in the past.", example: "Salí antes de que llegara."),
-        MoodNode(id: "time.question", level: 4, parent: "time", title: "¿Cuándo…? is a question", rule: "A question with ¿cuándo? isn't a time clause: it takes the future like any question.", example: "¿Cuándo llegarás?"),
+        MoodNode(id: "time.question", level: 4, parent: "time", title: "¿Cuándo…? is a question", rule: "A question with ¿cuándo?, direct or inside a sentence (no sé cuándo vendrá), isn't a time clause: it takes the future like any question.", example: "¿Cuándo llegarás?"),
         MoodNode(id: "time.despues", level: 5, parent: "time", title: "Después de que in the past", rule: "In the past después de que takes the indicative, and the imperfect subjunctive is also accepted, mostly in news writing.", example: "Después de que llegó / llegara, comimos."),
 
         MoodNode(id: "condition.si", level: 3, parent: "condition", title: "Si: never the present subjunctive", rule: "Si + present indicative for real conditions, si + imperfect subjunctive for unlikely or unreal ones. Never si + present subjunctive or conditional.", example: "Si tengo tiempo… · Si tuviera tiempo…"),
         MoodNode(id: "condition.como", level: 4, parent: "condition", title: "Como + subjunctive = if", rule: "Como + subjunctive is a condition, usually a warning. Como + indicative means because.", example: "Como no vengas, me enojo · Como no viniste, me enojé"),
-        MoodNode(id: "condition.porsi", level: 4, parent: "condition", title: "Por si: in case", rule: "Por si takes the indicative (or the imperfect subjunctive if less likely), never the present subjunctive. En caso de que takes the subjunctive.", example: "Llévate un paraguas por si llueve."),
+        MoodNode(id: "condition.porsi", level: 4, parent: "condition.si", title: "Por si: in case", rule: "Por si takes the indicative (or the imperfect subjunctive if less likely), never the present subjunctive. En caso de que takes the subjunctive.", example: "Llévate un paraguas por si llueve."),
 
         MoodNode(id: "purpose.comosi", level: 3, parent: "purpose", title: "Como si: past subjunctive only", rule: "Como si always takes the imperfect (or pluperfect) subjunctive, never the present.", example: "Habla como si fuera el jefe."),
         MoodNode(id: "purpose.demodo", level: 4, parent: "purpose", title: "De modo que: purpose or result", rule: "De modo que + subjunctive says the purpose. + indicative says the result.", example: "Habla alto, de modo que te oigan · Llovía, de modo que nos quedamos"),
-        MoodNode(id: "purpose.deahi", level: 5, parent: "purpose", title: "De ahí que", rule: "De ahí que (that's why) takes the subjunctive, even though the result is known.", example: "Llovió mucho; de ahí que se suspendiera el partido."),
+        MoodNode(id: "purpose.deahi", level: 5, parent: "purpose.demodo", title: "De ahí que", rule: "De ahí que (that's why) takes the subjunctive, even though the result is known.", example: "Llovió mucho; de ahí que se suspendiera el partido."),
 
         MoodNode(id: "concession.waved", level: 4, parent: "concession", title: "Aunque with a known fact", rule: "A known fact can still take the subjunctive when the speaker waves it away: both are right.", example: "Aunque es / sea tu hermano, no tiene derecho."),
-        MoodNode(id: "concession.pormas", level: 3, parent: "concession", title: "Por más que, por difícil que", rule: "No matter how much / how hard: subjunctive.", example: "Por más que insistas, no voy."),
+        MoodNode(id: "concession.pormas", level: 3, parent: "concession", title: "Por más que, por difícil que", rule: "No matter how much / how hard: usually subjunctive. For a real effort that keeps failing, the indicative is also correct: por más que estudio, no apruebo; por más que lo intenté, no pude.", example: "Por más que insistas, no voy."),
 
         MoodNode(id: "alone.ojala", level: 3, parent: "alone", title: "Ojalá and its tenses", rule: "Present: it can happen. Imperfect: unlikely. Pluperfect: it didn't happen.", example: "Ojalá venga · Ojalá viniera · Ojalá hubiera venido"),
-        MoodNode(id: "alone.quizas", level: 4, parent: "alone", title: "Quizás: before or after", rule: "Before the verb quizás and tal vez take either mood. After it, only the indicative.", example: "Quizás venga / viene · Viene, quizás."),
-        MoodNode(id: "alone.que", level: 3, parent: "alone", title: "¡Que…! wishes", rule: "Que + subjunctive on its own is a wish or an order passed on.", example: "¡Que tengas buen día!"),
-        MoodNode(id: "alone.mexico", level: 5, parent: "alone", title: "Ojalá y, a la mejor", rule: "In Mexico you'll hear ojalá y + subjunctive and a la mejor + indicative. Both are normal there.", example: "Ojalá y llueva · A la mejor viene"),
+        MoodNode(id: "alone.quizas", level: 4, parent: "alone", title: "Quizás: before or after", rule: "Before the verb quizás, tal vez, probablemente take either mood. After the verb, the indicative. ¿Acaso…? in a question takes the indicative.", example: "Quizás venga / viene · Viene, quizás."),
+        MoodNode(id: "alone.que", level: 3, parent: "alone", title: "¡Que…! wishes", rule: "Que + subjunctive on its own is a wish or an order passed on. Que + indicative on its own is a warning or an emphatic repeat: ¡que viene el lobo!, ¡que no lo sé!", example: "¡Que tengas buen día!"),
+        MoodNode(id: "alone.mexico", level: 5, parent: "alone", title: "Mexico and Colombia: what you'll hear", rule: "What you'll hear in Mexico and Colombia: ojalá y, a la mejor, qué bueno que viniste, no sé qué haga, capaz que, hasta = not until, and voseo in Antioquia (no digás). Understand them; the app teaches the standard forms.", example: "Ojalá y llueva · A la mejor viene"),
 
         MoodNode(id: "sequence.past", level: 3, parent: "sequence", title: "Past main verb: imperfect subjunctive", rule: "After a past verb (quería, pidió, me alegró) the subjunctive is imperfect.", example: "Quería que vinieras."),
-        MoodNode(id: "sequence.conditional", level: 4, parent: "sequence", title: "Me gustaría que", rule: "After the conditional (me gustaría, sería mejor) the subjunctive is imperfect.", example: "Me gustaría que vinieras."),
-        MoodNode(id: "sequence.pending", level: 5, parent: "sequence", title: "Me pidió que venga (Latin America)", rule: "After a past verb, the present subjunctive is heard in Latin America when the thing is still to come. The standard is the imperfect.", example: "Me pidió que venga mañana · Me pidió que viniera mañana"),
+        MoodNode(id: "sequence.conditional", level: 4, parent: "sequence.past", title: "Me gustaría que", rule: "After the conditional (me gustaría, sería mejor) the subjunctive is imperfect.", example: "Me gustaría que vinieras."),
+        MoodNode(id: "sequence.pending", level: 5, parent: "sequence.past", title: "Me pidió que venga: still to come", rule: "After a past verb, the present subjunctive is common (mostly in Latin America, but also in Spain) when the thing is still to come. The imperfect is the safe form.", example: "Me pidió que venga mañana · Me pidió que viniera mañana"),
     ]
 
     /// The top rule's reason is always one of two plain statements.
@@ -118,17 +121,17 @@ enum MoodMap {
         return item
     }
 
-    private static func form(_ id: String, _ node: String, _ context: String, _ prompt: String, _ choices: [String], _ correct: Set<Int>, _ note: String) -> MoodItem {
+    static func form(_ id: String, _ node: String, _ context: String, _ prompt: String, _ choices: [String], _ correct: Set<Int>, _ note: String) -> MoodItem {
         MoodItem(id: id, node: node, kind: .form, context: context, prompt: prompt, choices: choices, correct: correct, note: note)
     }
-    private static func meaning(_ id: String, _ node: String, _ context: String, _ prompt: String, _ choices: [String], _ correct: Int, _ note: String) -> MoodItem {
+    static func meaning(_ id: String, _ node: String, _ context: String, _ prompt: String, _ choices: [String], _ correct: Int, _ note: String) -> MoodItem {
         MoodItem(id: id, node: node, kind: .meaning, context: context, prompt: prompt, choices: choices, correct: [correct], note: note)
     }
-    private static func flip(_ id: String, _ node: String, _ context: String, _ prompt: String, _ choices: [String], _ correct: Int, _ note: String) -> MoodItem {
+    static func flip(_ id: String, _ node: String, _ context: String, _ prompt: String, _ choices: [String], _ correct: Int, _ note: String) -> MoodItem {
         MoodItem(id: id, node: node, kind: .flip, context: context, prompt: prompt, choices: choices, correct: [correct], note: note)
     }
 
-    static let items: [MoodItem] = [
+    private static let baseItems: [MoodItem] = [
         // The big rule: the same verb, asserted or not
         root(form("root.1", "root", "You're sure he's coming.", "Sé que él ___ mañana.", ["viene", "venga"], [0], "Sé que states it as a fact: indicative."), 0),
         root(form("root.2", "root", "You only hope he's coming.", "Espero que él ___ mañana.", ["viene", "venga"], [1], "Espero que is a wish, not a fact: subjunctive."), 1),
@@ -160,7 +163,7 @@ enum MoodMap {
         form("belief.claim.1", "belief.claim", "You think he isn't coming.", "Creo que no ___.", ["viene", "venga"], [0], "You claim “he isn't coming”: indicative. The no is inside the clause."),
         form("belief.claim.2", "belief.claim", "Same idea, said the other way.", "No creo que ___.", ["viene", "venga"], [1], "Now “he comes” is brought up only to be rejected: subjunctive. Same meaning as creo que no viene, different mood."),
         form("belief.claim.3", "belief.claim", "Your friend was there; you hadn't noticed.", "No me di cuenta de que ___ ahí.", ["estabas", "estuvieras"], [0], "There's a no, but it was true, and you're saying so: indicative. Knowing and realizing keep the indicative."),
-        form("belief.claim.4", "belief.claim", "Surprise: your friend is here.", "No sabía que ___ aquí.", ["estabas", "estuvieras"], [0], "No sabía que: you're telling them it's true, you just didn't know. Indicative. (No sabía que estuvieras is heard too, but it sounds like you still doubt it.)"),
+        form("belief.claim.4", "belief.claim", "Surprise: your friend is here.", "No sabía que ___ aquí.", ["estabas", "estuvieras"], [0, 1], "Both are correct. Estabas: you're telling them it's true, you just didn't know (the usual way). Estuvieras: you don't vouch for it."),
         meaning("belief.claim.5", "belief.claim", "About someone who denies science.", "Juan no cree que la Tierra es redonda.", ["The speaker knows it's round; Juan doesn't believe it.", "The speaker isn't sure it's round either."], 0, "The indicative after no cree que means the speaker stands behind the clause. With sea, the speaker takes no side."),
         flip("belief.claim.6", "belief.claim", "Right now it takes the subjunctive (sea). Make the indicative (es) right.", "Dudo que sea verdad.", ["Dudo → No dudo", "Dudo → Quiero", "sea → fuera"], 0, "Dudo que rejects it: subjunctive. No dudo que claims it, so the indicative comes back: no dudo que es verdad. Here the no works the other way."),
         form("belief.claim.7", "belief.claim", "You hope he stays away.", "Espero que no ___.", ["viene", "venga"], [1], "Moving the no into the clause doesn't help a wish: espero que no venga and no espero que venga are both subjunctive. A wish never claims anything, so there's nothing for the no to flip. Compare creo que no viene (indicative)."),
@@ -197,7 +200,7 @@ enum MoodMap {
         form("impersonal.truth.1", "impersonal.truth", "Look outside.", "Es verdad que ___.", ["llueve", "llueva"], [0], "Truth: indicative."),
         form("impersonal.truth.2", "impersonal.truth", "Someone said it's raining, but it isn't.", "No es verdad que ___.", ["llueve", "llueva"], [1], "Denied truth: subjunctive."),
         form("impersonal.puede.1", "impersonal.puede", "Maybe it'll rain.", "Puede que ___.", ["llueve", "llueva"], [1], "Puede que always takes the subjunctive."),
-        form("impersonal.puede.2", "impersonal.puede", "Maybe it'll rain.", "A lo mejor ___.", ["llueve", "llueva"], [0], "A lo mejor takes the indicative."),
+        form("impersonal.puede.2", "impersonal.puede", "Maybe it'll rain, the everyday way.", "A lo mejor ___.", ["llueve", "llueva"], [0], "A lo mejor takes the indicative almost always. A lo mejor llueva is heard in Latin America, but it's rare."),
 
         // Known or unknown
         form("unknown.1", "unknown", "You're looking for any apartment with a balcony.", "Busco un piso que ___ balcón.", ["tiene", "tenga"], [1], "Not a specific one yet: subjunctive."),
@@ -261,21 +264,30 @@ enum MoodMap {
         form("sequence.pending.1", "sequence.pending", "Yesterday he asked you to come tomorrow.", "Me pidió que ___ mañana.", ["venga", "viniera"], [0, 1], "Viniera is the standard. Venga is common in Latin America when the thing is still to come."),
     ]
 
+    static let nodes: [MoodNode] = baseNodes + moreNodes
+    static let items: [MoodItem] = baseItems + moreItems
+    /// The lessons in teaching order, after the top rule.
+    static let lessons: [MoodNode] = [byID["root"]!] + lessonOrder.compactMap { byID[$0] }
+
     static let byID: [String: MoodNode] = Dictionary(uniqueKeysWithValues: nodes.map { ($0.id, $0) })
     static func children(of id: String) -> [MoodNode] { nodes.filter { $0.parent == id } }
     static func items(for node: String) -> [MoodItem] { items.filter { $0.node == node } }
     /// A lesson's steps in order: the lesson itself, then its rules, things to watch out for and fine points.
-    static func steps(of lesson: MoodNode) -> [MoodNode] { [lesson] + children(of: lesson.id).filter { $0.level > 2 }.sorted { $0.level < $1.level } }
-
-    /// The nodes in tree order: each family followed by its rules, switches and exceptions.
-    static var treeOrder: [MoodNode] {
-        var out: [MoodNode] = []
+    /// Each rule is followed by the caveats that hang off it, so the page reads from the rule down to its fine points.
+    static func steps(of lesson: MoodNode) -> [MoodNode] {
+        guard lesson.level <= 2 else { return [lesson] }
+        var out = [lesson]
         func walk(_ node: MoodNode) {
             out.append(node)
             children(of: node.id).sorted { $0.level < $1.level }.forEach(walk)
         }
-        nodes.filter { $0.parent == nil }.forEach(walk)
+        children(of: lesson.id).filter { $0.level > 2 }.sorted { $0.level < $1.level }.forEach(walk)
         return out
+    }
+
+    /// The nodes in tree order: each family followed by its rules, switches and exceptions.
+    static var treeOrder: [MoodNode] {
+        lessons.flatMap { $0.id == "root" ? [$0] : steps(of: $0) }
     }
 
     /// Three reasons to pick from after an answer: the right node and two neighbours (siblings first), in an order that is the same every time.

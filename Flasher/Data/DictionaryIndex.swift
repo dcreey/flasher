@@ -113,7 +113,8 @@ enum DictionaryIndex {
     private static var entries: [Entry] { entryCache.current }
 
     /// Built once per country, because the word list and each word's leading meaning depend on it.
-    private static let entryCache = PerCountry<[Entry]> { _ in Lexicon.shared.allWords.map { word in
+    /// The woman version of a noun is folded into the pair ("dueña" shows as "el dueño / la dueña"), unless it has meanings of its own.
+    private static let entryCache = PerCountry<[Entry]> { _ in Lexicon.shared.allWords.filter { !PersonNouns.isMergedFeminine($0) }.map { word in
         let meanings = Lexicon.shared.meanings(for: word.spanish)
         var primary = Set(englishTerms(word.english))
         var secondary: Set<String> = []
@@ -147,6 +148,10 @@ enum DictionaryIndex {
                 let key = form.searchKey
                 if !(map[key]?.contains(word) ?? false) { map[key, default: []].append(word) }
             }
+        }
+        for (headword, forms) in PersonNouns.supplements {
+            guard let word = Lexicon.shared.wordsByID[headword] else { continue }
+            for form in forms where !(map[form.searchKey]?.contains(word) ?? false) { map[form.searchKey, default: []].append(word) }
         }
         return map
     }

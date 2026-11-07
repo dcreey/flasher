@@ -20,10 +20,21 @@ final class MoodMapProgress {
     private let defaults: UserDefaults
     private let key = "moodMapProgress"
     private(set) var stats: [String: Stats] = [:]
+    /// Tenses already explained on a card, so each is introduced once.
+    private(set) var seenTenses: Set<String> = []
+    private let tensesKey = "moodMapSeenTenses"
 
     init(defaults: UserDefaults) {
         self.defaults = defaults
         if let data = defaults.data(forKey: key), let saved = try? JSONDecoder().decode([String: Stats].self, from: data) { stats = saved }
+        seenTenses = Set(defaults.stringArray(forKey: tensesKey) ?? [])
+    }
+
+    func markSeen(_ tenses: [String]) {
+        let new = Set(tenses).subtracting(seenTenses)
+        guard !new.isEmpty else { return }
+        seenTenses.formUnion(new)
+        defaults.set(Array(seenTenses).sorted(), forKey: tensesKey)
     }
 
     func of(_ node: String) -> Stats { stats[node] ?? Stats() }
@@ -57,7 +68,7 @@ final class MoodMapProgress {
         save()
     }
 
-    func reset() { stats = [:]; save() }
+    func reset() { stats = [:]; seenTenses = []; defaults.removeObject(forKey: tensesKey); save() }
 
     private func save() {
         if let data = try? JSONEncoder().encode(stats) { defaults.set(data, forKey: key) }

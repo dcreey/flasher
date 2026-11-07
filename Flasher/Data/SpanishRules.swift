@@ -148,8 +148,11 @@ extension SpanishChecker {
             // "no es mentira que" is certainty; "¿No es verdad que viene?" asks for agreement and takes the indicative
             if trigger == ["es", "mentira", "que"], i > 0, tokens[i - 1].lower == "no", adjacent(i - 1) { continue }
             if ["verdad", "cierto"].contains(trigger.dropFirst(2).first ?? ""), isInQuestion(at: tokens[i].range.location, in: text) { continue }
+            // "¿No crees que ya es tarde?" asks you to agree and takes the indicative (either mood is fine in a question)
+            if trigger.first == "no", ["creo", "cree", "crees", "pienso", "piensas", "piensa"].contains(trigger.dropFirst().first ?? ""), isInQuestion(at: tokens[i].range.location, in: text) { continue }
             // "Quiero que yo vaya": with the same subject a wish takes the infinitive ("quiero ir")
-            let wishes: Set<String> = ["quiero", "prefiero", "necesito", "espero", "deseo"]
+            // "Espero que (yo) pueda ir" is accepted, so esperar isn't on the list
+            let wishes: Set<String> = ["quiero", "prefiero", "necesito", "deseo"]
             if wishes.contains(trigger[0]), trigger.count == 2, i + 3 < tokens.count, tokens[i + 2].lower == "yo", adjacent(i + 1), adjacent(i + 2),
                let infinitive = Clitics.formOptions(tokens[i + 3].lower).first(where: { $0.person == 0 && !$0.infinitive.contains(" ") })?.infinitive {
                 let fix = "\(tokens[i].text) \(infinitive)"

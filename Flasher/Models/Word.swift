@@ -65,7 +65,7 @@ extension Word {
                                           "bríos", "dineros", "anteojos", "escombros", "harapos"]
 
     /// Nouns with the matching "the" and the sex in brackets: "el fantasma (m)", "la casa (f)", "el/la estudiante (m/f)"; nouns that exist only in the plural
-    /// say so: "las gafas (f, plural only)". Other words stay as they are.
+    /// say so: "las gafas (f, plural only)". People and animals with a form for each sex show both: "el dueño / la dueña". Other words stay as they are.
     var withArticle: String {
         guard partOfSpeech == .noun else { return spanish }
         let head = spanish.lowercased().split(separator: " ").first.map(String.init) ?? spanish
@@ -79,6 +79,8 @@ extension Word {
             default: return "los/las \(spanish) (plural only)"
             }
         }
+        // People and animals that change with sex show both: "el dueño / la dueña", "el/la testigo (m/f)"
+        if sex == "m" || sex == "mf", let pair = PersonNouns.label(for: self) { return pair.hasPrefix("el/la") ? "\(pair) (m/f)" : pair }
         switch sex {
         case "m": return "el \(spanish) (m)"
         case "f": return "\(Word.elFeminine.contains(spanish.lowercased()) ? "el" : "la") \(spanish) (f)"

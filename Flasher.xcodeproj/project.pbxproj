@@ -10,6 +10,9 @@
 		D7A100000000000000000D02 /* DrillReadings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A100000000000000000D01 /* DrillReadings.swift */; };
 		8E229DEFBF1048578076CE13 /* MoodMapProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6BF48D8E8446A58DE3168E /* MoodMapProgress.swift */; };
 		0FE408AB08E54D6EA9F1CBAA /* MoodMapRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED9063396254F3DA54DB9BD /* MoodMapRules.swift */; };
+		BFDA0B350298413EAB2D2E2E /* PersonNouns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB6632344440FBB5188ECB /* PersonNouns.swift */; };
+		6B761D6A25644A8991306E34 /* MoodMapLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DEDBF50E60446FB107A0F8 /* MoodMapLessons.swift */; };
+		B633DBF9A5094B76A65ED2F5 /* MoodTenseLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FF8F109F7A45A1AF86CBA8 /* MoodTenseLabels.swift */; };
 		AB7870A42B4F47F9BEA8D422 /* MoodTriggerViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E067FB3F24158BFA82389 /* MoodTriggerViews.swift */; };
 		DC75EF01E2B34C5787D22601 /* MoodTriggers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC79460D9BDA450C8A19EACF /* MoodTriggers.swift */; };
 		D7A100000000000000000C02 /* DrillRelatedContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A100000000000000000C01 /* DrillRelatedContext.swift */; };
@@ -92,6 +95,9 @@
 		D7A100000000000000000D01 /* DrillReadings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillReadings.swift; sourceTree = "<group>"; };
 		5F6BF48D8E8446A58DE3168E /* MoodMapProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapProgress.swift; sourceTree = "<group>"; };
 		BED9063396254F3DA54DB9BD /* MoodMapRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapRules.swift; sourceTree = "<group>"; };
+		84AB6632344440FBB5188ECB /* PersonNouns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonNouns.swift; sourceTree = "<group>"; };
+		48DEDBF50E60446FB107A0F8 /* MoodMapLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapLessons.swift; sourceTree = "<group>"; };
+		B6FF8F109F7A45A1AF86CBA8 /* MoodTenseLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodTenseLabels.swift; sourceTree = "<group>"; };
 		DF8E067FB3F24158BFA82389 /* MoodTriggerViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodTriggerViews.swift; sourceTree = "<group>"; };
 		AC79460D9BDA450C8A19EACF /* MoodTriggers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodTriggers.swift; sourceTree = "<group>"; };
 		D7A100000000000000000C01 /* DrillRelatedContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillRelatedContext.swift; sourceTree = "<group>"; };
@@ -179,6 +185,9 @@
 				D7A100000000000000000D01 /* DrillReadings.swift */,
 				5F6BF48D8E8446A58DE3168E /* MoodMapProgress.swift */,
 				BED9063396254F3DA54DB9BD /* MoodMapRules.swift */,
+				84AB6632344440FBB5188ECB /* PersonNouns.swift */,
+				48DEDBF50E60446FB107A0F8 /* MoodMapLessons.swift */,
+				B6FF8F109F7A45A1AF86CBA8 /* MoodTenseLabels.swift */,
 				AC79460D9BDA450C8A19EACF /* MoodTriggers.swift */,
 				D7A100000000000000000C01 /* DrillRelatedContext.swift */,
 				D7A100000000000000000B01 /* DrillAlternates.swift */,
@@ -418,6 +427,9 @@
 				D7A100000000000000000D02 /* DrillReadings.swift in Sources */,
 				8E229DEFBF1048578076CE13 /* MoodMapProgress.swift in Sources */,
 				0FE408AB08E54D6EA9F1CBAA /* MoodMapRules.swift in Sources */,
+				BFDA0B350298413EAB2D2E2E /* PersonNouns.swift in Sources */,
+				6B761D6A25644A8991306E34 /* MoodMapLessons.swift in Sources */,
+				B633DBF9A5094B76A65ED2F5 /* MoodTenseLabels.swift in Sources */,
 				AB7870A42B4F47F9BEA8D422 /* MoodTriggerViews.swift in Sources */,
 				DC75EF01E2B34C5787D22601 /* MoodTriggers.swift in Sources */,
 				D7A100000000000000000C02 /* DrillRelatedContext.swift in Sources */,

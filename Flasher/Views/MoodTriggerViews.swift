@@ -86,9 +86,13 @@ struct TriggerWordsView: View {
                             NavigationLink { TriggerDetailView(trigger: trigger) } label: { row(trigger) }
                         }
                     } header: {
-                        Text(behavior.title).foregroundStyle(behavior.color)
-                    } footer: {
-                        Text(behavior.explanation)
+                        // What the group does, right under its title, before the words
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(behavior.title).foregroundStyle(behavior.color)
+                            Text(behavior.explanation).font(.footnote).foregroundStyle(.secondary).textCase(nil)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        .padding(.bottom, 4)
                     }
                 }
             }

@@ -12,7 +12,7 @@ struct LearnView: View {
     private var dueCount: Int { MoodMap.nodes.filter { progress.due($0.id) }.count }
     /// The first open step that isn't learned yet, in course order.
     private var next: MoodNode? { steps.first { progress.unlocked($0) && !progress.mastered($0.id) } }
-    private var lessons: [MoodNode] { MoodMap.nodes.filter { $0.level <= 2 } }
+    private var lessons: [MoodNode] { MoodMap.lessons }
 
     var body: some View {
         ScrollView {
@@ -41,11 +41,16 @@ struct LearnView: View {
                     .buttonStyle(.plain)
 
                 Text("Lessons").font(.headline).padding(.top, 4)
-                VStack(spacing: 10) {
-                    ForEach(Array(lessons.enumerated()), id: \.element.id) { number, lesson in
-                        NavigationLink { LessonView(lesson: lesson) } label: { lessonRow(lesson, number: number) }
-                            .buttonStyle(.plain)
-                            .disabled(!progress.unlocked(lesson))
+                VStack(alignment: .leading, spacing: 10) {
+                    if let root = MoodMap.byID["root"] { lessonLink(root) }
+                    // The course in parts: each part is one kind of clause, with the big rule running through it
+                    ForEach(Array(MoodMap.chapters.enumerated()), id: \.offset) { index, chapter in
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Part \(index + 1): \(chapter.title)").font(.subheadline.weight(.semibold))
+                            Text(chapter.note).font(.caption).foregroundStyle(.secondary)
+                        }
+                        .padding(.top, 10)
+                        ForEach(chapter.lessons.compactMap { MoodMap.byID[$0] }) { lessonLink($0) }
                     }
                 }
             }
@@ -74,6 +79,12 @@ struct LearnView: View {
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 18))
+    }
+
+    private func lessonLink(_ lesson: MoodNode) -> some View {
+        NavigationLink { LessonView(lesson: lesson) } label: { lessonRow(lesson, number: lessons.firstIndex(of: lesson) ?? 0) }
+            .buttonStyle(.plain)
+            .disabled(!progress.unlocked(lesson))
     }
 
     /// The list of words that decide the mood, by what they do.
@@ -109,6 +120,7 @@ struct LearnView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(number == 0 ? "Start here: \(lesson.title.lowercased())" : lesson.title).font(.body.weight(.semibold))
                     .foregroundStyle(open ? .primary : .secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 Text(open ? "\(done) of \(parts.count) learned" : "Opens after the big rule").font(.caption).foregroundStyle(.secondary)
                 if open, parts.count > 1 {
                     HStack(spacing: 4) {
@@ -199,7 +211,7 @@ private struct LessonView: View {
                         }
                     }
                 } else {
-                    Text("Opens after two right answers on the step above").font(.caption).foregroundStyle(.secondary)
+                    Text("Opens after two right answers on “\(MoodMap.byID[step.parent ?? ""]?.title ?? "the step above")”").font(.caption).foregroundStyle(.secondary)
                 }
             }
             .padding(.bottom, last ? 0 : 22)
@@ -226,6 +238,8 @@ struct MoodSessionView: View {
     @State private var reason: String?
     @State private var retried: Set<String> = []
     @State private var rightCount = 0
+    /// Tenses introduced on the card on screen: shown with their explanation until the next card.
+    @State private var newTenses: [MoodTenseInfo] = []
 
     private var item: MoodItem? { deck.indices.contains(index) ? deck[index] : nil }
     private var answeredRight: Bool { picked.map { item?.correct.contains($0) ?? false } ?? false }
@@ -261,6 +275,7 @@ struct MoodSessionView: View {
             }
         }
         .onAppear { if deck.isEmpty { deck = MoodRound.make(focus: setup.focus, progress: progress) } }
+        .task { await Task.detached(priority: .utility) { MoodTenseLabels.warmUp() }.value }
     }
 
     private func card(_ item: MoodItem) -> some View {
@@ -272,6 +287,7 @@ struct MoodSessionView: View {
                     Text(display(item)).font(.title3.weight(.medium))
                         .fixedSize(horizontal: false, vertical: true)
                     choices(item)
+                    if phase != .choose, !newTenses.isEmpty { tenseIntro }
                     if phase != .choose { whyStep(item, node: node) }
                     if phase == .explain { explanation(item, node: node) }
                 }
@@ -294,9 +310,18 @@ struct MoodSessionView: View {
                     guard phase == .choose else { return }
                     picked = i
                     phase = .why
+                    introduceTenses(item)
                 } label: {
                     HStack {
-                        Text(choice).frame(maxWidth: .infinity, alignment: .leading)
+                        // The tense of each choice, named once the learner has answered
+                        Group {
+                            if phase != .choose, item.kind == .form, let tense = MoodTenseLabels.info(for: choice, in: item) {
+                                Text(choice) + Text("  (\(tense.name))").font(.subheadline).foregroundColor(.secondary)
+                            } else {
+                                Text(choice)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         if phase != .choose {
                             if item.correct.contains(i) { Image(systemName: "checkmark.circle.fill").foregroundStyle(.green) }
                             else if picked == i { Image(systemName: "xmark.circle.fill").foregroundStyle(.red) }
@@ -315,6 +340,30 @@ struct MoodSessionView: View {
         if item.correct.contains(i) { return Color.green.opacity(0.15) }
         if picked == i { return Color.red.opacity(0.15) }
         return Color(.secondarySystemBackground)
+    }
+
+    /// A tense the learner meets for the first time: what it means and where it is used.
+    private var tenseIntro: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            ForEach(newTenses) { tense in
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("New tense: \(tense.name)").font(.subheadline.weight(.semibold)).foregroundStyle(.purple)
+                    Text(tense.meaning).font(.subheadline)
+                    Text(tense.uses).font(.footnote).foregroundStyle(.secondary)
+                }
+            }
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color.purple.opacity(0.08), in: RoundedRectangle(cornerRadius: 12))
+    }
+
+    private func introduceTenses(_ item: MoodItem) {
+        guard item.kind == .form else { newTenses = []; return }
+        var seen = Set<String>()
+        newTenses = item.choices.compactMap { MoodTenseLabels.info(for: $0, in: item) }
+            .filter { !progress.seenTenses.contains($0.id) && seen.insert($0.id).inserted }
+        progress.markSeen(newTenses.map(\.id))
     }
 
     private func whyStep(_ item: MoodItem, node: MoodNode) -> some View {
@@ -382,6 +431,7 @@ struct MoodSessionView: View {
         phase = .choose
         picked = nil
         reason = nil
+        newTenses = []
     }
 
     private var finished: some View {
