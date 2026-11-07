@@ -18,6 +18,7 @@ struct WordDetailView: View {
     private var synonyms: [String] { SeedData.synonyms[word.spanish]?.sorted() ?? [] }
     private var conjugation: Conjugation? { word.partOfSpeech == .infinitive ? Conjugator.conjugate(word.spanish) : nil }
     private var phraseVerb: PhraseVerb? { PhraseVerb.find(for: word) }
+    private var moodTriggers: [MoodTrigger] { MoodTriggers.triggers(for: word.spanish) }
     private var relatedWords: [Word] { RelatedForms.find(for: word) }
     private var wikiExamples: [Extras.Example] { Extras.shared.examples(for: word) }
     private var origin: String? { Extras.shared.etymology[word.spanish] }
@@ -122,6 +123,7 @@ struct WordDetailView: View {
                 if !nounFormRows.isEmpty { nounFormsSection }
                 if let conjugation { conjugationSection(conjugation) }
                 if let phraseVerb { phraseSection(phraseVerb) }
+                if !moodTriggers.isEmpty { MoodTriggerCard(triggers: moodTriggers) }
                 if !localMeanings.isEmpty { countryCard }
                 if showsMeanings { meaningsSection }
                 if !usageSentences.isEmpty { usagesSection }

@@ -560,6 +560,47 @@ final class IndicativeAfterBeliefTests: XCTestCase {
     }
 }
 
+final class MoodResearchCheckerTests: XCTestCase {
+    private func mistakes(_ text: String) -> [SpanishIssue] { SpanishChecker.check(text).filter { $0.kind != .tip } }
+
+    /// Triggers that always take the subjunctive.
+    func testAlwaysSubjunctiveTriggersFlagTheIndicative() {
+        let cases = [("Puede que viene mañana", "venga"), ("En caso de que llueve, nos quedamos", "llueva"), ("No es que no quiero", "quiera"),
+                     ("Es una lástima que no vienes", "vengas"), ("Hace falta que estudias más", "estudies"), ("Me molesta que llegas tarde", "llegues"),
+                     ("Espera a que llega tu padre", "llegue"), ("A no ser que tienes prisa, quédate", "tengas"), ("Más vale que vienes pronto", "vengas")]
+        for (text, fix) in cases { XCTAssertEqual(mistakes(text).first?.suggestion, fix, text) }
+    }
+
+    /// "Si" and "por si" never take the present subjunctive.
+    func testPresentSubjunctiveAfterSiIsFlagged() {
+        XCTAssertEqual(mistakes("Si tengas tiempo, llámame").first?.suggestion, "tienes")
+        XCTAssertEqual(mistakes("Llévate un paraguas por si llueva").first?.suggestion, "llueve")
+    }
+
+    /// Same subject: an infinitive, not "que yo".
+    func testSameSubjectWishTakesTheInfinitive() {
+        XCTAssertEqual(mistakes("Quiero que yo vaya").first?.suggestion, "Quiero ir")
+    }
+
+    /// Both moods are correct here, or the indicative is right: the checker must say nothing.
+    func testTwoMoodTriggersStaySilent() {
+        for text in ["No dudo que sea verdad", "No dudo que es verdad", "No niego que sea un problema", "Te digo que vengas", "Le dice que se calle",
+                     "Me temo que perderemos", "Temo que sea tarde", "Aunque llueve, salgo", "Aunque llueva, saldré", "Cuando llegues, te llamo",
+                     "Quizás viene", "Quizás venga", "A lo mejor viene", "No sé si vaya", "Habla como si fuera el jefe", "Si bien es caro, vale la pena",
+                     "Si tengo tiempo, te llamo", "Si tuviera tiempo, te llamaría", "Por si llueve, llévate un paraguas", "No es mentira que es caro",
+                     "¿No es verdad que viene?", "No es verdad que venga", "Puede que venga", "Es que no tengo tiempo", "Lo importante es que estés bien",
+                     "Quiero ir", "Quiero que vayas", "No cabe duda de que es él", "Todos estamos un poco tristes"] {
+            XCTAssertTrue(mistakes(text).isEmpty, "\(text): \(mistakes(text).map(\.message))")
+        }
+    }
+
+    /// Certainty takes the indicative.
+    func testCertaintyFlagsTheSubjunctive() {
+        XCTAssertEqual(mistakes("No cabe duda de que sea él").first?.suggestion, "es")
+        XCTAssertEqual(mistakes("Estoy seguro de que tengas razón").first?.suggestion, "tienes")
+    }
+}
+
 final class TenseAlternativesTests: XCTestCase {
     private func first(_ text: String) -> TenseSuggestion? { TenseAlternatives.suggestions(for: text).first }
 

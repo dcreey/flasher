@@ -341,7 +341,8 @@ enum SpanishChecker {
             let written = "\(tokens[i].lower) \(noun.text)"
             defer {
                 // The adjective after the noun has to match the noun, not the article
-                if i + 2 < tokens.count, adjacent(i + 1) {
+                // "un poco tristes", "un tanto cansadas": "un poco" is an adverb here, so the adjective follows the subject, not "poco"
+                if i + 2 < tokens.count, adjacent(i + 1), !(tokens[i].lower == "un" && ["poco", "tanto"].contains(noun.lower)) {
                     adjectiveAgreement(noun: noun, adjective: tokens[i + 2], masculine: reading.masculine, plural: reading.plural, span: span(i + 1, i + 2), add: add)
                 }
             }

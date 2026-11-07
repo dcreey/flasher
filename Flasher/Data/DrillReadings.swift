@@ -61,6 +61,15 @@ enum DrillReadings {
             .init(.future, .during, "Cuando llegue, te llamo.", "Something still to come, after cuando, hasta que, en cuanto, apenas, tan pronto como, después de que, mientras. For habits or the past: indicative."),
             .init(.future, .during, "Aunque llueva, iremos.", "Aunque, por mucho que, a pesar de que about something not known yet or only granted. A known fact (aunque llueve) is indicative."),
             .init(.future, .during, "Lo que digas me parece bien.", "Whatever, however, wherever (lo que, como, donde, cualquiera que, quienquiera que, dondequiera que)."),
+            .init(.present, .during, "Puede que llueva.", "Puede (ser) que always takes the subjunctive. A lo mejor, igual and lo mismo (maybe) take the indicative."),
+            .init(.present, .after, "En caso de que llueva, llámame.", "Conditions other than si take the subjunctive: en caso de que, con tal de que, a condición de que, siempre que (provided), a menos que. Si itself never takes the present subjunctive."),
+            .init(.present, .after, "Como no vengas, me enojo.", "Como + subjunctive is a condition, usually a warning. Como + indicative means because."),
+            .init(.present, .during, "No es que no quiera, es que no puedo.", "No es que and no porque reject an explanation. Es que and porque give one, with the indicative."),
+            .init(.present, .during, "Por difícil que sea, lo haré.", "No matter how: por más que, por mucho que, por muy … que."),
+            .init(.present, .during, "Pase lo que pase, iré.", "Fixed phrases: pase lo que pase, sea como sea, quieras o no, digan lo que digan, que yo sepa."),
+            .init(.present, .after, "Hazlo como quieras.", "Manner, place or amount not known yet (como, donde, cuanto). Known: hazlo como te dije."),
+            .init(.present, .after, "Vengo a que me ayudes.", "Purpose after going or coming (a que), and no sea que (lest)."),
+            .init(.present, .during, "Tengo ganas de que llegue el verano.", "After nouns and adjectives of wish, need, fear or possibility: las ganas de que, la posibilidad de que, estar harto de que."),
         ],
         "simple subjunctiveImperfect": [
             .init(.past, .during, "Quería que viniera.", "A wish or request seen from the past."),
@@ -74,6 +83,10 @@ enum DrillReadings {
             .init(.present, .during, "Ojalá tuviera más tiempo.", "A wish that is not true now."),
             .init(.future, .during, "Ojalá viniera mañana.", "A future that is unlikely."),
             .init(.future, .during, "Si lloviera mañana, nos quedaríamos.", "An unlikely future condition (si + imperfect subjunctive, result in the conditional)."),
+            .init(.present, .during, "Me gustaría que vinieras.", "After the conditional (me gustaría, sería mejor): the imperfect subjunctive."),
+            .init(.past, .during, "Me sorprendió que viniera.", "A past feeling about something that did happen."),
+            .init(.past, .during, "Llovió mucho; de ahí que se suspendiera el partido.", "De ahí que takes the subjunctive even for a known result."),
+            .init(.present, .during, "¡Ni que fuera millonario!", "Ni que (as if, scornful) and igual que si, like como si."),
         ],
         "simple imperative": [
             .init(.present, .during, "¡Come ya!", "Do it now."),
@@ -138,6 +151,8 @@ enum DrillReadings {
             .init(.present, .during, "No creo que haya llegado todavía.", "Doubt about something that is still open up to now."),
             .init(.future, .before, "Cuando hayas terminado, llámame.", "Done before another future moment (cuando, en cuanto, hasta que, después de que)."),
             .init(.future, .before, "Aunque haya llovido, saldremos.", "Even if it has already happened by then (aunque, a pesar de que)."),
+            .init(.present, .before, "Es la mejor película que haya visto.", "Superlatives and el único que: the indicative (he visto) is the plain statement, the subjunctive adds emphasis."),
+            .init(.present, .before, "Puede que ya hayan llegado.", "Puede que about something that may already have happened."),
         ],
         "perfect subjunctiveImperfect": [
             .init(.past, .before, "Ojalá hubiera comido.", "A wish about the past."),
@@ -145,6 +160,7 @@ enum DrillReadings {
             .init(.past, .before, "Me habría gustado que hubieras venido.", "What would have been wished for, about something earlier."),
             .init(.past, .before, "Actuó como si hubiera ganado.", "Como si about something earlier."),
             .init(.past, .before, "Dudaba que hubiera llegado.", "Past doubt about something even earlier (no creía que)."),
+            .init(.past, .before, "Lamentó que no le hubiera gustado.", "After a feeling only hubiera works, never habría."),
         ],
         // Phrases
         "acabarDe present": [.init(.present, .before, "Acabo de comer.", "Just before now.")],

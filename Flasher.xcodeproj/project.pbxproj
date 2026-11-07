@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		D7A100000000000000000D02 /* DrillReadings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A100000000000000000D01 /* DrillReadings.swift */; };
+		8E229DEFBF1048578076CE13 /* MoodMapProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6BF48D8E8446A58DE3168E /* MoodMapProgress.swift */; };
+		0FE408AB08E54D6EA9F1CBAA /* MoodMapRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED9063396254F3DA54DB9BD /* MoodMapRules.swift */; };
+		AB7870A42B4F47F9BEA8D422 /* MoodTriggerViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E067FB3F24158BFA82389 /* MoodTriggerViews.swift */; };
+		DC75EF01E2B34C5787D22601 /* MoodTriggers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC79460D9BDA450C8A19EACF /* MoodTriggers.swift */; };
 		D7A100000000000000000C02 /* DrillRelatedContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A100000000000000000C01 /* DrillRelatedContext.swift */; };
 		D7A100000000000000000B02 /* DrillAlternates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A100000000000000000B01 /* DrillAlternates.swift */; };
 		D7A100000000000000000A04 /* DrillExplainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A100000000000000000A03 /* DrillExplainer.swift */; };
@@ -16,6 +20,7 @@
 		D7A1000000000000000009D2 /* DrillContextsMore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A1000000000000000009D1 /* DrillContextsMore.swift */; };
 		D7A1000000000000000009C2 /* DrillContexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A1000000000000000009C1 /* DrillContexts.swift */; };
 		D7A100000000000000000006 /* DrillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A100000000000000000005 /* DrillView.swift */; };
+		478A1D31E5AB45C2850308BB /* MoodMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E97B287F0C54D59B219AC79 /* MoodMapView.swift */; };
 		D7A100000000000000000004 /* DrillVerbList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A100000000000000000003 /* DrillVerbList.swift */; };
 		D7A100000000000000000002 /* DrillSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A100000000000000000001 /* DrillSession.swift */; };
 		C1D2E3F4A5B60718293A4B5E /* TranslateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D2E3F4A5B60718293A4B5F /* TranslateView.swift */; };
@@ -68,6 +73,7 @@
 		A1B2C3D4E5F60718293A4B31 /* DrillSubjectsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B30 /* DrillSubjectsTests.swift */; };
 		A1B2C3D4E5F60718293A4B51 /* DrillSentences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B50 /* DrillSentences.swift */; };
 		A1B2C3D4E5F60718293A4B41 /* DrillSentencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B40 /* DrillSentencesTests.swift */; };
+		F3067F8EE57A4D4D84A9CE1B /* MoodMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C244BAAC67394F2F8CD60BB5 /* MoodMapTests.swift */; };
 		A1B2C3D4E5F60718293A4B70 /* VerbUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B60 /* VerbUsage.swift */; };
 		A1B2C3D4E5F60718293A4B71 /* VerbUsageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B61 /* VerbUsageData.swift */; };
 /* End PBXBuildFile section */
@@ -84,6 +90,10 @@
 
 /* Begin PBXFileReference section */
 		D7A100000000000000000D01 /* DrillReadings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillReadings.swift; sourceTree = "<group>"; };
+		5F6BF48D8E8446A58DE3168E /* MoodMapProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapProgress.swift; sourceTree = "<group>"; };
+		BED9063396254F3DA54DB9BD /* MoodMapRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapRules.swift; sourceTree = "<group>"; };
+		DF8E067FB3F24158BFA82389 /* MoodTriggerViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodTriggerViews.swift; sourceTree = "<group>"; };
+		AC79460D9BDA450C8A19EACF /* MoodTriggers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodTriggers.swift; sourceTree = "<group>"; };
 		D7A100000000000000000C01 /* DrillRelatedContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillRelatedContext.swift; sourceTree = "<group>"; };
 		D7A100000000000000000B01 /* DrillAlternates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillAlternates.swift; sourceTree = "<group>"; };
 		D7A100000000000000000A03 /* DrillExplainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillExplainer.swift; sourceTree = "<group>"; };
@@ -92,6 +102,7 @@
 		D7A1000000000000000009D1 /* DrillContextsMore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillContextsMore.swift; sourceTree = "<group>"; };
 		D7A1000000000000000009C1 /* DrillContexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillContexts.swift; sourceTree = "<group>"; };
 		D7A100000000000000000005 /* DrillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillView.swift; sourceTree = "<group>"; };
+		3E97B287F0C54D59B219AC79 /* MoodMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapView.swift; sourceTree = "<group>"; };
 		D7A100000000000000000003 /* DrillVerbList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillVerbList.swift; sourceTree = "<group>"; };
 		D7A100000000000000000001 /* DrillSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSession.swift; sourceTree = "<group>"; };
 		C1D2E3F4A5B60718293A4B5F /* TranslateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateView.swift; sourceTree = "<group>"; };
@@ -147,6 +158,7 @@
 		A1B2C3D4E5F60718293A4B30 /* DrillSubjectsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSubjectsTests.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B50 /* DrillSentences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSentences.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B40 /* DrillSentencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSentencesTests.swift; sourceTree = "<group>"; };
+		C244BAAC67394F2F8CD60BB5 /* MoodMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapTests.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B60 /* VerbUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbUsage.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B61 /* VerbUsageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbUsageData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -165,6 +177,9 @@
 				A1B2C3D4E5F60718293A4B50 /* DrillSentences.swift */,
 				D7A1000000000000000009C1 /* DrillContexts.swift */,
 				D7A100000000000000000D01 /* DrillReadings.swift */,
+				5F6BF48D8E8446A58DE3168E /* MoodMapProgress.swift */,
+				BED9063396254F3DA54DB9BD /* MoodMapRules.swift */,
+				AC79460D9BDA450C8A19EACF /* MoodTriggers.swift */,
 				D7A100000000000000000C01 /* DrillRelatedContext.swift */,
 				D7A100000000000000000B01 /* DrillAlternates.swift */,
 				D7A100000000000000000A03 /* DrillExplainer.swift */,
@@ -217,6 +232,8 @@
 				6E529F4375338B9F2C7D2EF8 /* FlashcardView.swift */,
 				212F413245547E0FD2840FD9 /* HomeView.swift */,
 				D7A100000000000000000005 /* DrillView.swift */,
+				3E97B287F0C54D59B219AC79 /* MoodMapView.swift */,
+				DF8E067FB3F24158BFA82389 /* MoodTriggerViews.swift */,
 				7045F70119B2781F3C96CC38 /* PlacementQuizView.swift */,
 				C50A4BCA62589D24D57F400C /* RaptorRoomView.swift */,
 				0E93C9EB9DC6995455A9E61E /* ResultView.swift */,
@@ -275,6 +292,7 @@
 			children = (
 				9D1FA2CB60F4886AD163AA56 /* SpanishCheckerTests.swift */,
 				A1B2C3D4E5F60718293A4B40 /* DrillSentencesTests.swift */,
+				C244BAAC67394F2F8CD60BB5 /* MoodMapTests.swift */,
 				A1B2C3D4E5F60718293A4B30 /* DrillSubjectsTests.swift */,
 			);
 			path = FlasherTests;
@@ -398,6 +416,10 @@
 				A1B2C3D4E5F60718293A4B51 /* DrillSentences.swift in Sources */,
 				D7A1000000000000000009C2 /* DrillContexts.swift in Sources */,
 				D7A100000000000000000D02 /* DrillReadings.swift in Sources */,
+				8E229DEFBF1048578076CE13 /* MoodMapProgress.swift in Sources */,
+				0FE408AB08E54D6EA9F1CBAA /* MoodMapRules.swift in Sources */,
+				AB7870A42B4F47F9BEA8D422 /* MoodTriggerViews.swift in Sources */,
+				DC75EF01E2B34C5787D22601 /* MoodTriggers.swift in Sources */,
 				D7A100000000000000000C02 /* DrillRelatedContext.swift in Sources */,
 				D7A100000000000000000B02 /* DrillAlternates.swift in Sources */,
 				D7A100000000000000000A04 /* DrillExplainer.swift in Sources */,
@@ -405,6 +427,7 @@
 				D7A1000000000000000009E2 /* DrillAdjectives.swift in Sources */,
 				D7A1000000000000000009D2 /* DrillContextsMore.swift in Sources */,
 				D7A100000000000000000006 /* DrillView.swift in Sources */,
+				478A1D31E5AB45C2850308BB /* MoodMapView.swift in Sources */,
 				D7A100000000000000000004 /* DrillVerbList.swift in Sources */,
 				D7A100000000000000000002 /* DrillSession.swift in Sources */,
 				A1B2C3D4E5F60718293A4B21 /* VerbProfileData.swift in Sources */,
@@ -440,6 +463,7 @@
 			files = (
 				936299D414BDB758B390BDAD /* SpanishCheckerTests.swift in Sources */,
 				A1B2C3D4E5F60718293A4B41 /* DrillSentencesTests.swift in Sources */,
+				F3067F8EE57A4D4D84A9CE1B /* MoodMapTests.swift in Sources */,
 				A1B2C3D4E5F60718293A4B31 /* DrillSubjectsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

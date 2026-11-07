@@ -259,9 +259,14 @@ extension TenseAlternatives {
             guard let (ending, replacement) = futureEndings.first(where: { token.text.hasSuffix($0.0) }) else { continue }
             let ra = String(token.text.dropLast(ending.count)) + replacement
             guard let slots = VerbForms.index[ra], slots.allSatisfy({ $0.tense == .subjunctiveImperfect }), let first = slots.first else { continue }
+            // The RAE: the future subjunctive "has largely been replaced by the present subjunctive"; after "si" it is the present indicative
+            let present = Clitics.formOf(first.infinitive, .subjunctivePresent, first.person)
+            let indicative = Clitics.formOf(first.infinitive, .present, first.person)
+            let afterSi = tokens.contains { $0.text == "si" }
+            let modern = afterSi ? indicative.map { "after *si* the present indicative: **“\($0)”**" } : present.map { "the present subjunctive: **“\($0)”**" }
             return make("future-\(first.infinitive)", "Future subjunctive", sentence, "",
-                        "**“\(token.text)”** is the future subjunctive, which is no longer used in everyday Spanish. You'll see it in laws and old sayings (*sea lo que fuere*). Today people use the present subjunctive (*cuando llegue*), the present indicative after *si* (*si es necesario*), or the imperfect subjunctive (**“\(ra)”**).",
-                        verb: baseVerb(first.infinitive), focus: ConjugationFocus(form: .infinitive, tense: .subjunctiveImperfect, person: first.person), heading: "Good to know")
+                        "**“\(token.text)”** is the future subjunctive, which is no longer used in everyday Spanish. You'll see it in laws and old sayings (*sea lo que fuere*, *adonde fueres, haz lo que vieres*). Today people use \(modern ?? "the present subjunctive (*cuando llegue*)").",
+                        verb: baseVerb(first.infinitive), focus: ConjugationFocus(form: .infinitive, tense: afterSi ? .present : .subjunctivePresent, person: first.person), heading: "Good to know")
         }
         return nil
     }

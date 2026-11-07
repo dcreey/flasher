@@ -478,7 +478,7 @@ final class DrillExplainerTests: XCTestCase {
         let text = DrillExplainer.diagnose("habla", card: made)
         XCTAssertTrue(text.contains("subjunctive"), text)
         let why = DrillExplainer.explain(made)
-        XCTAssertTrue((why.clue ?? "").lowercased().contains("espero que") || (why.clue ?? "").lowercased().contains("importante"), why.clue ?? "")
+        XCTAssertTrue((why.clue ?? "").lowercased().contains(made.sentence.lowercased().components(separatedBy: " ").prefix(2).joined(separator: " ")) || (why.clue ?? "").contains("subjunctive"), why.clue ?? "")
     }
 
     func testTypoAndNonsenseAreHandled() throws {

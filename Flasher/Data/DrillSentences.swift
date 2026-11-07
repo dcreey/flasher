@@ -203,18 +203,27 @@ enum DrillSentences {
         func trigger(past: Bool) -> String {
             let options: [String]
             switch (past, sameSubject, progressiveOrPerfect) {
-            case (true, true, _): options = ["Era importante que", "Era posible que", "Dudaba que", "Ojalá"]
+            case (true, true, _): options = ["Era importante que", "Era posible que", "Dudaba que", "Ojalá", "Era raro que", "Hablaba como si"]
             case (true, false, _): options = ["Quería que", "Esperaba que", "Pedí que", "Dudaba que", "No creía que", "Me alegró que", "Era posible que", "Era necesario que",
-                                              "Prefería que", "Temía que", "Te llamé antes de que", "Me fui sin que"]
-            case (false, true, true): options = ["Es posible que", "Dudo que", "No creo que", "Quizás"]
-            case (false, true, false): options = ["Es importante que", "Es posible que", "Dudo que", "Ojalá", "Quizás", "Te aviso en cuanto"]
+                                              "Prefería que", "Temía que", "Te llamé antes de que", "Me fui sin que", "Me sorprendió que", "Me molestó que", "Fue una lástima que",
+                                              "Me gustaría que", "Sería mejor que", "Lo dije para que", "Era raro que"]
+            case (false, true, true): options = ["Es posible que", "Dudo que", "No creo que", "Quizás", "Puede que", "Es raro que"]
+            case (false, true, false): options = ["Es importante que", "Es posible que", "Dudo que", "Ojalá", "Quizás", "Te aviso en cuanto", "Puede que", "Es raro que", "Hace falta que"]
             case (false, false, true): options = drill.kind == .perfect
-                ? ["Espero que", "Dudo que", "No creo que", "Me alegra que", "Es posible que", "Es una lástima que", "Temo que", "Ojalá", "Me quedo hasta que"]
-                : ["Espero que", "Dudo que", "No creo que", "Me alegra que", "Es posible que", "Quizás", "Ojalá", "Temo que"]
+                ? ["Espero que", "Dudo que", "No creo que", "Me alegra que", "Es posible que", "Es una lástima que", "Temo que", "Ojalá", "Me quedo hasta que",
+                   "Puede que", "Me sorprende que", "Es raro que", "No es que"]
+                : ["Espero que", "Dudo que", "No creo que", "Me alegra que", "Es posible que", "Quizás", "Ojalá", "Temo que", "Puede que", "Me sorprende que"]
             case (false, false, false): options = ["Espero que", "Quiero que", "Dudo que", "No creo que", "Me alegra que", "Es posible que", "Es necesario que", "Ojalá", "Quizás",
-                                                   "Te lo digo para que", "Llámame antes de que", "Te aviso en cuanto", "Me quedo hasta que", "Es una lástima que", "Prefiero que", "Temo que"]
+                                                   "Te lo digo para que", "Llámame antes de que", "Te aviso en cuanto", "Me quedo hasta que", "Es una lástima que", "Prefiero que", "Temo que",
+                                                   "Puede que", "Llevo el teléfono en caso de que", "Hace falta que", "Más vale que", "Me sorprende que", "Me molesta que", "Es raro que",
+                                                   "Te ayudo con tal de que", "No salgo a menos que", "Espera a que", "No es que"]
             }
-            return options[(seed / 17) % options.count]
+            // "Llámame", "te lo digo", "espera": a tú command or "te" doesn't go with usted or ustedes in the same sentence
+            let formal = ["usted", "ustedes"].contains(subject.text)
+            var usable = formal ? options.filter { !$0.hasPrefix("Llámame") && !$0.hasPrefix("Te ") && !$0.hasPrefix("Espera") } : options
+            // "Espera a que (tú) salgas": telling you to wait for yourself
+            if subject.person == 1 { usable.removeAll { $0.hasPrefix("Espera") } }
+            return usable[(seed / 17) % usable.count]
         }
         // About a third of the perfect cards are about something that has not happened yet
         let still = (seed / 7) % 3 == 0
@@ -228,7 +237,8 @@ enum DrillSentences {
         case (.simple, .imperfect): parts = [cue.lead, shown, verb, complement, cue.trail]
         case (.simple, .future): parts = [cue.lead, shown, verb, complement]
         case (.simple, .conditional): parts = people ? [shown, verb, complement, ifClause] : [withChange, shown, verb, complement]
-        case (.simple, .subjunctivePresent): parts = [trigger(past: false), shown, verb, complement]
+        // "No es que" rejects a reason, which reads naturally with "no": "No es que no quiera, es que…"
+        case (.simple, .subjunctivePresent): let t = trigger(past: false); parts = [t, shown, t == "No es que" ? "no" : "", verb, complement]
         case (.simple, .subjunctiveImperfect): parts = [trigger(past: true), shown, verb, complement]
         case (.simple, .imperative): parts = ["¡" + verb, complement + "!"]
         case (.progressive, .present): parts = ["Ahora", shown, verb, complement]
@@ -237,14 +247,17 @@ enum DrillSentences {
         case (.progressive, .future): parts = ["Mañana a esta hora", shown, verb, complement]
         case (.progressive, .conditional): parts = people ? [shown, verb, complement, "ahora", ifClause] : [withChange, shown, verb, complement]
         case (.progressive, .subjunctivePresent): parts = [trigger(past: false), shown, verb, complement]
-        case (.perfect, .subjunctivePresent): parts = still && !sameSubject ? ["No creo que", shown, verb, complement, "todavía"] : (seed / 13) % 2 == 0 ? [trigger(past: false), shown, "ya", verb, complement] : [trigger(past: false), shown, verb, complement]
+        case (.perfect, .subjunctivePresent):
+            let t = trigger(past: false)
+            parts = still && !sameSubject ? ["No creo que", shown, verb, complement, "todavía"] : t == "No es que" ? [t, shown, "no", verb, complement]
+                : (seed / 13) % 2 == 0 ? [t, shown, "ya", verb, complement] : [t, shown, verb, complement]
         case (.progressive, .subjunctiveImperfect): parts = ["Si", shown, verb, complement, "ahora, se notaría"]
         // The perfect also says it is still open up to the moment: "Él todavía no ha comprado el paquete"
         case (.perfect, .present): parts = still ? [shown, "todavía no", verb, complement] : ["Hoy", shown, verb, complement]
         case (.perfect, .imperfect): parts = still ? ["Cuando llegué,", shown, "todavía no", verb, complement] : ["Cuando llegué, ya", shown, verb, complement]
         case (.perfect, .future): parts = ["Para el viernes", shown, verb, complement]
         case (.perfect, .conditional): parts = people ? [shown, verb, complement, ifPerfect] : [withChange, shown, verb, complement]
-        case (.perfect, .subjunctiveImperfect): parts = [["Ojalá", "Me habría gustado que", "Dudaba que", "Era una lástima que"][(seed / 17) % 4], shown, verb, complement]
+        case (.perfect, .subjunctiveImperfect): parts = [["Ojalá", "Me habría gustado que", "Dudaba que", "Era una lástima que", "Me sorprendió que", "Era como si"][(seed / 17) % 6], shown, verb, complement]
         case (.acabarDe, .present): parts = [shown, verb, complement]
         case (.acabarDe, _): parts = ["Cuando llegué,", shown, verb, complement]
         case (.irA, .present): parts = ["Mañana", shown, verb, complement]
@@ -259,9 +272,33 @@ enum DrillSentences {
         if text.hasSuffix(",") { text.removeLast() }
         let target = drill.tense == .imperative && drill.kind == .simple ? capitalized(text) : capitalized(text) + "."
         let related = relatedSource(usage, complement: complement, subject: subject, people: people || animal)
-        let around = context(drill, seed: seed, category: DrillContexts.category(infinitive, usage: usage, subjectIsPerson: people || animal), subject: subject.text, avoiding: target, related: related, infinitive: infinitive)
+        var around = context(drill, seed: seed, category: DrillContexts.category(infinitive, usage: usage, subjectIsPerson: people || animal), subject: subject.text, avoiding: target, related: related, infinitive: infinitive)
+        // A feeling is about something taken as real, so "Pronto lo sabremos" after "Me alegra que…" would contradict it: react instead
+        if let reaction = reaction(to: target, seed: seed) { around = ("", reaction) }
         let full = [around.before, target, around.after].filter { !$0.isEmpty }.joined(separator: " ")
         return (around.before, target, around.after, verb, full)
+    }
+
+    /// Second sentences for feelings and regrets, by what the first sentence says: glad, sorry, annoyed, surprised, a regret about the past.
+    private static let reactions: [(triggers: [String], lines: [String])] = [
+        (["me alegra que"], ["Es una buena noticia.", "Eso nos pone contentos.", "Así todo es más fácil.", "Todos estamos felices."]),
+        (["me alegró que"], ["Fue una buena noticia.", "Eso nos puso contentos.", "Todos lo celebramos.", "Fue un buen día."]),
+        (["es una lástima que"], ["Así son las cosas.", "No hay nada que hacer.", "Todos estamos un poco tristes.", "Las cosas no salen como queremos."]),
+        (["fue una lástima que", "era una lástima que", "me habría gustado que"], ["Pero ya no hay nada que hacer.", "Ahora ya es tarde.", "Así fueron las cosas.", "Nadie pudo hacer nada."]),
+        (["me molesta que"], ["No es la primera vez.", "Siempre pasa lo mismo.", "Así no se puede.", "Ya hablaremos de eso."]),
+        (["me molestó que"], ["No fue la primera vez.", "Siempre pasaba lo mismo.", "Después hablamos de eso.", "Nadie dijo nada."]),
+        (["me sorprende que"], ["Nadie lo esperaba.", "No es lo normal.", "Antes no era así.", "Es algo nuevo."]),
+        (["me sorprendió que"], ["Nadie lo esperaba.", "No era lo normal.", "Fue algo inesperado.", "Antes no era así."]),
+        (["es raro que"], ["No es lo normal.", "Antes no era así.", "Nadie lo esperaba.", "Normalmente no pasa."]),
+        (["era raro que"], ["No era lo normal.", "Antes no pasaba.", "Nadie lo esperaba.", "Normalmente no pasaba."]),
+        (["no es que"], ["Es otra cosa.", "Es que no hay tiempo.", "El problema es otro.", "Es que hay otro problema."]),
+        (["me gustaría que", "sería mejor que"], ["Sería lo mejor para todos.", "Eso nos ayudaría mucho.", "Así todo sería más fácil.", "Lo pensaremos."]),
+    ]
+
+    private static func reaction(to target: String, seed: Int) -> String? {
+        let lower = target.lowercased()
+        guard let match = reactions.first(where: { $0.triggers.contains { lower.hasPrefix($0) } }) else { return nil }
+        return match.lines[(seed / 5) % match.lines.count]
     }
 
     private static func capitalized(_ text: String) -> String {

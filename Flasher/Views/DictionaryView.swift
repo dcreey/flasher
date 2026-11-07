@@ -368,6 +368,9 @@ private struct DictionaryRow: View {
                 Text(word.withArticle)
                     .font(.headline)
                 PartOfSpeechTag(partOfSpeech: word.partOfSpeech)
+                if let trigger = MoodTriggers.triggers(for: word.spanish).first {
+                    MoodTriggerTag(behavior: trigger.behavior)
+                }
                 if Lexicon.shared.hasLocalMeaning(word) {
                     Text("\(Country.current.flag) \(Country.current.code)")
                         .font(.system(size: 10, weight: .bold))

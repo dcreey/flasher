@@ -83,12 +83,14 @@ Gender is only trusted when the dictionary's gender agrees with what the ending 
 
 | Rule | Flagged | Not flagged |
 | --- | --- | --- |
-| Subjunctive after a trigger (`quiero que`, `espero que`, `ojalá`, `es importante que`, `no creo que`, `para que`, `antes de que`, `sin que`...) | *quiero que vienes* → *vengas* | ✅ *quiero que vengas*, *creo que viene*, *¿para que sirve?* (`para qué` without its accent), *me temo que perderemos* |
+| Subjunctive after a trigger that always takes it: wishes (`quiero que`, `pide que`, `sugiero que`, `espera a que`), feelings (`me alegro de que`, `me molesta que`, `me sorprende que`, `es una lástima que`, `temo que`), doubt (`dudo que`, `niego que`, `no creo que`, `no es verdad que`), need and possibility (`es importante que`, `hace falta que`, `más vale que`, `puede que`, `es imposible que`), `no es que`, and connectors (`para que`, `a fin de que`, `antes de que`, `sin que`, `a menos que`, `a no ser que`, `con tal (de) que`, `en caso de que`, `no sea que`, `ojalá`, `ojalá y`) | *quiero que vienes* → *vengas*, *puede que viene* → *venga*, *no es que no quiero* → *quiera* | ✅ *quiero que vengas*, *creo que viene*, *¿para que sirve?* (`para qué` without its accent), *me temo que perderemos* and *temo que sea tarde*, *no dudo que es / sea*, *no niego que sea*, *¿no es verdad que viene?*, *no es mentira que es caro* |
+| A wish with the same subject (*quiero que yo vaya*) | → *quiero ir* (the infinitive) | ✅ *quiero que vayas*, *quiero ir* |
+| Present subjunctive after *si* or *por si* (they never take it) | *si tengas tiempo* → *tienes*, *por si llueva* → *llueve* (the note offers the imperfect subjunctive for something unlikely) | ✅ *si tengo*, *si tuviera*, *como si fuera*, *si bien es caro*, *no sé si vaya* (whether, heard in Mexico) |
 | An irregular verb conjugated as if it were regular | *tenió* → *tuvo*, *hací* → *hice* | ✅ *tuvo*, *vos tenés*, capitalised words |
 
-| The subjunctive after a statement of belief or certainty (*creo que*, *pienso que*, *me parece que*, *es verdad que*, *sé que*, *no dudo que*) | *creo que tengas* → *tienes* | ✅ *no creo que tengas*, *¿crees que tengas…?*, *creo que tienes* |
+| The subjunctive after a statement of belief or certainty (*creo que*, *pienso que*, *me parece que*, *es verdad que*, *sé que*, *no cabe duda de que*, *estoy seguro de que*, *está demostrado que*, *resulta que*, *menos mal que*, *si bien*) | *creo que tengas* → *tienes*, *no cabe duda de que sea él* → *es* | ✅ *no creo que tengas*, *¿crees que tengas…?*, *creo que tienes*, *no estoy seguro de que venga*. Left out on purpose because both moods are right: *decir que* (*te digo que vengas* is an order), *no dudo que* and *no niego que*, *me temo que*, *es que* (it sits inside *lo importante es que estés bien*), and every two-mood connector (*aunque*, *cuando*, *mientras*, *después de que*, *siempre que*, *de modo que*, *quizás*, *a lo mejor*, *el hecho de que*) |
 
-The subjunctive rule only looks at the verb right after the trigger (skipping `no`, subject and object pronouns). If a noun phrase comes first (*quiero que los niños vengan*) it stays silent.
+The rules come from the research in [docs/conjugation-drill/subjunctive-rules.md](../conjugation-drill/subjunctive-rules.md). The subjunctive rule only looks at the verb right after the trigger (skipping `no`, subject and object pronouns). If a noun phrase comes first (*quiero que los niños vengan*) it stays silent.
 
 ### Style
 
@@ -134,7 +136,7 @@ Three or more preterites in a row, or several *luego* / *después*, get a "Good 
 | *Buscar / necesitar / querer* + *un*, *algún*, *alguien*… + *que* + present indicative (*busco un coche que tiene*) | Present subjunctive (*tenga*). Silent with a definite thing (*el coche que tiene*) |
 | *Aunque* + present indicative + a future word like *mañana* (*aunque llueve mañana*) | "Good to know": present subjunctive (*llueva*) when it isn't certain; the indicative is fine for a known fact |
 | -se imperfect subjunctive (*tuviese*) | The -ra form (*tuviera*), noting -se feels formal |
-| Future subjunctive (*si hubiere*) | A note that it is archaic, with today's alternatives |
+| Future subjunctive (*si hubiere*, *sea lo que fuere*) | A note that it is archaic (laws, set phrases). Its modern equivalent is the present subjunctive (*fuere* → *sea*), and after *si* the present indicative (*si hubiere* → *si hay*) |
 
 Only forms that are unambiguously one preterite person are used (*fue*, *di*, *vivimos* are skipped), and sentences with *cuando*, *porque*, *que*, *si*... are left alone for the sequence rule. At most two cards are shown.
 

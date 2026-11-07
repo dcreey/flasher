@@ -52,6 +52,22 @@ enum DrillAlternates {
             found = [Option(drill: drill(.simple, .imperfect), why: "In everyday speech the imperfect often stands in for the conditional. The conditional is the standard form.", colloquial: true)]
         case "perfect conditional" where has("si hubiera habido tiempo"):
             found = [Option(drill: drill(.perfect, .subjunctiveImperfect), why: "In the result part of an unreal past condition both are accepted: “habría comprado” and “hubiera comprado”. Only “si habría…” is wrong.")]
+        // "Quizás" before the verb takes either mood: the subjunctive is less sure, the indicative more (NGLE via UDEP; see docs/conjugation-drill/subjunctive-rules.md)
+        case "simple subjunctivePresent" where has("quizás"):
+            found = [Option(drill: drill(.simple, .present), why: "“Quizás” before the verb takes either mood. The indicative (“quizás viene”) sounds more sure, the subjunctive (“quizás venga”) less.")]
+        case "progressive subjunctivePresent" where has("quizás"):
+            found = [Option(drill: drill(.progressive, .present), why: "“Quizás” before the verb takes either mood. The indicative (“quizás está…”) sounds more sure, the subjunctive less.")]
+        case "perfect subjunctivePresent" where has("quizás"):
+            found = [Option(drill: drill(.perfect, .present), why: "“Quizás” before the verb takes either mood. The indicative (“quizás ha…”) sounds more sure, the subjunctive (“quizás haya…”) less.")]
+        // "Ojalá": the present is a wish that can come true, the imperfect one that is unlikely
+        case "simple subjunctivePresent" where has("ojalá"):
+            found = [Option(drill: drill(.simple, .subjunctiveImperfect), why: "After “ojalá” the imperfect subjunctive also works: it makes the wish sound less likely (“ojalá viniera”).")]
+        case "simple subjunctiveImperfect" where has("ojalá"):
+            found = [Option(drill: drill(.simple, .subjunctivePresent), why: "After “ojalá” the present subjunctive also works: it makes the wish sound possible (“ojalá venga”).")]
+        case "perfect subjunctivePresent" where has("ojalá"):
+            found = [Option(drill: drill(.perfect, .subjunctiveImperfect), why: "“Ojalá haya…” hopes about something that may have happened. “Ojalá hubiera…” wishes about something that didn't.")]
+        case "perfect subjunctiveImperfect" where has("ojalá"):
+            found = [Option(drill: drill(.perfect, .subjunctivePresent), why: "“Ojalá hubiera…” wishes about something that didn't happen. “Ojalá haya…” hopes about something that may have.")]
         // "Espero que ella haya sido amable": with no "ya" or "todavía", hoping about now or later (sea) fits as well
         case "perfect subjunctivePresent" where has("espero que") && !has(" ya ") && !has("todavía") && !has("cuando"):
             found = [Option(drill: drill(.simple, .subjunctivePresent), why: "Nothing in the sentence says it should already be done, so hoping about now or later fits too: “Espero que sea…”. The perfect (“haya sido”) says it is already done.")]

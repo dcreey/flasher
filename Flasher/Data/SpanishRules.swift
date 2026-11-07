@@ -116,7 +116,19 @@ extension SpanishChecker {
         ["no", "creo", "que"], ["no", "pienso", "que"], ["no", "cree", "que"], ["no", "crees", "que"],
         ["me", "alegra", "que"], ["me", "gusta", "que"], ["te", "gusta", "que"], ["le", "gusta", "que"], ["nos", "gusta", "que"],
         ["es", "importante", "que"], ["es", "necesario", "que"], ["es", "posible", "que"], ["es", "mejor", "que"], ["es", "bueno", "que"], ["es", "probable", "que"],
-        ["antes", "de", "que"], ["a", "menos", "que"], ["con", "tal", "de", "que"], ["sin", "que"], ["para", "que"], ["ojalá", "que"], ["ojalá"],
+        ["antes", "de", "que"], ["a", "menos", "que"], ["con", "tal", "de", "que"], ["sin", "que"], ["para", "que"], ["ojalá", "que"], ["ojalá", "y"], ["ojalá"],
+        // More that always take the subjunctive (NGLE ch. 25, 46, 47; see docs/conjugation-drill/subjunctive-rules.md)
+        ["pide", "que"], ["pedimos", "que"], ["piden", "que"], ["exijo", "que"], ["exige", "que"], ["ruego", "que"], ["sugiero", "que"], ["recomiendo", "que"],
+        ["aconsejo", "que"], ["prohíbo", "que"], ["permito", "que"], ["deseamos", "que"], ["desea", "que"], ["prefiere", "que"], ["preferimos", "que"],
+        ["dudas", "que"], ["duda", "que"], ["dudamos", "que"], ["niego", "que"], ["niega", "que"],
+        ["me", "alegro", "de", "que"], ["se", "alegra", "de", "que"], ["me", "molesta", "que"], ["me", "sorprende", "que"], ["me", "encanta", "que"],
+        ["me", "preocupa", "que"], ["me", "da", "miedo", "que"], ["me", "da", "pena", "que"], ["temo", "que"],
+        ["es", "una", "lástima", "que"], ["es", "una", "pena", "que"], ["qué", "lástima", "que"], ["qué", "pena", "que"], ["es", "raro", "que"],
+        ["es", "imposible", "que"], ["es", "preciso", "que"], ["es", "fundamental", "que"], ["es", "urgente", "que"], ["es", "conveniente", "que"],
+        ["es", "hora", "de", "que"], ["hace", "falta", "que"], ["más", "vale", "que"], ["puede", "que"], ["puede", "ser", "que"],
+        ["no", "es", "que"], ["no", "es", "verdad", "que"], ["no", "es", "cierto", "que"], ["es", "mentira", "que"],
+        ["a", "no", "ser", "que"], ["con", "tal", "que"], ["a", "fin", "de", "que"], ["en", "caso", "de", "que"], ["a", "condición", "de", "que"],
+        ["no", "sea", "que"], ["no", "vaya", "a", "ser", "que"], ["espera", "a", "que"], ["esperar", "a", "que"],
     ].sorted { $0.count > $1.count }
 
     /// After these phrases Spanish needs the subjunctive; an indicative-only verb right after one is a mistake.
@@ -130,7 +142,20 @@ extension SpanishChecker {
             // "¿Para que sirve?" is “para qué” written without its accent, not a trigger
             if trigger == ["para", "que"], isInQuestion(at: tokens[i].range.location, in: text) { continue }
             // "no dudo que es verdad" takes the indicative: the negative flips "dudo que"
-            if trigger == ["dudo", "que"], i > 0, tokens[i - 1].lower == "no", adjacent(i - 1) { continue }
+            if ["dudo", "duda", "dudas", "dudamos", "niego", "niega"].contains(trigger[0]), trigger.count == 2, i > 0, tokens[i - 1].lower == "no", adjacent(i - 1) { continue }
+            // "me temo que perderemos" (I suspect) takes either mood; only plain "temo que" (I fear) asks for the subjunctive
+            if trigger == ["temo", "que"], i > 0, tokens[i - 1].lower == "me", adjacent(i - 1) { continue }
+            // "no es mentira que" is certainty; "¿No es verdad que viene?" asks for agreement and takes the indicative
+            if trigger == ["es", "mentira", "que"], i > 0, tokens[i - 1].lower == "no", adjacent(i - 1) { continue }
+            if ["verdad", "cierto"].contains(trigger.dropFirst(2).first ?? ""), isInQuestion(at: tokens[i].range.location, in: text) { continue }
+            // "Quiero que yo vaya": with the same subject a wish takes the infinitive ("quiero ir")
+            let wishes: Set<String> = ["quiero", "prefiero", "necesito", "espero", "deseo"]
+            if wishes.contains(trigger[0]), trigger.count == 2, i + 3 < tokens.count, tokens[i + 2].lower == "yo", adjacent(i + 1), adjacent(i + 2),
+               let infinitive = Clitics.formOptions(tokens[i + 3].lower).first(where: { $0.person == 0 && !$0.infinitive.contains(" ") })?.infinitive {
+                let fix = "\(tokens[i].text) \(infinitive)"
+                add(.verb, span(i, i + 3), "When the person who wants and the person who does are the same, Spanish uses the infinitive: “\(fix)”, not “que yo…”.", fix)
+                continue
+            }
             var last = i + trigger.count - 1
             while last + 1 < tokens.count, adjacent(last), !nounPhraseStarters.contains(tokens[last + 1].lower), subjects.contains(tokens[last + 1].lower) || tokens[last + 1].lower == "no" || pronounWords.contains(tokens[last + 1].lower) { last += 1 }
             guard last + 1 < tokens.count, adjacent(last), !tokens[last + 1].isCapitalized, !nounPhraseStarters.contains(tokens[last + 1].lower) else { continue }
@@ -153,8 +178,14 @@ extension SpanishChecker {
         ["pienso", "que"], ["piensas", "que"], ["piensa", "que"], ["pensamos", "que"], ["opino", "que"], ["supongo", "que"],
         ["me", "parece", "que"], ["te", "parece", "que"], ["le", "parece", "que"],
         ["es", "verdad", "que"], ["es", "cierto", "que"], ["es", "obvio", "que"], ["es", "evidente", "que"], ["está", "claro", "que"],
-        ["sé", "que"], ["sabes", "que"], ["sabe", "que"], ["digo", "que"], ["dice", "que"], ["veo", "que"], ["noto", "que"],
-        ["no", "dudo", "que"], ["no", "niego", "que"],
+        ["sé", "que"], ["sabes", "que"], ["sabe", "que"], ["sabemos", "que"], ["veo", "que"], ["noto", "que"], ["recuerdo", "que"],
+        ["no", "cabe", "duda", "de", "que"], ["no", "hay", "duda", "de", "que"], ["es", "indudable", "que"], ["es", "seguro", "que"],
+        ["estoy", "seguro", "de", "que"], ["estoy", "segura", "de", "que"], ["estoy", "convencido", "de", "que"], ["estoy", "convencida", "de", "que"],
+        ["está", "demostrado", "que"], ["resulta", "que"], ["menos", "mal", "que"], ["si", "bien"],
+        // "si" (if) and "por si" (in case) never take the present subjunctive: "si tengo", "por si llueve" (or "si tuviera", "por si lloviera")
+        ["si"], ["por", "si"],
+        // Not here on purpose: "digo que" / "dice que" (with the subjunctive they give an order: "te digo que vengas"),
+        // "no dudo que" / "no niego que" (both moods are correct), "me temo que" (either), bare "es que" (it sits inside "lo importante es que estés")
     ].sorted { $0.count > $1.count }
 
     /// Saying what you think or know takes the indicative, so a subjunctive right after one is a mistake.
@@ -169,16 +200,32 @@ extension SpanishChecker {
             // "no creo que", "no me parece que": the negative brings the subjunctive back
             if trigger.first != "no", i > 0, tokens[i - 1].lower == "no", adjacent(i - 1) { continue }
             if isInQuestion(at: tokens[i].range.location, in: text) { continue }
+            let ifClause = trigger.last == "si"
+            if ifClause, i > 0 {
+                let before = tokens[i - 1].lower
+                // "como si" has its own card (imperfect subjunctive); "no sé si vaya" is "whether", heard in Mexico
+                if before == "como" || ["sé", "sabe", "sabes", "sabemos", "saben", "pregunto", "pregunta", "preguntó", "ver", "saber", "duda", "dudo"].contains(before) { continue }
+            }
             var last = i + trigger.count - 1
-            while last + 1 < tokens.count, adjacent(last), !nounPhraseStarters.contains(tokens[last + 1].lower), subjects.contains(tokens[last + 1].lower) || pronounWords.contains(tokens[last + 1].lower) { last += 1 }
+            while last + 1 < tokens.count, adjacent(last), !nounPhraseStarters.contains(tokens[last + 1].lower), subjects.contains(tokens[last + 1].lower) || pronounWords.contains(tokens[last + 1].lower) || (ifClause && tokens[last + 1].lower == "no") { last += 1 }
             guard last + 1 < tokens.count, adjacent(last), !tokens[last + 1].isCapitalized, !nounPhraseStarters.contains(tokens[last + 1].lower) else { continue }
             let verb = tokens[last + 1]
             let options = Clitics.formOptions(verb.lower).filter { $0.tense == .subjunctivePresent && !$0.infinitive.contains(" ") }
+            // "sea" is yo or él: only an explicit "yo" makes it the first person
+            let saidYo = last >= i + trigger.count && tokens[(i + trigger.count)...last].contains { $0.lower == "yo" }
+            let ordered = saidYo ? options : options.sorted { ($0.person == 0 ? 1 : 0) < ($1.person == 0 ? 1 : 0) }
             // Only a form that can be nothing but a present subjunctive of one verb; "no dudo que" keeps its own wording
-            guard let best = options.first, Set(options.map(\.infinitive)).count == 1, Clitics.formOptions(verb.lower).allSatisfy({ $0.tense == .subjunctivePresent || $0.tense == .imperative || $0.infinitive != best.infinitive }),
+            guard let best = ordered.first, Set(options.map(\.infinitive)).count == 1, Clitics.formOptions(verb.lower).allSatisfy({ $0.tense == .subjunctivePresent || $0.tense == .imperative || $0.infinitive != best.infinitive }),
                   let fix = Clitics.formOf(best.infinitive, .present, best.person) else { continue }
             let said = trigger.joined(separator: " ")
-            add(.verb, span(i, last + 1), "After “\(said)” Spanish uses the indicative: “\(fix)”. The subjunctive comes back when it is negative (*no creo que tengas*) or a question.", fix)
+            if ifClause {
+                let unlikely = Clitics.formOf(best.infinitive, .subjunctiveImperfect, best.person)
+                add(.verb, span(i, last + 1), "After “\(said)” Spanish never uses the present subjunctive: “\(fix)”\(unlikely.map { ". For something unlikely or unreal, use the imperfect subjunctive: “\($0)”" } ?? "").", fix)
+            } else if trigger.first == "no" || trigger.contains("seguro") || trigger.contains("duda") || trigger == ["si", "bien"] || trigger == ["menos", "mal", "que"] || trigger == ["resulta", "que"] {
+                add(.verb, span(i, last + 1), "“\(said)” states something as certain, so the verb is indicative: “\(fix)”.", fix)
+            } else {
+                add(.verb, span(i, last + 1), "After “\(said)” Spanish uses the indicative: “\(fix)”. The subjunctive comes back when it is negative (*no creo que tengas*) or a question.", fix)
+            }
         }
     }
 

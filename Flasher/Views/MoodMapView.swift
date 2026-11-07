@@ -1,0 +1,396 @@
+import SwiftUI
+
+/// The Learn tab: the subjunctive as a short course. One "up next" card says what to do; below it the lessons
+/// run in order (the big rule first, then one lesson per family), each with a few steps: the rule, what to watch out for,
+/// and the fine points. A step opens once the one it builds on has been answered right twice.
+struct LearnView: View {
+    private var progress: MoodMapProgress { .shared }
+    @State private var round: MoodRoundSetup?
+
+    private var steps: [MoodNode] { MoodMap.treeOrder }
+    private var learned: Int { MoodMap.nodes.filter { progress.mastered($0.id) }.count }
+    private var dueCount: Int { MoodMap.nodes.filter { progress.due($0.id) }.count }
+    /// The first open step that isn't learned yet, in course order.
+    private var next: MoodNode? { steps.first { progress.unlocked($0) && !progress.mastered($0.id) } }
+    private var lessons: [MoodNode] { MoodMap.nodes.filter { $0.level <= 2 } }
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Subjunctive").font(.title2.weight(.bold))
+                    Text("When to use it, one step at a time").foregroundStyle(.secondary)
+                    ProgressView(value: Double(learned), total: Double(MoodMap.nodes.count)).tint(.purple)
+                    Text("\(learned) of \(MoodMap.nodes.count) steps learned").font(.footnote).foregroundStyle(.secondary)
+                }
+
+                upNext
+
+                if dueCount > 0 {
+                    Button { round = MoodRoundSetup(focus: nil) } label: {
+                        Label("\(dueCount) to review", systemImage: "arrow.clockwise")
+                            .font(.subheadline.weight(.semibold))
+                            .padding(.horizontal, 14).padding(.vertical, 8)
+                            .background(Color.orange.opacity(0.15), in: Capsule())
+                            .foregroundStyle(.orange)
+                    }
+                    .buttonStyle(.plain)
+                }
+
+                NavigationLink { TriggerWordsView() } label: { triggerWordsRow }
+                    .buttonStyle(.plain)
+
+                Text("Lessons").font(.headline).padding(.top, 4)
+                VStack(spacing: 10) {
+                    ForEach(Array(lessons.enumerated()), id: \.element.id) { number, lesson in
+                        NavigationLink { LessonView(lesson: lesson) } label: { lessonRow(lesson, number: number) }
+                            .buttonStyle(.plain)
+                            .disabled(!progress.unlocked(lesson))
+                    }
+                }
+            }
+            .padding()
+        }
+        .background(Color(.systemGroupedBackground))
+        .navigationTitle("Learn")
+        .fullScreenCover(item: $round) { MoodSessionView(setup: $0) }
+    }
+
+    private var upNext: some View {
+        let step = next
+        return VStack(alignment: .leading, spacing: 10) {
+            Text(step == nil ? "All learned" : "Up next").font(.caption.weight(.semibold)).foregroundStyle(.purple).textCase(.uppercase)
+            Text(step?.title ?? "Keep it fresh with a mixed round").font(.title3.weight(.semibold))
+            if let step {
+                Text(step.rule).font(.subheadline).foregroundStyle(.secondary).lineLimit(3)
+            }
+            Button { round = MoodRoundSetup(focus: step?.id) } label: {
+                Text(step == nil ? "Practice" : "Start").font(.headline).frame(maxWidth: .infinity).padding(.vertical, 12)
+                    .background(Color.purple, in: RoundedRectangle(cornerRadius: 12)).foregroundStyle(.white)
+            }
+            .buttonStyle(.plain)
+            .padding(.top, 4)
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 18))
+    }
+
+    /// The list of words that decide the mood, by what they do.
+    private var triggerWordsRow: some View {
+        HStack(spacing: 14) {
+            Image(systemName: "text.book.closed").font(.title3).foregroundStyle(.purple).frame(width: 36, height: 36)
+                .background(Color.purple.opacity(0.12), in: Circle())
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Trigger words").font(.body.weight(.semibold))
+                Text("\(MoodTriggers.all.count) words and phrases: which always take it, which only with no, which change meaning")
+                    .font(.caption).foregroundStyle(.secondary)
+            }
+            Spacer()
+            Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(.tertiary)
+        }
+        .padding(14)
+        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 16))
+        .accessibilityElement(children: .combine)
+    }
+
+    private func lessonRow(_ lesson: MoodNode, number: Int) -> some View {
+        let open = progress.unlocked(lesson)
+        let parts = MoodMap.steps(of: lesson)
+        let done = parts.filter { progress.mastered($0.id) }.count
+        return HStack(spacing: 14) {
+            ZStack {
+                Circle().fill(done == parts.count ? Color.purple : Color.purple.opacity(open ? 0.15 : 0.06))
+                if !open { Image(systemName: "lock.fill").font(.caption).foregroundStyle(.secondary) }
+                else if done == parts.count { Image(systemName: "checkmark").font(.subheadline.weight(.bold)).foregroundStyle(.white) }
+                else { Text(number == 0 ? "★" : "\(number)").font(.subheadline.weight(.semibold)).foregroundStyle(.purple) }
+            }
+            .frame(width: 36, height: 36)
+            VStack(alignment: .leading, spacing: 4) {
+                Text(number == 0 ? "Start here: \(lesson.title.lowercased())" : lesson.title).font(.body.weight(.semibold))
+                    .foregroundStyle(open ? .primary : .secondary)
+                Text(open ? "\(done) of \(parts.count) learned" : "Opens after the big rule").font(.caption).foregroundStyle(.secondary)
+                if open, parts.count > 1 {
+                    HStack(spacing: 4) {
+                        ForEach(parts) { part in
+                            Capsule().fill(progress.mastered(part.id) ? Color.purple : progress.of(part.id).right > 0 ? Color.purple.opacity(0.45) : Color.secondary.opacity(0.2))
+                                .frame(width: 18, height: 5)
+                        }
+                    }
+                }
+            }
+            Spacer()
+            Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(.tertiary)
+        }
+        .padding(14)
+        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 16))
+        .opacity(open ? 1 : 0.6)
+        .accessibilityElement(children: .combine)
+    }
+}
+
+/// One lesson: the rule in plain words, an example, and its steps in order, each with its own rule written out.
+private struct LessonView: View {
+    let lesson: MoodNode
+    private var progress: MoodMapProgress { .shared }
+    @State private var round: MoodRoundSetup?
+
+    var body: some View {
+        let parts = MoodMap.steps(of: lesson)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 18) {
+                Text(lesson.title).font(.title2.weight(.bold))
+                Text(lesson.rule)
+                Text(lesson.example).italic().foregroundStyle(.secondary)
+                    .padding(12).frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color.purple.opacity(0.08), in: RoundedRectangle(cornerRadius: 12))
+                Button { round = MoodRoundSetup(focus: lesson.id) } label: {
+                    Text("Practice this lesson").font(.headline).frame(maxWidth: .infinity).padding(.vertical, 12)
+                        .background(Color.purple, in: RoundedRectangle(cornerRadius: 12)).foregroundStyle(.white)
+                }
+                .buttonStyle(.plain)
+
+                if parts.count > 1 {
+                    Text("Steps").font(.headline).padding(.top, 6)
+                    VStack(alignment: .leading, spacing: 0) {
+                        ForEach(Array(parts.enumerated()), id: \.element.id) { index, part in
+                            stepRow(part, last: index == parts.count - 1)
+                        }
+                    }
+                }
+            }
+            .padding()
+        }
+        .background(Color(.systemGroupedBackground))
+        .navigationBarTitleDisplayMode(.inline)
+        .fullScreenCover(item: $round) { MoodSessionView(setup: $0) }
+    }
+
+    /// A step on the lesson's path: a dot and a line down to the next step, then what the step says.
+    private func stepRow(_ step: MoodNode, last: Bool) -> some View {
+        let open = progress.unlocked(step)
+        let stats = progress.of(step.id)
+        let learned = progress.mastered(step.id)
+        return HStack(alignment: .top, spacing: 14) {
+            VStack(spacing: 0) {
+                ZStack {
+                    Circle().fill(learned ? Color.purple : Color(.secondarySystemGroupedBackground))
+                    Circle().strokeBorder(open ? Color.purple : Color.secondary.opacity(0.3), lineWidth: 2)
+                    if learned { Image(systemName: "checkmark").font(.caption2.weight(.bold)).foregroundStyle(.white) }
+                    else if !open { Image(systemName: "lock.fill").font(.system(size: 9)).foregroundStyle(.secondary) }
+                }
+                .frame(width: 24, height: 24)
+                if !last { Rectangle().fill(Color.secondary.opacity(0.25)).frame(width: 2).frame(maxHeight: .infinity) }
+            }
+            VStack(alignment: .leading, spacing: 6) {
+                Text(step.id == lesson.id ? "The rule" : step.levelName).font(.caption.weight(.semibold)).foregroundStyle(.purple).textCase(.uppercase)
+                Text(step.title).font(.body.weight(.semibold)).foregroundStyle(open ? .primary : .secondary)
+                if open {
+                    // The lesson's own rule is already at the top of the page
+                    if step.id != lesson.id {
+                        Text(step.rule).font(.subheadline).foregroundStyle(.secondary)
+                        Text(step.example).font(.subheadline).italic().foregroundStyle(.secondary)
+                    }
+                    HStack {
+                        Text(learned ? "Learned" : "\(stats.right) of \(MoodMapProgress.needed) right").font(.caption).foregroundStyle(.secondary)
+                        Spacer()
+                        if step.id != lesson.id {
+                            Button("Practice") { round = MoodRoundSetup(focus: step.id) }.font(.caption.weight(.semibold)).tint(.purple)
+                        }
+                    }
+                } else {
+                    Text("Opens after two right answers on the step above").font(.caption).foregroundStyle(.secondary)
+                }
+            }
+            .padding(.bottom, last ? 0 : 22)
+        }
+    }
+}
+
+struct MoodRoundSetup: Identifiable {
+    let id = UUID()
+    let focus: String?
+}
+
+/// One round: choose, then say why, then read the rule. A missed card comes back later in the round.
+struct MoodSessionView: View {
+    let setup: MoodRoundSetup
+    @Environment(\.dismiss) private var dismiss
+    private var progress: MoodMapProgress { .shared }
+
+    private enum Phase { case choose, why, explain }
+    @State private var deck: [MoodItem] = []
+    @State private var index = 0
+    @State private var phase = Phase.choose
+    @State private var picked: Int?
+    @State private var reason: String?
+    @State private var retried: Set<String> = []
+    @State private var rightCount = 0
+
+    private var item: MoodItem? { deck.indices.contains(index) ? deck[index] : nil }
+    private var answeredRight: Bool { picked.map { item?.correct.contains($0) ?? false } ?? false }
+    private var reasonRight: Bool {
+        guard let item else { return false }
+        return item.why.isEmpty ? reason == item.node : reason == "why\(item.whyRight)"
+    }
+
+    /// The reasons to choose from: the card's own, or the node and two neighbours. Each has an id and a title.
+    private func reasonOptions(_ item: MoodItem) -> [(id: String, title: String)] {
+        if !item.why.isEmpty { return item.why.enumerated().map { ("why\($0.offset)", $0.element) } }
+        return MoodMap.reasons(for: item).map { ($0.id, $0.title) }
+    }
+
+    private func isRightReason(_ id: String, _ item: MoodItem) -> Bool {
+        item.why.isEmpty ? id == item.node : id == "why\(item.whyRight)"
+    }
+
+    var body: some View {
+        NavigationStack {
+            Group {
+                if let item { card(item) } else { finished }
+            }
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button { dismiss() } label: { Image(systemName: "xmark") }.accessibilityLabel("Close")
+                }
+                ToolbarItem(placement: .principal) {
+                    Text(deck.isEmpty ? "Learn" : "\(min(index + 1, deck.count)) of \(deck.count)").font(.headline)
+                }
+            }
+        }
+        .onAppear { if deck.isEmpty { deck = MoodRound.make(focus: setup.focus, progress: progress) } }
+    }
+
+    private func card(_ item: MoodItem) -> some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                if let node = MoodMap.byID[item.node] {
+                    Text(item.heading).font(.footnote.weight(.semibold)).foregroundStyle(.purple)
+                    Text(item.context).font(.subheadline).foregroundStyle(.secondary)
+                    Text(display(item)).font(.title3.weight(.medium))
+                        .fixedSize(horizontal: false, vertical: true)
+                    choices(item)
+                    if phase != .choose { whyStep(item, node: node) }
+                    if phase == .explain { explanation(item, node: node) }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+
+    /// The sentence with the gap filled in once the learner has chosen.
+    private func display(_ item: MoodItem) -> String {
+        guard item.kind == .form, let picked, phase != .choose else { return item.prompt }
+        let best = item.correct.contains(picked) ? picked : (item.correct.min() ?? picked)
+        return item.prompt.replacingOccurrences(of: "___", with: item.choices[best])
+    }
+
+    private func choices(_ item: MoodItem) -> some View {
+        VStack(spacing: 10) {
+            ForEach(Array(item.choices.enumerated()), id: \.offset) { i, choice in
+                Button {
+                    guard phase == .choose else { return }
+                    picked = i
+                    phase = .why
+                } label: {
+                    HStack {
+                        Text(choice).frame(maxWidth: .infinity, alignment: .leading)
+                        if phase != .choose {
+                            if item.correct.contains(i) { Image(systemName: "checkmark.circle.fill").foregroundStyle(.green) }
+                            else if picked == i { Image(systemName: "xmark.circle.fill").foregroundStyle(.red) }
+                        }
+                    }
+                    .padding(12)
+                    .background(background(i, item), in: RoundedRectangle(cornerRadius: 12))
+                }
+                .buttonStyle(.plain)
+            }
+        }
+    }
+
+    private func background(_ i: Int, _ item: MoodItem) -> Color {
+        guard phase != .choose else { return Color(.secondarySystemBackground) }
+        if item.correct.contains(i) { return Color.green.opacity(0.15) }
+        if picked == i { return Color.red.opacity(0.15) }
+        return Color(.secondarySystemBackground)
+    }
+
+    private func whyStep(_ item: MoodItem, node: MoodNode) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(answeredRight ? (item.bothWork ? "Right, and more than one works." : "Right.") : "Not this time.")
+                .font(.headline).foregroundStyle(answeredRight ? .green : .red)
+            Text("Why?").font(.subheadline.weight(.semibold))
+            ForEach(reasonOptions(item), id: \.id) { option in
+                Button {
+                    guard phase == .why else { return }
+                    reason = option.id
+                    finish(item)
+                } label: {
+                    HStack {
+                        Text(option.title).frame(maxWidth: .infinity, alignment: .leading)
+                        if phase == .explain {
+                            if isRightReason(option.id, item) { Image(systemName: "checkmark.circle.fill").foregroundStyle(.green) }
+                            else if reason == option.id { Image(systemName: "xmark.circle.fill").foregroundStyle(.red) }
+                        }
+                    }
+                    .padding(10)
+                    .background(phase == .explain && isRightReason(option.id, item) ? Color.green.opacity(0.15) : Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 10))
+                }
+                .buttonStyle(.plain)
+            }
+        }
+    }
+
+    private func explanation(_ item: MoodItem, node: MoodNode) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(item.note)
+            VStack(alignment: .leading, spacing: 4) {
+                Text("\(node.levelName): \(node.title)").font(.footnote.weight(.semibold))
+                Text(node.rule).font(.footnote)
+                Text(node.example).font(.footnote).italic().foregroundStyle(.secondary)
+            }
+            .padding(12)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color.purple.opacity(0.08), in: RoundedRectangle(cornerRadius: 12))
+            Button { next() } label: {
+                Text(index + 1 < deck.count ? "Next" : "Finish").font(.headline).frame(maxWidth: .infinity).padding(.vertical, 12)
+                    .background(Color.purple, in: RoundedRectangle(cornerRadius: 12)).foregroundStyle(.white)
+            }
+            .buttonStyle(.plain)
+        }
+    }
+
+    private func finish(_ item: MoodItem) {
+        phase = .explain
+        let right = answeredRight && reasonRight
+        // Only the first try counts toward the node; a miss comes back later in the round
+        if !retried.contains(item.id) {
+            progress.record(item.node, right: right)
+            if right { rightCount += 1 }
+        }
+        if !right {
+            retried.insert(item.id)
+            let at = Int.random(in: min(index + 3, deck.count)...deck.count)
+            deck.insert(item, at: at)
+        }
+    }
+
+    private func next() {
+        index += 1
+        phase = .choose
+        picked = nil
+        reason = nil
+    }
+
+    private var finished: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "checkmark.seal.fill").font(.system(size: 48)).foregroundStyle(.purple)
+            Text("Round done").font(.title2.weight(.semibold))
+            Text("\(rightCount) right on the first try, with the reason.").foregroundStyle(.secondary)
+            Button("Done") { dismiss() }.buttonStyle(.borderedProminent).tint(.purple)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
