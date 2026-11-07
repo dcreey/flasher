@@ -158,9 +158,10 @@ private struct ReviewRow: View {
             Button(action: onTap) {
                 VStack(alignment: .leading, spacing: 6) {
                     HStack(alignment: .firstTextBaseline) {
-                        Text(word.spanish)
+                        Text(word.withArticle)
                             .font(.headline)
                             .foregroundStyle(.primary)
+                        PartOfSpeechTag(partOfSpeech: word.partOfSpeech)
                         Spacer()
                         if progress.lastReviewDate != .distantPast {
                             Text(relativeDate)

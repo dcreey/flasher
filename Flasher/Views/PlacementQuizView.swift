@@ -166,7 +166,8 @@ private struct PlacementResultCard: View {
             VStack(spacing: 6) {
                 HStack(spacing: 4) {
                     Text("Spanish:").foregroundStyle(.secondary)
-                    Text(card.word.spanish).fontWeight(.bold)
+                    Text(card.word.withArticle).fontWeight(.bold)
+                    PartOfSpeechTag(partOfSpeech: card.word.partOfSpeech)
                 }
                 HStack(spacing: 4) {
                     Text("English:").foregroundStyle(.secondary)

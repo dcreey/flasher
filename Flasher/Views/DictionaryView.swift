@@ -11,6 +11,8 @@ struct DictionaryView: View {
     /// Set once the chip is used, so "Anything" can switch off the type named in the query.
     @State private var typeChosen = false
     @State private var results: [SearchHit] = []
+    /// Narrows the results to one kind of word (noun, verb, adjective…); nil shows everything.
+    @State private var partFilter: PartOfSpeech?
     @State private var resultsKey: SearchKey?
     @State private var displayCount: Int = 100
     @State private var showSettings = false
@@ -37,6 +39,12 @@ struct DictionaryView: View {
     /// The type the results are filtered to: the chosen one, or the one named in the query ("rich food").
     private var activeType: TypeCategory? { typeChosen ? typeFilter : TypeCategory.parse(searchText.searchKey)?.category }
 
+    /// The results after the word-kind filter.
+    private var shown: [SearchHit] {
+        guard let partFilter else { return results }
+        return results.filter { $0.word.partOfSpeech == partFilter }
+    }
+
     private var recentHits: [SearchHit] {
         recents.words.map { SearchHit(word: $0, diminutive: DiminutiveResolver.resolve($0.spanish)) }
     }
@@ -47,7 +55,7 @@ struct DictionaryView: View {
                 recentSearchesList
             } else if searchText.isEmpty {
                 recentsList
-            } else if resultsKey == currentKey, results.isEmpty {
+            } else if resultsKey == currentKey, shown.isEmpty {
                 ContentUnavailableView.search(text: searchText)
             } else if resultsKey == nil {
                 ProgressView().frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -154,11 +162,34 @@ struct DictionaryView: View {
                 .background(activeType == nil ? Color(.secondarySystemBackground) : Color.accentColor.opacity(0.15), in: Capsule())
                 .foregroundStyle(activeType == nil ? Color.secondary : Color.accentColor)
             }
+            partFilterMenu
             Spacer()
         }
         .padding(.horizontal)
         .padding(.vertical, 6)
         .background(Color(.systemBackground))
+    }
+
+    /// "Kind: Noun ▾": show only nouns, verbs, adjectives and so on.
+    private var partFilterMenu: some View {
+        Menu {
+            Picker("Kind of word", selection: $partFilter) {
+                Text("Any kind").tag(PartOfSpeech?.none)
+                ForEach(PartOfSpeech.filterOptions, id: \.self) { kind in
+                    Text(kind.displayName.capitalized).tag(PartOfSpeech?.some(kind))
+                }
+            }
+        } label: {
+            HStack(spacing: 6) {
+                Text(partFilter.map { "Kind: \($0.displayName)" } ?? "Kind: any")
+                Image(systemName: "chevron.up.chevron.down").font(.caption2)
+            }
+            .font(.subheadline.weight(.medium))
+            .padding(.horizontal, 12)
+            .padding(.vertical, 7)
+            .background(partFilter.map { $0.tagColor.opacity(0.18) } ?? Color(.secondarySystemBackground), in: Capsule())
+            .foregroundStyle(partFilter?.tagColor ?? Color.secondary)
+        }
     }
 
     /// Shown when the pronouns typed are in a combination Spanish doesn't use ("le lo").
@@ -266,10 +297,10 @@ struct DictionaryView: View {
 
     private var resultsList: some View {
         List {
-            ForEach(results.prefix(displayCount)) { hit in
+            ForEach(shown.prefix(displayCount)) { hit in
                 NavigationLink(value: hit) { DictionaryRow(hit: hit, onQueueChange: showToast) }
             }
-            if displayCount < results.count {
+            if displayCount < shown.count {
                 ProgressView()
                     .frame(maxWidth: .infinity)
                     .listRowSeparator(.hidden)
@@ -334,8 +365,9 @@ private struct DictionaryRow: View {
         let p = store.progressFor(word.spanish)
         VStack(alignment: .leading, spacing: 2) {
             HStack {
-                Text(word.spanish)
+                Text(word.withArticle)
                     .font(.headline)
+                PartOfSpeechTag(partOfSpeech: word.partOfSpeech)
                 if Lexicon.shared.hasLocalMeaning(word) {
                     Text("\(Country.current.flag) \(Country.current.code)")
                         .font(.system(size: 10, weight: .bold))
@@ -392,5 +424,43 @@ private struct DictionaryRow: View {
         guard let d = hit.diminutive else { return nil }
         if hit.word.spanish.searchKey == d.form.searchKey { return "\(d.kind.label) of \(d.base.spanish)" }  // the entry is the derived word
         return [d.form, d.meaning].compactMap { $0 }.joined(separator: " = ")   // searched form → base word
+    }
+}
+
+/// A small label for what kind of word it is: noun, verb, adverb, adjective and so on.
+struct PartOfSpeechTag: View {
+    let partOfSpeech: PartOfSpeech
+    var body: some View {
+        Text(partOfSpeech.displayName)
+            .font(.system(size: 10, weight: .semibold))
+            .padding(.horizontal, 6)
+            .padding(.vertical, 1)
+            .background(partOfSpeech.tagColor.opacity(0.18), in: Capsule())
+            .foregroundStyle(partOfSpeech.tagColor)
+    }
+}
+
+extension PartOfSpeech {
+    /// "verb" for infinitives; the rest are named as they are.
+    var displayName: String { self == .infinitive ? "verb" : rawValue }
+
+    /// The kinds a search can be narrowed to, most common first.
+    static let filterOptions: [PartOfSpeech] = [.noun, .infinitive, .adjective, .adverb, .preposition, .conjunction, .pronoun, .article, .interjection, .numeral, .phrase]
+
+    /// One color per kind. No green: the flag chip next to a Mexican word is green.
+    var tagColor: Color {
+        switch self {
+        case .noun: .blue
+        case .infinitive: .purple
+        case .adjective: .orange
+        case .adverb: .pink
+        case .preposition: .cyan
+        case .conjunction: .brown
+        case .pronoun: .indigo
+        case .article: .gray
+        case .interjection: .red
+        case .numeral: Color(red: 0.55, green: 0.4, blue: 0.0)
+        case .phrase: Color(red: 0.45, green: 0.45, blue: 0.55)
+        }
     }
 }

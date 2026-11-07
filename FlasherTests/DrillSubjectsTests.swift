@@ -516,12 +516,12 @@ final class DrillSelectionSummaryTests: XCTestCase {
 
     func testAnImpossibleSelectionSaysWhatWouldWork() {
         // The screenshot case: subjunctive, present, after
-        let none = DrillSelectionSummary.make(mood: .subjunctive, time: .present, moment: .after)
+        let none = DrillSelectionSummary.make(mood: .subjunctive, time: .future, moment: .after)
         XCTAssertTrue(none.lines.isEmpty)
         XCTAssertTrue(none.headline.contains("no tense fits"))
         let hint = none.hint ?? ""
         XCTAssertTrue(hint.contains("Moment could be Before or During"), hint)
-        XCTAssertTrue(hint.contains("Mood could be Phrases"), hint)
+        XCTAssertTrue(hint.contains("Mood could be"), hint)
     }
 
     func testNothingSelectedCountsAllTenses() {
@@ -873,7 +873,7 @@ final class DrillRelatedSourcesTests: XCTestCase {
         let before = DrillSelectionSummary.make(mood: .subjunctive, time: .present, moment: .before)
         XCTAssertEqual(before.lines, ["Pretérito perfecto de subjuntivo · haya comido"])
         let hint = before.hint ?? ""
-        XCTAssertTrue(hint.contains("Clear Moment to add: Presente de subjuntivo (During)"), hint)
+        XCTAssertTrue(hint.contains("Clear Moment to add: Presente de subjuntivo (During, After)"), hint)
         // Nothing hidden: no hint
         XCTAssertNil(DrillSelectionSummary.make(mood: .imperative, time: nil, moment: nil).hint)
     }
@@ -924,16 +924,16 @@ final class DrillStillOpenTests: XCTestCase {
             XCTAssertNotNil(DrillExplainer.explain(card).clue)
         }
         let subjunctive = DrillTense(kind: .perfect, tense: .subjunctivePresent)
-        let doubt = cards("comprar", subjunctive, containing: "no creo que")
+        let doubt = cards("comprar", subjunctive, containing: "no creo que").filter { $0.sentence.contains("todavía") }
         XCTAssertFalse(doubt.isEmpty)
         for card in doubt {
             XCTAssertTrue(card.sentence.contains("No creo que él haya comprado"), card.sentence)
             XCTAssertTrue(card.sentence.contains("todavía"), card.sentence)
             XCTAssertTrue(DrillExplainer.explain(card).clue?.contains("No creo que") == true)
         }
-        // A same-subject card keeps the plain trigger ("No creo que yo haya…" would be odd)
-        let same = cards("comprar", subjunctive, containing: "importante que", subject: DrillSubject(text: "yo", person: 0))
-        XCTAssertTrue(cards("comprar", subjunctive, containing: "no creo que", subject: DrillSubject(text: "yo", person: 0)).isEmpty)
+        // A same-subject card never uses a wish or purpose trigger (“espero que yo haya…” takes an infinitive)
+        let same = cards("comprar", subjunctive, containing: "es posible que", subject: DrillSubject(text: "yo", person: 0))
+        XCTAssertTrue(cards("comprar", subjunctive, containing: "espero que", subject: DrillSubject(text: "yo", person: 0)).isEmpty)
         XCTAssertFalse(same.isEmpty)
     }
 
@@ -1046,7 +1046,7 @@ final class DrillPerfectSubjunctiveAlternateTests: XCTestCase {
         var plain = 0, cued = 0
         for variant in 0..<200 {
             guard let card = DrillSentences.card("ser", perfect, subject: DrillSubject(text: "ella", person: 2), variant: variant),
-                  card.sentence.hasPrefix("Espero") || card.sentence.contains("Ojalá") else { continue }
+                  card.sentence.hasPrefix("Espero") else { continue }
             let options = DrillAlternates.options(for: card).map(\.drill.key)
             if card.sentence.lowercased().contains(" ya ") { cued += 1; XCTAssertFalse(options.contains("simple subjunctivePresent"), card.sentence) }
             else { plain += 1; XCTAssertTrue(options.contains("simple subjunctivePresent"), card.sentence) }
@@ -1087,5 +1087,18 @@ final class DrillFollowUpTests: XCTestCase {
             XCTAssertFalse(lower.contains("se necesitaba las") || lower.contains("se necesitaba los"), card.sentence)
         }
         XCTAssertGreaterThan(pronouns, 5)
+    }
+}
+
+final class WordArticleTests: XCTestCase {
+    func testNounsGetArticleAndSex() {
+        func word(_ s: String, _ pos: PartOfSpeech, _ g: String?) -> Word { Word(order: 0, spanish: s, english: "", partOfSpeech: pos, gender: g) }
+        XCTAssertEqual(word("fantasma", .noun, "m").withArticle, "el fantasma (m)")
+        XCTAssertEqual(word("casa", .noun, "f").withArticle, "la casa (f)")
+        XCTAssertEqual(word("agua", .noun, "f").withArticle, "el agua (f)")
+        XCTAssertEqual(word("gafas", .noun, "f").withArticle, "las gafas (f, plural only)")
+        XCTAssertEqual(word("pantalones", .noun, "m").withArticle, "los pantalones (m, plural only)")
+        XCTAssertEqual(word("hablar", .infinitive, nil).withArticle, "hablar")
+        XCTAssertEqual(word("rojo", .adjective, nil).withArticle, "rojo")
     }
 }

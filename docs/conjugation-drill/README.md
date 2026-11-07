@@ -441,3 +441,5 @@ Code = valency + object + aspect (+ preposition):
 Tests: the hand-tagged verbs run in all 28 drill tenses with zero checker mistakes (≈14,000 sentences). The guessed verbs, ≈100,000 sentences, are checked for form, spacing, capitals and checker mistakes.
 
 **Still open:** the guessed verbs are well-formed but not necessarily natural (an intransitive verb guessed as transitive gets an object it shouldn't have). They need a review pass by frequency band, which is what the `reviewed` flag is for.
+
+- [Subjunctive rules, edge cases and exceptions](subjunctive-rules.md)

@@ -151,7 +151,7 @@ struct WordDetailView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(word.spanish)
+            Text(word.withArticle)
                 .font(.largeTitle.bold())
             let parts = word.english.components(separatedBy: " — ")
             Text(parts[0])
@@ -175,7 +175,7 @@ struct WordDetailView: View {
                 if let conjugation {
                     verbTags(conjugation)
                 } else {
-                    tag(partOfSpeechLabel)
+                    tag(partOfSpeechLabel, color: word.partOfSpeech.tagColor)
                 }
                 statusTag
             }
@@ -405,7 +405,7 @@ struct WordDetailView: View {
     private func relatedRow(_ item: RelatedItem, showsChevron: Bool) -> some View {
         HStack(spacing: 10) {
             VStack(alignment: .leading, spacing: 1) {
-                Text(item.text).font(.headline)
+                Text(item.linked?.withArticle ?? item.text).font(.headline)
                 if let english = item.english {
                     Text(english).font(.subheadline).foregroundStyle(.secondary).lineLimit(2)
                 }

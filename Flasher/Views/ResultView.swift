@@ -55,9 +55,10 @@ struct ResultView: View {
                 HStack(spacing: 4) {
                     Text("Spanish:")
                         .foregroundStyle(.secondary)
-                    Text(card.word.spanish)
+                    Text(card.word.withArticle)
                         .fontWeight(.bold)
                         .foregroundStyle(.primary)
+                    PartOfSpeechTag(partOfSpeech: card.word.partOfSpeech)
                 }
                 HStack(spacing: 4) {
                     Text("English:")

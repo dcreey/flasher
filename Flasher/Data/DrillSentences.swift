@@ -197,9 +197,24 @@ enum DrillSentences {
         let cue = usage.cue(drill.tense)
         let weather = usage.valency == "W"
         let sameSubject = subject.person == 0 || subject.text.hasSuffix(" yo")
+        // What comes before the subjunctive: wishes, doubt, feelings, necessity, purpose, time words. Only triggers that fit the tense and the subject are offered;
+        // with the same subject Spanish uses an infinitive after wishes, purpose and "antes de" ("quiero comer"), so those are left out.
+        let progressiveOrPerfect = drill.kind == .progressive || drill.kind == .perfect
         func trigger(past: Bool) -> String {
-            if sameSubject { return past ? "Era importante que" : "Es importante que" }
-            return past ? "Quería que" : "Espero que"
+            let options: [String]
+            switch (past, sameSubject, progressiveOrPerfect) {
+            case (true, true, _): options = ["Era importante que", "Era posible que", "Dudaba que", "Ojalá"]
+            case (true, false, _): options = ["Quería que", "Esperaba que", "Pedí que", "Dudaba que", "No creía que", "Me alegró que", "Era posible que", "Era necesario que",
+                                              "Prefería que", "Temía que", "Te llamé antes de que", "Me fui sin que"]
+            case (false, true, true): options = ["Es posible que", "Dudo que", "No creo que", "Quizás"]
+            case (false, true, false): options = ["Es importante que", "Es posible que", "Dudo que", "Ojalá", "Quizás", "Te aviso en cuanto"]
+            case (false, false, true): options = drill.kind == .perfect
+                ? ["Espero que", "Dudo que", "No creo que", "Me alegra que", "Es posible que", "Es una lástima que", "Temo que", "Ojalá", "Me quedo hasta que"]
+                : ["Espero que", "Dudo que", "No creo que", "Me alegra que", "Es posible que", "Quizás", "Ojalá", "Temo que"]
+            case (false, false, false): options = ["Espero que", "Quiero que", "Dudo que", "No creo que", "Me alegra que", "Es posible que", "Es necesario que", "Ojalá", "Quizás",
+                                                   "Te lo digo para que", "Llámame antes de que", "Te aviso en cuanto", "Me quedo hasta que", "Es una lástima que", "Prefiero que", "Temo que"]
+            }
+            return options[(seed / 17) % options.count]
         }
         // About a third of the perfect cards are about something that has not happened yet
         let still = (seed / 7) % 3 == 0
@@ -229,7 +244,7 @@ enum DrillSentences {
         case (.perfect, .imperfect): parts = still ? ["Cuando llegué,", shown, "todavía no", verb, complement] : ["Cuando llegué, ya", shown, verb, complement]
         case (.perfect, .future): parts = ["Para el viernes", shown, verb, complement]
         case (.perfect, .conditional): parts = people ? [shown, verb, complement, ifPerfect] : [withChange, shown, verb, complement]
-        case (.perfect, .subjunctiveImperfect): parts = ["Ojalá", shown, verb, complement]
+        case (.perfect, .subjunctiveImperfect): parts = [["Ojalá", "Me habría gustado que", "Dudaba que", "Era una lástima que"][(seed / 17) % 4], shown, verb, complement]
         case (.acabarDe, .present): parts = [shown, verb, complement]
         case (.acabarDe, _): parts = ["Cuando llegué,", shown, verb, complement]
         case (.irA, .present): parts = ["Mañana", shown, verb, complement]
