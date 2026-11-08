@@ -10,6 +10,7 @@
 		D7A100000000000000000D02 /* DrillReadings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A100000000000000000D01 /* DrillReadings.swift */; };
 		8E229DEFBF1048578076CE13 /* MoodMapProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6BF48D8E8446A58DE3168E /* MoodMapProgress.swift */; };
 		0FE408AB08E54D6EA9F1CBAA /* MoodMapRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED9063396254F3DA54DB9BD /* MoodMapRules.swift */; };
+		E9970D6A1B1D4B0BB4A49A30 /* MoodMapBriefings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E22F13B8FD4FA388AD45F0 /* MoodMapBriefings.swift */; };
 		051A49C6969A42128BFB0A86 /* MexicoWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AB8F0F9E474974A50749B5 /* MexicoWords.swift */; };
 		BFDA0B350298413EAB2D2E2E /* PersonNouns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB6632344440FBB5188ECB /* PersonNouns.swift */; };
 		6B761D6A25644A8991306E34 /* MoodMapLessons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DEDBF50E60446FB107A0F8 /* MoodMapLessons.swift */; };
@@ -97,6 +98,7 @@
 		D7A100000000000000000D01 /* DrillReadings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillReadings.swift; sourceTree = "<group>"; };
 		5F6BF48D8E8446A58DE3168E /* MoodMapProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapProgress.swift; sourceTree = "<group>"; };
 		BED9063396254F3DA54DB9BD /* MoodMapRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapRules.swift; sourceTree = "<group>"; };
+		38E22F13B8FD4FA388AD45F0 /* MoodMapBriefings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapBriefings.swift; sourceTree = "<group>"; };
 		79AB8F0F9E474974A50749B5 /* MexicoWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MexicoWords.swift; sourceTree = "<group>"; };
 		84AB6632344440FBB5188ECB /* PersonNouns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonNouns.swift; sourceTree = "<group>"; };
 		48DEDBF50E60446FB107A0F8 /* MoodMapLessons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapLessons.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				D7A100000000000000000D01 /* DrillReadings.swift */,
 				5F6BF48D8E8446A58DE3168E /* MoodMapProgress.swift */,
 				BED9063396254F3DA54DB9BD /* MoodMapRules.swift */,
+				38E22F13B8FD4FA388AD45F0 /* MoodMapBriefings.swift */,
 				79AB8F0F9E474974A50749B5 /* MexicoWords.swift */,
 				84AB6632344440FBB5188ECB /* PersonNouns.swift */,
 				48DEDBF50E60446FB107A0F8 /* MoodMapLessons.swift */,
@@ -433,6 +436,7 @@
 				D7A100000000000000000D02 /* DrillReadings.swift in Sources */,
 				8E229DEFBF1048578076CE13 /* MoodMapProgress.swift in Sources */,
 				0FE408AB08E54D6EA9F1CBAA /* MoodMapRules.swift in Sources */,
+				E9970D6A1B1D4B0BB4A49A30 /* MoodMapBriefings.swift in Sources */,
 				051A49C6969A42128BFB0A86 /* MexicoWords.swift in Sources */,
 				BFDA0B350298413EAB2D2E2E /* PersonNouns.swift in Sources */,
 				6B761D6A25644A8991306E34 /* MoodMapLessons.swift in Sources */,

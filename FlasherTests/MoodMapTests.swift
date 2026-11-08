@@ -301,4 +301,23 @@ final class MoodMapTests: XCTestCase {
         try? out.write(toFile: NSTemporaryDirectory() + "verb_breakdown.txt", atomically: true, encoding: .utf8)
         print("DUMP:" + NSTemporaryDirectory() + "verb_breakdown.txt")
     }
+
+    /// Every step still learnable before the imperfect lesson reads clean, and every briefing example is good Spanish.
+    func testBriefingsAreSoundAndHideTheImperfect() {
+        for (id, briefing) in MoodMap.briefings {
+            XCTAssertNotNil(MoodMap.byID[id], id)
+            XCTAssertFalse(briefing.examples.isEmpty, id)
+            for example in briefing.examples {
+                let bad = SpanishChecker.check(example.spanish).filter { $0.kind != .tip }
+                XCTAssertTrue(bad.isEmpty, "\(id): \(example.spanish) <<< \(bad.map(\.message))")
+            }
+            // A step that opens before the imperfect lesson can't explain itself with it
+            if !MoodMap.usesImperfect.contains(id), !MoodMap.imperfectSteps.contains(id) {
+                XCTAssertFalse(MoodMap.mentionsImperfect(briefing.why), "\(id): \(briefing.why)")
+            }
+        }
+        // Every step with a one-line rule gets a fuller explanation
+        let thin = MoodMap.nodes.filter { $0.rule.count < 160 && MoodMap.briefings[$0.id] == nil }.map(\.id)
+        XCTAssertEqual(thin, [])
+    }
 }

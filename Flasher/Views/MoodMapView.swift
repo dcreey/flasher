@@ -241,6 +241,8 @@ struct MoodSessionView: View {
     @State private var rightCount = 0
     /// Tenses introduced on the card on screen: shown with their explanation until the next card.
     @State private var newTenses: [MoodTenseInfo] = []
+    /// The reading pages shown before the first card.
+    @State private var briefing = false
 
     private var item: MoodItem? { deck.indices.contains(index) ? deck[index] : nil }
     private var answeredRight: Bool { picked.map { item?.correct.contains($0) ?? false } ?? false }
@@ -262,7 +264,9 @@ struct MoodSessionView: View {
     var body: some View {
         NavigationStack {
             Group {
-                if let item { card(item) } else { finished }
+                if briefing, let focus = setup.focus.flatMap({ MoodMap.byID[$0] }) {
+                    MoodBriefingView(step: focus, progress: progress, round: Set(deck.map(\.id))) { briefing = false }
+                } else if let item { card(item) } else { finished }
             }
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -271,11 +275,17 @@ struct MoodSessionView: View {
                     Button { dismiss() } label: { Image(systemName: "xmark") }.accessibilityLabel("Close")
                 }
                 ToolbarItem(placement: .principal) {
-                    Text(deck.isEmpty ? "Learn" : "\(min(index + 1, deck.count)) of \(deck.count)").font(.headline)
+                    Text(briefing ? "Read first" : deck.isEmpty ? "Learn" : "\(min(index + 1, deck.count)) of \(deck.count)").font(.headline)
                 }
             }
         }
-        .onAppear { if deck.isEmpty { deck = MoodRound.make(focus: setup.focus, progress: progress) } }
+        .onAppear {
+            if deck.isEmpty {
+                deck = MoodRound.make(focus: setup.focus, progress: progress)
+                // A step still being learned starts with its rules, examples and watch-outs
+                briefing = setup.focus.map { !progress.mastered($0) } ?? false
+            }
+        }
         .task { await Task.detached(priority: .utility) { MoodTenseLabels.warmUp() }.value }
     }
 
@@ -469,5 +479,210 @@ struct MoodSessionView: View {
             Button("Done") { dismiss() }.buttonStyle(.borderedProminent).tint(.purple)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
+
+/// What to read before practising a step, one page at a time: the rule with its idea and examples, worked cards, then the
+/// rule it qualifies, its watch-outs and fine points, and the rules mixed into the round. Continue unlocks after a short
+/// reading time, so the page gets read rather than tapped past.
+struct MoodBriefingView: View {
+    let step: MoodNode
+    let progress: MoodMapProgress
+    /// The round's cards: worked examples come from other cards, so the reading doesn't give the answers away.
+    let round: Set<String>
+    let onDone: () -> Void
+    @State private var page = 0
+    @State private var ready = false
+    @State private var fill: CGFloat = 0
+
+    /// Before the imperfect lesson, nothing with an imperfect subjunctive is shown.
+    private var hides: Bool { progress.hidesImperfect && !MoodMap.imperfectSteps.contains(step.id) }
+    private func ok(_ text: String) -> Bool { !hides || !MoodMap.mentionsImperfect(text) }
+
+    private struct Section: Identifiable { let id: String; let title: String; let body: String; let example: String?; let note: String? }
+
+    private var examples: [(spanish: String, english: String)] {
+        (MoodMap.briefings[step.id]?.examples ?? []).filter { ok($0.spanish) }
+    }
+
+    /// Cards from the step with the right answer in place, why it's right, and how the tense is chosen.
+    private var worked: [(context: String, sentence: String, english: String?, why: String, tense: String?)] {
+        let cards = MoodMap.items(for: step.id, progress: progress)
+        let unseen = cards.filter { !round.contains($0.id) }
+        return (unseen + cards.filter { round.contains($0.id) }).prefix(3).compactMap { item in
+            guard let right = item.correct.min() else { return nil }
+            let sentence: String
+            var english: String?
+            switch item.kind {
+            case .form: sentence = item.prompt.replacingOccurrences(of: "___", with: item.choices[right])
+            case .meaning: sentence = item.prompt; english = item.choices[right]
+            case .flip: sentence = MoodTenseLabels.changed(item) ?? item.prompt
+            }
+            guard ok(sentence), ok(item.note), ok(item.context) else { return nil }
+            let tense = MoodTenseLabels.usage(in: sentence, pastKnown: !progress.hidesImperfect).first { ok($0) }
+            return (item.context, sentence, english, item.note, tense)
+        }
+    }
+
+    /// The rule this step qualifies, its own watch-outs and fine points, and the rules practised next to it.
+    private var related: [Section] {
+        var out: [Section] = []
+        if step.level > 2, let parent = step.parent.flatMap({ MoodMap.byID[$0] }) {
+            out.append(Section(id: "p" + parent.id, title: "It refines: \(MoodMap.title(of: parent, progress: progress))",
+                               body: ok(parent.rule) ? parent.rule : "", example: ok(parent.example) ? parent.example : nil, note: nil))
+        }
+        let children = MoodMap.children(of: step.id).sorted(by: { $0.level < $1.level })
+        for child in children.prefix(5) {
+            let open = progress.unlocked(child)
+            let waits = progress.waitsForImperfect(child)
+            out.append(Section(id: "c" + child.id, title: "\(child.levelName): \(MoodMap.title(of: child, progress: progress))",
+                               body: !waits && ok(child.rule) ? child.rule : "", example: !waits && ok(child.example) ? child.example : nil,
+                               note: open ? nil : "You'll practise this later, once this step is going well."))
+        }
+        if children.count > 5 {
+            out.append(Section(id: "more", title: "And \(children.count - 5) more lessons", body: "Each one takes this rule to a new kind of sentence.", example: nil, note: nil))
+        }
+        let siblings = MoodMap.nodes.filter { $0.parent == step.parent && $0.id != step.id && progress.unlocked($0) && !progress.mastered($0.id) }
+        for sibling in siblings.prefix(3) where ok(sibling.title) {
+            out.append(Section(id: "s" + sibling.id, title: "Also in this round: \(sibling.title)",
+                               body: ok(sibling.rule) ? sibling.rule : "", example: ok(sibling.example) ? sibling.example : nil,
+                               note: "It's mixed in so you learn to tell the two apart."))
+        }
+        return out
+    }
+
+    private var pages: Int { related.isEmpty ? 2 : 3 }
+
+    var body: some View {
+        VStack(spacing: 0) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("Step \(page + 1) of \(pages)").font(.caption.weight(.semibold)).foregroundStyle(.purple).textCase(.uppercase)
+                    switch page {
+                    case 0: rulePage
+                    case 1: workedPage
+                    default: relatedPage
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            continueButton.padding(.top, 8)
+        }
+        .onAppear(perform: startReading)
+        .onChange(of: page) { startReading() }
+    }
+
+    private var rulePage: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Text(step.levelName).font(.footnote.weight(.semibold)).foregroundStyle(.secondary)
+            Text(MoodMap.title(of: step, progress: progress)).font(.title2.weight(.bold))
+            if ok(step.rule) { Text(step.rule).font(.body) }
+            if let why = MoodMap.briefings[step.id]?.why, ok(why) {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("Why").font(.subheadline.weight(.semibold))
+                    Text(why).font(.subheadline)
+                }
+                .padding(12).frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.purple.opacity(0.08), in: RoundedRectangle(cornerRadius: 12))
+            }
+            Text("Examples").font(.subheadline.weight(.semibold))
+            if examples.isEmpty, ok(step.example) {
+                Text(step.example).italic()
+            }
+            ForEach(Array(examples.enumerated()), id: \.offset) { _, example in
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(example.spanish).font(.body.weight(.medium))
+                    Text(example.english).font(.subheadline).foregroundStyle(.secondary)
+                }
+                .padding(10).frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 10))
+            }
+        }
+    }
+
+    private var workedPage: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Text("Worked examples").font(.title3.weight(.bold))
+            Text("These are cards from this step with the right answer in place. Read why each one works.").font(.subheadline).foregroundStyle(.secondary)
+            ForEach(Array(worked.enumerated()), id: \.offset) { _, card in
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(card.context).font(.caption).foregroundStyle(.secondary)
+                    Text(card.sentence).font(.title3.weight(.medium))
+                    if let english = card.english { Text(english).font(.subheadline).foregroundStyle(.secondary) }
+                    Text(card.why).font(.subheadline)
+                    if let tense = card.tense { Text(tense).font(.footnote).foregroundStyle(.secondary) }
+                }
+                .padding(12).frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+            }
+        }
+    }
+
+    private var relatedPage: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Text(step.level <= 2 ? "What this leads to" : "Watch-outs and related rules").font(.title3.weight(.bold))
+            Text(step.level <= 2
+                 ? "This rule has more nuance than one page can hold: special cases, exceptions and words that bend it. We start with the big picture first, so the main idea sticks before the details pile on. Here's a preview of what builds on it. You don't need any of it yet: each one opens as you go, with its own reading pages like these."
+                 : "Rules in Spanish come in layers: a general rule first, then the cases that bend it. Here's the rule this step refines, the finer points that come after it, and any rules mixed into this round so you learn to tell them apart. You don't need the finer points yet: each one opens later with its own reading pages.")
+                .font(.subheadline).foregroundStyle(.secondary)
+            ForEach(related) { section in
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(section.title).font(.subheadline.weight(.semibold))
+                    if !section.body.isEmpty { Text(section.body).font(.subheadline) }
+                    if let example = section.example { Text(example).font(.subheadline).italic().foregroundStyle(.secondary) }
+                    if let note = section.note { Text(note).font(.caption).foregroundStyle(.secondary) }
+                }
+                .padding(12).frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+            }
+        }
+    }
+
+    private var continueButton: some View {
+        Button {
+            guard ready else { return }
+            if page + 1 < pages { page += 1 } else { onDone() }
+        } label: {
+            ZStack(alignment: .leading) {
+                GeometryReader { geo in
+                    Rectangle().fill(Color.purple).frame(width: geo.size.width * fill)
+                }
+                Text(page + 1 < pages ? "Continue" : "Start practice").font(.headline)
+                    .frame(maxWidth: .infinity).padding(.vertical, 12)
+                    .foregroundStyle(.white)
+            }
+            .frame(height: 46)
+            .background(Color.purple.opacity(0.55))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+        }
+        .buttonStyle(.plain)
+        .accessibilityHint(ready ? "" : "Available after a moment to read")
+    }
+
+    /// About four words a second, between three and twelve seconds a page.
+    private var readingSeconds: Double {
+        var words = 0
+        func count(_ text: String) { words += text.split(separator: " ").count }
+        switch page {
+        case 0:
+            count(step.rule); count(MoodMap.briefings[step.id]?.why ?? "")
+            examples.forEach { count($0.spanish); count($0.english) }
+        case 1: worked.forEach { count($0.sentence); count($0.why) }
+        default: related.forEach { count($0.body); count($0.example ?? "") }
+        }
+        return min(12, max(3, Double(words) / 4))
+    }
+
+    private func startReading() {
+        ready = false
+        fill = 0
+        let seconds = readingSeconds
+        withAnimation(.linear(duration: seconds)) { fill = 1 }
+        let shown = page
+        Task {
+            try? await Task.sleep(for: .seconds(seconds))
+            if page == shown { ready = true }
+        }
     }
 }
