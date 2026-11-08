@@ -86,10 +86,13 @@ final class MoodMapProgress {
 enum MoodRound {
     static let size = 10
 
-    static func make(focus: String? = nil, progress: MoodMapProgress) -> [MoodItem] {
+    /// `excluding`: cards already shown as worked examples. `lesson`: practise that lesson's open steps instead of a focus and its neighbours.
+    static func make(focus: String? = nil, progress: MoodMapProgress, excluding: Set<String> = [], lesson: String? = nil) -> [MoodItem] {
         let open = MoodMap.nodes.filter { progress.unlocked($0) }
         let nodes: [MoodNode]
-        if let focus, let node = MoodMap.byID[focus] {
+        if let lesson, let node = MoodMap.byID[lesson] {
+            nodes = MoodMap.steps(of: node).filter { progress.unlocked($0) }
+        } else if let focus, let node = MoodMap.byID[focus] {
             let siblings = MoodMap.nodes.filter { $0.parent == node.parent && $0.id != node.id && progress.unlocked($0) }
             let children = MoodMap.children(of: node.id).filter { progress.unlocked($0) }
             nodes = [node] + siblings + children
@@ -103,7 +106,7 @@ enum MoodRound {
         let perNode = max(3, Int((Double(size) / Double(max(nodes.count, 1))).rounded(.up)))
         var picked: [MoodItem] = []
         for node in nodes {
-            picked += MoodMap.items(for: node.id, progress: progress).shuffled().prefix(focus == node.id ? perNode + 1 : perNode)
+            picked += MoodMap.items(for: node.id, progress: progress).filter { !excluding.contains($0.id) }.shuffled().prefix(focus == node.id ? perNode + 1 : perNode)
             if picked.count >= size * 2 { break }
         }
         if picked.isEmpty { picked = MoodMap.items(for: "root", progress: progress) }

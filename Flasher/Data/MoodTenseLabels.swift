@@ -357,7 +357,7 @@ enum MoodTenseLabels {
             // With the subjunctive clause first (cuando llegues, te llamo), the main verb comes after it
             let main = mainBefore ?? verbs[(k + 1)...].first { !$0.isSubjunctive && $0.base != nil }
             guard let main, let mainBase = main.base else {
-                lines.append("\(word.capitalizedFirst) is the \(name). \(verb.tense.meaning)")
+                lines.append(verb.isSubjunctive ? "\(word.capitalizedFirst) is the \(name). \(verb.tense.meaning)" : "\(word.capitalizedFirst) is \(indicative(verb)): a plain statement.")
                 continue
             }
             let mainName = main.tense.name
@@ -470,11 +470,11 @@ enum MoodTenseLabels {
         case "como":
             return "Como (since) at the start gives the reason as a fact: indicative."
         default:
-            guard let main else { return "\(word.capitalizedFirst) is the \(name): it states a fact, so it's indicative." }
+            guard let main else { return "\(word.capitalizedFirst) is \(indicative(verb)): it states a fact." }
             if let q = scope.lastIndex(of: "que"), scope[..<q].contains(where: { ["el", "la", "los", "las", "un", "una", "unos", "unas", "alguien", "algo", "lo"].contains($0) }) {
-                return "\(word.capitalizedFirst) is the \(name): the person or thing it describes is real and known, so it's indicative."
+                return "\(word.capitalizedFirst) is \(indicative(verb)): the person or thing it describes is real and known."
             }
-            return "\(word.capitalizedFirst) is the \(name): the clause after \(main.word) is put forward as true, so it's indicative."
+            return "\(word.capitalizedFirst) is \(indicative(verb)): the clause after \(main.word) is put forward as true."
         }
     }
 
@@ -493,6 +493,25 @@ enum MoodTenseLabels {
             sentence.replaceSubrange(verb, with: marked[1])
         }
         return sentence.capitalizedFirst
+    }
+
+    /// The mood first, then the tense in plain words, so "imperfect" isn't read as the imperfect subjunctive:
+    /// "in the indicative (the imperfect: the past as background, was or used to)".
+    private static func indicative(_ verb: SentenceVerb) -> String {
+        let time: String
+        if verb.tense.name.contains(" or ") { time = verb.tense.name }
+        else {
+            switch verb.tense.id {
+            case "present": time = "the present: now, or as a habit"
+            case "preterite": time = "the preterite: a finished past event"
+            case "imperfect": time = "the imperfect: the past as background, was or used to"
+            case "future": time = "the future: will"
+            case "conditional": time = "the conditional: would"
+            case "nearFuture": time = "ir a + infinitive: going to"
+            default: time = verb.tense.name
+            }
+        }
+        return "in the indicative (\(time))"
     }
 
     /// Verbs whose subject is the thing liked, not the person: me gusta que, me sorprende que.

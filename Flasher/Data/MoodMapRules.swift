@@ -273,6 +273,13 @@ enum MoodMap {
     static func children(of id: String) -> [MoodNode] { nodes.filter { $0.parent == id } }
     static func items(for node: String) -> [MoodItem] { items.filter { $0.node == node } }
 
+    /// The cards a briefing works through before practice, kept out of the round that follows so the exercises are new.
+    /// At least three cards stay for practice.
+    static func workedExamples(for step: MoodNode, progress: MoodMapProgress) -> [MoodItem] {
+        let cards = items(for: step.id, progress: progress).shuffled()
+        return Array(cards.prefix(min(2, max(1, cards.count - 3))))
+    }
+
     /// The step that introduces the imperfect subjunctive; steps that use it open after it.
     static let imperfectIntro = "sequence.past"
     /// Cards outside the imperfect lesson that use the imperfect or pluperfect subjunctive (viniera, hubiera): they wait for it.

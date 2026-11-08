@@ -263,13 +263,15 @@ final class MoodMapTests: XCTestCase {
         XCTAssertEqual(MoodTenseLabels.verbs(in: "Mi trabajo es difícil.").map(\.word), ["es"])
         XCTAssertEqual(MoodTenseLabels.verbs(in: "Sé que viene.").first?.verb, "saber")
         XCTAssertEqual(MoodTenseLabels.verbs(in: "Parece que va a llover.").map(\.word), ["parece", "va a llover"])
-        XCTAssertTrue(MoodTenseLabels.usage(in: "Sé que viene.").joined().contains("put forward as true"))
+        XCTAssertTrue(MoodTenseLabels.usage(in: "Sé que viene.").joined().contains("in the indicative (the present: now, or as a habit): the clause after sé is put forward as true"))
         XCTAssertTrue(MoodTenseLabels.usage(in: "Quiero ir al cine.").joined().contains("same person does both"))
         let flip = MoodMap.items.first { $0.id == "belief.claim.6" }!
         XCTAssertEqual(MoodTenseLabels.changed(flip), "No dudo que es verdad.")
         XCTAssertEqual(MoodTenseLabels.verbs(in: "Siéntese, por favor.").first?.verb, "sentar")
         XCTAssertEqual(MoodTenseLabels.verbs(in: "No creo que vaya a llover.").last?.word, "vaya a llover")
         XCTAssertFalse(MoodTenseLabels.usage(in: "Es cierto que es caro.").joined().contains("describes"))
+        // An indicative imperfect leads with the mood, so it isn't taken for the imperfect subjunctive
+        XCTAssertTrue(MoodTenseLabels.usage(in: "Lo convencí de que era verdad.").joined().hasPrefix("Era is in the indicative (the imperfect"))
         // Every Learn sentence names at least one verb
         for item in MoodMap.items where item.id != "alone.mexico.5" {  // voseo (digás) isn't conjugated
             var sentence = item.prompt
@@ -319,5 +321,38 @@ final class MoodMapTests: XCTestCase {
         // Every step with a one-line rule gets a fuller explanation
         let thin = MoodMap.nodes.filter { $0.rule.count < 160 && MoodMap.briefings[$0.id] == nil }.map(\.id)
         XCTAssertEqual(thin, [])
+    }
+
+    /// What the learner reads first is never the exact sentence of an exercise that follows.
+    func testBriefingExamplesDifferFromExercises() {
+        func key(_ t: String) -> String { t.lowercased().filter { $0.isLetter || $0 == " " }.trimmingCharacters(in: .whitespaces) }
+        var exercises = Set<String>()
+        for item in MoodMap.items {
+            switch item.kind {
+            case .form: item.correct.forEach { exercises.insert(key(item.prompt.replacingOccurrences(of: "___", with: item.choices[$0]))) }
+            case .meaning: exercises.insert(key(item.prompt))
+            case .flip: exercises.insert(key(item.prompt)); MoodTenseLabels.changed(item).map { exercises.insert(key($0)) }
+            }
+        }
+        var same: [String] = []
+        for (id, briefing) in MoodMap.briefings { for example in briefing.examples where exercises.contains(key(example.spanish)) { same.append("\(id): \(example.spanish)") } }
+        XCTAssertEqual(same.sorted(), [])
+        // Worked examples stay out of the round that follows
+        let defaults = UserDefaults(suiteName: "MoodMapWorked")!
+        defaults.removePersistentDomain(forName: "MoodMapWorked")
+        let progress = MoodMapProgress(defaults: defaults)
+        for _ in 0..<3 { progress.record("root", right: true) }
+        let want = MoodMap.byID["want"]!
+        for _ in 0..<10 {
+            let worked = MoodMap.workedExamples(for: want, progress: progress)
+            XCTAssertFalse(worked.isEmpty)
+            let round = MoodRound.make(focus: "want", progress: progress, excluding: Set(worked.map(\.id)))
+            XCTAssertTrue(Set(round.map(\.id)).isDisjoint(with: worked.map(\.id)))
+            XCTAssertTrue(round.contains { $0.node == "want" })
+        }
+        // Re-learning a lesson practises its own steps
+        let lessonRound = MoodRound.make(focus: "want", progress: progress, lesson: "want")
+        let wantSteps = Set(MoodMap.steps(of: want).map(\.id))
+        XCTAssertTrue(lessonRound.allSatisfy { wantSteps.contains($0.node) })
     }
 }

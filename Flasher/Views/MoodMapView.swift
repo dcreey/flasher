@@ -156,11 +156,19 @@ private struct LessonView: View {
                 Text(lesson.example).italic().foregroundStyle(.secondary)
                     .padding(12).frame(maxWidth: .infinity, alignment: .leading)
                     .background(Color.purple.opacity(0.08), in: RoundedRectangle(cornerRadius: 12))
-                Button { round = MoodRoundSetup(focus: lesson.id) } label: {
+                Button { round = MoodRoundSetup(focus: lesson.id, lesson: lesson.id) } label: {
                     Text("Practice this lesson").font(.headline).frame(maxWidth: .infinity).padding(.vertical, 12)
                         .background(Color.purple, in: RoundedRectangle(cornerRadius: 12)).foregroundStyle(.white)
                 }
                 .buttonStyle(.plain)
+                .disabled(!progress.unlocked(lesson))
+                // Read the rule, examples and what follows again, then practise the lesson's steps
+                Button { round = MoodRoundSetup(focus: lesson.id, relearn: true, lesson: lesson.id) } label: {
+                    Label("Re-learn this lesson", systemImage: "book").font(.headline).frame(maxWidth: .infinity).padding(.vertical, 12)
+                        .background(Color.purple.opacity(0.12), in: RoundedRectangle(cornerRadius: 12)).foregroundStyle(.purple)
+                }
+                .buttonStyle(.plain)
+                .disabled(!progress.unlocked(lesson))
 
                 if parts.count > 1 {
                     Text("Steps").font(.headline).padding(.top, 6)
@@ -207,6 +215,7 @@ private struct LessonView: View {
                         Text(learned ? "Learned" : "\(stats.right) of \(MoodMapProgress.needed) right").font(.caption).foregroundStyle(.secondary)
                         Spacer()
                         if step.id != lesson.id {
+                            Button("Re-learn") { round = MoodRoundSetup(focus: step.id, relearn: true) }.font(.caption.weight(.semibold)).tint(.purple)
                             Button("Practice") { round = MoodRoundSetup(focus: step.id) }.font(.caption.weight(.semibold)).tint(.purple)
                         }
                     }
@@ -223,6 +232,10 @@ private struct LessonView: View {
 struct MoodRoundSetup: Identifiable {
     let id = UUID()
     let focus: String?
+    /// Show the reading pages even when the step is already learned.
+    var relearn = false
+    /// Practise this lesson's steps rather than the focus and its neighbours.
+    var lesson: String?
 }
 
 /// One round: choose, then say why, then read the rule. A missed card comes back later in the round.
@@ -243,6 +256,8 @@ struct MoodSessionView: View {
     @State private var newTenses: [MoodTenseInfo] = []
     /// The reading pages shown before the first card.
     @State private var briefing = false
+    /// The cards worked through on the reading pages; the round leaves them out.
+    @State private var workedCards: [MoodItem] = []
 
     private var item: MoodItem? { deck.indices.contains(index) ? deck[index] : nil }
     private var answeredRight: Bool { picked.map { item?.correct.contains($0) ?? false } ?? false }
@@ -265,7 +280,7 @@ struct MoodSessionView: View {
         NavigationStack {
             Group {
                 if briefing, let focus = setup.focus.flatMap({ MoodMap.byID[$0] }) {
-                    MoodBriefingView(step: focus, progress: progress, round: Set(deck.map(\.id))) { briefing = false }
+                    MoodBriefingView(step: focus, progress: progress, cards: workedCards) { briefing = false }
                 } else if let item { card(item) } else { finished }
             }
             .padding()
@@ -281,9 +296,10 @@ struct MoodSessionView: View {
         }
         .onAppear {
             if deck.isEmpty {
-                deck = MoodRound.make(focus: setup.focus, progress: progress)
-                // A step still being learned starts with its rules, examples and watch-outs
-                briefing = setup.focus.map { !progress.mastered($0) } ?? false
+                // A step still being learned (or one chosen to re-learn) starts with its rules, examples and watch-outs
+                briefing = setup.relearn || (setup.focus.map { !progress.mastered($0) } ?? false)
+                if briefing, let step = setup.focus.flatMap({ MoodMap.byID[$0] }) { workedCards = MoodMap.workedExamples(for: step, progress: progress) }
+                deck = MoodRound.make(focus: setup.focus, progress: progress, excluding: Set(workedCards.map(\.id)), lesson: setup.lesson)
             }
         }
         .task { await Task.detached(priority: .utility) { MoodTenseLabels.warmUp() }.value }
@@ -489,8 +505,8 @@ struct MoodSessionView: View {
 struct MoodBriefingView: View {
     let step: MoodNode
     let progress: MoodMapProgress
-    /// The round's cards: worked examples come from other cards, so the reading doesn't give the answers away.
-    let round: Set<String>
+    /// Cards worked through here; the round that follows leaves them out, so the exercises are new sentences.
+    let cards: [MoodItem]
     let onDone: () -> Void
     @State private var page = 0
     @State private var ready = false
@@ -508,9 +524,7 @@ struct MoodBriefingView: View {
 
     /// Cards from the step with the right answer in place, why it's right, and how the tense is chosen.
     private var worked: [(context: String, sentence: String, english: String?, why: String, tense: String?)] {
-        let cards = MoodMap.items(for: step.id, progress: progress)
-        let unseen = cards.filter { !round.contains($0.id) }
-        return (unseen + cards.filter { round.contains($0.id) }).prefix(3).compactMap { item in
+        cards.compactMap { item in
             guard let right = item.correct.min() else { return nil }
             let sentence: String
             var english: String?
@@ -604,7 +618,7 @@ struct MoodBriefingView: View {
     private var workedPage: some View {
         VStack(alignment: .leading, spacing: 14) {
             Text("Worked examples").font(.title3.weight(.bold))
-            Text("These are cards from this step with the right answer in place. Read why each one works.").font(.subheadline).foregroundStyle(.secondary)
+            Text(worked.isEmpty ? "No worked examples here: the exercises start next." : "Each one with the answer in place and why it's right. The exercises that follow use different sentences.").font(.subheadline).foregroundStyle(.secondary)
             ForEach(Array(worked.enumerated()), id: \.offset) { _, card in
                 VStack(alignment: .leading, spacing: 6) {
                     Text(card.context).font(.caption).foregroundStyle(.secondary)
