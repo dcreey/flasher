@@ -272,7 +272,7 @@ enum CountryTranslation {
             ("ya mismo", "ahora mismo"), ("vaina", "cosa"), ("sumercé", "usted"), ("pilas", "cuidado"), ("mono", "rubio"),
             ("tinto", "café"), ("cuadrar", "acordar"), ("hágale", "vamos"), ("chino", "niño"), ("a la orden", "a sus órdenes"),
         ],
-        spain: [
+        spain: MexicoWords.echarDeMenos + [
             ("del ordenador", "del computador"), ("el ordenador", "el computador"), ("los ordenadores", "los computadores"),
             ("el grifo", "la llave"), ("un grifo", "una llave"), ("del grifo", "de la llave"),
             ("ordenadores", "computadores"), ("ordenador", "computador"), ("coches", "carros"), ("coche", "carro"),
@@ -301,23 +301,16 @@ enum CountryTranslation {
         ("chela", "cerveza"), ("güero", "rubio"), ("chafa", "de mala calidad"), ("cruda", "resaca"), ("pinche", "maldito"),
     ]
 
-    private static let mexicoSpain: [(String, String)] = [
-        // Words whose gender changes come first, so the article follows
-        ("del ordenador", "de la computadora"), ("el ordenador", "la computadora"), ("un ordenador", "una computadora"),
-        ("los ordenadores", "las computadoras"), ("unos ordenadores", "unas computadoras"),
-        ("el grifo", "la llave"), ("un grifo", "una llave"), ("del grifo", "de la llave"),
-        ("las gafas", "los lentes"), ("unas gafas", "unos lentes"), ("de las gafas", "de los lentes"),
-        ("ordenadores", "computadoras"), ("ordenador", "computadora"), ("coches", "carros"), ("coche", "carro"),
-        ("móviles", "celulares"), ("móvil", "celular"), ("zumos", "jugos"), ("zumo", "jugo"), ("patatas", "papas"), ("patata", "papa"),
-        ("gafas", "lentes"), ("aparcamiento", "estacionamiento"), ("aparcar", "estacionar"), ("conducir", "manejar"),
-        ("autobús", "camión"), ("jersey", "suéter"), ("resaca", "cruda"), ("melocotón", "durazno"), ("grifo", "llave"), ("chaval", "muchacho"), ("guay", "chido"),
-    ]
+    /// Spain's words → Mexico's, every form (MexicoWords). "autobús" is no longer swapped for "camión", which also means truck.
+    private static var mexicoSpain: [(String, String)] { MexicoWords.pairs }
 
     static func replacing(_ pairs: [(String, String)], in text: String) -> (text: String, changes: [(String, String)]) {
         var result = text
         var changes: [(String, String)] = []
         for (from, to) in pairs {
-            guard let regex = try? NSRegularExpression(pattern: "(?<![\\p{L}])" + NSRegularExpression.escapedPattern(for: from) + "(?![\\p{L}])", options: .caseInsensitive) else { continue }
+            // Most of the thousands of swaps aren't in the text: skip them before building a pattern
+            guard result.range(of: from, options: .caseInsensitive) != nil,
+                  let regex = try? NSRegularExpression(pattern: "(?<![\\p{L}])" + NSRegularExpression.escapedPattern(for: from) + "(?![\\p{L}])", options: .caseInsensitive) else { continue }
             let matches = regex.matches(in: result, range: NSRange(result.startIndex..., in: result))
             guard !matches.isEmpty else { continue }
             for match in matches.reversed() {
@@ -371,10 +364,12 @@ enum CountryTranslation {
         guard let regex = try? NSRegularExpression(pattern: "\\p{L}+") else { return [] }
         var result: [(String, String)] = []
         var seen = Set<String>()
+        var previous: String?
         for match in regex.matches(in: text, range: NSRange(text.startIndex..., in: text)) {
             guard let range = Range(match.range, in: text) else { continue }
             let token = String(text[range]).lowercased()
-            guard seen.insert(token).inserted, let word = WordLinks.resolve(token),
+            defer { previous = token }
+            guard seen.insert(token).inserted, let word = WordLinks.resolve(token, after: previous),
                   let synonym = Extras.shared.synonyms[word.spanish]?.first(where: { Lexicon.shared.wordsByID[$0].map(Lexicon.shared.hasLocalMeaning) ?? false }) else { continue }
             result.append((token, synonym))
             if result.count == 5 { break }
@@ -523,7 +518,7 @@ struct TranslateView: View {
         .onChange(of: direction) {
             if let done = output, done.direction != direction, done.input == input {
                 // A finished, unedited translation: flip the languages, so the result becomes the new input
-                input = done.direction == .toSpanish ? CountryTranslation.localize(done.translation).text : done.translation
+                input = done.translation
                 output = nil
                 translate()
             } else if output != nil || errorText != nil || !input.isEmpty {
@@ -546,7 +541,11 @@ struct TranslateView: View {
                 if request.direction == .toSpanish { text = TranslationTraps.fixing(text, english: request.source) }
                 if request.direction == .toEnglish { text = TranslationTraps.fixingEnglish(text, spanish: request.source) }
                 var adjusted: [(String, String)] = []
-                if request.direction == .toSpanish { adjusted = CountryTranslation.localize(text).changes }
+                if request.direction == .toSpanish {
+                    let local = CountryTranslation.localize(text)
+                    text = local.text
+                    adjusted = local.changes
+                }
                 output = Output(input: input, direction: request.direction, translation: text, readAs: request.readAs, adjusted: adjusted)
                 errorText = nil
                 if !focused { isEditing = false }
@@ -679,9 +678,11 @@ struct TranslateView: View {
     private func alternateTexts(_ output: Output) -> (natural: String?, local: String?, slang: Set<String>) {
         if output.direction == .toEnglish, let backText {
             let typed = Self.comparable(output.input)
-            let natural = Self.comparable(backText) != typed ? backText : nil
-            let version = CountryTranslation.slangVersion(of: backText)
-            let showLocal = Self.comparable(version.text) != typed && Self.comparable(version.text) != Self.comparable(backText)
+            // The translator writes Spain's Spanish ("te echo de menos"), so it is put into the country's words first
+            let back = CountryTranslation.localize(backText).text
+            let natural = Self.comparable(back) != typed ? back : nil
+            let version = CountryTranslation.slangVersion(of: back)
+            let showLocal = Self.comparable(version.text) != typed && Self.comparable(version.text) != Self.comparable(back)
             return (natural, showLocal ? version.text : nil, showLocal ? Set(version.replaced.map(\.0)) : [])
         }
         if output.direction == .toSpanish {

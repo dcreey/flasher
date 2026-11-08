@@ -653,6 +653,16 @@ struct PhraseVerb {
 enum WordLinks {
     static func resolve(_ token: String) -> Word? { resolvePlain(token) ?? Clitics.resolve(token)?.verb }
 
+    /// Words that put a verb next: "te extraño" is "I miss you" (extrañar), not "strange" (extraño). "lo", "la" and "los" are left out, being articles too.
+    private static let beforeVerb: Set<String> = ["me", "te", "se", "nos", "os", "le", "les", "yo", "tú", "no"]
+
+    /// Like `resolve`, but a word that is also a verb form is read as the verb after a pronoun or "no".
+    static func resolve(_ token: String, after previous: String?) -> Word? {
+        if let previous, beforeVerb.contains(previous.lowercased()), let slot = VerbForms.index[token.lowercased()]?.first,
+           let verb = Lexicon.shared.wordsByID[slot.infinitive] { return verb }
+        return resolve(token)
+    }
+
     static func resolvePlain(_ token: String) -> Word? {
         let lower = token.lowercased()
         let words = Lexicon.shared.wordsByID
@@ -685,11 +695,14 @@ enum WordLinks {
         var result = attributed
         let plain = String(attributed.characters)
         guard let regex = try? NSRegularExpression(pattern: "\\p{L}+") else { return result }
+        var previous: String?
         for match in regex.matches(in: plain, range: NSRange(plain.startIndex..., in: plain)) {
             guard let range = Range(match.range, in: plain) else { continue }
             let token = String(plain[range])
+            defer { previous = token }
             let url: URL?
-            if let word = resolvePlain(token) { url = WordLinks.url(for: word) }
+            if let previous, beforeVerb.contains(previous.lowercased()), let verb = resolve(token, after: previous), verb.partOfSpeech == .infinitive { url = WordLinks.url(for: verb) }
+            else if let word = resolvePlain(token) { url = WordLinks.url(for: word) }
             else if let attached = Clitics.resolve(token) { url = WordLinks.url(for: attached.verb, form: token) }
             else { continue }
             guard let url,

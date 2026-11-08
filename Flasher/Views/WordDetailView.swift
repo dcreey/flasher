@@ -151,6 +151,7 @@ struct WordDetailView: View {
                 if let conjugation { conjugationSection(conjugation) }
                 if let phraseVerb { phraseSection(phraseVerb) }
                 if !moodTriggers.isEmpty { MoodTriggerCard(triggers: moodTriggers) }
+                if let mexican { mexicanCard(mexican) }
                 if !localMeanings.isEmpty { countryCard }
                 if showsMeanings { meaningsSection }
                 if !usageSentences.isEmpty { usagesSection }
@@ -349,6 +350,27 @@ struct WordDetailView: View {
     }
 
     // MARK: - Content
+
+    /// A word Spain uses where Mexico says something else (zumo → el jugo), in Mexico mode.
+    private var mexican: String? { Country.current == .mexico ? MexicoWords.insteadOf[word.spanish] : nil }
+
+    private func mexicanCard(_ text: String) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 6) {
+                Text(Country.current.flag)
+                Text("Spain's word. In Mexico say")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.green)
+            }
+            Text(WordLinks.linked(text))
+                .font(.body.weight(.medium))
+                .tint(.primary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(12)
+        .background(Color.green.opacity(0.12), in: RoundedRectangle(cornerRadius: 12))
+    }
 
     private var countryCard: some View {
         VStack(alignment: .leading, spacing: 8) {

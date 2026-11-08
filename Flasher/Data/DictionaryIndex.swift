@@ -128,11 +128,16 @@ enum DictionaryIndex {
 
     /// Built once per country, because the word list and each word's leading meaning depend on it.
     /// The woman version of a noun is folded into the pair ("dueña" shows as "el dueño / la dueña"), unless it has meanings of its own.
-    private static let indexCache = PerCountry<Index> { _ in
+    private static let indexCache = PerCountry<Index> { country in
         let entries: [Entry] = Lexicon.shared.allWords.filter { !PersonNouns.isMergedFeminine($0) }.map { word in
             let meanings = Lexicon.shared.meanings(for: word.spanish)
             var terms: [String: Int] = [:]
-            func add(_ term: String, _ position: Int) { if terms[term].map({ position < $0 }) ?? true { terms[term] = position } }
+            // In Mexico a word Spain uses instead of Mexico's (zumo, pajita) comes after the Mexican one (jugo, popote)
+            let spainOnly = country == .mexico && MexicoWords.insteadOf[word.spanish] != nil ? 4 : 0
+            func add(_ term: String, _ position: Int) {
+                let position = position + spainOnly
+                if terms[term].map({ position < $0 }) ?? true { terms[term] = position }
+            }
             for term in englishTerms(word.english) { add(term, 0) }
             var text = [word.english]
             for (block, meaning) in meanings.enumerated() {

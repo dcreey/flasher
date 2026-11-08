@@ -411,6 +411,79 @@ final class SpanishCheckerTests: XCTestCase {
         XCTAssertEqual(CountryTranslation.slangVersion(of: "El niño bebe agua.").text, "El chavo bebe agua.")
     }
 
+    /// The dictionary knows the same swaps: Spain's word page names Mexico's, and English search puts Mexico's first.
+    func testDictionaryShowsMexicanWords() {
+        let defaults = UserDefaults.standard
+        defaults.set(Country.mexico.rawValue, forKey: AppSettings.countryKey)
+        defer { defaults.removeObject(forKey: AppSettings.countryKey) }
+        XCTAssertEqual(MexicoWords.insteadOf["zumo"], "el jugo")
+        XCTAssertEqual(MexicoWords.insteadOf["pajita"], "el popote")
+        XCTAssertEqual(MexicoWords.insteadOf["gafas"], "los lentes")
+        XCTAssertEqual(MexicoWords.insteadOf["conducir"], "manejar")
+        XCTAssertNil(MexicoWords.insteadOf["autobús"])
+        func rank(_ english: String, _ spanish: String) -> Int {
+            DictionaryIndex.search(english, scope: .english).firstIndex { $0.word.spanish == spanish } ?? .max
+        }
+        XCTAssertLessThan(rank("juice", "jugo"), rank("juice", "zumo"))
+        XCTAssertLessThan(rank("drinking straw", "popote"), rank("drinking straw", "pajita"))
+        XCTAssertLessThan(rank("computer", "computadora"), rank("computer", "ordenador"))
+        XCTAssertLessThan(rank("eyeglasses", "lentes"), rank("eyeglasses", "gafas"))
+        // Searching the Spain word in Spanish still finds it first
+        XCTAssertEqual(DictionaryIndex.search("zumo", scope: .spanish).first?.word.spanish, "zumo")
+    }
+
+    func testMexicanWordsFromTheResearch() {
+        let cases: [(String, String)] = [
+            ("Coge el autobús.", "Toma el autobús."),
+            ("Cogí la pelota.", "Agarré la pelota."),
+            ("Me gusta conducir.", "Me gusta manejar."),
+            ("Esto conduce a problemas.", "Esto conduce a problemas."),
+            ("Bebo zumo de naranja con una pajita.", "Bebo jugo de naranja con un popote."),
+            ("Compré una tarta y unas patatas.", "Compré un pastel y unas papas."),
+            ("La bombilla del dormitorio no funciona.", "El foco de la recámara no funciona."),
+            ("Abre el grifo de la bañera.", "Abre la llave de la tina."),
+            ("Pon el móvil en el maletero.", "Pon el celular en la cajuela."),
+            ("Se me pinchó la rueda y se estropeó el coche.", "Se me ponchó la rueda y se descompuso el carro."),
+            ("Llevo una chaqueta y unos vaqueros.", "Llevo una chamarra y unos jeans."),
+            ("Me hice daño en la piscina.", "Me lastimé en la alberca."),
+            ("Date prisa, que vamos a alquilar un piso.", "Apúrate, que vamos a rentar un piso."),
+            ("Suspendí el examen.", "Reprobé el examen."),
+            ("Tiró de la puerta.", "Jaló la puerta."),
+            ("Una tira de papel.", "Una tira de papel."),
+            ("Las judías verdes y los guisantes.", "Los ejotes y los chícharos."),
+            ("Mis camiones y el autobús.", "Mis camiones y el autobús."),
+            ("¡Qué guay!", "¡Qué padre!"),
+            ("Somos uña y carne.", "Somos uña y mugre."),
+            ("Hay que hacer cola.", "Hay que hacer fila."),
+            ("La luz intermitente.", "La luz intermitente."),
+            ("El intermitente está roto.", "La direccional está roto."),
+        ]
+        for (spain, mexico) in cases { XCTAssertEqual(CountryTranslation.localize(spain).text, mexico, spain) }
+        XCTAssertEqual(MexicoWords.plural(of: "judía verde"), "judías verdes")
+        XCTAssertEqual(MexicoWords.plural(of: "interfón"), "interfones")
+        XCTAssertEqual(MexicoWords.plural(of: "lápiz labial"), "lápices labiales")
+        XCTAssertEqual(MexicoWords.plural(of: "bote de basura"), "botes de basura")
+        // Thousands of swaps, but a sentence still takes a moment
+        _ = CountryTranslation.localize("Hola.")
+        let start = Date()
+        for _ in 0..<20 { _ = CountryTranslation.localize("Mañana voy a coger el tren para ver a mi familia, que vive lejos de la ciudad.") }
+        XCTAssertLessThan(Date().timeIntervalSince(start) / 20, 0.05)
+    }
+
+    func testMissingSomeoneIsExtrañar() {
+        // Spain's "echar de menos" becomes "extrañar"
+        XCTAssertEqual(CountryTranslation.localize("Te echo de menos.").text, "Te extraño.")
+        XCTAssertEqual(CountryTranslation.localize("Te eché de menos.").text, "Te extrañé.")
+        XCTAssertEqual(CountryTranslation.localize("Te echo mucho de menos.").text, "Te extraño mucho.")
+        XCTAssertEqual(CountryTranslation.localize("Voy a echarte de menos.").text, "Voy a extrañarte.")
+        // "te extraño" is the verb (I miss you), not the adjective "strange", so no "fuereño"
+        XCTAssertTrue(CountryTranslation.alternatives(in: "Te extraño").isEmpty, "\(CountryTranslation.alternatives(in: "Te extraño"))")
+        XCTAssertEqual(CountryTranslation.slangVersion(of: "Te extraño.").text, "Te extraño.")
+        XCTAssertEqual(WordLinks.resolve("extraño", after: "te")?.spanish, "extrañar")
+        // Still the adjective when it is one
+        XCTAssertEqual(WordLinks.resolve("extraño", after: "algo")?.spanish, "extraño")
+    }
+
     func testMexicanPhrases() {
         XCTAssertEqual(CountryTranslation.slangVersion(of: "No puede ser.").text, "No manches.")
         XCTAssertEqual(CountryTranslation.slangVersion(of: "¡De ninguna manera!").text, "¡Ni de chiste!")
