@@ -31,7 +31,7 @@ enum MoodTenseLabels {
             uses: "Main clauses and questions: ¿cuándo llegarás? Never after cuando, si or other time and condition words: cuando llegues, not cuando llegarás."),
         .conditional: MoodTenseInfo(id: "conditional", name: "conditional",
             meaning: "“Would”: what would happen if things were different.",
-            uses: "The result of an unreal condition (si tuviera tiempo, te llamaría), polite requests (¿podrías ayudarme?), and the future seen from the past (dijo que vendría). Never in the si part itself."),
+            uses: "What would happen in another situation (yo no lo haría), polite wishes and requests (me gustaría ir, ¿podrías ayudarme?), and the future seen from the past (dijo que vendría). Never right after si (if)."),
         .subjunctivePresent: MoodTenseInfo(id: "subjunctivePresent", name: "present subjunctive",
             meaning: "The subjunctive for now or later: something not claimed, about the present or the future.",
             uses: "After a present main verb (quiero que vengas, no creo que tenga razón), for what is still to come (cuando llegues), and with ojalá for what can still happen. Same forms as usted commands: venga, llame."),
@@ -311,7 +311,8 @@ enum MoodTenseLabels {
         meaning: "The infinitive of “have done”: something finished before.", uses: "Me alegro de haber venido, siento no haber llamado.")
 
     /// How each subjunctive verb's tense is chosen in the sentence: from the main verb before it, or from si, como si, ojalá.
-    static func usage(in sentence: String) -> [String] {
+    /// `pastKnown` false: no rewrite into the imperfect subjunctive ("Told about the past: …") before the learner has met it.
+    static func usage(in sentence: String, pastKnown: Bool = true) -> [String] {
         let verbs = verbs(in: sentence)
         let words = sentence.lowercased().split { !$0.isLetter }.map(String.init)
         var lines: [String] = []
@@ -383,7 +384,7 @@ enum MoodTenseLabels {
                 let what = mainBase == .imperative ? "a command" : mainName
                 var line = "\(word.capitalizedFirst) is the \(name) because the main verb, \(main.word), is \(what): \(verb.perfect ? "a finished event judged from now." : "now or later.")"
                 let pastTense: Tense = telling.contains(main.verb) ? .preterite : .imperfect
-                if plain, mainBase != .imperative, let swap = swapped(sentence, main: main, to: pastTense, sub: verb, to: .subjunctiveImperfect) {
+                if plain, pastKnown, mainBase != .imperative, let swap = swapped(sentence, main: main, to: pastTense, sub: verb, to: .subjunctiveImperfect) {
                     line += " Told about the past: \(swap)."
                 }
                 lines.append(line)

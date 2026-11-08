@@ -194,6 +194,35 @@ final class MoodMapTests: XCTestCase {
         XCTAssertFalse(MoodMap.nodes.contains { progress.waitsForImperfect($0) })
     }
 
+    /// Before the imperfect lesson, nothing a new learner can open shows an imperfect subjunctive form.
+    func testNoImperfectBeforeItsLesson() {
+        let defaults = UserDefaults(suiteName: "MoodMapNoImperfect")!
+        defaults.removePersistentDomain(forName: "MoodMapNoImperfect")
+        let progress = MoodMapProgress(defaults: defaults)
+        // Everything open except the imperfect lesson itself
+        for node in MoodMap.nodes where !MoodMap.imperfectSteps.contains(node.id) { for _ in 0..<3 { progress.record(node.id, right: true) } }
+        XCTAssertTrue(progress.hidesImperfect)
+        for node in MoodMap.nodes where progress.unlocked(node) && !MoodMap.imperfectSteps.contains(node.id) {
+            for text in [MoodMap.title(of: node, progress: progress), node.rule, node.example] {
+                XCTAssertFalse(MoodMap.mentionsImperfect(text), "\(node.id): \(text)")
+            }
+        }
+        for _ in 0..<20 {
+            for item in MoodRound.make(progress: progress) where !MoodMap.imperfectSteps.contains(item.node) {
+                let filled = item.kind == .form ? item.choices.map { item.prompt.replacingOccurrences(of: "___", with: $0) } : [item.prompt] + item.choices
+                for text in filled + [item.note, item.context] + item.why + MoodTenseLabels.usage(in: filled.first ?? "", pastKnown: false) {
+                    XCTAssertFalse(MoodMap.mentionsImperfect(text), "\(item.id): \(text)")
+                }
+                for reason in MoodMap.reasons(for: item, hideImperfect: true) { XCTAssertFalse(MoodMap.mentionsImperfect(reason.title), "\(item.id): \(reason.title)") }
+            }
+        }
+        for tense in MoodTenseLabels.byTense.values where tense.id != "subjunctiveImperfect" { XCTAssertFalse(MoodMap.mentionsImperfect(tense.uses), tense.name) }
+        // A haber tense whose note uses the imperfect is only met on a card that waits for it
+        let plainTenses = Set(MoodMap.items.filter { !MoodMap.imperfectItems.contains($0.id) && !MoodMap.imperfectSteps.contains($0.node) && $0.kind == .form }
+            .flatMap { item in item.choices.compactMap { MoodTenseLabels.info(for: $0, in: item)?.id } })
+        for tense in MoodTenseLabels.perfect.values where plainTenses.contains(tense.id) { XCTAssertFalse(MoodMap.mentionsImperfect(tense.uses), tense.name) }
+    }
+
     func testRoundsMixRulesAndStayInTheOpenPart() {
         let defaults = UserDefaults(suiteName: "MoodMapRounds")!
         defaults.removePersistentDomain(forName: "MoodMapRounds")
@@ -259,6 +288,16 @@ final class MoodMapTests: XCTestCase {
         }
         out += "USES IMPERFECT: " + MoodMap.usesImperfect.sorted().joined(separator: ", ") + "\n"
         out += "IMPERFECT CARDS: \(MoodMap.imperfectItems.count)\n"
+        let own = Set(MoodMap.steps(of: MoodMap.byID["imperfect"]!).map(\.id))
+        func past(_ t: String) -> Bool { MoodTenseLabels.verbs(in: t).contains { $0.base == .subjunctiveImperfect } }
+        for node in MoodMap.nodes where !own.contains(node.id) {
+            for (label, t) in [("TITLE", node.title), ("RULE", node.rule), ("EX", node.example)] where past(t) { out += "NODE \(node.id) \(label): \(t)\n" }
+        }
+        for item in MoodMap.items where !own.contains(item.node) && !MoodMap.imperfectItems.contains(item.id) {
+            for (label, t) in [("NOTE", item.note), ("CTX", item.context)] + item.why.map { ("WHY", $0) } where past(t) { out += "ITEM \(item.id) \(label): \(t)\n" }
+        }
+        for t in MoodTenseLabels.byTense.values where past(t.uses) || past(t.meaning) { out += "TENSE \(t.name): \(t.uses)\n" }
+        for trig in MoodTriggers.all { for t in [trig.indicative, trig.subjunctive].compactMap({ $0 }) + [trig.rule] + (MoodTriggers.matrices[trig.phrase]?.map(\.spanish) ?? []) where past(t) { out += "TRIGGER \(trig.phrase): \(t)\n" } }
         try? out.write(toFile: NSTemporaryDirectory() + "verb_breakdown.txt", atomically: true, encoding: .utf8)
         print("DUMP:" + NSTemporaryDirectory() + "verb_breakdown.txt")
     }

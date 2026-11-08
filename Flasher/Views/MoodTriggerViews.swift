@@ -27,18 +27,24 @@ struct MoodTriggerCard: View {
 /// One trigger written out: phrase, tag, rule and examples.
 struct MoodTriggerSummary: View {
     let trigger: MoodTrigger
+    /// On the Learn tab before the imperfect lesson: leave out anything with an imperfect subjunctive.
+    var hidesImperfect = false
+    private func shows(_ text: String) -> Bool { !hidesImperfect || !MoodMap.mentionsImperfect(text) }
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Text(trigger.phrase).font(.body.weight(.semibold))
                 MoodTriggerTag(behavior: trigger.behavior)
             }
-            Text(trigger.rule).font(.subheadline).foregroundStyle(.secondary)
+            if shows(trigger.rule) { Text(trigger.rule).font(.subheadline).foregroundStyle(.secondary) }
             if let rows = MoodTriggers.matrices[trigger.phrase] {
-                matrix(rows)
+                matrix(rows.filter { shows($0.spanish) })
             } else {
-                if let ind = trigger.indicative { example("Indicative", ind) }
-                if let subj = trigger.subjunctive { example("Subjunctive", subj) }
+                if let ind = trigger.indicative, shows(ind) { example("Indicative", ind) }
+                if let subj = trigger.subjunctive, shows(subj) { example("Subjunctive", subj) }
+            }
+            if hidesImperfect, !([trigger.rule] + [trigger.indicative, trigger.subjunctive].compactMap { $0 }).allSatisfy(shows) {
+                Text("More after the imperfect subjunctive lesson.").font(.caption).foregroundStyle(.secondary)
             }
         }
         .padding(12)
@@ -160,13 +166,15 @@ private struct TriggerDetailView: View {
             VStack(alignment: .leading, spacing: 16) {
                 Text(trigger.phrase).font(.title2.weight(.bold))
                 Text(trigger.english).foregroundStyle(.secondary)
-                MoodTriggerSummary(trigger: trigger)
+                MoodTriggerSummary(trigger: trigger, hidesImperfect: progress.hidesImperfect)
                 Text(trigger.behavior.explanation).font(.footnote).foregroundStyle(.secondary)
                 if let step {
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Taught in").font(.caption.weight(.semibold)).foregroundStyle(.purple).textCase(.uppercase)
-                        Text(step.title).font(.body.weight(.semibold))
-                        Text(step.rule).font(.subheadline).foregroundStyle(.secondary)
+                        Text(MoodMap.title(of: step, progress: progress)).font(.body.weight(.semibold))
+                        if !progress.hidesImperfect || !MoodMap.mentionsImperfect(step.rule) {
+                            Text(step.rule).font(.subheadline).foregroundStyle(.secondary)
+                        }
                         if progress.unlocked(step) {
                             Button { round = MoodRoundSetup(focus: step.id) } label: {
                                 Text("Practice this").font(.headline).frame(maxWidth: .infinity).padding(.vertical, 12)

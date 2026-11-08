@@ -58,7 +58,7 @@ extension MoodMap {
                  example: "Siento llegar tarde · Siento que llegues tarde"),
         MoodNode(id: "subject.prep", level: 3, parent: "subject", title: "Para, sin, antes de + infinitive",
                  rule: "After para, sin, antes de: the same person takes the infinitive (estudio para aprobar, salió sin decir nada). Someone else: que + subjunctive (te lo explico para que lo entiendas). Para que yo pueda for yourself isn't standard; antes de que with one person is avoided rather than wrong. (In the Caribbean you'll hear para yo poder, antes de yo llegar.)",
-                 example: "Salió sin decir nada · Salió sin que nadie lo viera"),
+                 example: "Sale sin decir nada · Sale sin que nadie lo vea"),
         MoodNode(id: "subject.impersonal", level: 3, parent: "subject", title: "Es importante: everyone or someone",
                  rule: "Es importante, es necesario, es mejor, hace falta, conviene have no person of their own. With the infinitive they're about people in general (es importante dormir bien). With que + subjunctive they're about a particular person (es importante que duermas bien). Both are correct; pick by who you mean. Even about yourself, que works: es mejor que me vaya.",
                  example: "Es importante dormir bien · Es importante que duermas bien"),
@@ -87,7 +87,7 @@ extension MoodMap {
                  example: "Espera a que llegue tu papá."),
         MoodNode(id: "want.convencer", level: 5, parent: "want.decir", title: "Convencer de que, estar convencido",
                  rule: "Convencer a alguien de que + subjunctive: persuade them to do it. Convencer de que + indicative: convince them of a fact. Estar convencido de que (be sure): indicative.",
-                 example: "Lo convencí de que viniera · Estoy convencido de que viene"),
+                 example: "Lo convenzo de que venga · Estoy convencido de que viene"),
 
         // Feelings
         MoodNode(id: "feel.hecho", level: 4, parent: "feel.true", title: "El hecho de que, que at the start",

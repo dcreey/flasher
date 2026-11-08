@@ -48,9 +48,9 @@ final class MoodMapProgress {
     }
 
     /// A step whose cards use the imperfect subjunctive (viniera, hubiera) waits until the imperfect lesson has introduced it.
-    func waitsForImperfect(_ node: MoodNode) -> Bool {
-        MoodMap.usesImperfect.contains(node.id) && of(MoodMap.imperfectIntro).right < Self.opensChildren
-    }
+    func waitsForImperfect(_ node: MoodNode) -> Bool { hidesImperfect && MoodMap.usesImperfect.contains(node.id) }
+    /// Until the imperfect lesson's first step opens, nothing on the Learn tab shows an imperfect subjunctive form.
+    var hidesImperfect: Bool { of(MoodMap.imperfectIntro).right < Self.opensChildren }
 
     func due(_ node: String, now: Date = .now) -> Bool {
         let s = of(node)

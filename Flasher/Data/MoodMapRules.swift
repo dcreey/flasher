@@ -70,7 +70,7 @@ enum MoodMap {
 
         // Rules, switches and exceptions
         MoodNode(id: "want.same", level: 3, parent: "subject", title: "Same person: infinitive", rule: "When the one who wants is the one who does it, use the infinitive, not que.", example: "Quiero ir (not quiero que yo vaya)."),
-        MoodNode(id: "want.decir", level: 4, parent: "want", title: "Decir: telling or ordering", rule: "Decir que + indicative passes on information. Decir que + subjunctive gives an order.", example: "Me dijo que venía · Me dijo que viniera"),
+        MoodNode(id: "want.decir", level: 4, parent: "want", title: "Decir: telling or ordering", rule: "Decir que + indicative passes on information. Decir que + subjunctive gives an order.", example: "Me dice que viene · Me dice que venga"),
         MoodNode(id: "want.meaning", level: 5, parent: "want.decir", title: "Verbs that change meaning", rule: "Sentir, pensar, decidir, comprender, insistir, recordar, quejarse de: the indicative and the subjunctive mean different things.", example: "Siento que hace frío (I feel) · Siento que te vayas (I'm sorry)"),
 
         MoodNode(id: "feel.true", level: 3, parent: "feel", title: "Even when it's true", rule: "The feeling doesn't make it less real: it is still the subjunctive.", example: "Me molesta que llegues tarde."),
@@ -277,20 +277,38 @@ enum MoodMap {
     static let imperfectIntro = "sequence.past"
     /// Cards outside the imperfect lesson that use the imperfect or pluperfect subjunctive (viniera, hubiera): they wait for it.
     static let imperfectItems: Set<String> = {
-        let own = Set(steps(of: byID["imperfect"]!).map(\.id))
+        let own = imperfectSteps
         var found = Set<String>()
         for item in items where !own.contains(item.node) {
             let sentences = item.kind == .form
                 ? item.choices.map { item.prompt.replacingOccurrences(of: "___", with: $0) }
                 : [item.prompt] + item.choices + [MoodTenseLabels.changed(item)].compactMap { $0 }
-            if sentences.contains(where: { MoodTenseLabels.verbs(in: $0).contains { $0.base == .subjunctiveImperfect } }) { found.insert(item.id) }
+            // The note, the situation and the reasons count too: "No creía que fueras tan simpático is the neutral version"
+            if (sentences + [item.note, item.context] + item.why).contains(where: mentionsImperfect) { found.insert(item.id) }
         }
         return found
     }()
     /// Steps with fewer than two cards left without the imperfect: the whole step waits.
+    /// Also any step whose own title, rule or example uses it (si lo hubiera sabido, Lamentó que no le hubiera gustado).
     static let usesImperfect: Set<String> = Set(nodes.filter { node in
-        node.id != "root" && items(for: node.id).filter { !imperfectItems.contains($0.id) }.count < 2
+        guard node.id != "root", !imperfectSteps.contains(node.id) else { return false }
+        return items(for: node.id).filter { !imperfectItems.contains($0.id) }.count < 2
+            || [node.title, node.rule, node.example].contains(where: mentionsImperfect)
     }.map(\.id))
+
+    /// The imperfect lesson's own steps, which teach it.
+    static let imperfectSteps: Set<String> = Set(steps(of: byID["imperfect"]!).map(\.id))
+
+    /// Whether a text uses the imperfect or pluperfect subjunctive (viniera, tuviese, hubiera venido).
+    static func mentionsImperfect(_ text: String) -> Bool {
+        MoodTenseLabels.verbs(in: text).contains { $0.base == .subjunctiveImperfect }
+    }
+    private static let titlesWithImperfect: Set<String> = Set(nodes.filter { !imperfectSteps.contains($0.id) && mentionsImperfect($0.title) }.map(\.id))
+
+    /// A step's title as the learner may see it: one that names an imperfect form stays hidden until the imperfect lesson.
+    static func title(of node: MoodNode, progress: MoodMapProgress) -> String {
+        progress.hidesImperfect && titlesWithImperfect.contains(node.id) ? "A step that uses the imperfect subjunctive" : node.title
+    }
 
     /// The cards of a step the learner can see now: imperfect ones only once it has been introduced.
     static func items(for node: String, progress: MoodMapProgress) -> [MoodItem] {
@@ -318,11 +336,15 @@ enum MoodMap {
     }
 
     /// Three reasons to pick from after an answer: the right node and two neighbours (siblings first), in an order that is the same every time.
-    static func reasons(for item: MoodItem) -> [MoodNode] {
+    /// Before the imperfect lesson, no reason names an imperfect form or a step that waits for it.
+    static func reasons(for item: MoodItem, hideImperfect: Bool = false) -> [MoodNode] {
         guard let node = byID[item.node] else { return [] }
-        let siblings = nodes.filter { $0.parent == node.parent && $0.id != node.id }
-        let sameLevel = nodes.filter { $0.level == node.level && $0.id != node.id && $0.parent != node.parent }
-        let fallback = nodes.filter { $0.id != node.id && !siblings.contains($0) && !sameLevel.contains($0) }
+        let pool = hideImperfect && !imperfectSteps.contains(node.id)
+            ? nodes.filter { !titlesWithImperfect.contains($0.id) && !usesImperfect.contains($0.id) && !imperfectSteps.contains($0.id) }
+            : nodes
+        let siblings = pool.filter { $0.parent == node.parent && $0.id != node.id }
+        let sameLevel = pool.filter { $0.level == node.level && $0.id != node.id && $0.parent != node.parent }
+        let fallback = pool.filter { $0.id != node.id && !siblings.contains($0) && !sameLevel.contains($0) }
         let seed = item.id.hashValueStable
         func rotated(_ list: [MoodNode]) -> [MoodNode] { list.isEmpty ? [] : Array(list[(seed % list.count)...] + list[..<(seed % list.count)]) }
         let picks = Array((rotated(siblings) + rotated(sameLevel) + fallback).prefix(2))

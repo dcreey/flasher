@@ -118,7 +118,7 @@ struct LearnView: View {
             }
             .frame(width: 36, height: 36)
             VStack(alignment: .leading, spacing: 4) {
-                Text(number == 0 ? "Start here: \(lesson.title.lowercased())" : lesson.title).font(.body.weight(.semibold))
+                Text(number == 0 ? "Start here: \(lesson.title.lowercased())" : MoodMap.title(of: lesson, progress: progress)).font(.body.weight(.semibold))
                     .foregroundStyle(open ? .primary : .secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Text(open ? "\(done) of \(parts.count) learned" : progress.waitsForImperfect(lesson) ? "Opens after the imperfect subjunctive" : "Opens after the big rule").font(.caption).foregroundStyle(.secondary)
@@ -196,7 +196,7 @@ private struct LessonView: View {
             }
             VStack(alignment: .leading, spacing: 6) {
                 Text(step.id == lesson.id ? "The rule" : step.levelName).font(.caption.weight(.semibold)).foregroundStyle(.purple).textCase(.uppercase)
-                Text(step.title).font(.body.weight(.semibold)).foregroundStyle(open ? .primary : .secondary)
+                Text(MoodMap.title(of: step, progress: progress)).font(.body.weight(.semibold)).foregroundStyle(open ? .primary : .secondary)
                 if open {
                     // The lesson's own rule is already at the top of the page
                     if step.id != lesson.id {
@@ -252,7 +252,7 @@ struct MoodSessionView: View {
     /// The reasons to choose from: the card's own, or the node and two neighbours. Each has an id and a title.
     private func reasonOptions(_ item: MoodItem) -> [(id: String, title: String)] {
         if !item.why.isEmpty { return item.why.enumerated().map { ("why\($0.offset)", $0.element) } }
-        return MoodMap.reasons(for: item).map { ($0.id, $0.title) }
+        return MoodMap.reasons(for: item, hideImperfect: progress.hidesImperfect).map { ($0.id, $0.title) }
     }
 
     private func isRightReason(_ id: String, _ item: MoodItem) -> Bool {
@@ -417,7 +417,7 @@ struct MoodSessionView: View {
     /// Each verb of the sentence with its tense, and why the subjunctive is in that tense: "dijo is past, so viniera is too".
     @ViewBuilder private func verbBreakdown(_ sentence: String, title: String) -> some View {
         let verbs = MoodTenseLabels.verbs(in: sentence)
-        let usage = MoodTenseLabels.usage(in: sentence)
+        let usage = MoodTenseLabels.usage(in: sentence, pastKnown: !progress.hidesImperfect)
         if !verbs.isEmpty {
             VStack(alignment: .leading, spacing: 6) {
                 Text(title).font(.footnote.weight(.semibold))
