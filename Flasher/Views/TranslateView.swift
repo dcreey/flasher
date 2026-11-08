@@ -527,7 +527,6 @@ struct TranslateView: View {
             }
         }
         .navigationTitle("El Pie")
-        .keyboardDoneButton()
         .navigationBarTitleDisplayMode(.inline)
         .translationTask(configuration) { session in
             guard let request else { return }

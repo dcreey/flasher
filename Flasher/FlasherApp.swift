@@ -70,15 +70,3 @@ private struct KeyboardDismissButton: View {
     }
 }
 
-extension View {
-    /// A Done button in the bar above the keyboard that puts the keyboard away. Attach it once to the screen with the text field.
-    func keyboardDoneButton() -> some View {
-        toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button("Done") { dismissKeyboard() }
-                .fontWeight(.semibold)
-            }
-        }
-    }
-}

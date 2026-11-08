@@ -175,6 +175,25 @@ final class MoodMapTests: XCTestCase {
         XCTAssertEqual(MoodMapProgress(defaults: defaults).of("root").right, 3)
     }
 
+    /// The imperfect subjunctive is taught before cards use it: until "Past main verb" opens, rounds leave those cards out.
+    func testImperfectWaitsForItsLesson() {
+        let defaults = UserDefaults(suiteName: "MoodMapImperfect")!
+        defaults.removePersistentDomain(forName: "MoodMapImperfect")
+        let progress = MoodMapProgress(defaults: defaults)
+        XCTAssertFalse(MoodMap.usesImperfect.contains("root"))
+        XCTAssertFalse(MoodMap.usesImperfect.contains("want"))
+        XCTAssertTrue(MoodMap.imperfectItems.contains("want.decir.1") || MoodMap.items(for: "want.decir").contains { MoodMap.imperfectItems.contains($0.id) })
+        for _ in 0..<3 { progress.record("root", right: true) }
+        for _ in 0..<3 { progress.record("want", right: true) }
+        for _ in 0..<5 {
+            XCTAssertFalse(MoodRound.make(progress: progress).contains { MoodMap.imperfectItems.contains($0.id) })
+        }
+        XCTAssertEqual(MoodMap.lessonOrder.prefix(2), ["want", "imperfect"])
+        for _ in 0..<2 { progress.record("imperfect", right: true) }
+        for _ in 0..<2 { progress.record(MoodMap.imperfectIntro, right: true) }
+        XCTAssertFalse(MoodMap.nodes.contains { progress.waitsForImperfect($0) })
+    }
+
     func testRoundsMixRulesAndStayInTheOpenPart() {
         let defaults = UserDefaults(suiteName: "MoodMapRounds")!
         defaults.removePersistentDomain(forName: "MoodMapRounds")
@@ -192,5 +211,55 @@ final class MoodMapTests: XCTestCase {
         let focused = MoodRound.make(focus: "want", progress: progress)
         XCTAssertTrue(focused.contains { $0.node == "want" })
         XCTAssertTrue(focused.contains { $0.node != "want" })
+    }
+
+    /// After answering, the card names each verb's tense and why the subjunctive is in it.
+    func testVerbBreakdownExplainsTheSubjunctiveTense() {
+        let verbs = MoodTenseLabels.verbs(in: "Me dijo que viniera.")
+        XCTAssertEqual(verbs.map(\.word), ["dijo", "viniera"])
+        XCTAssertEqual(verbs.map(\.verb), ["decir", "venir"])
+        XCTAssertEqual(verbs.map(\.tense.name), ["preterite", "imperfect subjunctive"])
+        let usage = MoodTenseLabels.usage(in: "Me dijo que viniera.").joined()
+        XCTAssertTrue(usage.contains("dijo, is in the past (preterite)"), usage)
+        XCTAssertTrue(usage.contains("Me dice que venga"), usage)
+        XCTAssertTrue(MoodTenseLabels.usage(in: "Quiero que vengas.").joined().contains("Quería que vinieras"))
+        XCTAssertTrue(MoodTenseLabels.usage(in: "Si tuviera tiempo, iría.").joined().contains("unreal"))
+        XCTAssertEqual(MoodTenseLabels.verbs(in: "Me alegra que hayas venido.").last?.tense.name, "perfect subjunctive")
+        // Words spelled like verbs aren't listed
+        XCTAssertFalse(MoodTenseLabels.verbs(in: "Lo hice como me dijiste, para que vinieras.").contains { ["como", "para"].contains($0.word) })
+        XCTAssertEqual(MoodTenseLabels.verbs(in: "Creo que tiene razón.").first?.verb, "creer")
+        XCTAssertEqual(MoodTenseLabels.verbs(in: "¿Crees que viene?").first?.tense.name, "present indicative")
+        XCTAssertFalse(MoodTenseLabels.usage(in: "Me gustaría que vinieras.").joined().contains("Me gusto"))
+        XCTAssertFalse(MoodTenseLabels.usage(in: "Hace falta que llenes el formulario.").joined().contains("faltaba"))
+        XCTAssertEqual(MoodTenseLabels.verbs(in: "Mi trabajo es difícil.").map(\.word), ["es"])
+        XCTAssertEqual(MoodTenseLabels.verbs(in: "Sé que viene.").first?.verb, "saber")
+        XCTAssertEqual(MoodTenseLabels.verbs(in: "Parece que va a llover.").map(\.word), ["parece", "va a llover"])
+        XCTAssertTrue(MoodTenseLabels.usage(in: "Sé que viene.").joined().contains("put forward as true"))
+        XCTAssertTrue(MoodTenseLabels.usage(in: "Quiero ir al cine.").joined().contains("same person does both"))
+        let flip = MoodMap.items.first { $0.id == "belief.claim.6" }!
+        XCTAssertEqual(MoodTenseLabels.changed(flip), "No dudo que es verdad.")
+        XCTAssertEqual(MoodTenseLabels.verbs(in: "Siéntese, por favor.").first?.verb, "sentar")
+        XCTAssertEqual(MoodTenseLabels.verbs(in: "No creo que vaya a llover.").last?.word, "vaya a llover")
+        XCTAssertFalse(MoodTenseLabels.usage(in: "Es cierto que es caro.").joined().contains("describes"))
+        // Every Learn sentence names at least one verb
+        for item in MoodMap.items where item.id != "alone.mexico.5" {  // voseo (digás) isn't conjugated
+            var sentence = item.prompt
+            if item.kind == .form, let best = item.correct.min() { sentence = sentence.replacingOccurrences(of: "___", with: item.choices[best]) }
+            XCTAssertFalse(MoodTenseLabels.verbs(in: sentence).isEmpty, "\(item.id): \(sentence)")
+            XCTAssertFalse(MoodTenseLabels.usage(in: sentence).isEmpty, "\(item.id): \(sentence)")
+        }
+        // Dump every Learn sentence for review
+        var out = ""
+        for item in MoodMap.items {
+            var sentence = item.prompt
+            if item.kind == .form, let best = item.correct.min() { sentence = sentence.replacingOccurrences(of: "___", with: item.choices[best]) }
+            if let changed = MoodTenseLabels.changed(item) { sentence = changed }
+            let v = MoodTenseLabels.verbs(in: sentence).map { "\($0.word)=\($0.verb):\($0.tense.name)" }.joined(separator: ", ")
+            out += "\(item.id)\t\(sentence)\n  \(v)\n" + MoodTenseLabels.usage(in: sentence).map { "  > " + $0 + "\n" }.joined()
+        }
+        out += "USES IMPERFECT: " + MoodMap.usesImperfect.sorted().joined(separator: ", ") + "\n"
+        out += "IMPERFECT CARDS: \(MoodMap.imperfectItems.count)\n"
+        try? out.write(toFile: NSTemporaryDirectory() + "verb_breakdown.txt", atomically: true, encoding: .utf8)
+        print("DUMP:" + NSTemporaryDirectory() + "verb_breakdown.txt")
     }
 }

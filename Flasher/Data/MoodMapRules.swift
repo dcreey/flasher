@@ -65,7 +65,8 @@ enum MoodMap {
         MoodNode(id: "purpose", level: 2, parent: "root", title: "Purpose and other fixed connectors", rule: "Para que, sin que, antes de que, como si always take the subjunctive.", example: "Te lo digo para que lo sepas."),
         MoodNode(id: "concession", level: 2, parent: "root", title: "Even though, even if", rule: "Aunque and its relatives: the indicative for a fact, the subjunctive for a possibility or a point waved away.", example: "Aunque llueve, salgo · Aunque llueva, saldré"),
         MoodNode(id: "alone", level: 2, parent: "root", title: "On its own: ojalá, maybe, que…", rule: "With no main verb: ojalá always takes the subjunctive, the 'maybe' words depend on the word and where it goes, and que + subjunctive is a wish.", example: "Ojalá llueva · Quizás venga · ¡Que te vaya bien!"),
-        MoodNode(id: "sequence", level: 2, parent: "root", title: "Which subjunctive tense", rule: "The main verb picks the tense: present with present, past with past.", example: "Quiero que vengas · Quería que vinieras"),
+        MoodNode(id: "sequence", level: 2, parent: "root", title: "Haya and hubiera: something done earlier", rule: "Each subjunctive has a form with haber for something already done: venga → haya venido (present), viniera → hubiera venido (imperfect). The main verb still picks present or past.", example: "Espero que hayan llegado · Esperaba que hubieran llegado"),
+        MoodNode(id: "imperfect", level: 2, parent: "root", title: "Present or imperfect subjunctive", rule: "The subjunctive has two simple tenses. The present subjunctive (venga) points to now or later. The imperfect subjunctive (viniera) is the same mood moved back: the reason for the subjunctive stays the same, only the time or the reality changes. You need it after a main verb in the past (quería que vinieras), after the conditional (me gustaría que vinieras), and for things that aren't real or are unlikely (si tuviera tiempo, ojalá fuera viernes).", example: "Quiero que vengas · Quería que vinieras"),
 
         // Rules, switches and exceptions
         MoodNode(id: "want.same", level: 3, parent: "subject", title: "Same person: infinitive", rule: "When the one who wants is the one who does it, use the infinitive, not que.", example: "Quiero ir (not quiero que yo vaya)."),
@@ -108,8 +109,7 @@ enum MoodMap {
         MoodNode(id: "alone.que", level: 3, parent: "alone", title: "¡Que…! wishes", rule: "Que + subjunctive on its own is a wish or an order passed on. Que + indicative on its own is a warning or an emphatic repeat: ¡que viene el lobo!, ¡que no lo sé!", example: "¡Que tengas buen día!"),
         MoodNode(id: "alone.mexico", level: 5, parent: "alone", title: "Mexico and Colombia: what you'll hear", rule: "What you'll hear in Mexico and Colombia: ojalá y, a la mejor, qué bueno que viniste, no sé qué haga, capaz que, hasta = not until, and voseo in Antioquia (no digás). Understand them; the app teaches the standard forms.", example: "Ojalá y llueva · A la mejor viene"),
 
-        MoodNode(id: "sequence.past", level: 3, parent: "sequence", title: "Past main verb: imperfect subjunctive", rule: "After a past verb (quería, pidió, me alegró) the subjunctive is imperfect.", example: "Quería que vinieras."),
-        MoodNode(id: "sequence.conditional", level: 4, parent: "sequence.past", title: "Me gustaría que", rule: "After the conditional (me gustaría, sería mejor) the subjunctive is imperfect.", example: "Me gustaría que vinieras."),
+        MoodNode(id: "sequence.conditional", level: 4, parent: "sequence.past", title: "Me gustaría que: the conditional too", rule: "The conditional counts like a past main verb: me gustaría que vinieras, sería mejor que te fueras, preferiría que no lo dijeras.", example: "Me gustaría que vinieras."),
         MoodNode(id: "sequence.pending", level: 5, parent: "sequence.past", title: "Me pidió que venga: still to come", rule: "After a past verb, the present subjunctive is common (mostly in Latin America, but also in Spain) when the thing is still to come. The imperfect is the safe form.", example: "Me pidió que venga mañana · Me pidió que viniera mañana"),
     ]
 
@@ -257,7 +257,7 @@ enum MoodMap {
         form("alone.mexico.1", "alone.mexico", "In Mexico, hoping it rains.", "Ojalá y ___.", ["llueve", "llueva"], [1], "Ojalá y is heard in Mexico; it still takes the subjunctive."),
 
         // Tense
-        form("sequence.1", "sequence", "Now.", "Quiero que ___.", ["vengas", "vinieras"], [0], "Present main verb: present subjunctive."),
+        form("sequence.1", "imperfect", "Now.", "Quiero que ___.", ["vengas", "vinieras"], [0], "Present main verb: present subjunctive. Yesterday it would be quería que vinieras."),
         form("sequence.past.1", "sequence.past", "Yesterday.", "Quería que ___.", ["vengas", "vinieras"], [1], "Past main verb: imperfect subjunctive."),
         form("sequence.past.2", "sequence.past", "You doubted he had studied.", "Dudaba que ___ estudiado.", ["haya", "hubiera"], [1], "Past doubt about something earlier: pluperfect subjunctive."),
         form("sequence.conditional.1", "sequence.conditional", "A polite wish.", "Me gustaría que ___ a la fiesta.", ["vengas", "vinieras"], [1], "After the conditional: imperfect subjunctive."),
@@ -272,6 +272,33 @@ enum MoodMap {
     static let byID: [String: MoodNode] = Dictionary(uniqueKeysWithValues: nodes.map { ($0.id, $0) })
     static func children(of id: String) -> [MoodNode] { nodes.filter { $0.parent == id } }
     static func items(for node: String) -> [MoodItem] { items.filter { $0.node == node } }
+
+    /// The step that introduces the imperfect subjunctive; steps that use it open after it.
+    static let imperfectIntro = "sequence.past"
+    /// Cards outside the imperfect lesson that use the imperfect or pluperfect subjunctive (viniera, hubiera): they wait for it.
+    static let imperfectItems: Set<String> = {
+        let own = Set(steps(of: byID["imperfect"]!).map(\.id))
+        var found = Set<String>()
+        for item in items where !own.contains(item.node) {
+            let sentences = item.kind == .form
+                ? item.choices.map { item.prompt.replacingOccurrences(of: "___", with: $0) }
+                : [item.prompt] + item.choices + [MoodTenseLabels.changed(item)].compactMap { $0 }
+            if sentences.contains(where: { MoodTenseLabels.verbs(in: $0).contains { $0.base == .subjunctiveImperfect } }) { found.insert(item.id) }
+        }
+        return found
+    }()
+    /// Steps with fewer than two cards left without the imperfect: the whole step waits.
+    static let usesImperfect: Set<String> = Set(nodes.filter { node in
+        node.id != "root" && items(for: node.id).filter { !imperfectItems.contains($0.id) }.count < 2
+    }.map(\.id))
+
+    /// The cards of a step the learner can see now: imperfect ones only once it has been introduced.
+    static func items(for node: String, progress: MoodMapProgress) -> [MoodItem] {
+        let all = items(for: node)
+        guard progress.of(imperfectIntro).right < MoodMapProgress.opensChildren else { return all }
+        let plain = all.filter { !imperfectItems.contains($0.id) }
+        return plain.isEmpty ? all : plain
+    }
     /// A lesson's steps in order: the lesson itself, then its rules, things to watch out for and fine points.
     /// Each rule is followed by the caveats that hang off it, so the page reads from the rule down to its fine points.
     static func steps(of lesson: MoodNode) -> [MoodNode] {

@@ -91,7 +91,6 @@ struct DictionaryView: View {
         .autocorrectionDisabled()
         .textInputAutocapitalization(.never)
         .navigationTitle("El Pie")
-        .keyboardDoneButton()
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarBackground(Color(.systemBackground), for: .navigationBar)
@@ -395,7 +394,6 @@ private struct SearchHistoryView: View {
             .autocorrectionDisabled()
             .textInputAutocapitalization(.never)
             .navigationTitle("Search history")
-            .keyboardDoneButton()
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Done") { dismiss() } } }
         }

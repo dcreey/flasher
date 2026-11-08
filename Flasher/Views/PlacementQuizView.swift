@@ -109,7 +109,6 @@ private struct PlacementCardView: View {
             .padding(.horizontal)
 
             TextField("Type in Spanish…", text: $userInput)
-                .keyboardDoneButton()
                 .textFieldStyle(.roundedBorder)
                 .font(.title3)
                 .autocorrectionDisabled()

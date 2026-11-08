@@ -8,11 +8,11 @@ extension MoodMap {
     /// (is it claimed?) running through each. Inside a part, the most useful lesson comes first.
     static let chapters: [(title: String, note: String, lessons: [String])] = [
         ("A verb + que: claimed or not", "Wanting claims nothing. Believing claims it, doubting rejects it. Feelings react to something given.",
-         ["want", "subject", "belief", "doubt", "feel", "impersonal"]),
+         ["want", "imperfect", "subject", "belief", "doubt", "feel", "impersonal"]),
         ("Connectors and relatives", "Still to come, a purpose, a condition, something unknown: nothing is claimed. A fact you state: indicative.",
          ["time", "purpose", "condition", "unknown", "concession"]),
         ("No main verb", "Wishes, maybe, commands and set phrases.", ["alone", "fixed"]),
-        ("Which subjunctive", "Present or past, simple or with haber.", ["sequence"]),
+        ("Which subjunctive", "With haber, for something done earlier; the -se form.", ["sequence"]),
     ]
     /// Lessons in teaching order.
     static var lessonOrder: [String] { chapters.flatMap(\.lessons) }
@@ -42,7 +42,7 @@ extension MoodMap {
         ("5.2", ["alone", "alone.quizas", "impersonal.puede", "alone.mexico"]),
         ("5.3", ["alone.que", "alone.commands", "alone.polite", "sequence.conditional", "fixed.frozen"]),
         ("6", ["fixed", "fixed.double", "fixed.hedge", "sequence.forms", "unknown.free"]),
-        ("7", ["sequence", "sequence.past", "sequence.conditional", "sequence.earlier", "sequence.presentpast", "sequence.pending", "sequence.feelpast"]),
+        ("7", ["imperfect", "imperfect.make", "imperfect.unreal", "imperfect.english", "sequence", "sequence.past", "sequence.conditional", "sequence.earlier", "sequence.presentpast", "sequence.pending", "sequence.feelpast"]),
         ("8", ["sequence.forms", "alone.polite"]),
         ("9", ["alone.mexico", "sequence.pending", "belief.askdoubt", "belief.whether"]),
         ("10", ["want.same", "belief", "impersonal.truth", "sequence.past", "sequence.earlier", "sequence.feelpast", "alone.que", "condition.si", "condition.porsi", "condition.como", "time.never"]),
@@ -183,11 +183,22 @@ extension MoodMap {
                  example: "Quisiera un café, por favor."),
 
         // Tense sequence
+        // Present → imperfect subjunctive, after the past main verb (in MoodMapRules)
+        MoodNode(id: "imperfect.make", level: 3, parent: "imperfect", title: "How to make it: tuvieron → tuviera",
+                 rule: "Take the ellos form of the preterite, drop -ron and add -ra, -ras, -ra, -ramos, -rais, -ran. Nosotros gets an accent: tuviéramos, habláramos. Irregular verbs follow the same rule, because their preterite is already irregular: dijeron → dijera, pudieron → pudiera, fueron → fuera (ser and ir share it). Don't mix it up with the imperfect indicative (tenía, era): the same name, a different mood.",
+                 example: "hablaron → hablara · tuvieron → tuviera · fueron → fuera"),
+        MoodNode(id: "sequence.past", level: 3, parent: "imperfect", title: "Past main verb: the subjunctive moves back", rule: "When the main verb is in the past, preterite or imperfect (quería, pidió, me alegré, dudaba), the subjunctive moves back too: quiero que vengas → quería que vinieras, le pido que me llame → le pedí que me llamara. The reason for the subjunctive hasn't changed, only the time.", example: "Quiero que vengas → Quería que vinieras"),
+        MoodNode(id: "imperfect.unreal", level: 3, parent: "imperfect", title: "Si tuviera, ojalá fuera: not real now",
+                 rule: "The imperfect subjunctive also says something isn't real or is unlikely, with no past in it at all. Si tuviera dinero, viajaría (I don't have it). Ojalá fuera viernes (it isn't). Habla como si fuera el jefe (he isn't). Compare ojalá ganemos (we might) with ojalá ganáramos (we probably won't). After si it's never the present subjunctive: si tengo tiempo is real, si tuviera tiempo is not.",
+                 example: "Si tuviera tiempo, te ayudaría · Ojalá fuera viernes"),
+        MoodNode(id: "imperfect.english", level: 3, parent: "imperfect", title: "What it means in English",
+                 rule: "English has no form to match, so it shows up in other ways: quería que vinieras = I wanted you to come; me pidió que la llamara = she asked me to call her; si tuviera tiempo = if I had time; ojalá estuviera aquí = I wish she were here; como si fuera = as if he were.",
+                 example: "Quería que vinieras = I wanted you to come"),
         MoodNode(id: "sequence.earlier", level: 3, parent: "sequence", title: "Haya, hubiera: something earlier",
                  rule: "For something that happened before the main verb: present main verb → haya + participle (espero que hayan llegado bien); past main verb → hubiera + participle (no creía que lo hubiera hecho).",
                  example: "Espero que hayan llegado bien · No creía que lo hubiera hecho"),
-        MoodNode(id: "sequence.presentpast", level: 4, parent: "sequence.earlier", title: "No creo que mintiera",
-                 rule: "A present main verb can take the imperfect subjunctive for a past event: no creo que mintiera = no creo que haya mentido.",
+        MoodNode(id: "sequence.presentpast", level: 4, parent: "sequence.past", title: "No creo que mintiera: a present verb, a past event",
+                 rule: "The main verb sets the time, unless the event itself is past. With a present main verb about a past event, use the imperfect subjunctive (or haya + participle): no creo que mintiera ayer = no creo que haya mentido; me alegra que vinieras.",
                  example: "No creo que mintiera ayer."),
         MoodNode(id: "sequence.feelpast", level: 5, parent: "sequence.earlier", title: "Lamentó que no le hubiera gustado",
                  rule: "After a feeling about something earlier, the subjunctive (hubiera or hubiese), never the conditional habría: lamentó que no le hubiera gustado.",
@@ -471,5 +482,24 @@ extension MoodMap {
         meaning("fixed.frozen.1", "fixed.frozen", "Independence Day.", "¡Viva México!", ["Long live Mexico!", "Mexico is alive."], 0, "A frozen wish in the subjunctive."),
         meaning("fixed.frozen.2", "fixed.frozen", "At a funeral.", "Que en paz descanse.", ["May he rest in peace.", "He rests in peace."], 0, "Que + subjunctive: a wish."),
         meaning("fixed.frozen.3", "fixed.frozen", "At the end of a prayer.", "Así sea.", ["So be it.", "That's how it is."], 0, "Así + subjunctive: a wish."),
+        // Present → imperfect subjunctive
+        form("imperfect.2", "imperfect", "Last year your parents had a plan for you.", "Mis papás querían que ___ medicina.", ["estudie", "estudiara"], [1], "Querían is past, so the subjunctive moves back: estudiara. Today: quieren que estudie."),
+        form("imperfect.3", "imperfect", "Your parents' plan, today.", "Mis papás quieren que ___ medicina.", ["estudie", "estudiara"], [0], "Quieren is present: present subjunctive, estudie. Last year: querían que estudiara."),
+        meaning("imperfect.4", "imperfect", "Two moments.", "Esperaba que llegara.", ["I was hoping she'd arrive.", "I hope she arrives."], 0, "Esperaba is past, and llegara moves back with it. I hope she arrives is espero que llegue."),
+        form("imperfect.make.1", "imperfect.make", "Tener: ellos tuvieron → tuvie-.", "Ojalá ___ más tiempo.", ["tuviera", "tenía"], [0], "From the ellos preterite: tuvieron → tuviera. Tenía is the imperfect indicative, a different mood."),
+        form("imperfect.make.2", "imperfect.make", "Ser: ellos fueron → fue-.", "Si ___ rico, viajaría.", ["fuera", "era"], [0], "Fueron → fuera, for ser and ir alike. Era is the imperfect indicative, which si can't take for something unreal."),
+        form("imperfect.make.3", "imperfect.make", "Decir: ellos dijeron → dije-.", "Me pidió que se lo ___.", ["dijera", "decía"], [0], "Dijeron → dijera: the irregular preterite carries over. Decía is the imperfect indicative."),
+        form("imperfect.make.4", "imperfect.make", "Llegar, nosotros: llegaron → llegá-ramos.", "Querían que ___ temprano.", ["llegáramos", "llegábamos"], [0], "Nosotros gets an accent: llegáramos. Llegábamos is the imperfect indicative."),
+        form("imperfect.unreal.1", "imperfect.unreal", "You don't have time right now.", "Si ___ tiempo, te ayudaría.", ["tengo", "tuviera"], [1], "Not real now: si + imperfect subjunctive, with the conditional (ayudaría). There's no past here, just something that isn't so."),
+        form("imperfect.unreal.2", "imperfect.unreal", "You can still win the game tomorrow.", "Ojalá ___ mañana.", ["ganemos", "ganáramos"], [0], "It can happen, so the present subjunctive. Ojalá ganáramos would sound like you probably won't."),
+        form("imperfect.unreal.3", "imperfect.unreal", "It's Monday, and you wish it weren't.", "Ojalá ___ viernes.", ["sea", "fuera"], [1], "It isn't Friday: ojalá + imperfect subjunctive for something that can't be so right now."),
+        form("imperfect.unreal.4", "imperfect.unreal", "He isn't the boss.", "Habla como si ___ el jefe.", ["es", "fuera"], [1], "Como si always takes a past subjunctive: it compares with something that isn't so."),
+        meaning("imperfect.english.1", "imperfect.english", "Your friend, about last night.", "Quería que vinieras.", ["I wanted you to come.", "I wanted to come."], 0, "Que + another person: I wanted you to come. I wanted to come is quería venir."),
+        meaning("imperfect.english.2", "imperfect.english", "A friend explains.", "Si tuviera tiempo, iría.", ["If I had time, I'd go.", "If I have time, I'll go."], 0, "Si + imperfect subjunctive is English if I had: not real. If I have time is si tengo tiempo."),
+        meaning("imperfect.english.3", "imperfect.english", "Your sister is away.", "Ojalá estuviera aquí.", ["I wish she were here.", "I hope she's here."], 0, "Ojalá + imperfect subjunctive is I wish… were. I hope she's here is ojalá esté aquí."),
+        meaning("imperfect.english.4", "imperfect.english", "Your mom, about your brother.", "Me pidió que lo llamara.", ["She asked me to call him.", "She asked if I had called him."], 0, "Pedir que + subjunctive is asking someone to do something: she asked me to call him."),
+        form("sequence.haber.1", "sequence", "They traveled; you hope they got there.", "Espero que ___ llegado bien.", ["hayan", "hubieran"], [0], "Present main verb, something already done: haya + participle."),
+        form("sequence.haber.2", "sequence", "Yesterday you were hoping they'd got there.", "Esperaba que ___ llegado bien.", ["hayan", "hubieran"], [1], "Past main verb, something done before it: hubiera + participle."),
+        form("sequence.haber.3", "sequence", "You don't think he's done it.", "No creo que lo ___ hecho.", ["haya", "hubiera"], [0], "No creo is present: haya hecho. In the past: no creía que lo hubiera hecho."),
     ]
 }

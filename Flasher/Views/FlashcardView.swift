@@ -91,7 +91,6 @@ struct FlashcardView: View {
             }
 
             TextField("Type in Spanish…", text: $userInput)
-                .keyboardDoneButton()
                 .textFieldStyle(.roundedBorder)
                 .font(.title3)
                 .autocorrectionDisabled()

@@ -42,8 +42,14 @@ final class MoodMapProgress {
 
     /// The top rule is always open; any other node opens once its parent has been answered right twice.
     func unlocked(_ node: MoodNode) -> Bool {
+        if waitsForImperfect(node) { return false }
         guard let parent = node.parent else { return true }
         return of(parent).right >= Self.opensChildren
+    }
+
+    /// A step whose cards use the imperfect subjunctive (viniera, hubiera) waits until the imperfect lesson has introduced it.
+    func waitsForImperfect(_ node: MoodNode) -> Bool {
+        MoodMap.usesImperfect.contains(node.id) && of(MoodMap.imperfectIntro).right < Self.opensChildren
     }
 
     func due(_ node: String, now: Date = .now) -> Bool {
@@ -97,10 +103,10 @@ enum MoodRound {
         let perNode = max(3, Int((Double(size) / Double(max(nodes.count, 1))).rounded(.up)))
         var picked: [MoodItem] = []
         for node in nodes {
-            picked += MoodMap.items(for: node.id).shuffled().prefix(focus == node.id ? perNode + 1 : perNode)
+            picked += MoodMap.items(for: node.id, progress: progress).shuffled().prefix(focus == node.id ? perNode + 1 : perNode)
             if picked.count >= size * 2 { break }
         }
-        if picked.isEmpty { picked = MoodMap.items(for: "root") }
+        if picked.isEmpty { picked = MoodMap.items(for: "root", progress: progress) }
         // The focus node's cards always make it in; the neighbours fill the rest of the round
         let mine = picked.filter { $0.node == focus }
         let rest = picked.filter { $0.node != focus }.shuffled()

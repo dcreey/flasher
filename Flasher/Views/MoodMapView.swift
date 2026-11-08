@@ -121,7 +121,7 @@ struct LearnView: View {
                 Text(number == 0 ? "Start here: \(lesson.title.lowercased())" : lesson.title).font(.body.weight(.semibold))
                     .foregroundStyle(open ? .primary : .secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text(open ? "\(done) of \(parts.count) learned" : "Opens after the big rule").font(.caption).foregroundStyle(.secondary)
+                Text(open ? "\(done) of \(parts.count) learned" : progress.waitsForImperfect(lesson) ? "Opens after the imperfect subjunctive" : "Opens after the big rule").font(.caption).foregroundStyle(.secondary)
                 if open, parts.count > 1 {
                     HStack(spacing: 4) {
                         ForEach(parts) { part in
@@ -211,7 +211,8 @@ private struct LessonView: View {
                         }
                     }
                 } else {
-                    Text("Opens after two right answers on “\(MoodMap.byID[step.parent ?? ""]?.title ?? "the step above")”").font(.caption).foregroundStyle(.secondary)
+                    Text(progress.waitsForImperfect(step) ? "Opens after “\(MoodMap.byID[MoodMap.imperfectIntro]?.title ?? "the imperfect subjunctive")”"
+                         : "Opens after two right answers on “\(MoodMap.byID[step.parent ?? ""]?.title ?? "the step above")”").font(.caption).foregroundStyle(.secondary)
                 }
             }
             .padding(.bottom, last ? 0 : 22)
@@ -395,6 +396,8 @@ struct MoodSessionView: View {
     private func explanation(_ item: MoodItem, node: MoodNode) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(item.note)
+            verbBreakdown(display(item), title: "The verbs")
+            if let changed = MoodTenseLabels.changed(item) { verbBreakdown(changed, title: "After the change: \(changed)") }
             VStack(alignment: .leading, spacing: 4) {
                 Text("\(node.levelName): \(node.title)").font(.footnote.weight(.semibold))
                 Text(node.rule).font(.footnote)
@@ -408,6 +411,30 @@ struct MoodSessionView: View {
                     .background(Color.purple, in: RoundedRectangle(cornerRadius: 12)).foregroundStyle(.white)
             }
             .buttonStyle(.plain)
+        }
+    }
+
+    /// Each verb of the sentence with its tense, and why the subjunctive is in that tense: "dijo is past, so viniera is too".
+    @ViewBuilder private func verbBreakdown(_ sentence: String, title: String) -> some View {
+        let verbs = MoodTenseLabels.verbs(in: sentence)
+        let usage = MoodTenseLabels.usage(in: sentence)
+        if !verbs.isEmpty {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(title).font(.footnote.weight(.semibold))
+                ForEach(verbs, id: \.self) { verb in
+                    (Text(verb.word).bold().foregroundColor(verb.isSubjunctive ? .purple : .primary)
+                     + Text(verb.word == verb.verb ? "" : " · \(verb.verbLabel)")
+                     + Text(" · \(verb.tense.name)").foregroundColor(.secondary)
+                     + Text(verb.persons.isEmpty ? "" : " (\(verb.personText))").foregroundColor(.secondary))
+                        .font(.footnote)
+                }
+                ForEach(usage, id: \.self) { line in
+                    Text(line).font(.footnote).fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            .padding(12)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
         }
     }
 
