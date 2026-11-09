@@ -86,34 +86,67 @@ final class MoodMapProgress {
 enum MoodRound {
     static let size = 10
 
-    /// `excluding`: cards already shown as worked examples. `lesson`: practise that lesson's open steps instead of a focus and its neighbours.
+    /// The steps a round is about: a lesson's steps, or the one step in focus. Cards from anywhere else are review.
+    static func relatedNodes(focus: String?, lesson: String? = nil) -> Set<String> {
+        if let lesson, let node = MoodMap.byID[lesson] { return Set(MoodMap.steps(of: node).map(\.id)) }
+        if let focus { return [focus] }
+        return []
+    }
+
+    /// `excluding`: cards already shown as worked examples. `lesson`: practise that lesson's steps.
+    /// A round about a step or lesson is at least half that step's own cards and starts with one; the rest is review of steps already
+    /// practised (the session tags those "Review"). A mixed round (no focus) takes the open steps still being learned, plus any due.
     static func make(focus: String? = nil, progress: MoodMapProgress, excluding: Set<String> = [], lesson: String? = nil) -> [MoodItem] {
-        let open = MoodMap.nodes.filter { progress.unlocked($0) }
-        let nodes: [MoodNode]
-        if let lesson, let node = MoodMap.byID[lesson] {
-            nodes = MoodMap.steps(of: node).filter { progress.unlocked($0) }
-        } else if let focus, let node = MoodMap.byID[focus] {
-            let siblings = MoodMap.nodes.filter { $0.parent == node.parent && $0.id != node.id && progress.unlocked($0) }
-            let children = MoodMap.children(of: node.id).filter { progress.unlocked($0) }
-            nodes = [node] + siblings + children
-        } else {
-            let learning = open.filter { !progress.mastered($0.id) }
-            let due = open.filter { progress.due($0.id) }
-            nodes = learning + due.filter { !learning.contains($0) }
+        let related = relatedNodes(focus: focus, lesson: lesson)
+        guard !related.isEmpty else { return mixed(progress: progress) }
+
+        // Related cards, spread over the steps in order (a lesson has several)
+        let relatedSteps = MoodMap.nodes.filter { related.contains($0.id) && progress.unlocked($0) }
+        var perStep: [[MoodItem]] = relatedSteps.map { step in
+            MoodMap.items(for: step.id, progress: progress).filter { !excluding.contains($0.id) }.shuffled()
         }
-        // The focus (or the newest open nodes) first, then the rest; at most three cards a node so a round covers several rules
+        var mine: [MoodItem] = []
+        let target = (size * 3 + 4) / 5   // 6 of 10
+        while mine.count < target, perStep.contains(where: { !$0.isEmpty }) {
+            for i in perStep.indices where mine.count < target && !perStep[i].isEmpty { mine.append(perStep[i].removeFirst()) }
+        }
+        if mine.isEmpty { mine = MoodMap.items(for: focus ?? "root", progress: progress).shuffled().prefix(target).map { $0 } }
+
+        // Review: steps already practised, mastered or due first, then the same lesson; never more than the related cards
+        let reviewLimit = min(size - mine.count, mine.count)
+        let parent = focus.flatMap { MoodMap.byID[$0]?.parent }
+        let reviewNodes = MoodMap.nodes
+            .filter { !related.contains($0.id) && progress.of($0.id).right > 0 && progress.unlocked($0) }
+            .sorted { a, b in
+                func rank(_ n: MoodNode) -> Int { (progress.due(n.id) ? 0 : 2) + (n.parent == parent ? 0 : 1) }
+                return rank(a) < rank(b)
+            }
+        var review: [MoodItem] = []
+        for node in reviewNodes where review.count < reviewLimit {
+            if let card = MoodMap.items(for: node.id, progress: progress).filter({ !excluding.contains($0.id) }).randomElement() { review.append(card) }
+        }
+
+        var deck = interleave(mine.shuffled() + review.shuffled())
+        // Always start with a card from the step itself
+        if let first = deck.firstIndex(where: { related.contains($0.node) }), first > 0 { deck.insert(deck.remove(at: first), at: 0) }
+        return deck
+    }
+
+    /// A round with no focus: the open steps still being learned, plus any that are due.
+    private static func mixed(progress: MoodMapProgress) -> [MoodItem] {
+        let open = MoodMap.nodes.filter { progress.unlocked($0) }
+        let learning = open.filter { !progress.mastered($0.id) }
+        let due = open.filter { progress.due($0.id) }
+        let nodes = learning + due.filter { !learning.contains($0) }
         // With few open nodes each one gives more cards, so a round is always close to ten
         let perNode = max(3, Int((Double(size) / Double(max(nodes.count, 1))).rounded(.up)))
         var picked: [MoodItem] = []
         for node in nodes {
-            picked += MoodMap.items(for: node.id, progress: progress).filter { !excluding.contains($0.id) }.shuffled().prefix(focus == node.id ? perNode + 1 : perNode)
+            picked += MoodMap.items(for: node.id, progress: progress).shuffled().prefix(perNode)
             if picked.count >= size * 2 { break }
         }
         if picked.isEmpty { picked = MoodMap.items(for: "root", progress: progress) }
-        // The focus node's cards always make it in; the neighbours fill the rest of the round
-        let mine = picked.filter { $0.node == focus }
-        let rest = picked.filter { $0.node != focus }.shuffled()
-        return interleave(Array((mine + rest).prefix(size)).shuffled())
+        return interleave(Array(picked.shuffled().prefix(size)))
     }
 
     /// Puts cards from the same node apart where it can, so two cards in a row test different rules.

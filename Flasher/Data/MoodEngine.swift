@@ -199,7 +199,7 @@ extension SpanishChecker {
             "~saber que", "~darse cuenta de que", "~dar cuenta de que", "~contar que", "~afirmar que", "~asegurar que", "~confirmar que",
             "~demostrar que", "~anunciar que", "~notar que", "~oír que", "~leer que", "~enterarse de que", "~enterar de que",
             "no hay duda de que", "no hay ninguna duda de que", "no cabe ninguna duda de que", "sin duda", "lo cierto es que", "lo que pasa es que", "~resultar que", "menos mal que", "no ~caber duda de que", "no ~haber duda de que",
-            "la noticia de que", "y eso que", "si bien", "a lo mejor", "ya que", "puesto que", "así que", "por eso", "por lo tanto",
+            "la noticia de que", "el rumor de que", "la prueba de que", "y eso que", "si bien", "a lo mejor", "ya que", "puesto que", "así que", "por eso", "por lo tanto",
             "porque", "dado que", "visto que", "debido a que", "en vista de que",
         ])
         // Nouns + de que (Learn: belief.nouns)
@@ -225,6 +225,18 @@ extension SpanishChecker {
 
     /// Whether the words from i on match a trigger; returns the index of its last word and of its verb (for "~" patterns).
     private static func match(_ trigger: MoodTrigger, _ words: [String], _ keys: [String], at i: Int, boundary: Set<Int>) -> (end: Int, verb: Int?)? {
+        // "Le pido a mi vecino que baja": an indirect object ("a" + a short noun phrase) between the verb and que
+        if trigger.influence, trigger.pattern.count == 2, trigger.pattern[0].hasPrefix("~"), trigger.pattern[1] == "que" {
+            let lemma = String(trigger.pattern[0].dropFirst())
+            var j = i
+            while j < words.count, clitics.contains(words[j]), j == i { j += 1 }
+            if j < words.count, let slots = VerbForms.index[words[j]], slots.contains(where: { $0.infinitive == lemma || $0.infinitive == lemma + "se" }),
+               j + 2 < words.count, words[j + 1] == "a" {
+                var k = j + 2
+                while k < words.count, k <= j + 5, words[k] != "que", !boundary.contains(k) { k += 1 }
+                if k < words.count, words[k] == "que", k > j + 2, !boundary.contains(k) { return (k, j) }
+            }
+        }
         var j = i
         var verb: Int?
         for (n, part) in trigger.pattern.enumerated() {
@@ -535,7 +547,7 @@ extension SpanishChecker {
                     flag(clause, from: i, "The conditional never goes after “si”. For something unlikely or unreal use the \(clause.perfect ? "pluperfect" : "imperfect") subjunctive\(fix.map { ": “\($0)”" } ?? ""); the conditional goes in the other half.", fix)
                 } else if said == "si", !asked, let other = mainVerb(outside: i, clause.last), !["poder", "deber", "tener", "haber", "convenir"].contains(other.infinitive) {
                     // Si + present goes with present or future; si + imperfect subjunctive with the conditional
-                    if other.tenses == [.conditional], clause.isIndicative, clause.tenses.contains(.present) || clause.tenses.contains(.imperfect) {
+                    if other.tenses == [.conditional], clause.isIndicative, clause.tenses.contains(.present) || clause.tenses.contains(.imperfect) || clause.tenses.contains(.preterite) {
                         let fix = form(clause, .subjunctiveImperfect, clause.first)
                         flag(clause, from: i, "With “\(say(other))” (would) the si half is unreal, so it takes the \(clause.perfect ? "pluperfect" : "imperfect") subjunctive\(fix.map { ": “si \($0)”" } ?? ""). Si + \(clause.perfect ? "pluperfect" : clause.isPresent ? "present" : "imperfect") goes with the \(clause.isPresent ? "present or future" : "indicative").", fix.map { "si \($0)" })
                     } else if clause.tenses == [.subjunctiveImperfect], other.isIndicative, other.tenses.contains(.future) || other.isPresent,
@@ -650,6 +662,35 @@ extension SpanishChecker {
             if let q = w.firstIndex(of: "que"), q >= 1, let main = verb(range.lowerBound + q - 1), ["querer", "preferir", "necesitar", "desear"].contains(main.infinitive),
                main.persons == [3], let r = governed(after: range.lowerBound + q), r.isSubjunctive, r.persons.contains(3), r.persons.count == 1 {
                 flag(r, from: range.lowerBound + q - 1, "When the ones who want are the ones who do it, Spanish uses the infinitive: “\(say(main)) \(r.infinitive)”.", "\(say(main)) \(r.infinitive)")
+            }
+            // "Necesito un coche que es barato": a thing you only want, not one you know, takes the subjunctive
+            for (k, word) in w.enumerated() where ["un", "una"].contains(word) && k > 0 {
+                // "Busco un piso que tiene balcón" can be one particular flat, so only necesitar and querer are flagged
+                guard let b = verb(range.lowerBound + k - 1), ["necesitar", "querer"].contains(b.infinitive), !b.perfect, b.isPresent,
+                      let q = w[(k + 1)...].prefix(4).firstIndex(of: "que"), let r = governed(after: range.lowerBound + q), r.isIndicative, !r.tenses.contains(.future) else { continue }
+                let fix = form(r, .subjunctivePresent, r.first)
+                flag(r, from: range.lowerBound + k, "“\(word) …” is something you only want, not one you know exists, so the description is subjunctive\(fix.map { ": “\($0)”" } ?? "").", fix)
+            }
+            // "Conozco a una chica que hable cuatro idiomas": a person you know exists takes the indicative
+            for (k, word) in w.enumerated() where k > 0 && ["a", "un", "una", "unos", "unas"].contains(word) {
+                guard let b = verb(range.lowerBound + k - 1), ["conocer", "tener"].contains(b.infinitive), !b.perfect, b.isPresent, !negated(range.lowerBound + k - 1),
+                      !question(range.lowerBound), let q = w[(k + 1)...].prefix(4).firstIndex(of: "que"), q > k + 1,
+                      let r = governed(after: range.lowerBound + q), r.isSubjunctive, r.tenses == [.subjunctivePresent] else { continue }
+                licensed.insert(r.first)
+                let fix = form(r, .present, r.first)
+                flag(r, from: range.lowerBound + k - 1, "“\(say(b)) …” says that person exists, so the description is indicative\(fix.map { ": “\($0)”" } ?? "").", fix)
+            }
+            // "No es nada fácil, que decimos": the hedge is "que digamos"
+            if let d = w.firstIndex(of: "decimos"), d > 0, w[d - 1] == "que", clauseStart.contains(range.lowerBound + d - 1) {
+                add(.verb, span(range.lowerBound + d - 1, range.lowerBound + d), "“Que digamos” (not exactly) is a fixed phrase with the subjunctive.", "que digamos")
+            }
+            // "Él, quizás, tenga razón": set off by commas, quizás takes the indicative
+            for (k, word) in w.enumerated() where ["quizás", "quizá"].contains(word) && k > 0 {
+                let at = range.lowerBound + k
+                guard clauseStart.contains(at), clauseStart.contains(at + 1), let r = (at + 1..<min(tokens.count, at + 4)).lazy.compactMap({ verb($0) }).first, r.isSubjunctive else { continue }
+                licensed.insert(r.first)
+                let fix = form(r, .present, r.first)
+                flag(r, from: at, "After the verb or set off by commas, “quizás” takes the indicative\(fix.map { ": “\($0)”" } ?? "").", fix)
             }
             // "Hay alguien que sepa…" as a statement: someone who exists takes the indicative
             if !question(range.lowerBound), let h = w.firstIndex(where: { $0 == "hay" }), h + 2 < w.count, w[h + 1] == "alguien", w[h + 2] == "que",

@@ -265,7 +265,7 @@ enum MoodMap {
     ]
 
     static let nodes: [MoodNode] = baseNodes + moreNodes
-    static let items: [MoodItem] = baseItems + moreItems
+    static let items: [MoodItem] = baseItems + moreItems + extraItems
     /// The lessons in teaching order, after the top rule.
     static let lessons: [MoodNode] = [byID["root"]!] + lessonOrder.compactMap { byID[$0] }
 

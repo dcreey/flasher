@@ -268,6 +268,11 @@ struct MoodSessionView: View {
     @State private var workedCards: [MoodItem] = []
 
     private var item: MoodItem? { deck.indices.contains(index) ? deck[index] : nil }
+    /// In a round about a step or lesson, every card from another step is review; in a mixed round, cards from steps already learned.
+    private func isReview(_ item: MoodItem) -> Bool {
+        let related = MoodRound.relatedNodes(focus: setup.focus, lesson: setup.lesson)
+        return related.isEmpty ? progress.mastered(item.node) : !related.contains(item.node)
+    }
     private var answeredRight: Bool { picked.map { item?.correct.contains($0) ?? false } ?? false }
     private var reasonRight: Bool {
         guard let item else { return false }
@@ -317,7 +322,16 @@ struct MoodSessionView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 if let node = MoodMap.byID[item.node] {
-                    Text(item.heading).font(.footnote.weight(.semibold)).foregroundStyle(.purple)
+                    HStack(spacing: 8) {
+                        Text(item.heading).font(.footnote.weight(.semibold)).foregroundStyle(.purple)
+                        // A card from a step learned earlier, not the one this round is about
+                        if isReview(item) {
+                            Text("Review").font(.caption2.weight(.bold)).textCase(.uppercase)
+                                .padding(.horizontal, 8).padding(.vertical, 3)
+                                .background(Color.orange.opacity(0.18), in: Capsule()).foregroundStyle(.orange)
+                            Text(MoodMap.title(of: node, progress: progress)).font(.caption).foregroundStyle(.secondary).lineLimit(1)
+                        }
+                    }
                     Text(item.context).font(.subheadline).foregroundStyle(.secondary)
                     Text(display(item)).font(.title3.weight(.medium))
                         .fixedSize(horizontal: false, vertical: true)

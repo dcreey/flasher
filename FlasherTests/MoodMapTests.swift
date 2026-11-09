@@ -352,7 +352,32 @@ final class MoodMapTests: XCTestCase {
         }
         // Re-learning a lesson practises its own steps
         let lessonRound = MoodRound.make(focus: "want", progress: progress, lesson: "want")
-        let wantSteps = Set(MoodMap.steps(of: want).map(\.id))
-        XCTAssertTrue(lessonRound.allSatisfy { wantSteps.contains($0.node) })
+        let wantSteps = MoodRound.relatedNodes(focus: "want", lesson: "want")
+        XCTAssertEqual(wantSteps, Set(MoodMap.steps(of: want).map(\.id)))
+        XCTAssertTrue(wantSteps.contains(lessonRound[0].node), "starts with a card from the lesson")
+        XCTAssertGreaterThanOrEqual(lessonRound.filter { wantSteps.contains($0.node) }.count * 2, lessonRound.count, "at least half from the lesson")
+    }
+
+    /// A round about a step starts with one of its cards, is at least half its own cards, and the rest is review of steps already practised.
+    func testRoundsAreMostlyAboutTheStep() {
+        let defaults = UserDefaults(suiteName: "MoodMapReview")!
+        defaults.removePersistentDomain(forName: "MoodMapReview")
+        let progress = MoodMapProgress(defaults: defaults)
+        for node in ["root", "want", "subject"] { for _ in 0..<3 { progress.record(node, right: true) } }
+        for focus in ["want.same", "want.decir", "feel", "doubt", "want.convencer"] where progress.unlocked(MoodMap.byID[focus]!) {
+            for _ in 0..<15 {
+                let worked = MoodMap.workedExamples(for: MoodMap.byID[focus]!, progress: progress)
+                let round = MoodRound.make(focus: focus, progress: progress, excluding: Set(worked.map(\.id)))
+                XCTAssertEqual(round.first?.node, focus, "\(focus): starts with the step's own card")
+                let own = round.filter { $0.node == focus }.count
+                XCTAssertGreaterThanOrEqual(own * 2, round.count, "\(focus): at least half its own cards")
+                XCTAssertGreaterThanOrEqual(own, 3, "\(focus): enough of its own cards")
+                for card in round where card.node != focus { XCTAssertGreaterThan(progress.of(card.node).right, 0, "review only from steps already practised: \(card.node)") }
+                XCTAssertEqual(Set(round.map(\.id)).count, round.count, "no card twice")
+            }
+        }
+        // Every step has enough cards for that
+        let thin = MoodMap.nodes.filter { MoodMap.items(for: $0.id).count < 6 }.map(\.id)
+        XCTAssertEqual(thin, [])
     }
 }
