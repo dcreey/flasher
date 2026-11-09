@@ -10,6 +10,7 @@
 		D7A100000000000000000D02 /* DrillReadings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A100000000000000000D01 /* DrillReadings.swift */; };
 		8E229DEFBF1048578076CE13 /* MoodMapProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6BF48D8E8446A58DE3168E /* MoodMapProgress.swift */; };
 		0FE408AB08E54D6EA9F1CBAA /* MoodMapRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED9063396254F3DA54DB9BD /* MoodMapRules.swift */; };
+		A38E09AA69804FF588A51A65 /* MoodEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE31A1E02CB496D84D4F671 /* MoodEngine.swift */; };
 		E9970D6A1B1D4B0BB4A49A30 /* MoodMapBriefings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E22F13B8FD4FA388AD45F0 /* MoodMapBriefings.swift */; };
 		051A49C6969A42128BFB0A86 /* MexicoWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AB8F0F9E474974A50749B5 /* MexicoWords.swift */; };
 		BFDA0B350298413EAB2D2E2E /* PersonNouns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB6632344440FBB5188ECB /* PersonNouns.swift */; };
@@ -79,6 +80,7 @@
 		A1B2C3D4E5F60718293A4B51 /* DrillSentences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B50 /* DrillSentences.swift */; };
 		A1B2C3D4E5F60718293A4B41 /* DrillSentencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B40 /* DrillSentencesTests.swift */; };
 		F3067F8EE57A4D4D84A9CE1B /* MoodMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C244BAAC67394F2F8CD60BB5 /* MoodMapTests.swift */; };
+		EEE62F4A2D824127B260D5C9 /* MoodCheckerCoverageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144B68D51824B6DA82251DE /* MoodCheckerCoverageTests.swift */; };
 		9F19F3D1CAAE4739B2210B9F /* SearchRankingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82B012114424BFFA1827B8E /* SearchRankingTests.swift */; };
 		A1B2C3D4E5F60718293A4B70 /* VerbUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B60 /* VerbUsage.swift */; };
 		A1B2C3D4E5F60718293A4B71 /* VerbUsageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B61 /* VerbUsageData.swift */; };
@@ -98,6 +100,7 @@
 		D7A100000000000000000D01 /* DrillReadings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillReadings.swift; sourceTree = "<group>"; };
 		5F6BF48D8E8446A58DE3168E /* MoodMapProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapProgress.swift; sourceTree = "<group>"; };
 		BED9063396254F3DA54DB9BD /* MoodMapRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapRules.swift; sourceTree = "<group>"; };
+		8AE31A1E02CB496D84D4F671 /* MoodEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodEngine.swift; sourceTree = "<group>"; };
 		38E22F13B8FD4FA388AD45F0 /* MoodMapBriefings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapBriefings.swift; sourceTree = "<group>"; };
 		79AB8F0F9E474974A50749B5 /* MexicoWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MexicoWords.swift; sourceTree = "<group>"; };
 		84AB6632344440FBB5188ECB /* PersonNouns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonNouns.swift; sourceTree = "<group>"; };
@@ -170,6 +173,7 @@
 		A1B2C3D4E5F60718293A4B50 /* DrillSentences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSentences.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B40 /* DrillSentencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSentencesTests.swift; sourceTree = "<group>"; };
 		C244BAAC67394F2F8CD60BB5 /* MoodMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapTests.swift; sourceTree = "<group>"; };
+		A144B68D51824B6DA82251DE /* MoodCheckerCoverageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodCheckerCoverageTests.swift; sourceTree = "<group>"; };
 		D82B012114424BFFA1827B8E /* SearchRankingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRankingTests.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B60 /* VerbUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbUsage.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B61 /* VerbUsageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbUsageData.swift; sourceTree = "<group>"; };
@@ -191,6 +195,7 @@
 				D7A100000000000000000D01 /* DrillReadings.swift */,
 				5F6BF48D8E8446A58DE3168E /* MoodMapProgress.swift */,
 				BED9063396254F3DA54DB9BD /* MoodMapRules.swift */,
+				8AE31A1E02CB496D84D4F671 /* MoodEngine.swift */,
 				38E22F13B8FD4FA388AD45F0 /* MoodMapBriefings.swift */,
 				79AB8F0F9E474974A50749B5 /* MexicoWords.swift */,
 				84AB6632344440FBB5188ECB /* PersonNouns.swift */,
@@ -310,6 +315,7 @@
 				9D1FA2CB60F4886AD163AA56 /* SpanishCheckerTests.swift */,
 				A1B2C3D4E5F60718293A4B40 /* DrillSentencesTests.swift */,
 				C244BAAC67394F2F8CD60BB5 /* MoodMapTests.swift */,
+				A144B68D51824B6DA82251DE /* MoodCheckerCoverageTests.swift */,
 				D82B012114424BFFA1827B8E /* SearchRankingTests.swift */,
 				A1B2C3D4E5F60718293A4B30 /* DrillSubjectsTests.swift */,
 			);
@@ -436,6 +442,7 @@
 				D7A100000000000000000D02 /* DrillReadings.swift in Sources */,
 				8E229DEFBF1048578076CE13 /* MoodMapProgress.swift in Sources */,
 				0FE408AB08E54D6EA9F1CBAA /* MoodMapRules.swift in Sources */,
+				A38E09AA69804FF588A51A65 /* MoodEngine.swift in Sources */,
 				E9970D6A1B1D4B0BB4A49A30 /* MoodMapBriefings.swift in Sources */,
 				051A49C6969A42128BFB0A86 /* MexicoWords.swift in Sources */,
 				BFDA0B350298413EAB2D2E2E /* PersonNouns.swift in Sources */,
@@ -487,6 +494,7 @@
 				936299D414BDB758B390BDAD /* SpanishCheckerTests.swift in Sources */,
 				A1B2C3D4E5F60718293A4B41 /* DrillSentencesTests.swift in Sources */,
 				F3067F8EE57A4D4D84A9CE1B /* MoodMapTests.swift in Sources */,
+				EEE62F4A2D824127B260D5C9 /* MoodCheckerCoverageTests.swift in Sources */,
 				9F19F3D1CAAE4739B2210B9F /* SearchRankingTests.swift in Sources */,
 				A1B2C3D4E5F60718293A4B31 /* DrillSubjectsTests.swift in Sources */,
 			);

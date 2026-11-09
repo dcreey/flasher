@@ -134,6 +134,7 @@ enum SpanishChecker {
         pronounOrderRules(tokens, adjacent: adjacent, span: span, add: add)
         subjunctiveRules(tokens, text: ns, adjacent: adjacent, span: span, add: add)
         indicativeRules(tokens, text: ns, adjacent: adjacent, span: span, add: add)
+        moodRules(tokens, text: ns, adjacent: adjacent, span: span, add: add)
         phraseRules(text, add: add)
 
         // "de el" → "del", "a el" → "al" (not before a name: "de El Salvador")

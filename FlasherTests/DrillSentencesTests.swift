@@ -24,8 +24,12 @@ final class DrillSentencesTests: XCTestCase {
                 if !(text.hasSuffix(".") || text.hasSuffix("!")) { problems.append("ending: \(text)") }
                 if !(text.first(where: { $0.isLetter })?.isUppercase ?? true) { problems.append("capital: \(text)") }
                 // Rare verb forms the spelling list reads as nouns (cápsula/capsula, fórmula/formula): the checker is wrong there, not the sentence
+                // and rare subjunctives spelled like a far more common verb's indicative (sumir/sumar, barrar/barrer, asir/asar)
                 let knownClashes: Set<String> = ["capsula", "formula", "formule", "maculó", "macules", "placan"]
-                let bad = SpanishChecker.check(text).filter { $0.kind != .tip && !knownClashes.contains($0.found.lowercased()) }
+                let moodClashes = ["sumamos", "barre", "asan"]
+                let bad = SpanishChecker.check(text).filter { issue in
+                    issue.kind != .tip && !knownClashes.contains(issue.found.lowercased()) && !moodClashes.contains { issue.found.lowercased().hasSuffix($0) }
+                }
                 if !bad.isEmpty { problems.append("\(text)   <<< \(bad.map { "\($0.kind.rawValue):\($0.found)" }.joined(separator: ", "))") }
             }
         }

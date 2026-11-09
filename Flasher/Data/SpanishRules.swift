@@ -236,7 +236,7 @@ extension SpanishChecker {
         }
     }
 
-    private static func isInQuestion(at location: Int, in text: NSString) -> Bool {
+    static func isInQuestion(at location: Int, in text: NSString) -> Bool {
         var index = location - 1
         while index >= 0 {
             let c = text.character(at: index)

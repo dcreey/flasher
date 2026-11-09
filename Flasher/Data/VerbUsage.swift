@@ -122,6 +122,11 @@ struct VerbUsage: Hashable {
         case "T": return pick((Self.objectBanks[object] ?? []).filter { !(Self.cognates[base]?.contains($0) ?? false) })
         case "S":
             if object == "i" { return pick(past ? ["si ya era tarde", "qué hora era", "dónde estaba la casa"] : ["si ya es tarde", "qué hora es", "dónde está la casa"]) }
+            // Doubting, regretting, wanting: the clause is subjunctive ("dudamos que todo esté bien")
+            let subjunctive = SpanishChecker.moodTriggers.contains { $0.pattern == ["~" + base, "que"] && ($0.need == .subjunctive || $0.need == .rejection) }
+            if subjunctive {
+                return pick(past ? ["que ya fuera tarde", "que todo estuviera bien", "que la tienda abriera a las nueve"] : ["que ya sea tarde", "que todo esté bien", "que la tienda abra a las nueve"])
+            }
             return pick(past ? ["que ya era tarde", "que todo estaba bien", "que la tienda abría a las nueve"] : ["que ya es tarde", "que todo está bien", "que la tienda abre a las nueve"])
         case "M": return pick(object == "o" ? ["de casa", "de la oficina", "del trabajo", "de la escuela"] : ["a la escuela", "al mercado", "a casa", "al trabajo", "a la oficina"])
         case "C":
