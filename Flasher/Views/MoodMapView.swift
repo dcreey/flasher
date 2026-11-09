@@ -156,19 +156,23 @@ private struct LessonView: View {
                 Text(lesson.example).italic().foregroundStyle(.secondary)
                     .padding(12).frame(maxWidth: .infinity, alignment: .leading)
                     .background(Color.purple.opacity(0.08), in: RoundedRectangle(cornerRadius: 12))
+                // A lesson nobody has answered a card in yet is just "Learn": the reading pages come first anyway
+                let started = parts.contains { progress.of($0.id).right + progress.of($0.id).wrong > 0 }
                 Button { round = MoodRoundSetup(focus: lesson.id, lesson: lesson.id) } label: {
-                    Text("Practice this lesson").font(.headline).frame(maxWidth: .infinity).padding(.vertical, 12)
+                    Text(started ? "Practice this lesson" : "Learn this lesson").font(.headline).frame(maxWidth: .infinity).padding(.vertical, 12)
                         .background(Color.purple, in: RoundedRectangle(cornerRadius: 12)).foregroundStyle(.white)
                 }
                 .buttonStyle(.plain)
                 .disabled(!progress.unlocked(lesson))
-                // Read the rule, examples and what follows again, then practise the lesson's steps
-                Button { round = MoodRoundSetup(focus: lesson.id, relearn: true, lesson: lesson.id) } label: {
-                    Label("Re-learn this lesson", systemImage: "book").font(.headline).frame(maxWidth: .infinity).padding(.vertical, 12)
-                        .background(Color.purple.opacity(0.12), in: RoundedRectangle(cornerRadius: 12)).foregroundStyle(.purple)
+                if started {
+                    // Read the rule, examples and what follows again, then practise the lesson's steps
+                    Button { round = MoodRoundSetup(focus: lesson.id, relearn: true, lesson: lesson.id) } label: {
+                        Label("Re-learn this lesson", systemImage: "book").font(.headline).frame(maxWidth: .infinity).padding(.vertical, 12)
+                            .background(Color.purple.opacity(0.12), in: RoundedRectangle(cornerRadius: 12)).foregroundStyle(.purple)
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(!progress.unlocked(lesson))
                 }
-                .buttonStyle(.plain)
-                .disabled(!progress.unlocked(lesson))
 
                 if parts.count > 1 {
                     Text("Steps").font(.headline).padding(.top, 6)
@@ -215,8 +219,12 @@ private struct LessonView: View {
                         Text(learned ? "Learned" : "\(stats.right) of \(MoodMapProgress.needed) right").font(.caption).foregroundStyle(.secondary)
                         Spacer()
                         if step.id != lesson.id {
-                            Button("Re-learn") { round = MoodRoundSetup(focus: step.id, relearn: true) }.font(.caption.weight(.semibold)).tint(.purple)
-                            Button("Practice") { round = MoodRoundSetup(focus: step.id) }.font(.caption.weight(.semibold)).tint(.purple)
+                            if stats.right + stats.wrong > 0 {
+                                Button("Re-learn") { round = MoodRoundSetup(focus: step.id, relearn: true) }.font(.caption.weight(.semibold)).tint(.purple)
+                                Button("Practice") { round = MoodRoundSetup(focus: step.id) }.font(.caption.weight(.semibold)).tint(.purple)
+                            } else {
+                                Button("Learn") { round = MoodRoundSetup(focus: step.id) }.font(.caption.weight(.semibold)).tint(.purple)
+                            }
                         }
                     }
                 } else {

@@ -583,9 +583,14 @@ struct TranslateView: View {
         .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.red.opacity(0.6), lineWidth: flagged ? 1 : 0))
     }
 
+    /// Room the check notes take under the input, so the paste button sits above them (a rough height is enough).
+    private var checkFooterHeight: CGFloat { CGFloat(max(1, issues.count)) * 34 + 10 }
+
     private var inputField: some View {
         VStack(alignment: .leading, spacing: 0) {
             inputText
+            // A strip under the text for the paste button, so it never covers what's typed
+            Color.clear.frame(height: 30)
             if showsCheckFooter && output?.direction == .toEnglish { checkFooter.padding(.horizontal, 13).padding(.bottom, 10) }
         }
         .overlay(alignment: .topTrailing) {
@@ -594,6 +599,24 @@ struct TranslateView: View {
                     .foregroundStyle(.secondary)
                     .padding(10)
             }
+        }
+        // The system paste button needs no "Allow Paste" prompt, and it's greyed out when there's nothing to paste.
+        // It replaces what's there, so the new text translates right away.
+        .overlay(alignment: .bottomTrailing) {
+            PasteButton(payloadType: String.self) { strings in
+                guard let text = strings.first?.trimmingCharacters(in: .whitespacesAndNewlines), !text.isEmpty else { return }
+                input = text
+                output = nil
+                errorText = nil
+                isEditing = false
+                focused = false
+            }
+            .labelStyle(.iconOnly)
+            .buttonBorderShape(.capsule)
+            .controlSize(.small)
+            .tint(.secondary)
+            .padding(8)
+            .padding(.bottom, showsCheckFooter && output?.direction == .toEnglish ? checkFooterHeight : 0)
         }
     }
 
