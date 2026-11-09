@@ -236,5 +236,11 @@ extension MoodMap {
         meaning("fixed.frozen.6", "fixed.frozen", "A toast.", "¡Que viva el rey!", ["Long live the king!", "The king lives."], 0, "Que viva: a frozen wish."),
         form("sequence.pending.6", "sequence.pending", "Your boss gave an order.", "Su jefe le ordenó que ___ el informe mañana.", ["entregue", "entregara"], [0,1], "Still to come: the present is heard in Latin America; the imperfect is the standard."),
         meaning("alone.polite.6", "alone.polite", "Asking a stranger.", "¿Pudiera decirme dónde está el baño?", ["Could you tell me where the bathroom is? (polite)", "Did you tell me where the bathroom is?"], 0, "Pudiera is a polite could."),
+        form("sequence.5", "sequence", "You hope they've already left.", "Espero que ya ___ salido.", ["han", "hayan"], [1], "Present main verb, something already done: haya + participle."),
+        form("sequence.6", "sequence", "You were glad they got home.", "Me alegré de que ___ llegado a casa.", ["han", "hubieran"], [1], "Past main verb, something done earlier: hubiera + participle."),
+        form("condition.si.7", "condition.si", "Real: it might be cold.", "Si ___ frío, me pongo el abrigo.", ["hace", "haga"], [0], "Si + present indicative: a real condition."),
+        form("condition.si.8", "condition.si", "You don't have free time now.", "Si ___ tiempo libre, te visitaría.", ["tendría", "tuviera"], [1], "Unreal si: imperfect subjunctive, never the conditional."),
+        form("purpose.demodo.7", "purpose.demodo", "It was noisy, so you heard nothing.", "Había mucho ruido, de modo que no ___ nada.", ["oímos", "oyéramos"], [0], "De modo que as a result: indicative."),
+        form("time.question.7", "time.question", "You ask about the train.", "No sé cuándo ___ el tren.", ["sale", "salga"], [0], "An indirect question: indicative."),
     ]
 }

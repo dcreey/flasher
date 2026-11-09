@@ -380,4 +380,21 @@ final class MoodMapTests: XCTestCase {
         let thin = MoodMap.nodes.filter { MoodMap.items(for: $0.id).count < 6 }.map(\.id)
         XCTAssertEqual(thin, [])
     }
+
+    /// Every step has a full-sentence reason, none is a copy of another, and none shows an imperfect form to a learner who hasn't met it.
+    func testEveryReasonIsAFullSentence() {
+        for node in MoodMap.nodes {
+            let text = MoodMap.reasonTexts[node.id]
+            XCTAssertNotNil(text, "\(node.id) has a reason")
+            guard let text else { continue }
+            XCTAssertTrue(text.hasPrefix("Because"), node.id)
+            XCTAssertGreaterThan(text.count, 60, node.id)
+            XCTAssertLessThan(text.count, 260, node.id)
+        }
+        XCTAssertEqual(Set(MoodMap.reasonTexts.values).count, MoodMap.reasonTexts.count, "reasons are different")
+        XCTAssertEqual(Set(MoodMap.reasonTexts.keys), Set(MoodMap.nodes.map(\.id)))
+        for item in MoodMap.items where !MoodMap.imperfectSteps.contains(item.node) && !MoodMap.imperfectItems.contains(item.id) && !MoodMap.usesImperfect.contains(item.node) {
+            for reason in MoodMap.reasons(for: item, hideImperfect: true) { XCTAssertFalse(MoodMap.mentionsImperfect(MoodMap.reasonText(of: reason)), "\(item.id): \(reason.id)") }
+        }
+    }
 }

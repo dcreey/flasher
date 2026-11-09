@@ -282,7 +282,7 @@ struct MoodSessionView: View {
     /// The reasons to choose from: the card's own, or the node and two neighbours. Each has an id and a title.
     private func reasonOptions(_ item: MoodItem) -> [(id: String, title: String)] {
         if !item.why.isEmpty { return item.why.enumerated().map { ("why\($0.offset)", $0.element) } }
-        return MoodMap.reasons(for: item, hideImperfect: progress.hidesImperfect).map { ($0.id, $0.title) }
+        return MoodMap.reasons(for: item, hideImperfect: progress.hidesImperfect).map { ($0.id, MoodMap.reasonText(of: $0)) }
     }
 
     private func isRightReason(_ id: String, _ item: MoodItem) -> Bool {
@@ -531,10 +531,6 @@ struct MoodBriefingView: View {
     let cards: [MoodItem]
     let onDone: () -> Void
     @State private var page = 0
-    @State private var ready = false
-    @State private var fill: CGFloat = 0
-    /// How long the Continue bar takes to fill; the animation is on the bar alone, so nothing else on screen moves with it.
-    @State private var fillSeconds: Double = 3
 
     /// Before the imperfect lesson, nothing with an imperfect subjunctive is shown.
     private var hides: Bool { progress.hidesImperfect && !MoodMap.imperfectSteps.contains(step.id) }
@@ -607,8 +603,6 @@ struct MoodBriefingView: View {
             }
             continueButton.padding(.top, 8)
         }
-        .onAppear(perform: startReading)
-        .onChange(of: page) { startReading() }
     }
 
     private var rulePage: some View {
@@ -679,51 +673,13 @@ struct MoodBriefingView: View {
 
     private var continueButton: some View {
         Button {
-            guard ready else { return }
             if page + 1 < pages { page += 1 } else { onDone() }
         } label: {
-            ZStack(alignment: .leading) {
-                GeometryReader { geo in
-                    Rectangle().fill(Color.purple).frame(width: geo.size.width * fill)
-                        .animation(fill == 0 ? nil : .linear(duration: fillSeconds), value: fill)
-                }
-                Text(page + 1 < pages ? "Continue" : "Start practice").font(.headline)
-                    .frame(maxWidth: .infinity).padding(.vertical, 12)
-                    .foregroundStyle(.white)
-            }
-            .frame(height: 46)
-            .background(Color.purple.opacity(0.55))
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+            Text(page + 1 < pages ? "Continue" : "Start practice").font(.headline)
+                .frame(maxWidth: .infinity).padding(.vertical, 12)
+                .background(Color.purple, in: RoundedRectangle(cornerRadius: 12)).foregroundStyle(.white)
         }
         .buttonStyle(.plain)
-        .accessibilityHint(ready ? "" : "Available after a moment to read")
     }
 
-    /// About four words a second, between three and twelve seconds a page.
-    private var readingSeconds: Double {
-        var words = 0
-        func count(_ text: String) { words += text.split(separator: " ").count }
-        switch page {
-        case 0:
-            count(step.rule); count(MoodMap.briefings[step.id]?.why ?? "")
-            examples.forEach { count($0.spanish); count($0.english) }
-        case 1: worked.forEach { count($0.sentence); count($0.why) }
-        default: related.forEach { count($0.body); count($0.example ?? "") }
-        }
-        return min(12, max(3, Double(words) / 4))
-    }
-
-    private func startReading() {
-        ready = false
-        fill = 0
-        let seconds = readingSeconds
-        fillSeconds = seconds
-        // Start the fill on the next pass, so the bar animates from empty without animating the page around it
-        DispatchQueue.main.async { fill = 1 }
-        let shown = page
-        Task {
-            try? await Task.sleep(for: .seconds(seconds))
-            if page == shown { ready = true }
-        }
-    }
 }

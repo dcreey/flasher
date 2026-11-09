@@ -296,7 +296,7 @@ extension MoodMap {
 
         // Feelings
         form("feel.true.3", "feel.true", "Your kids are happy, and you love it.", "Me encanta que mis hijos ___ felices.", ["son", "sean"], [1], "True, but you're reacting to it: subjunctive."),
-        form("feel.temerse.3", "feel.temerse", "Thank goodness you came.", "Menos mal que ___.", ["viniste", "vinieras"], [0], "Menos mal que: a relief about a fact, indicative."),
+        form("feel.temerse.3", "feel.temerse", "Thank goodness you left early.", "Menos mal que ___ temprano.", ["salimos", "saliéramos"], [0], "Menos mal que: a relief about a fact, indicative."),
         form("feel.hecho.1", "feel.hecho", "He's young, but that doesn't matter.", "El hecho de que ___ joven no importa.", ["es", "sea"], [0, 1], "The subjunctive is usual (a given fact as background). The indicative is heard when the fact is news."),
         form("feel.hecho.2", "feel.hecho", "That you're here makes you happy.", "Que ___ aquí me alegra.", ["estás", "estés"], [1], "A que clause at the start is background: subjunctive."),
         form("feel.hecho.3", "feel.hecho", "You didn't come, and it bothered me.", "El que no ___ venido me molestó.", ["has", "hayas"], [1], "El que + clause works like el hecho de que: subjunctive."),
@@ -364,7 +364,7 @@ extension MoodMap {
         // Time
         form("time.before.3", "time.before", "You got there before the film started.", "Llegamos antes de que ___ la película.", ["empezó", "empezara"], [1], "Antes de que: always subjunctive, even in the past."),
         form("time.question.2", "time.question", "You ask when your friend is coming.", "¿Cuándo ___?", ["vienes", "vengas"], [0], "A question with ¿cuándo?: indicative."),
-        form("time.question.3", "time.question", "Let me know when you arrive.", "Avísame cuando ___.", ["llegas", "llegues"], [1], "Not a question: a time clause about the future, subjunctive."),
+        form("time.question.3", "time", "Let me know when you arrive.", "Avísame cuando ___.", ["llegas", "llegues"], [1], "Not a question: a time clause about the future, subjunctive."),
         form("time.despues.2", "time.despues", "After you leave, I'll clean.", "Después de que te ___, limpio.", ["vas", "vayas"], [1], "Still to come: subjunctive."),
         form("time.despues.3", "time.despues", "Yesterday, after sunset, we went out.", "Después de que se ___ el sol, salimos.", ["puso", "pusiera"], [0, 1], "In the past both are accepted; the indicative is the everyday one."),
         form("time.never.1", "time.never", "When you have time, you'll visit.", "Cuando ___ tiempo, te visito.", ["tendré", "tenga"], [1], "Never the future after cuando: subjunctive."),
@@ -398,7 +398,7 @@ extension MoodMap {
         // Purpose and results
         form("purpose.3", "purpose", "You call so they'll help you.", "Te llamo para que me ___.", ["ayudas", "ayudes"], [1], "Para que: subjunctive."),
         form("purpose.comosi.3", "purpose.comosi", "As if you were a millionaire!", "¡Ni que ___ millonario!", ["eres", "fueras"], [1], "Ni que, like como si: imperfect subjunctive."),
-        form("purpose.demodo.3", "purpose.demodo", "You were tired, so you slept.", "Estaba cansado, así que me ___.", ["dormí", "durmiera"], [0], "Así que gives a result: indicative."),
+        form("purpose.demodo.3", "purpose.result", "You were tired, so you slept.", "Estaba cansado, así que me ___.", ["dormí", "durmiera"], [0], "Así que gives a result: indicative."),
         form("purpose.nosea.1", "purpose.nosea", "Take a coat in case it gets cold.", "Llévate abrigo, no sea que ___ frío.", ["hace", "haga"], [1], "No sea que: subjunctive."),
         form("purpose.nosea.2", "purpose.nosea", "You came for them to help you.", "Vengo a que me ___.", ["ayudas", "ayudes"], [1], "Venir a que: purpose, subjunctive."),
         form("purpose.nosea.3", "purpose.nosea", "Come here so I can see you.", "Ven aquí, que te ___.", ["veo", "vea"], [1], "Que after a command = so that: subjunctive."),
@@ -462,8 +462,8 @@ extension MoodMap {
         form("feel.3", "feel", "You're worried your son doesn't eat.", "Me preocupa que mi hijo no ___.", ["come", "coma"], [1], "A feeling about it: subjunctive."),
         form("doubt.3", "doubt", "You doubt they'll arrive on time.", "Dudo que ___ a tiempo.", ["llegan", "lleguen"], [1], "Doubt: subjunctive."),
         form("belief.3", "belief", "You saw it: it's raining.", "Veo que ___.", ["llueve", "llueva"], [0], "Seeing is a claim: indicative."),
-        form("sequence.2", "sequence", "You wanted your friend to come.", "Quería que ___.", ["vengas", "vinieras"], [1], "Past main verb: imperfect subjunctive."),
-        form("sequence.3", "sequence", "You want your friend to come.", "Quiero que ___.", ["vengas", "vinieras"], [0], "Present main verb: present subjunctive."),
+        form("sequence.2", "imperfect", "You wanted your friend to come.", "Quería que ___.", ["vengas", "vinieras"], [1], "Past main verb: imperfect subjunctive."),
+        form("sequence.3", "imperfect", "You want your friend to come.", "Quiero que ___.", ["vengas", "vinieras"], [0], "Present main verb: present subjunctive."),
         form("purpose.deahi.2", "purpose.deahi", "He studied a lot; that's why he passed.", "Estudió mucho; de ahí que ___.", ["aprobó", "aprobara"], [1], "De ahí que: subjunctive, even for a known result."),
         form("purpose.deahi.3", "purpose.deahi", "Prices went up; hence people buy less.", "Subieron los precios; de ahí que la gente ___ menos.", ["compra", "compre"], [1], "De ahí que: subjunctive."),
         meaning("sequence.pending.3", "sequence.pending", "Your boss, in Mexico.", "Me dijo que lo llame mañana.", ["Heard when it's still to come; standard: que lo llamara.", "Wrong everywhere."], 0, "Past verb + present subjunctive for something still pending: common in Latin America."),

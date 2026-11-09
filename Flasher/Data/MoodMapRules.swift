@@ -225,8 +225,8 @@ enum MoodMap {
         form("condition.2", "condition", "You don't have time; imagining.", "Si ___ tiempo, te llamaría.", ["tendría", "tuviera"], [1], "Unreal now: si + imperfect subjunctive, never si + conditional."),
         form("condition.3", "condition", "In case it rains.", "En caso de que ___, nos quedamos.", ["llueve", "llueva"], [1], "En caso de que always takes the subjunctive."),
         form("condition.4", "condition", "Unless you're in a hurry.", "Quédate, a menos que ___ prisa.", ["tienes", "tengas"], [1], "A menos que always takes the subjunctive."),
-        form("condition.si.1", "condition.si", "If you had studied (you didn't).", "Si ___ estudiado, habrías aprobado.", ["habrías", "hubieras"], [1], "Unreal past: si + pluperfect subjunctive."),
-        form("condition.si.2", "condition.si", "Asking whether he'll come.", "No sé si ___ mañana.", ["vendrá", "venga"], [0], "Here si means 'whether': it takes the future like any question. (No sé si venga is also heard in Mexico.)"),
+        form("condition.si.1", "condition.unreal", "If you had studied (you didn't).", "Si ___ estudiado, habrías aprobado.", ["habrías", "hubieras"], [1], "Unreal past: si + pluperfect subjunctive."),
+        form("condition.si.2", "belief.whether", "Asking whether he'll come.", "No sé si ___ mañana.", ["vendrá", "venga"], [0], "Here si means 'whether': it takes the future like any question. (No sé si venga is also heard in Mexico.)"),
         meaning("condition.como.1", "condition.como", "Your mom, warning you.", "Como no vengas, me enojo.", ["If you don't come, I'll be mad.", "Since you didn't come, I'm mad."], 0, "Como + subjunctive is a condition, usually a warning."),
         meaning("condition.como.2", "condition.como", "Your mom, afterwards.", "Como no viniste, me enojé.", ["If you don't come, I'll be mad.", "Since you didn't come, I got mad."], 1, "Como + indicative means because."),
         form("condition.porsi.1", "condition.porsi", "Take an umbrella, just in case.", "Llévate un paraguas por si ___.", ["llueve", "llueva"], [0], "Por si never takes the present subjunctive: por si llueve (or por si lloviera)."),
@@ -265,7 +265,7 @@ enum MoodMap {
     ]
 
     static let nodes: [MoodNode] = baseNodes + moreNodes
-    static let items: [MoodItem] = baseItems + moreItems + extraItems
+    static let items: [MoodItem] = (baseItems + moreItems + extraItems).map(withCardReason)
     /// The lessons in teaching order, after the top rule.
     static let lessons: [MoodNode] = [byID["root"]!] + lessonOrder.compactMap { byID[$0] }
 
@@ -346,9 +346,10 @@ enum MoodMap {
     /// Before the imperfect lesson, no reason names an imperfect form or a step that waits for it.
     static func reasons(for item: MoodItem, hideImperfect: Bool = false) -> [MoodNode] {
         guard let node = byID[item.node] else { return [] }
+        let usable = nodes.filter { !ownCardsOnly.contains($0.id) || $0.id == node.id }
         let pool = hideImperfect && !imperfectSteps.contains(node.id)
-            ? nodes.filter { !titlesWithImperfect.contains($0.id) && !usesImperfect.contains($0.id) && !imperfectSteps.contains($0.id) }
-            : nodes
+            ? usable.filter { !titlesWithImperfect.contains($0.id) && !usesImperfect.contains($0.id) && !imperfectSteps.contains($0.id) && !mentionsImperfect(reasonText(of: $0)) }
+            : usable
         let siblings = pool.filter { $0.parent == node.parent && $0.id != node.id }
         let sameLevel = pool.filter { $0.level == node.level && $0.id != node.id && $0.parent != node.parent }
         let fallback = pool.filter { $0.id != node.id && !siblings.contains($0) && !sameLevel.contains($0) }
