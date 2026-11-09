@@ -122,6 +122,14 @@ enum SpanishChecker {
             if token.lower == token.key, token.lower.count >= 3, !token.isCapitalized, let fixed = accentFix(for: token.lower) {
                 add(.spelling, token.range, "“\(token.text)” is missing an accent mark or tilde: “\(fixed)”.", fixed)
             }
+
+            // An accent on the wrong letter: "pudíeramos" → "pudiéramos"
+            if token.lower != token.key, token.lower.count >= 4, !isKnownWord(token.text), VerbForms.index[token.lower] == nil,
+               let variants = accentVariants[token.key], variants.count == 1, variants[0] != token.lower,
+               // Only a moved accent: not ñ for n, and not voseo endings ("tenés", "querés")
+               variants[0].contains("ñ") == token.lower.contains("ñ"), !["ás", "és", "ís"].contains(where: { token.lower.hasSuffix($0) }) {
+                add(.spelling, token.range, "“\(token.text)” has its accent on the wrong letter: “\(variants[0])”.", variants[0])
+            }
         }
 
         // Words that look like English but mean something else
@@ -206,7 +214,7 @@ enum SpanishChecker {
     // MARK: - Spelling
 
     /// Words that exist only with an accent or tilde, keyed by their plain spelling.
-    private static let accentVariants: [String: [String]] = {
+    static let accentVariants: [String: [String]] = {
         var map: [String: [String]] = [:]
         func record(_ form: String) {
             let lower = form.lowercased()

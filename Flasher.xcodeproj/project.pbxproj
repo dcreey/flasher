@@ -80,6 +80,7 @@
 		A1B2C3D4E5F60718293A4B51 /* DrillSentences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B50 /* DrillSentences.swift */; };
 		A1B2C3D4E5F60718293A4B41 /* DrillSentencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B40 /* DrillSentencesTests.swift */; };
 		F3067F8EE57A4D4D84A9CE1B /* MoodMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C244BAAC67394F2F8CD60BB5 /* MoodMapTests.swift */; };
+		65AFAF43C0624F9DB22F9C13 /* MoodRulesAuditTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B1809AECE94143B0104981 /* MoodRulesAuditTests.swift */; };
 		EEE62F4A2D824127B260D5C9 /* MoodCheckerCoverageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144B68D51824B6DA82251DE /* MoodCheckerCoverageTests.swift */; };
 		9F19F3D1CAAE4739B2210B9F /* SearchRankingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82B012114424BFFA1827B8E /* SearchRankingTests.swift */; };
 		A1B2C3D4E5F60718293A4B70 /* VerbUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B60 /* VerbUsage.swift */; };
@@ -173,6 +174,7 @@
 		A1B2C3D4E5F60718293A4B50 /* DrillSentences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSentences.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B40 /* DrillSentencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSentencesTests.swift; sourceTree = "<group>"; };
 		C244BAAC67394F2F8CD60BB5 /* MoodMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapTests.swift; sourceTree = "<group>"; };
+		12B1809AECE94143B0104981 /* MoodRulesAuditTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodRulesAuditTests.swift; sourceTree = "<group>"; };
 		A144B68D51824B6DA82251DE /* MoodCheckerCoverageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodCheckerCoverageTests.swift; sourceTree = "<group>"; };
 		D82B012114424BFFA1827B8E /* SearchRankingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRankingTests.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B60 /* VerbUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbUsage.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				9D1FA2CB60F4886AD163AA56 /* SpanishCheckerTests.swift */,
 				A1B2C3D4E5F60718293A4B40 /* DrillSentencesTests.swift */,
 				C244BAAC67394F2F8CD60BB5 /* MoodMapTests.swift */,
+				12B1809AECE94143B0104981 /* MoodRulesAuditTests.swift */,
 				A144B68D51824B6DA82251DE /* MoodCheckerCoverageTests.swift */,
 				D82B012114424BFFA1827B8E /* SearchRankingTests.swift */,
 				A1B2C3D4E5F60718293A4B30 /* DrillSubjectsTests.swift */,
@@ -494,6 +497,7 @@
 				936299D414BDB758B390BDAD /* SpanishCheckerTests.swift in Sources */,
 				A1B2C3D4E5F60718293A4B41 /* DrillSentencesTests.swift in Sources */,
 				F3067F8EE57A4D4D84A9CE1B /* MoodMapTests.swift in Sources */,
+				65AFAF43C0624F9DB22F9C13 /* MoodRulesAuditTests.swift in Sources */,
 				EEE62F4A2D824127B260D5C9 /* MoodCheckerCoverageTests.swift in Sources */,
 				9F19F3D1CAAE4739B2210B9F /* SearchRankingTests.swift in Sources */,
 				A1B2C3D4E5F60718293A4B31 /* DrillSubjectsTests.swift in Sources */,

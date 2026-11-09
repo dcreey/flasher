@@ -511,6 +511,8 @@ struct MoodBriefingView: View {
     @State private var page = 0
     @State private var ready = false
     @State private var fill: CGFloat = 0
+    /// How long the Continue bar takes to fill; the animation is on the bar alone, so nothing else on screen moves with it.
+    @State private var fillSeconds: Double = 3
 
     /// Before the imperfect lesson, nothing with an imperfect subjunctive is shown.
     private var hides: Bool { progress.hidesImperfect && !MoodMap.imperfectSteps.contains(step.id) }
@@ -661,6 +663,7 @@ struct MoodBriefingView: View {
             ZStack(alignment: .leading) {
                 GeometryReader { geo in
                     Rectangle().fill(Color.purple).frame(width: geo.size.width * fill)
+                        .animation(fill == 0 ? nil : .linear(duration: fillSeconds), value: fill)
                 }
                 Text(page + 1 < pages ? "Continue" : "Start practice").font(.headline)
                     .frame(maxWidth: .infinity).padding(.vertical, 12)
@@ -692,7 +695,9 @@ struct MoodBriefingView: View {
         ready = false
         fill = 0
         let seconds = readingSeconds
-        withAnimation(.linear(duration: seconds)) { fill = 1 }
+        fillSeconds = seconds
+        // Start the fill on the next pass, so the bar animates from empty without animating the page around it
+        DispatchQueue.main.async { fill = 1 }
         let shown = page
         Task {
             try? await Task.sleep(for: .seconds(seconds))

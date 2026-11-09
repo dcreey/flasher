@@ -90,6 +90,10 @@ extension SpanishChecker {
         // After an article or preposition it's a noun or adjective ("mi hermana", "de pena"); lo, la, los, las can also be pronouns
         if determiners.contains(prev), !clitics.contains(prev) { return nil }
         var found = VerbForms.index[word]
+        // An accent on the wrong letter ("pudíeramos"): read it as the one form it can be
+        if found == nil, word != word.searchKey, let variants = SpanishChecker.accentVariants[word.searchKey], variants.count == 1 {
+            found = VerbForms.index[variants[0]]
+        }
         // Typed without its accent: "hicieramos" (hiciéramos), "podria" (podría)
         if found == nil, word == word.searchKey, word.hasSuffix("ramos") || word.hasSuffix("semos") || word.hasSuffix("ria") || word.hasSuffix("rias") || word.hasSuffix("riamos") || word.hasSuffix("rian") {
             found = Clitics.formOptions(word).map { VerbForms.Slot(infinitive: $0.infinitive, tense: $0.tense, person: $0.person) }
@@ -196,10 +200,11 @@ extension SpanishChecker {
             "~demostrar que", "~anunciar que", "~notar que", "~oír que", "~leer que", "~enterarse de que", "~enterar de que",
             "no hay duda de que", "no hay ninguna duda de que", "no cabe ninguna duda de que", "sin duda", "lo cierto es que", "lo que pasa es que", "~resultar que", "menos mal que", "no ~caber duda de que", "no ~haber duda de que",
             "la noticia de que", "y eso que", "si bien", "a lo mejor", "ya que", "puesto que", "así que", "por eso", "por lo tanto",
-            "porque",
+            "porque", "dado que", "visto que", "debido a que", "en vista de que",
         ])
         // Nouns + de que (Learn: belief.nouns)
-        all += triggers(.subjunctive, ["la posibilidad de que", "~tener ganas de que", "el riesgo de que"])
+        all += triggers(.subjunctive, ["la posibilidad de que", "~tener ganas de que", "el riesgo de que", "esperanza de que", "necesidad de que",
+                                        "nadie que", "ningún * que", "ninguna * que", "ni aunque", "mal que"])
         // Something unknown or that doesn't exist (Learn: unknown)
         all += triggers(.subjunctive, [
             "no ~haber nadie que", "no ~haber nada que", "no ~haber ningún * que", "no ~haber ninguna * que",
@@ -309,7 +314,8 @@ extension SpanishChecker {
             return nil
         }
         /// The main verb of the sentence outside a clause that starts at `start` and ends at `end`.
-        func mainVerb(outside start: Int, _ end: Int) -> VerbReading? {
+        /// `nearest`: the verb right before the clause (what a time clause hangs on: "dijo que me llamaría cuando llegara" → llamaría).
+        func mainVerb(outside start: Int, _ end: Int, nearest wantNearest: Bool = false) -> VerbReading? {
             let s = sentence(of: start)
             // The clause comes first ("Cuando llegues, te llamo"): the main verb follows the next comma
             if clauseStart.contains(start) || sentenceStart.contains(start) {
@@ -318,9 +324,22 @@ extension SpanishChecker {
                 while j < s.upperBound { if let r = verb(j), !(j > 0 && words[j - 1] == "que") { return r }; j += 1 }
                 return nil
             }
-            var j = start - 1
-            while j >= s.lowerBound { if let r = verb(j) { return r }; j -= 1 }
-            return nil
+            // The clause comes after: the main verb is the first one before it that isn't inside a que clause
+            // ("Declararías que ya es tarde si hubiera tiempo" → declararías, not es)
+            var subordinate = false
+            var first: VerbReading?
+            var nearest: VerbReading?
+            var j = s.lowerBound
+            while j < start {
+                if ["que", "cuando", "porque", "aunque", "donde", "quien"].contains(words[j]) { subordinate = true }
+                if let r = verb(j) {
+                    nearest = r
+                    if !subordinate, first == nil { first = r }
+                    j = r.last
+                }
+                j += 1
+            }
+            return wantNearest ? (nearest ?? first) : (first ?? nearest)
         }
         func attachedCommand(_ j: Int) -> Bool {
             let folded = words[j].folding(options: .diacriticInsensitive, locale: Locale(identifier: "es"))
@@ -356,6 +375,8 @@ extension SpanishChecker {
             while j < s.upperBound, words[j] == "no" || clitics.contains(words[j]) { if words[j] == "no" { negative = true }; j += 1 }
             guard j < s.upperBound else { return false }
             let slots = VerbForms.index[words[j]] ?? []
+            // Short tú commands that are also other words: "ve hacia él", "ten cuidado"
+            if !negative, ["ve", "ven", "haz", "pon", "sal", "di", "ten", "sé", "id", "oye", "mira", "espera", "dime", "dame"].contains(words[j]) { return true }
             if negative { return !slots.isEmpty && slots.allSatisfy { $0.tense == .subjunctivePresent || $0.tense == .imperative } }
             // A command form that isn't also a statement ("ven", "haz", "pon"; "venga" for usted)
             if !slots.isEmpty, slots.allSatisfy({ $0.tense == .imperative || $0.tense == .subjunctivePresent }), slots.contains(where: { $0.tense == .imperative }) { return true }
@@ -398,6 +419,10 @@ extension SpanishChecker {
             }).first else { continue }
             let (trigger, end, verbAt) = found
             consumed = end
+            // "Nadie que…" only counts as a relative at the start of a clause ("nunca le dije a nadie que…" reports)
+            if ["nadie", "ningún", "ninguna"].contains(trigger.pattern[0]), !(clauseStart.contains(i) || sentenceStart.contains(i)) { continue }
+            // "de cuando era niño" (from when): not a time clause to check
+            if trigger.need == .time, i > 0, words[i - 1] == "de" { continue }
             // "Para qué" written without its accent is a question, not "para que"
             if trigger.label == "para que", question(i) { continue }
             // "lo mejor" also starts "lo mejor es que" only when "es" follows; "cuándo" with an accent is a question word, matched below
@@ -412,6 +437,15 @@ extension SpanishChecker {
 
             switch trigger.need {
             case .subjunctive:
+                let feeling = trigger.pattern.contains { ["~alegrar", "~gustar", "~encantar", "~molestar", "~importar", "~preocupar", "~sorprender",
+                    "~extrañar", "~lamentar", "~odiar", "~agradecer", "~doler", "~fastidiar", "~enojar", "~enfadar", "~asustar", "miedo", "pena",
+                    "rabia", "lástima", "vergüenza", "~estar", "bueno", "bien", "mal", "raro"].contains($0) }
+                if clause.isIndicative, feeling, said != "qué bueno que", clause.isPast || clause.perfect && !clause.tenses.contains(.present) {
+                    // "Me alegro de que terminaron": recorded in Latin America for a real past fact; the standard is the subjunctive
+                    let fix = form(clause, clause.perfect ? .subjunctiveImperfect : .subjunctiveImperfect, clause.first)
+                    add(.tip, span(i, clause.last), "After “\(said)” the standard is the subjunctive\(fix.map { ": “\($0)”" } ?? ""). The indicative for something that happened is heard in Latin America, to stress the fact.", fix)
+                    continue
+                }
                 if clause.isIndicative, said == "qué bueno que", clause.isPast || clause.perfect {
                     let fix = form(clause, .subjunctivePresent, clause.first)
                     add(.tip, span(i, clause.last), "“¡Qué bueno que \(say(clause))!” is common in Mexico for something that happened; the standard is the subjunctive\(fix.map { ": “hayas …” or “\($0)”" } ?? "").", nil)
@@ -493,6 +527,9 @@ extension SpanishChecker {
                     let fix = form(clause, .present, clause.first)
                     let unreal = form(clause, .subjunctiveImperfect, clause.first)
                     flag(clause, from: i, "After “\(said)” Spanish never uses the present subjunctive\(fix.map { ": “\($0)”" } ?? "")\(unreal.map { ". For something unlikely or unreal: “\($0)”" } ?? "").", fix)
+                } else if clause.tenses == [.future], clauseStart.contains(i) || sentenceStart.contains(i) {
+                    let fix = form(clause, .present, clause.first)
+                    flag(clause, from: i, "“Si” never takes the future: for a real condition use the present\(fix.map { ": “\($0)”" } ?? "").", fix)
                 } else if clause.tenses == [.conditional] {
                     let fix = form(clause, .subjunctiveImperfect, clause.first)
                     flag(clause, from: i, "The conditional never goes after “si”. For something unlikely or unreal use the \(clause.perfect ? "pluperfect" : "imperfect") subjunctive\(fix.map { ": “\($0)”" } ?? ""); the conditional goes in the other half.", fix)
@@ -501,9 +538,11 @@ extension SpanishChecker {
                     if other.tenses == [.conditional], clause.isIndicative, clause.tenses.contains(.present) || clause.tenses.contains(.imperfect) {
                         let fix = form(clause, .subjunctiveImperfect, clause.first)
                         flag(clause, from: i, "With “\(say(other))” (would) the si half is unreal, so it takes the \(clause.perfect ? "pluperfect" : "imperfect") subjunctive\(fix.map { ": “si \($0)”" } ?? ""). Si + \(clause.perfect ? "pluperfect" : clause.isPresent ? "present" : "imperfect") goes with the \(clause.isPresent ? "present or future" : "indicative").", fix.map { "si \($0)" })
-                    } else if clause.tenses == [.subjunctiveImperfect], other.isIndicative, other.tenses.contains(.future) {
-                        let fix = form(other, .conditional, other.first)
-                        flag(other, from: other.first, "Si + \(clause.perfect ? "pluperfect" : "imperfect") subjunctive goes with the conditional\(fix.map { ": “\($0)”" } ?? ""), not the future.", fix)
+                    } else if clause.tenses == [.subjunctiveImperfect], other.isIndicative, other.tenses.contains(.future) || other.isPresent,
+                              !command(outside: i, clause.last) {
+                        // "Entendemos si no pudieran…": an unreal si goes with "would" (a command is fine: "si pudieras, llámame")
+                        let fix = form(other, other.perfect ? .conditional : .conditional, other.first)
+                        flag(other, from: other.first, "Si + \(clause.perfect ? "pluperfect" : "imperfect") subjunctive (“\(say(clause))”) is about something unreal or unlikely, so the other half takes the conditional\(fix.map { ": “\($0)”" } ?? ""), not the \(other.isPresent ? "present" : "future"). If it's a real possibility, keep the present and use si + present: “si no \(form(clause, .present, clause.first) ?? "…")”.", fix)
                     }
                 }
             case .pastOnly:
@@ -521,8 +560,15 @@ extension SpanishChecker {
                     break
                 }
                 let commandMain = command(outside: i, clause.last)
-                let other = mainVerb(outside: i, clause.last)
+                let other = mainVerb(outside: i, clause.last, nearest: true)
                 guard commandMain || other != nil else { break }
+                // "Dijo que me llamaría cuando llegaba": still to come from a past point, so the imperfect subjunctive
+                if let other, other.tenses == [.conditional], clause.tenses == [.imperfect], said != "mientras",
+                   words[sentence(of: i).lowerBound..<other.first].contains("que") {
+                    let fix = form(clause, .subjunctiveImperfect, clause.first)
+                    flag(clause, from: i, "“\(say(other))” looks ahead from the past, so “\(said)” is about something still to come then: imperfect subjunctive\(fix.map { ": “\($0)”" } ?? "").", fix)
+                    break
+                }
                 let forward = commandMain || (other.map { $0.tenses.contains(.future) && $0.isIndicative } ?? false)
                 if forward, clause.isPresent, said != "mientras" {
                     let fix = form(clause, .subjunctivePresent, clause.first)

@@ -153,11 +153,17 @@ extension SpanishChecker {
             // "Quiero que yo vaya": with the same subject a wish takes the infinitive ("quiero ir")
             // "Espero que (yo) pueda ir" is accepted, so esperar isn't on the list
             let wishes: Set<String> = ["quiero", "prefiero", "necesito", "deseo"]
-            if wishes.contains(trigger[0]), trigger.count == 2, i + 3 < tokens.count, tokens[i + 2].lower == "yo", adjacent(i + 1), adjacent(i + 2),
-               let infinitive = Clitics.formOptions(tokens[i + 3].lower).first(where: { $0.person == 0 && !$0.infinitive.contains(" ") })?.infinitive {
-                let fix = "\(tokens[i].text) \(infinitive)"
-                add(.verb, span(i, i + 3), "When the person who wants and the person who does are the same, Spanish uses the infinitive: “\(fix)”, not “que yo…”.", fix)
-                continue
+            if wishes.contains(trigger[0]), trigger.count == 2, i + 3 < tokens.count, tokens[i + 2].lower == "yo", adjacent(i + 1), adjacent(i + 2) {
+                // Pronouns may come between: "prefiero que yo lo haga" → "prefiero hacerlo"
+                var v = i + 3
+                var attached: [String] = []
+                while v < tokens.count, pronounWords.contains(tokens[v].lower), adjacent(v - 1) { attached.append(tokens[v].lower); v += 1 }
+                if v < tokens.count, adjacent(v - 1),
+                   let infinitive = Clitics.formOptions(tokens[v].lower).first(where: { $0.person == 0 && !$0.infinitive.contains(" ") })?.infinitive {
+                    let fix = "\(tokens[i].text) \(attached.isEmpty ? infinitive : SpanishStress.attach(infinitive, pronouns: attached, person: 0))"
+                    add(.verb, span(i, v), "When the person who wants and the person who does are the same, Spanish uses the infinitive: “\(fix)”, not “que yo…”.", fix)
+                    continue
+                }
             }
             var last = i + trigger.count - 1
             while last + 1 < tokens.count, adjacent(last), !nounPhraseStarters.contains(tokens[last + 1].lower), subjects.contains(tokens[last + 1].lower) || tokens[last + 1].lower == "no" || pronounWords.contains(tokens[last + 1].lower) { last += 1 }
@@ -166,6 +172,9 @@ extension SpanishChecker {
             let options = Clitics.formOptions(verb.lower)
             let tenses = Set(options.map(\.tense))
             guard !tenses.isEmpty, tenses.isDisjoint(with: [.subjunctivePresent, .subjunctiveImperfect]) else { continue }
+            // A past fact after a feeling ("me alegro de que terminaron") is recorded in Latin America: the mood engine gives a heads-up instead
+            let feelings: Set<String> = ["alegra", "alegro", "gusta", "molesta", "sorprende", "encanta", "preocupa", "miedo", "pena", "lástima", "raro", "temo"]
+            if !trigger.filter({ feelings.contains($0) }).isEmpty, tenses.isSubset(of: [.preterite, .imperfect]) { continue }
             let order = Tense.allCases
             let best = options.min { (order.firstIndex(of: $0.tense) ?? 0) < (order.firstIndex(of: $1.tense) ?? 0) }
             let fix = best.flatMap { Clitics.formOf($0.infinitive, .subjunctivePresent, $0.person) }
