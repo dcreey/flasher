@@ -33,6 +33,23 @@ enum VerbForms {
     }()
 
     static var index: [String: [Slot]] { built.forms }
+
+    /// The verb a form most likely belongs to: the plain one, before phrase verbs that share its forms ("echaron" is echar, not
+    /// echar relajo or echar ganas), then the most common.
+    static func primary(_ form: String) -> Slot? {
+        guard let slots = index[form.lowercased()], !slots.isEmpty else { return nil }
+        func rank(_ slot: Slot) -> (Int, Int) {
+            (slot.infinitive.contains(" ") ? 1 : 0, Lexicon.shared.wordsByID[slot.infinitive]?.order ?? Int.max)
+        }
+        return slots.min { rank($0) < rank($1) }
+    }
+    /// Every verb a form could belong to, the plain verb first, then phrase verbs by how common they are ("echaron": echar, echar relajo…).
+    static func candidates(_ form: String) -> [Word] {
+        var seen = Set<String>()
+        let slots = (index[form.lowercased()] ?? []).filter { seen.insert($0.infinitive).inserted }
+        let words = slots.compactMap { Lexicon.shared.wordsByID[$0.infinitive] }
+        return words.sorted { ($0.spanish.contains(" ") ? 1 : 0, $0.order) < ($1.spanish.contains(" ") ? 1 : 0, $1.order) }
+    }
     /// Every participle and gerund as written ("tenido", "viendo"), which the form index doesn't hold.
     static var nonFiniteForms: Set<String> { built.participles }
     /// Participle as written → its verb ("comido" → comer, "dicho" → decir).
@@ -658,7 +675,7 @@ enum WordLinks {
 
     /// Like `resolve`, but a word that is also a verb form is read as the verb after a pronoun or "no".
     static func resolve(_ token: String, after previous: String?) -> Word? {
-        if let previous, beforeVerb.contains(previous.lowercased()), let slot = VerbForms.index[token.lowercased()]?.first,
+        if let previous, beforeVerb.contains(previous.lowercased()), let slot = VerbForms.primary(token),
            let verb = Lexicon.shared.wordsByID[slot.infinitive] { return verb }
         return resolve(token)
     }
@@ -670,7 +687,10 @@ enum WordLinks {
         let exact = words[lower]
         if let base = DictionaryIndex.nounsWithForm(lower).first, exact == nil || base.order < exact!.order { return base }
         if let exact { return exact }
-        if let slot = VerbForms.index[lower]?.first, let word = words[slot.infinitive] { return word }
+        if let slot = VerbForms.primary(lower), let word = words[slot.infinitive] { return word }
+        // Participles and gerunds link to their verb: "echado", "echando" → echar
+        if let owner = VerbForms.participleOwners[lower], let word = words[owner] { return word }
+        if let owner = VerbForms.gerunds[lower.searchKey], let word = words[owner] { return word }
         for candidate in [String(lower.dropLast(2)), String(lower.dropLast()), String(lower.dropLast(2)) + "o"] where candidate.count >= 3 {
             if lower.hasSuffix("es"), candidate == String(lower.dropLast(2)), let word = words[candidate] { return word }
             if lower.hasSuffix("s"), candidate == String(lower.dropLast()), let word = words[candidate] { return word }
@@ -681,11 +701,11 @@ enum WordLinks {
     }
 
     /// `form` is what was written when it is a verb with pronouns attached, so the page can explain it.
-    static func url(for word: Word, form: String? = nil, focus: ConjugationFocus? = nil) -> URL? {
+    static func url(for word: Word, form: String? = nil, focus: ConjugationFocus? = nil, alternatives: [Word] = []) -> URL? {
         var parts = URLComponents()
         parts.scheme = "elpie"
         parts.host = "word"
-        parts.queryItems = [URLQueryItem(name: "id", value: word.id)] + (form.map { [URLQueryItem(name: "form", value: $0)] } ?? []) + (focus?.queryItems ?? [])
+        parts.queryItems = [URLQueryItem(name: "id", value: word.id)] + (alternatives.count > 1 ? [URLQueryItem(name: "alts", value: alternatives.prefix(8).map(\.id).joined(separator: "|"))] : []) + (form.map { [URLQueryItem(name: "form", value: $0)] } ?? []) + (focus?.queryItems ?? [])
         return parts.url
     }
 
@@ -701,8 +721,15 @@ enum WordLinks {
             let token = String(plain[range])
             defer { previous = token }
             let url: URL?
-            if let previous, beforeVerb.contains(previous.lowercased()), let verb = resolve(token, after: previous), verb.partOfSpeech == .infinitive { url = WordLinks.url(for: verb) }
-            else if let word = resolvePlain(token) { url = WordLinks.url(for: word) }
+            if let previous, beforeVerb.contains(previous.lowercased()), let verb = resolve(token, after: previous), verb.partOfSpeech == .infinitive {
+                let others = VerbForms.candidates(token)
+                url = WordLinks.url(for: verb, alternatives: others.first == verb ? others : [])
+            }
+            else if let word = resolvePlain(token) {
+                // A verb form several verbs share ("echaron": echar, echar relajo…) offers the choice when tapped
+                let others = VerbForms.candidates(token)
+                url = WordLinks.url(for: word, alternatives: others.first == word ? others : [])
+            }
             else if let attached = Clitics.resolve(token) { url = WordLinks.url(for: attached.verb, form: token) }
             else { continue }
             guard let url,
@@ -721,6 +748,13 @@ private struct WordLinkNavigation: ViewModifier {
     let opensInDictionary: Bool
     @Environment(AppRouter.self) private var router: AppRouter?
     @State private var target: SearchHit?
+    @State private var choices: [Word] = []
+    @State private var choosing = false
+
+    private func open(_ word: Word, attached: Clitics.Match? = nil, focus: ConjugationFocus? = nil) {
+        if opensInDictionary, let router { router.showWord(word, attached: attached, focus: focus) }
+        else { target = SearchHit(word: word, diminutive: nil, attached: attached, focus: focus) }
+    }
 
     func body(content: Content) -> some View {
         content
@@ -729,12 +763,21 @@ private struct WordLinkNavigation: ViewModifier {
                 guard url.scheme == "elpie",
                       let id = items?.first(where: { $0.name == "id" })?.value,
                       let word = Lexicon.shared.wordsByID[id] else { return .systemAction }
+                if let alts = items?.first(where: { $0.name == "alts" })?.value {
+                    let list = alts.split(separator: "|").compactMap { Lexicon.shared.wordsByID[String($0)] }
+                    if list.count > 1 { choices = list; choosing = true; return .handled }
+                }
                 let attached = items?.first(where: { $0.name == "form" })?.value.flatMap(Clitics.resolve)
                 let focus = ConjugationFocus(queryItems: items)
-                if opensInDictionary, let router { router.showWord(word, attached: attached, focus: focus) }
-                else { target = SearchHit(word: word, diminutive: nil, attached: attached, focus: focus) }
+                open(word, attached: attached, focus: focus)
                 return .handled
             })
+            .confirmationDialog("Which one do you mean?", isPresented: $choosing, titleVisibility: .visible) {
+                ForEach(choices) { word in
+                    Button("\(word.spanish) — \(word.english)") { open(word) }
+                }
+                Button("Cancel", role: .cancel) {}
+            }
             .navigationDestination(item: $target) { WordDetailView(word: $0.word, diminutive: $0.diminutive, attached: $0.attached, focus: $0.focus) }
     }
 }

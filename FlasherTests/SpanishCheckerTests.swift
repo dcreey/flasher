@@ -872,4 +872,18 @@ final class DecirFutureTests: XCTestCase {
         // desdecir is fully like decir
         XCTAssertEqual(Conjugator.conjugate("desdecir")?.form(.future, 0), "desdiré")
     }
+
+    /// A tapped verb form opens the plain verb, not a phrase verb that shares its forms ("echaron" is echar, not echar relajo).
+    func testSharedVerbFormsOfferEveryVerb() {
+        let names = VerbForms.candidates("echaron").map(\.spanish)
+        XCTAssertEqual(names.first, "echar")
+        XCTAssertTrue(names.count > 1)
+        let url = WordLinks.linked("Me echaron").runs.compactMap(\.link).last
+        XCTAssertTrue(url?.absoluteString.contains("alts=") ?? false)
+    }
+
+    func testWordLinksPreferThePlainVerb() {
+        for form in ["echaron", "echó", "echo", "echado", "echando"] { XCTAssertEqual(WordLinks.resolve(form)?.spanish, "echar", form) }
+        XCTAssertEqual(WordLinks.resolve("tomaron")?.spanish, "tomar")
+    }
 }
