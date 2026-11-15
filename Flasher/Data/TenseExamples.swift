@@ -195,6 +195,7 @@ extension TenseExamples {
     static func generated(tense: Tense, person: Int, conjugation: Conjugation, gloss: String, pronouns: [String] = []) -> ExampleSentence? {
         guard let form = conjugation.form(tense, person) ?? nil else { return nil }
         if conjugation.infinitive == "haber" { return generatedHaber(tense: tense, person: person, form: form) }
+        if conjugation.infinitive == "soler" { return generatedSoler(tense: tense, person: person, form: form) }
         if let base = dativeVerbs[conjugation.infinitive] {
             return generatedDative(tense: tense, person: person, form: form, base: base)
         }
@@ -253,6 +254,21 @@ extension TenseExamples {
             }
         }
         return ExampleSentence(spanish: spanish, english: english)
+    }
+
+    /// "soler" needs the verb it describes: "Hoy yo suelo comer temprano." / "Today I usually eat early."
+    private static func generatedSoler(tense: Tense, person: Int, form: String) -> ExampleSentence? {
+        let subject = spanishSubjects[person]
+        let who = englishSubjects[person]
+        let eats = person == 2 ? "eats" : "eat"
+        switch tense {
+        case .present: return ExampleSentence(spanish: "Hoy \(subject) \(form) comer temprano.", english: "Today \(who) usually \(eats) early.")
+        case .imperfect: return ExampleSentence(spanish: "Antes \(subject) \(form) comer temprano.", english: "Before, \(who) used to eat early.")
+        case .preterite: return ExampleSentence(spanish: "Ayer \(subject) \(form) comer temprano.", english: "Yesterday \(who) were in the habit of eating early.")
+        case .subjunctivePresent: return ExampleSentence(spanish: "Espero que \(subject) \(form) comer temprano.", english: "I hope \(who) usually \(eats) early.")
+        case .subjunctiveImperfect: return ExampleSentence(spanish: "Ojalá \(subject) \(form) comer temprano.", english: "I wish \(who) usually ate early.")
+        default: return nil
+        }
     }
 
     /// "haber" is the helper in compound tenses, so it needs a participle: "Hoy yo he comido." / "Today I have eaten."

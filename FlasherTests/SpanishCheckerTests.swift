@@ -874,6 +874,50 @@ final class DecirFutureTests: XCTestCase {
     }
 
     /// A tapped verb form opens the plain verb, not a phrase verb that shares its forms ("echaron" is echar, not echar relajo).
+    func testVerbSearchesDoNotPickAFilter() {
+        for query in ["to taste", "to eat food", "to cook", "in town", "to the house"] { XCTAssertNil(TypeCategory.parse(query), query) }
+        XCTAssertEqual(TypeCategory.parse("rich food")?.category, .food)
+        XCTAssertEqual(TypeCategory.parse("a heavy person")?.category, .person)
+    }
+
+    /// Forms checked against Wiktionary's alternation lists and the RAE models (see docs/research/…/Spanish irregular verbs audit).
+    func testIrregularVerbAudit() throws {
+        let rows: [(String, Tense, Int, String)] = [
+            ("adquirir", .present, 0, "adquiero"), ("rogar", .present, 0, "ruego"), ("volcar", .subjunctivePresent, 0, "vuelque"),
+            ("cocer", .present, 0, "cuezo"), ("moler", .present, 1, "mueles"), ("tostar", .present, 2, "tuesta"),
+            ("gemir", .present, 0, "gimo"), ("rendir", .preterite, 2, "rindió"), ("concebir", .present, 0, "concibo"),
+            ("heder", .present, 2, "hiede"), ("teñir", .present, 0, "tiño"), ("ceñir", .preterite, 2, "ciñó"),
+            ("verter", .present, 0, "vierto"), ("cegar", .subjunctivePresent, 0, "ciegue"), ("holgar", .present, 0, "huelgo"),
+            ("envergonzar", .present, 0, "envergüenzo"), ("desandar", .preterite, 0, "desanduve"),
+            ("prever", .present, 0, "preveo"), ("prever", .present, 1, "prevés"), ("prever", .present, 2, "prevé"),
+            ("prever", .preterite, 2, "previó"), ("prever", .subjunctivePresent, 0, "prevea"), ("rever", .imperfect, 0, "reveía"),
+            ("asir", .present, 0, "asgo"), ("asir", .subjunctivePresent, 0, "asga"),
+            ("erguir", .present, 0, "yergo"), ("erguir", .preterite, 2, "irguió"), ("erguir", .subjunctivePresent, 3, "irgamos"),
+            ("delinquir", .present, 0, "delinco"), ("delinquir", .subjunctivePresent, 0, "delinca"),
+            ("aullar", .present, 0, "aúllo"), ("maullar", .subjunctivePresent, 0, "maúlle"), ("aupar", .present, 0, "aúpo"),
+            ("desconfiar", .present, 0, "desconfío"), ("ansiar", .present, 0, "ansío"), ("extraviar", .present, 0, "extravío"),
+            ("telegrafiar", .present, 0, "telegrafío"), ("enraizar", .present, 0, "enraízo"), ("rehuir", .present, 0, "rehúyo"),
+            ("cambiar", .present, 0, "cambio"), ("estudiar", .present, 0, "estudio"),
+        ]
+        for (verb, tense, person, expected) in rows {
+            XCTAssertEqual(Conjugator.conjugate(verb)?.form(tense, person), expected, "\(verb) \(tense) \(person)")
+        }
+        XCTAssertEqual(Conjugator.conjugate("prever")?.participle, "previsto")
+        XCTAssertEqual(Conjugator.conjugate("entrever")?.participle, "entrevisto")
+        XCTAssertEqual(Conjugator.conjugate("erguir")?.gerund, "irguiendo")
+    }
+
+    func testSolerChangesItsStem() throws {
+        let c = try XCTUnwrap(Conjugator.conjugate("soler"))
+        XCTAssertEqual(c.form(.present, 0), "suelo")
+        XCTAssertEqual(c.form(.present, 3), "solemos")
+        XCTAssertEqual(c.form(.subjunctivePresent, 2), "suela")
+        XCTAssertEqual(c.form(.imperfect, 0), "solía")
+        let made = TenseExamples.generated(tense: .present, person: 0, conjugation: c, gloss: "to usually")
+        XCTAssertEqual(made?.spanish, "Hoy yo suelo comer temprano.")
+        XCTAssertFalse(made?.english.isEmpty ?? true)
+    }
+
     func testSharedVerbFormsOfferEveryVerb() {
         let names = VerbForms.candidates("echaron").map(\.spanish)
         XCTAssertEqual(names.first, "echar")

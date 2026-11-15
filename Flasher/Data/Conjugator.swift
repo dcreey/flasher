@@ -151,7 +151,6 @@ enum Conjugator {
         forms[.subjunctivePresent] = subjunctive
         forms[.subjunctiveImperfect] = engine.subjunctiveImperfectForms(preterite: preterite)
         forms[.imperative] = imperative
-
         let regular = engine.regularForms()
         return Conjugation(
             infinitive: engine.inf,
@@ -180,6 +179,7 @@ enum Conjugator {
         case uue      // jugar
         case hue      // oler
         case uediaeresis  // avergonzar
+        case iie      // adquirir
     }
 
     private struct Irr {
@@ -218,6 +218,13 @@ enum Conjugator {
 
     /// Verbs that merely look like compounds of an irregular verb but are regular.
     private static let regularLookalikes: Set<String> = ["pretender", "compensar", "recompensar", "dispensar"]
+
+    private static func verCompound(_ p: String) -> Irr {
+        Irr(yoStem: p + "ve", participle: p + "visto",
+            present: [p + "veo", p + "vés", p + "vé", p + "vemos", p + "véis", p + "vén"],
+            preterite: [p + "ví", p + "viste", p + "vió", p + "vimos", p + "visteis", p + "vieron"],
+            imperfect: [p + "veía", p + "veías", p + "veía", p + "veíamos", p + "veíais", p + "veían"])
+    }
 
     private static let sixes = ["o", "as", "a", "amos", "áis", "an"]
 
@@ -258,7 +265,18 @@ enum Conjugator {
             present: ["sé", "sabes", "sabe", "sabemos", "sabéis", "saben"],
             subjunctive: ["sepa", "sepas", "sepa", "sepamos", "sepáis", "sepan"])),
         Entry("caber", false, Irr(yoStem: "quep", pretStem: "cup", futStem: "cabr")),
-        Entry("andar", false, Irr(pretStem: "anduv")),
+        Entry("asir", false, Irr(yoStem: "asg")),
+        // yergo / irgo: the RAE accepts both; the -ir shift shows in the preterite, gerund and nosotros subjunctive
+        Entry("erguir", false, Irr(
+            gerund: "irguiendo",
+            present: ["yergo", "yergues", "yergue", "erguimos", "erguís", "yerguen"],
+            preterite: ["erguí", "erguiste", "irguió", "erguimos", "erguisteis", "irguieron"],
+            subjunctive: ["yerga", "yergas", "yerga", "irgamos", "irgáis", "yergan"],
+            imperative: [nil, "yergue", "yerga", "irgamos", "erguid", "yergan"])),
+        // Verbs built on "ver" take an accent where "ver" has none: prevé, prevés, prevéis
+        Entry("prever", false, verCompound("pre")), Entry("entrever", false, verCompound("entre")),
+        Entry("antever", false, verCompound("ante")), Entry("rever", false, verCompound("re")),
+        Entry("andar", false, Irr(pretStem: "anduv")), Entry("desandar", false, Irr(pretStem: "desanduv")),
         Entry("poder", false, Irr(pretStem: "pud", futStem: "podr", gerund: "pudiendo")),
         Entry("querer", false, Irr(pretStem: "quis", futStem: "querr")),
         Entry("satisfacer", false, Irr(
@@ -298,7 +316,7 @@ enum Conjugator {
         // o → ue
         Entry("cordar", true, .ue), Entry("contar", true, .ue), Entry("encontrar", true, .ue),
         Entry("costar", true, .ue), Entry("mostrar", true, .ue), Entry("probar", true, .ue),
-        Entry("mover", true, .ue), Entry("volver", true, .ue), Entry("solver", true, .ue),
+        Entry("soler", false, .ue), Entry("mover", true, .ue), Entry("volver", true, .ue), Entry("solver", true, .ue),
         Entry("soltar", true, .ue), Entry("sonar", true, .ue), Entry("soñar", true, .ue),
         Entry("volar", true, .ue), Entry("forzar", true, .ue), Entry("colgar", true, .ue),
         Entry("doler", true, .ue), Entry("morder", true, .ue), Entry("torcer", true, .ue),
@@ -318,6 +336,60 @@ enum Conjugator {
         Entry("hervir", true, .eieIr), Entry("requerir", true, .eieIr), Entry("venir", true, .eieIr),
         Entry("arrepentir", false, .eieIr),
         Entry("dormir", true, .ueIr), Entry("morir", true, .ueIr),
+        Entry("cocer", true, .ue),
+        // Added from the audit against Wiktionary's alternation lists
+        // ue
+        Entry("abuñolar", false, .ue), Entry("aclocar", false, .ue), Entry("aforar", false, .ue), Entry("agorar", false, .ue),
+        Entry("amoblar", false, .ue), Entry("amolar", false, .ue), Entry("asolar", false, .ue), Entry("asonar", false, .ue),
+        Entry("atronar", false, .ue), Entry("consonar", false, .ue), Entry("degollar", false, .ue), Entry("denostar", false, .ue),
+        Entry("descollar", false, .ue), Entry("desconsolar", false, .ue), Entry("descornar", false, .ue), Entry("desolar", false, .ue),
+        Entry("desollar", false, .ue), Entry("despoblar", false, .ue), Entry("destrocar", false, .ue), Entry("disonar", false, .ue),
+        Entry("dolar", false, .ue), Entry("engrosar", false, .ue), Entry("enrodar", false, .ue), Entry("ensoñar", false, .ue),
+        Entry("envergonzar", false, .uediaeresis), Entry("holgar", false, .ue), Entry("hollar", false, .ue), Entry("improbar", false, .ue),
+        Entry("mancornar", false, .ue), Entry("moler", false, .ue), Entry("poblar", false, .ue), Entry("regoldar", false, .ue),
+        Entry("repoblar", false, .ue), Entry("resollar", false, .ue), Entry("retrocar", false, .ue), Entry("revolar", false, .ue),
+        Entry("revolcar", false, .ue), Entry("rogar", false, .ue), Entry("superpoblar", false, .ue), Entry("tostar", false, .ue),
+        Entry("trastrocar", false, .ue), Entry("trocar", false, .ue), Entry("volcar", false, .ue),
+        // eie
+        Entry("acrecentar", false, .eie), Entry("adestrar", false, .eie), Entry("aneblar", false, .eie),
+        Entry("apacentar", false, .eie), Entry("aserrar", false, .eie), Entry("aspaventar", false, .eie), Entry("atentar", false, .eie),
+        Entry("atestar", false, .eie), Entry("bienquerer", false, .eie), Entry("cegar", false, .eie),
+        Entry("cerner", false, .eie), Entry("cogobernar", false, .eie), Entry("concertar", false, .eie), Entry("dentar", false, .eie),
+        Entry("desacertar", false, .eie), Entry("desalentar", false, .eie), Entry("desasosegar", false, .eie), Entry("desatentar", false, .eie),
+        Entry("desempedrar", false, .eie), Entry("desencerrar", false, .eie), Entry("desenterrar", false, .eie), Entry("desgobernar", false, .eie),
+        Entry("deshelar", false, .eie), Entry("desmembrar", false, .eie), Entry("desosegar", false, .eie), Entry("desplegar", false, .eie),
+        Entry("destemplar", false, .eie), Entry("desterrar", false, .eie), Entry("desventar", false, .eie), Entry("emendar", false, .eie),
+        Entry("emparentar", false, .eie), Entry("empedrar", false, .eie), Entry("ensangrentar", false, .eie), Entry("enterrar", false, .eie),
+        Entry("escalentar", false, .eie), Entry("escarmentar", false, .eie), Entry("hacendar", false, .eie), Entry("heder", false, .eie),
+        Entry("helar", false, .eie), Entry("hender", false, .eie), Entry("herbar", false, .eie), Entry("herrar", false, .eie),
+        Entry("invernar", false, .eie), Entry("malquerer", false, .eie), Entry("manifestar", false, .eie), Entry("melar", false, .eie),
+        Entry("mentar", false, .eie), Entry("merendar", false, .eie), Entry("plegar", false, .eie), Entry("quebrar", false, .eie),
+        Entry("reasentar", false, .eie), Entry("refregar", false, .eie), Entry("regimentar", false, .eie), Entry("remendar", false, .eie),
+        Entry("replegar", false, .eie), Entry("requebrar", false, .eie), Entry("resembrar", false, .eie), Entry("restregar", false, .eie),
+        Entry("retemblar", false, .eie), Entry("reventar", false, .eie), Entry("salpimentar", false, .eie), Entry("sarmentar", false, .eie),
+        Entry("segar", false, .eie), Entry("serrar", false, .eie), Entry("sobreentender", false, .eie), Entry("sosegar", false, .eie),
+        Entry("soterrar", false, .eie), Entry("subarrendar", false, .eie), Entry("subentender", false, .eie), Entry("templar", false, .eie),
+        Entry("tentar", false, .eie), Entry("transcender", false, .eie), Entry("trasegar", false, .eie), Entry("travesar", false, .eie),
+        Entry("ventar", false, .eie), Entry("verter", false, .eie),
+        // iie
+        Entry("adquirir", false, .iie), Entry("inquirir", false, .iie), Entry("perquirir", false, .iie), Entry("readquirir", false, .iie),
+        // eieIr
+        Entry("advenir", false, .eieIr), Entry("antevenir", false, .eieIr), Entry("circunferir", false, .eieIr), Entry("circunvenir", false, .eieIr),
+        Entry("conquerir", false, .eieIr), Entry("controvertir", false, .eieIr), Entry("desavenir", false, .eieIr), Entry("desconvenir", false, .eieIr),
+        Entry("entrevenir", false, .eieIr), Entry("injerir", false, .eieIr), Entry("malherir", false, .eieIr), Entry("reconvenir", false, .eieIr),
+        Entry("revenir", false, .eieIr), Entry("supervenir", false, .eieIr), Entry("zaherir", false, .eieIr),
+        // ei
+        Entry("ceñir", false, .ei), Entry("colegir", false, .ei), Entry("comedir", false, .ei), Entry("concebir", false, .ei),
+        Entry("constreñir", false, .ei), Entry("desceñir", false, .ei), Entry("desteñir", false, .ei), Entry("embestir", false, .ei),
+        Entry("estreñir", false, .ei), Entry("gemir", false, .ei), Entry("henchir", false, .ei), Entry("heñir", false, .ei),
+        Entry("preconcebir", false, .ei), Entry("premir", false, .ei), Entry("rendir", false, .ei), Entry("reteñir", false, .ei),
+        Entry("reñir", false, .ei), Entry("subseguir", false, .ei), Entry("teñir", false, .ei),
+        // ueIr
+        Entry("desmorir", false, .ueIr), Entry("entremorir", false, .ueIr), Entry("maldormir", false, .ueIr), Entry("premorir", false, .ueIr),
+        // hue
+        Entry("desosar", false, .hue),
+        // uue
+        Entry("rejugar", false, .uue), Entry("sobrejugar", false, .uue),
     ]
 
     private static let participles: [Entry<String>] = [
@@ -333,6 +405,12 @@ enum Conjugator {
         "ampliar": "i", "criar": "i", "desviar": "i", "guiar": "i", "fiar": "i", "esquiar": "i", "variar": "i",
         "espiar": "i", "liar": "i", "aliar": "i", "rociar": "i", "resfriar": "i", "reunir": "u", "prohibir": "i",
         "cohibir": "i", "aislar": "i", "ahumar": "u", "aunar": "u", "rehusar": "u",
+        "ansiar": "i", "arriar": "i", "ataviar": "i", "averiar": "i", "aviar": "i", "chirriar": "i", "ciar": "i", "contrariar": "i",
+        "descarriar": "i", "desconfiar": "i", "desliar": "i", "desvariar": "i", "escalofriar": "i", "expiar": "i", "extasiar": "i",
+        "extraviar": "i", "hastiar": "i", "malcriar": "i", "miar": "i", "piar": "i", "porfiar": "i", "reenviar": "i", "amnistiar": "i",
+        "telegrafiar": "i", "radiografiar": "i", "mecanografiar": "i", "autografiar": "i", "cartografiar": "i", "aerografiar": "i",
+        "cablegrafiar": "i", "coreografiar": "i", "xerografiar": "i", "enraizar": "i", "aullar": "u", "maullar": "u", "aupar": "u",
+        "rehuir": "u", "sahumar": "u", "ahitar": "i", "rehilar": "i", "airar": "i", "amohinar": "i", "ahincar": "i", "ahijar": "i", "descafeinar": "i",
     ]
 
     private static func lookup<T>(_ table: [Entry<T>], _ inf: String) -> (value: T, prefix: String)? {
@@ -412,13 +490,17 @@ enum Conjugator {
             case .ei: s = Conjugator.replacingLast("e", with: "i", in: s)
             case .uue: s = Conjugator.replacingLast("u", with: "ue", in: s)
             case .hue: s = Conjugator.replacingLast("o", with: "hue", in: s)
+            case .iie: s = Conjugator.replacingLast("i", with: "ie", in: s)
             case .uediaeresis: s = Conjugator.replacingLast("o", with: "üe", in: s)
             }
             if let stressed {
                 let accented: Character = ["i": "í", "u": "ú"][stressed] ?? stressed
                 s = Conjugator.replacingLast(stressed, with: String(accented), in: s)
             }
-            if isUir { s = uirStem }
+            if isUir {
+                s = uirStem
+                if let stressed { s = Conjugator.replacingLast(stressed, with: String(["i": "í", "u": "ú"][stressed] ?? stressed), in: s) }
+            }
             return s
         }
 
@@ -448,7 +530,8 @@ enum Conjugator {
                 else if s.hasSuffix("z") { s = String(s.dropLast()) + "c" }
             }
             if kind != .ar, e == "a" || e == "o" {
-                if s.hasSuffix("gu") || s.hasSuffix("qu") { s = String(s.dropLast()) }
+                if s.hasSuffix("qu") { s = String(s.dropLast(2)) + "c" }   // delinquir → delinco
+                else if s.hasSuffix("gu") { s = String(s.dropLast()) }
                 else if s.hasSuffix("g") { s = String(s.dropLast()) + "j" }
                 else if s.hasSuffix("c") {
                     let before = s.dropLast().last

@@ -107,7 +107,8 @@ enum SpanishChecker {
             }
 
             // "tenió": an irregular verb conjugated as if it were regular
-            if !token.isCapitalized, token.lower.count >= 3, let wrong = regularisedForm(token.lower), !isKnownWord(token.text) {
+            if !token.isCapitalized, token.lower.count >= 3, let wrong = regularisedForm(token.lower), !isKnownWord(token.text),
+               !isRegularFormOfAnotherVerb(token.lower, not: wrong.infinitive) {
                 add(.verb, token.range, "“\(token.text)” isn't a Spanish form. “\(wrong.infinitive)” is irregular here: “\(wrong.form)”.", wrong.form)
                 continue
             }
@@ -228,6 +229,16 @@ enum SpanishChecker {
     }()
 
     /// True when the dictionary knows the word in any way: an entry, a verb form, a plural, a diminutive, or a verb with pronouns.
+    /// "mola" is irregular for "moler" (muela) but fine for "molar" (me mola): a verb spelled like a noun isn't in the verb index,
+    /// so the dictionary is asked whether a regular -ar verb makes the form.
+    private static func isRegularFormOfAnotherVerb(_ form: String, not infinitive: String) -> Bool {
+        for ending in ["amos", "áis", "an", "as", "a", "o"] where form.hasSuffix(ending) && form.count - ending.count >= 2 {
+            let candidate = String(form.dropLast(ending.count)) + "ar"
+            if candidate != infinitive, Lexicon.shared.wordsByID[candidate] != nil { return true }
+        }
+        return false
+    }
+
     static func isKnownWord(_ word: String) -> Bool {
         let lower = word.lowercased()
         if VerbForms.nonFiniteForms.contains(lower) { return true }

@@ -84,14 +84,16 @@ enum TypeCategory: String, CaseIterable, Identifiable {
         for (category, words) in nouns { for word in words where map[word] == nil { map[word] = category } }
         return map
     }()
+    /// Little words that can't be the adjective: "to taste" is a verb, not something "to" describes.
+    private static let notAdjectives: Set<String> = ["to", "in", "on", "at", "by", "for", "with", "from", "and", "or", "it", "its", "my", "your", "be", "do", "i", "you", "we", "para", "con", "por", "en", "y", "o", "que", "se", "me", "te", "su", "mi", "tu"]
     private static let fillers: Set<String> = ["a", "an", "the", "of", "el", "la", "los", "las", "un", "una", "unos", "unas", "de", "that", "is", "very", "muy"]
 
     /// "rich food" → (food, "rich"); "a heavy person" → (person, "heavy"). The last type word wins, the rest is the adjective.
     static func parse(_ query: String) -> (category: TypeCategory, core: String)? {
         let tokens = query.split(separator: " ").map(String.init)
-        guard tokens.count >= 2, let index = tokens.lastIndex(where: { lookup[$0] != nil }) else { return nil }
+        guard tokens.count >= 2, tokens[0] != "to", let index = tokens.lastIndex(where: { lookup[$0] != nil }) else { return nil }
         let core = tokens.enumerated().filter { $0.offset != index && !fillers.contains($0.element) }.map(\.element)
-        guard !core.isEmpty, let category = lookup[tokens[index]] else { return nil }
+        guard !core.isEmpty, !core.allSatisfy(notAdjectives.contains), let category = lookup[tokens[index]] else { return nil }
         return (category, core.joined(separator: " "))
     }
 }
