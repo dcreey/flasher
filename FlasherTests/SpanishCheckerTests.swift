@@ -849,6 +849,18 @@ final class SeguroDeInfinitiveTests: XCTestCase {
 }
 
 final class DecirFutureTests: XCTestCase {
+    /// No dictionary entry may list the same meaning twice (soler once showed its phrase four times).
+    func testNoEntryRepeatsAMeaning() {
+        var repeats: [String] = []
+        for (word, meanings) in Lexicon.shared.meaningsByWord {
+            for m in meanings {
+                let texts = m.senses.map(\.text)
+                if Set(texts).count != texts.count { repeats.append("\(word) [\(m.partOfSpeech)]") }
+            }
+        }
+        XCTAssertTrue(repeats.isEmpty, "\(repeats.count) entries repeat a meaning, first: \(repeats.sorted().prefix(20))")
+    }
+
     func testDecirHasTheIrregularFutureAndConditional() throws {
         let decir = try XCTUnwrap(Conjugator.conjugate("decir"))
         XCTAssertEqual((0..<6).compactMap { decir.form(.future, $0) }, ["diré", "dirás", "dirá", "diremos", "diréis", "dirán"])
