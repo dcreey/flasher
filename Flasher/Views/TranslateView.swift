@@ -567,6 +567,7 @@ struct TranslateView: View {
             ToolbarItem(placement: .topBarLeading) { AboutButton() }
         }
         .opensWordLinks(inDictionary: true)
+        .modifier(CopiedToast())
     }
 
     /// The input and its direct translation share one box, with a short line between them.
@@ -583,14 +584,11 @@ struct TranslateView: View {
         .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.red.opacity(0.6), lineWidth: flagged ? 1 : 0))
     }
 
-    /// Room the check notes take under the input, so the paste button sits above them (a rough height is enough).
-    private var checkFooterHeight: CGFloat { CGFloat(max(1, issues.count)) * 34 + 10 }
-
     private var inputField: some View {
         VStack(alignment: .leading, spacing: 0) {
             inputText
-            // A strip under the text for the paste button, so it never covers what's typed
-            Color.clear.frame(height: 30)
+            // A strip under the text for the paste button: part of the layout, so it stays under the text however long it gets
+            HStack { Spacer(); pasteButton }.padding(.horizontal, 8).padding(.vertical, 4)
             if showsCheckFooter && output?.direction == .toEnglish { checkFooter.padding(.horizontal, 13).padding(.bottom, 10) }
         }
         .overlay(alignment: .topTrailing) {
@@ -600,24 +598,23 @@ struct TranslateView: View {
                     .padding(10)
             }
         }
-        // The system paste button needs no "Allow Paste" prompt, and it's greyed out when there's nothing to paste.
-        // It replaces what's there, so the new text translates right away.
-        .overlay(alignment: .bottomTrailing) {
-            PasteButton(payloadType: String.self) { strings in
-                guard let text = strings.first?.trimmingCharacters(in: .whitespacesAndNewlines), !text.isEmpty else { return }
-                input = text
-                output = nil
-                errorText = nil
-                isEditing = false
-                focused = false
-            }
-            .labelStyle(.iconOnly)
-            .buttonBorderShape(.capsule)
-            .controlSize(.small)
-            .tint(.secondary)
-            .padding(8)
-            .padding(.bottom, showsCheckFooter && output?.direction == .toEnglish ? checkFooterHeight : 0)
+    }
+
+    /// The system paste button needs no "Allow Paste" prompt, and it's greyed out when there's nothing to paste.
+    /// It replaces what's there, so the new text translates right away.
+    private var pasteButton: some View {
+        PasteButton(payloadType: String.self) { strings in
+            guard let text = strings.first?.trimmingCharacters(in: .whitespacesAndNewlines), !text.isEmpty else { return }
+            input = text
+            output = nil
+            errorText = nil
+            isEditing = false
+            focused = false
         }
+        .labelStyle(.iconOnly)
+        .buttonBorderShape(.capsule)
+        .controlSize(.small)
+        .tint(.secondary)
     }
 
     private func directTranslation(_ output: Output) -> some View {
@@ -884,23 +881,68 @@ struct TranslateView: View {
     }
 }
 
-/// A small "copy" button that confirms with a checkmark for a moment.
+/// Shared by every copy button, so the confirmation shows even if the button's own view is rebuilt when the screen updates.
+@MainActor
+final class CopyFeedback: ObservableObject {
+    static let shared = CopyFeedback()
+    @Published var count = 0
+    private var hide: Task<Void, Never>?
+    @Published var visible = false
+
+    func copy(_ text: String) {
+        UIPasteboard.general.string = text
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        count += 1
+        withAnimation(.spring(duration: 0.25)) { visible = true }
+        hide?.cancel()
+        hide = Task {
+            try? await Task.sleep(for: .seconds(1.5))
+            if !Task.isCancelled { withAnimation { visible = false } }
+        }
+    }
+}
+
+/// A small "Copied" pill at the bottom of the screen.
+struct CopiedToast: ViewModifier {
+    @ObservedObject private var feedback = CopyFeedback.shared
+
+    func body(content: Content) -> some View {
+        content.overlay(alignment: .bottom) {
+            if feedback.visible {
+                Label("Copied", systemImage: "checkmark.circle.fill")
+                    .font(.subheadline.weight(.semibold))
+                    .padding(.horizontal, 16).padding(.vertical, 10)
+                    .background(.regularMaterial, in: Capsule())
+                    .shadow(radius: 4, y: 2)
+                    .padding(.bottom, 24)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                    .allowsHitTesting(false)
+                    .accessibilityAddTraits(.updatesFrequently)
+            }
+        }
+    }
+}
+
+/// A small "copy" button that confirms with a checkmark, a buzz and a "Copied" pill.
 struct CopyButton: View {
     let text: String
+    @ObservedObject private var feedback = CopyFeedback.shared
     @State private var copied = false
 
     var body: some View {
         Button {
-            UIPasteboard.general.string = text
+            CopyFeedback.shared.copy(text)
             copied = true
             Task { try? await Task.sleep(for: .seconds(1.5)); copied = false }
         } label: {
             Image(systemName: copied ? "checkmark" : "doc.on.doc")
                 .font(.footnote.weight(.semibold))
-                .frame(minWidth: 24, minHeight: 20)
+                .frame(minWidth: 44, minHeight: 32)
+                .contentShape(Rectangle())
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.borderless)
         .foregroundStyle(copied ? Color.green : Color.accentColor)
+        .padding(.vertical, -6)
         .accessibilityLabel(copied ? "Copied" : "Copy text")
     }
 }
