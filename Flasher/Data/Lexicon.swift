@@ -140,7 +140,7 @@ final class Lexicon {
             let main = blocks.first { $0.senses.contains { $0.isLocal } } ?? first
             let gender = main.gender == "m" || main.gender == "f" ? main.gender : nil
             let word = Word(order: originalCount + index, spanish: headword,
-                            english: Self.summary(of: main.senses), partOfSpeech: main.partOfSpeech, gender: gender)
+                            english: Self.summary(of: main.senses, headword: headword), partOfSpeech: main.partOfSpeech, gender: gender)
             extras.append(word)
             byID[headword] = word
         }
@@ -217,18 +217,25 @@ final class Lexicon {
     }
 
     /// A short flashcard-friendly gloss: the first couple of senses without parenthetical detail.
-    static func summary(of senses: [Sense]) -> String {
+    static func summary(of senses: [Sense], headword: String = "") -> String {
         var parts: [String] = []
+        var explained = false
         // Local meanings lead; vulgar ones only if nothing else exists
         let ordered = senses.filter { !$0.isCrude } + senses.filter { $0.isCrude }
         let localFirst = ordered.filter(\.isLocal) + ordered.filter { !$0.isLocal }
         for sense in localFirst.prefix(3) {
-            let short = stripParentheses(sense.text)
+            var short = stripParentheses(sense.text)
+            // A regional word explained in brackets ("rompope (a Mexican drink like eggnog…)"): the explanation is the meaning
+            if short.lowercased() == headword.lowercased(), let open = sense.text.firstIndex(of: "("), sense.text.last == ")" {
+                short = String(sense.text[sense.text.index(after: open)..<sense.text.index(before: sense.text.endIndex)])
+                explained = true
+            }
             if !short.isEmpty, !parts.contains(short) { parts.append(short) }
             if parts.count == 2 { break }
         }
         let joined = parts.joined(separator: ", ")
-        return joined.count > 70 ? String(joined.prefix(70)) : joined
+        let limit = explained ? 110 : 70
+        return joined.count > limit ? String(joined.prefix(limit)) : joined
     }
 
     static func stripParentheses(_ text: String) -> String {
