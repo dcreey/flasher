@@ -16,7 +16,8 @@ struct WordDetailView: View {
     private var sentences: [VocabSentence] { SeedData.sentencesByWord[word.spanish] ?? [] }
     private var shownDiminutive: Diminutive? { diminutive ?? DiminutiveResolver.resolve(word.spanish) }
     private var synonyms: [String] { SeedData.synonyms[word.spanish]?.sorted() ?? [] }
-    private var conjugation: Conjugation? { word.partOfSpeech == .infinitive ? Conjugator.conjugate(word.spanish) : nil }
+    /// A phrase verb ("darse cuenta") gets its own phrase conjugation below, so it doesn't also show a second table.
+    private var conjugation: Conjugation? { word.partOfSpeech == .infinitive && phraseVerb == nil ? Conjugator.conjugate(word.spanish) : nil }
     private var phraseVerb: PhraseVerb? { PhraseVerb.find(for: word) }
     private var moodTriggers: [MoodTrigger] { MoodTriggers.triggers(for: word.spanish) }
     private var relatedWords: [Word] { RelatedForms.find(for: word) }
@@ -498,7 +499,7 @@ struct WordDetailView: View {
     private func phraseSection(_ phrase: PhraseVerb) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             sectionTitle("Conjugate this phrase")
-            ConjugationView(conjugation: phrase.conjugation, phrase: phrase)
+            ConjugationView(conjugation: phrase.conjugation, phrase: phrase, attached: attached, focus: focus)
         }
     }
 
