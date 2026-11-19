@@ -1,0 +1,201 @@
+id	q1	q2	prediction	note
+1	no	-	por	favor not a target
+2	no	-	por	coming is the cause
+3	no	-	por	eso is the cause
+4	no	-	por	why = reason, not target
+5	no	-	por	time of day, not a deadline
+6	yes	no	para	stopped by = went to house; unsure
+7	no	-	por	means
+8	no	-	por	means
+9	no	-	por	duration not deadline
+10	no	-	por	agent/author
+11	no	-	por	cause
+12	no	-	por	fixed phrase, no target
+13	no	-	por	fixed phrase, no target
+14	yes	yes	por	for your sake
+15	no	-	por	rate per hour; unsure (measured against?)
+16	no	-	por	swap item not purpose; unsure
+17	yes	yes	por	going to get milk
+18	no	-	por	no target
+19	no	-	por	no target
+20	yes	yes	por	voting for
+21	no	-	por	in my place, substitution
+22	no	-	por	worry about
+23	no	-	por	through, not destination
+24	no	-	por	no target
+25	yes	no	para	estar + verb read as ready to; unsure
+26	no	-	por	work remaining, not purpose; unsure
+27	no	-	por	cause (enjoyment)
+28	no	-	por	price/exchange not purpose; unsure
+29	no	-	por	location around
+30	no	-	por	source
+31	no	-	por	reason for ticket
+32	no	-	por	rate per day; unsure
+33	no	-	por	multiplication
+34	no	-	por	route; capital is destination
+35	no	-	por	means
+36	no	-	por	no target
+37	no	-	por	cause
+38	no	-	por	cause
+39	no	-	por	no target
+40	no	-	por	no target
+41	no	-	por	no target
+42	no	-	por	no target
+43	no	-	por	no target
+44	no	-	por	frequency per week; unsure
+45	no	-	por	through a friend
+46	no	-	por	mistaken identity, no target
+47	no	-	por	price not purpose; unsure
+48	no	-	por	time span, not deadline
+49	no	-	por	no target
+50	no	-	por	time of day
+51	no	-	por	around
+52	yes	yes	por	fighting for
+53	no	-	por	cause (love)
+54	no	-	por	no target
+55	yes	no	para	estar + verb read as ready to; unsure
+56	no	-	por	exchange price; unsure
+57	yes	yes	por	choosing
+58	no	-	por	asks about
+59	no	-	por	source
+60	no	-	por	cause of thanks
+61	no	-	por	no target
+62	no	-	por	per hundred
+63	no	-	por	per hundred
+64	yes	yes	por	going to get me
+65	yes	yes	por	going to get kids
+66	no	-	por	no target
+67	no	-	por	exchange; unsure
+68	no	-	por	rate
+69	no	-	por	cause
+70	no	-	por	throughout
+71	no	-	por	along
+72	no	-	por	in case, no target
+73	no	-	por	through
+74	no	-	por	crazy about (craving→por either way)
+75	no	-	por	award reason; unsure
+76	no	-	por	no target
+77	yes	yes	por	after money
+78	no	-	por	location around
+79	no	-	por	no target
+80	no	-	por	cause
+81	yes	no	para	health is purpose; unsure (striving?)
+82	no	-	por	margin
+83	no	-	por	no target
+84	no	-	por	cause
+85	no	-	por	in my place
+86	no	-	por	cause
+87	no	-	por	which way/route; unsure
+88	no	-	por	on my behalf, grandma is recipient
+89	no	-	por	as far as I'm concerned; unsure
+90	no	-	por	price; unsure
+91	yes	yes	por	toast for their sake
+92	yes	no	para	work is purpose; unsure (cause?)
+93	no	-	por	cause
+94	no	-	por	cause
+95	no	-	por	no target
+96	no	-	por	no target
+97	no	-	por	no target
+98	no	-	por	time of day
+99	no	-	por	exchange; unsure
+100	no	-	por	price; unsure
+101	yes	no	para	recipient
+102	yes	no	para	purpose verb
+103	no	-	por	duration; unsure
+104	yes	no	para	what it's for
+105	yes	no	para	company gets the work; unsure
+106	yes	no	para	destination
+107	yes	no	para	deadline
+108	yes	no	para	measured against
+109	yes	no	para	measured against
+110	yes	no	para	purpose; unsure (striving?)
+111	yes	no	para	purpose verb
+112	yes	no	para	what for
+113	yes	no	para	goal; unsure (striving?)
+114	yes	no	para	destination
+115	yes	no	para	destination
+116	yes	no	para	ready/in mood for
+117	yes	no	para	what it's for
+118	yes	no	para	recipient
+119	yes	no	para	purpose
+120	yes	no	para	purpose
+121	yes	no	para	measured against me
+122	no	-	por	colmo not target; unsure
+123	yes	no	para	time target
+124	yes	no	para	deadline
+125	yes	no	para	what it's for
+126	yes	no	para	ready for
+127	yes	no	para	measured against
+128	yes	no	para	what it's for
+129	yes	no	para	destination
+130	yes	no	para	due date
+131	yes	no	para	due later
+132	yes	no	para	purpose verb; unsure (discourse marker)
+133	yes	no	para	recipient
+134	yes	no	para	deadline
+135	yes	no	para	recipient
+136	yes	no	para	recipient
+137	yes	no	para	destination
+138	yes	no	para	good for, what it's for
+139	yes	no	para	purpose verb; unsure
+140	yes	no	para	measured against
+141	yes	no	para	what it's for
+142	yes	no	para	ready for
+143	yes	no	para	destination
+144	yes	no	para	employer gets the work
+145	yes	no	para	measured against
+146	no	-	por	feeling, no target; unsure
+147	yes	no	para	purpose verb
+148	no	-	por	as usual, no target; unsure
+149	yes	no	para	what it's for
+150	yes	no	para	destination
+151	yes	no	para	recipient
+152	yes	no	para	due date
+153	yes	no	para	deadline
+154	yes	no	para	due time
+155	yes	no	para	deadline
+156	no	-	por	no target; unsure
+157	yes	no	para	estar + verb read as ready for; unsure
+158	yes	no	para	what it's for
+159	yes	no	para	what it's for
+160	yes	no	para	purpose verb
+161	yes	no	para	purpose verb; unsure (going to get?)
+162	yes	no	para	purpose verb
+163	yes	no	para	recipient
+164	yes	no	para	what it's for
+165	yes	no	para	measured against
+166	yes	no	para	deadline
+167	yes	no	para	what it's for
+168	yes	no	para	purpose
+169	yes	no	para	recipient
+170	yes	no	para	recipient
+171	yes	no	para	purpose verb; unsure (striving/getting?)
+172	yes	no	para	target arrival
+173	yes	no	para	purpose
+174	yes	no	para	measured against
+175	yes	no	para	due tomorrow
+176	yes	no	para	measured against
+177	yes	no	para	recipient
+178	yes	no	para	purpose verb; unsure (striving?)
+179	yes	no	para	purpose verb
+180	yes	no	para	new date target
+181	yes	no	para	new date target
+182	yes	no	para	purpose verb
+183	no	-	por	not at all, no target; unsure
+184	yes	no	para	purpose verb; unsure (idiom)
+185	yes	no	para	what it's for
+186	no	-	por	no target; unsure
+187	yes	no	para	purpose verb
+188	yes	no	para	purpose
+189	no	-	por	duration; unsure
+190	yes	no	para	what it's for
+191	yes	no	para	what for; unsure (why?)
+192	yes	no	para	destination
+193	yes	yes	por	for my kids' sake
+194	yes	no	para	destination; unsure
+195	yes	no	para	purpose verb
+196	yes	yes	por	for your sake; unsure
+197	yes	no	para	what it's for
+198	yes	no	para	deadline; unsure
+199	yes	no	para	what it's for
+200	yes	no	para	purpose

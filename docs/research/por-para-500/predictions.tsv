@@ -1,0 +1,501 @@
+id	prediction	unsure	note
+1	por	no	why/cause
+2	para	no	who gets it
+3	para	no	in order to
+4	por	no	price
+5	por	no	por favor not target
+6	por	no	part of day
+7	por	yes	better at: not clearly a target
+8	por	no	por favor
+9	por	no	place, not destination
+10	por	no	place around
+11	por	no	length of time
+12	para	no	in order to
+13	por	no	por favor
+14	por	no	por fin not target
+15	por	no	por favor
+16	por	no	part of day
+17	por	yes	fussy about eating: not clearly target
+18	para	no	who uses it
+19	por	no	why
+20	por	no	why
+21	por	no	because of
+22	por	no	because of / money
+23	para	no	purpose
+24	para	no	in order to
+25	por	no	por favor
+26	por	no	interest (interesarse) gone after
+27	por	no	por favor
+28	por	no	why
+29	para	no	measured/who it affects
+30	por	no	why
+31	por	no	part of day
+32	para	no	who uses it
+33	para	no	due by noon
+34	por	no	start with: not target
+35	por	no	agent
+36	por	no	agent
+37	para	no	purpose
+38	para	no	measured against
+39	por	no	why
+40	por	no	why
+41	por	no	because of
+42	por	no	why
+43	por	no	why
+44	por	no	place through
+45	por	no	why
+46	por	no	because of that
+47	para	yes	to my surprise ~ opinion
+48	para	no	purpose
+49	para	no	para que purpose
+50	para	no	purpose
+51	para	no	due by
+52	por	no	why
+53	para	no	ready for
+54	por	no	why
+55	por	no	agent
+56	para	yes	when it's due
+57	por	no	length of time
+58	para	no	who gets it
+59	para	no	who it's for
+60	por	no	rezar
+61	por	no	why
+62	para	no	due by
+63	por	no	route down
+64	para	no	purpose/standard
+65	para	yes	destination, not fetched
+66	por	no	route across
+67	por	no	part of day
+68	por	no	why
+69	para	yes	affection aimed at Mary
+70	por	no	because of
+71	por	no	per week
+72	por	no	por favor
+73	por	no	stop by
+74	para	no	in order to
+75	por	no	because of
+76	para	no	purpose
+77	por	no	by itself not target
+78	para	no	purpose
+79	para	no	what for
+80	por	no	length of time
+81	por	no	because of doubts
+82	por	no	length of time
+83	por	no	preocuparse
+84	para	yes	who gets it vs sake
+85	para	no	who gets it
+86	por	no	because of
+87	por	yes	reason: because of
+88	para	no	purpose
+89	para	no	purpose
+90	por	no	loco
+91	por	no	por favor
+92	por	no	por favor
+93	por	no	why
+94	por	no	because of
+95	para	no	too early to: purpose
+96	por	no	not target
+97	para	no	purpose
+98	por	no	por favor
+99	para	no	who gets it
+100	para	no	use
+101	por	no	length of time
+102	por	no	por favor
+103	por	no	length of time
+104	para	no	what for
+105	para	no	what it's for
+106	por	no	por favor
+107	por	no	route through
+108	por	no	part of day
+109	por	no	why
+110	por	no	agent/cause
+111	para	no	what it's for
+112	por	no	swap
+113	para	no	purpose
+114	por	no	for your sake
+115	para	yes	office aimed at; competir not listed
+116	por	no	means
+117	para	yes	in order to vs exchange
+118	por	no	why
+119	por	no	why
+120	para	no	too...to
+121	para	no	purpose
+122	por	no	por favor
+123	por	no	why
+124	por	no	why
+125	para	no	use
+126	por	no	because of
+127	para	yes	desperate not in list
+128	por	no	agent
+129	para	no	purpose
+130	por	no	why
+131	por	no	por favor
+132	para	no	too late to
+133	por	no	because of
+134	por	no	for her sake
+135	por	no	why
+136	para	no	what it's for
+137	para	no	in order to
+138	para	yes	convince to: purpose-ish
+139	por	no	exchange
+140	por	no	because of
+141	para	no	para que
+142	para	no	who uses it
+143	por	no	why
+144	por	no	interesarse
+145	por	no	agent
+146	por	no	place, not target
+147	por	no	why
+148	por	no	why
+149	para	yes	destination, not fetched
+150	por	no	por favor
+151	para	no	who gets it
+152	por	no	not target
+153	por	no	why
+154	por	no	por favor
+155	por	no	ansioso
+156	por	no	because of
+157	para	no	what it's for
+158	para	no	due by
+159	por	no	not target
+160	por	no	preocuparse
+161	para	no	who uses it
+162	para	no	purpose
+163	por	no	why
+164	por	no	place through
+165	por	no	why
+166	para	no	due by
+167	por	no	because of that
+168	por	no	because of work
+169	por	no	per week
+170	por	no	not target
+171	para	yes	who gets it vs sake
+172	por	no	why
+173	por	no	why
+174	por	no	why
+175	por	no	because of
+176	para	no	measured against
+177	por	no	por favor
+178	por	no	not target
+179	para	no	who gets it
+180	para	no	too late to
+181	por	no	because of
+182	por	no	why
+183	por	no	por favor
+184	por	no	time period
+185	para	no	too...to
+186	por	no	why
+187	para	no	measured against
+188	por	no	around here
+189	para	no	purpose
+190	por	no	why
+191	por	no	by yourself not target
+192	por	no	because of
+193	para	no	in order to
+194	por	no	why
+195	por	no	route through
+196	por	no	why
+197	para	no	destination/event
+198	para	no	measured against
+199	para	no	in order to
+200	por	yes	nada not a target
+201	por	no	length of time
+202	por	no	why
+203	por	no	why
+204	para	no	what it's for
+205	por	no	por favor
+206	para	no	who gets it
+207	por	no	agent
+208	para	no	who uses it
+209	por	no	por favor
+210	por	no	why
+211	por	no	por favor
+212	para	yes	what it's for vs because of work
+213	por	no	por favor
+214	para	yes	letters to write: purpose
+215	por	no	because of
+216	por	no	not target
+217	para	no	purpose
+218	por	no	not target
+219	por	no	part of day
+220	por	no	because of
+221	por	no	por favor
+222	por	no	por favor
+223	por	no	preocupado
+224	por	no	preocupado
+225	por	no	not target
+226	por	no	loco
+227	por	no	por favor
+228	para	no	who gets it
+229	para	yes	wait for: aimed at me
+230	por	yes	not clearly a target
+231	para	no	in order to
+232	por	no	why
+233	por	no	why
+234	para	no	what it's for
+235	para	yes	in case: purpose
+236	para	no	purpose
+237	por	no	for your sake
+238	por	no	why
+239	para	no	too...to
+240	por	no	not target
+241	por	no	por favor
+242	por	no	why
+243	para	no	measured/affects
+244	por	no	why
+245	por	no	why
+246	para	no	too...to
+247	por	no	why
+248	por	no	por favor
+249	para	no	what it's for
+250	para	no	purpose
+251	para	yes	difficulty in: purpose-ish
+252	para	no	enough to
+253	por	no	why
+254	por	no	place through
+255	para	no	in order to
+256	para	no	purpose
+257	para	no	purpose
+258	por	no	not target
+259	para	no	what it's for
+260	por	no	why
+261	por	no	not target
+262	por	no	por favor
+263	por	no	por favor
+264	por	no	not target
+265	por	no	why
+266	para	no	what it's for
+267	por	no	because of
+268	por	no	why
+269	por	no	preocuparse
+270	por	no	because of
+271	para	yes	alibi for the day: what it's for
+272	por	yes	on behalf / in place of
+273	por	no	why
+274	para	no	in order to
+275	por	no	why
+276	por	no	why
+277	por	no	because of
+278	para	no	who gets it
+279	para	yes	work to do: purpose
+280	por	no	for their sake
+281	por	no	por favor
+282	para	no	who uses it
+283	para	no	in order to
+284	para	no	by the time
+285	para	no	ready for
+286	por	no	votar
+287	para	no	purpose
+288	para	no	in order to
+289	por	no	why
+290	por	no	why
+291	por	yes	length of time vs plan
+292	por	no	why
+293	por	no	route around
+294	para	yes	convince to: purpose-ish
+295	por	no	why
+296	por	no	loco
+297	por	no	route over
+298	para	no	purpose
+299	para	no	too...to
+300	por	no	agent
+301	por	yes	place stopped at (gap is really verb)
+302	por	yes	reason: because of
+303	por	no	why
+304	por	no	route through
+305	para	yes	basis for: what it's for
+306	por	no	why
+307	para	no	purpose
+308	para	no	purpose
+309	por	no	why
+310	por	yes	not target vs opinion
+311	por	no	por favor
+312	por	no	por favor
+313	por	no	place around
+314	para	no	ready to
+315	por	no	why
+316	para	no	purpose
+317	por	no	around here
+318	para	no	who gets it
+319	por	no	por favor
+320	por	no	why
+321	por	no	part of day
+322	por	no	start at: not target
+323	por	no	why
+324	por	no	why
+325	por	no	why
+326	para	no	para que
+327	por	no	around here
+328	por	no	route
+329	por	no	why
+330	por	no	around here
+331	por	no	not target
+332	para	yes	feelings aimed at you
+333	para	no	who gets it
+334	por	no	for the sake of
+335	por	no	por favor
+336	por	no	luchar
+337	por	no	why
+338	para	no	what it's for
+339	por	no	por favor
+340	por	no	preocupada
+341	para	no	purpose
+342	por	no	not target
+343	para	no	purpose
+344	por	no	pasar por stop by
+345	por	no	estar por + verb
+346	por	no	why
+347	por	no	por favor
+348	para	no	what it's for
+349	por	no	not target
+350	por	no	not target
+351	por	no	why
+352	por	no	not target
+353	para	no	plan for period
+354	para	no	purpose
+355	por	no	por favor
+356	por	no	agent
+357	por	no	why
+358	para	no	who gets it
+359	para	no	para que
+360	por	no	part of day
+361	para	no	in order to
+362	por	no	why
+363	por	no	why
+364	por	no	por favor
+365	por	no	not target
+366	para	no	who gets it
+367	para	no	use
+368	por	no	because of
+369	para	no	purpose
+370	por	no	not target
+371	por	yes	bad at: not clearly target
+372	por	no	around here
+373	para	no	purpose
+374	por	no	why
+375	para	no	who gets it
+376	para	no	purpose
+377	por	no	because of
+378	por	no	por favor
+379	para	yes	who it's for vs sake
+380	para	no	purpose
+381	para	no	purpose
+382	por	no	por favor
+383	por	no	por favor
+384	para	no	who it affects
+385	para	no	purpose
+386	para	no	purpose
+387	para	no	para que
+388	por	no	route down
+389	por	no	por favor
+390	por	no	por favor
+391	por	no	por favor
+392	por	no	why
+393	para	yes	destination, not fetched
+394	por	no	part of day
+395	para	yes	who gets it vs sake
+396	para	no	measured/for
+397	por	no	why
+398	por	no	why
+399	por	yes	asked about: not clearly target
+400	por	no	why
+401	por	no	because of
+402	para	no	purpose
+403	por	no	route through
+404	para	no	measured against
+405	por	no	because of
+406	por	no	because of that
+407	por	yes	length of time vs plan
+408	por	no	price
+409	por	no	why
+410	para	no	opinion
+411	por	no	not target
+412	para	yes	who gets it vs sake
+413	por	no	not target
+414	para	no	who it applies to
+415	por	no	by himself not target
+416	por	no	means
+417	por	no	por favor
+418	para	no	what it's for
+419	por	no	which way
+420	para	no	purpose
+421	por	no	length of time
+422	por	no	part of day
+423	para	no	too...to
+424	para	no	in order to
+425	por	no	length of time
+426	por	no	because of
+427	para	no	opinion
+428	por	no	place through
+429	por	yes	reason: because of
+430	para	no	measured/for
+431	por	no	why
+432	por	no	por favor
+433	para	no	who gets it
+434	para	no	due by
+435	por	no	por favor
+436	para	no	in order to
+437	para	no	who gets it
+438	por	no	por favor
+439	por	no	because of
+440	para	no	what it's for
+441	por	no	place along
+442	por	no	por favor
+443	por	yes	in place of vs who gets it
+444	para	yes	in order to be honest
+445	por	no	route through
+446	por	no	because of
+447	por	no	por favor
+448	para	yes	direction up
+449	por	no	por favor
+450	por	no	agent
+451	por	no	por favor
+452	para	no	purpose
+453	para	yes	who gets it vs sake
+454	por	no	why
+455	para	no	in order to
+456	por	no	by herself not target
+457	para	no	what for
+458	para	no	measured against
+459	por	no	agent
+460	para	no	what it's for
+461	por	no	por favor
+462	por	no	por favor
+463	por	no	por favor
+464	por	no	why
+465	por	no	not target
+466	por	no	means
+467	por	no	not target
+468	para	no	due by
+469	por	yes	on behalf / in place of
+470	para	no	purpose
+471	por	no	cause
+472	por	yes	reason: because of
+473	por	no	not target
+474	por	no	why
+475	por	yes	what for = reason, because of
+476	por	no	why
+477	para	no	what it's for
+478	por	yes	reason: because of
+479	para	no	purpose
+480	para	no	too...to
+481	por	yes	reason: because of
+482	para	no	what it's for
+483	por	no	ansioso
+484	por	no	por favor
+485	por	no	agent
+486	para	no	measured against
+487	para	no	in order to
+488	para	no	purpose
+489	para	no	what it's for
+490	por	no	por favor
+491	para	no	purpose
+492	por	no	why
+493	para	no	in order to
+494	para	no	purpose
+495	para	no	ready to
+496	para	no	purpose
+497	para	no	measured against
+498	por	no	por favor
+499	para	no	in order to
+500	para	no	what it's for

@@ -1,0 +1,101 @@
+id	prediction	unsure	note
+1	para	no	destination
+2	para	no	person who gets it
+3	para	no	purpose
+4	para	no	deadline
+5	para	yes	person; rule unclear
+6	para	no	company receives work
+7	para	no	purpose
+8	para	no	purpose
+9	para	no	purpose
+10	por	yes	comparison; neither fits
+11	para	no	deadline
+12	para	yes	purpose vs thing after
+13	para	no	purpose
+14	para	yes	about to; neither fits
+15	para	yes	neither fits
+16	para	no	place headed
+17	para	no	who gets it
+18	para	no	who benefits
+19	para	no	purpose
+20	para	no	deadline
+21	por	yes	concession; neither fits
+22	para	no	who gets it
+23	para	no	who gets it
+24	para	no	purpose/deadline
+25	para	no	purpose
+26	para	no	goal
+27	para	no	deadline
+28	para	no	destination
+29	para	no	who gets it
+30	para	no	person
+31	para	yes	deadline vs time
+32	para	no	purpose
+33	para	no	purpose
+34	para	no	purpose
+35	para	yes	deadline-ish
+36	por	yes	fixed phrase not memorised
+37	para	no	memorised
+38	para	no	memorised
+39	para	no	memorised
+40	por	yes	time vs deadline
+41	por	no	reason
+42	por	no	reason
+43	por	no	route
+44	por	no	passes through
+45	por	no	means
+46	por	no	means
+47	por	no	price
+48	por	no	exchange/price
+49	por	no	time
+50	por	yes	time vs end point
+51	por	no	thing after
+52	por	yes	thing after vs purpose
+53	por	yes	thing after vs person who gets it
+54	por	no	reason (sake)
+55	por	no	thing after
+56	por	no	who drives it
+57	por	no	rate/time
+58	por	yes	rate
+59	por	yes	means
+60	por	no	reason
+61	por	no	reason
+62	por	no	reason
+63	por	yes	location around
+64	por	no	reason
+65	por	yes	thing after vs purpose
+66	para	yes	who gets toast vs reason
+67	por	yes	what drives interest
+68	por	no	thing chosen/after
+69	por	yes	reason vs purpose
+70	por	no	exchange
+71	por	yes	thing after vs destination
+72	por	no	price
+73	por	no	reason
+74	por	yes	fixed phrase not memorised
+75	para	yes	fixed phrase; end
+76	por	yes	fixed phrase not memorised
+77	por	yes	fixed phrase not memorised
+78	por	yes	fixed phrase not memorised
+79	por	yes	fixed phrase not memorised
+80	por	yes	fixed phrase not memorised
+81	para	yes	still to do; purpose?
+82	para	yes	still to do; purpose?
+83	para	yes	about to; neither fits
+84	por	yes	fixed phrase not memorised
+85	para	no	purpose
+86	para	no	purpose
+87	por	no	route
+88	por	no	passes through
+89	por	no	time
+90	por	no	reason
+91	por	no	reason
+92	por	no	reason
+93	por	no	reason
+94	por	no	means
+95	por	no	thing after
+96	por	yes	thing after vs purpose
+97	para	no	purpose
+98	por	yes	fixed phrase not memorised
+99	por	yes	fixed phrase not memorised
+100	por	no	thing after

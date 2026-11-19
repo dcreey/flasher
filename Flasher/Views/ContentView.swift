@@ -68,7 +68,7 @@ struct ContentView: View {
             .tag(AppTab.drill)
 
             NavigationStack {
-                LearnView()
+                LearnHomeView()
             }
             .tabItem { Label("Learn", systemImage: "graduationcap") }
             .tag(AppTab.learn)

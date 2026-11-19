@@ -1,0 +1,501 @@
+id	prediction	unsure	note
+1	por	no	why = reason
+2	para	no	recipient
+3	para	no	purpose
+4	por	no	price
+5	por	no	favor as motive
+6	por	no	time
+7	para	yes	infinitive, unclear
+8	por	no	favor as motive
+9	por	yes	starting point not destination
+10	por	no	place passed through
+11	por	no	duration
+12	para	no	purpose
+13	por	no	favor as motive
+14	para	yes	fin=end, ends up
+15	por	no	favor as motive
+16	por	no	time
+17	por	yes	about eating
+18	para	no	recipient
+19	por	no	why = reason
+20	por	no	why = reason
+21	por	no	reason
+22	por	no	reason
+23	para	no	purpose
+24	para	no	purpose
+25	por	no	favor as motive
+26	por	yes	thing you're after vs headed
+27	por	no	favor as motive
+28	por	no	why = reason
+29	para	no	recipient
+30	por	no	why = reason
+31	por	no	time
+32	para	yes	who gets capacity
+33	para	no	deadline
+34	por	yes	start via easy questions
+35	por	no	agent drives it
+36	por	no	agent drives it
+37	para	no	purpose
+38	para	no	recipient
+39	por	no	why = reason
+40	por	no	why = reason
+41	por	no	reason
+42	por	no	why = reason
+43	por	no	why = reason
+44	por	no	place passed through
+45	por	no	why = reason
+46	por	no	that's why
+47	para	yes	surprise ends up with me
+48	para	no	purpose
+49	para	no	purpose
+50	para	no	purpose
+51	para	no	deadline
+52	por	no	why = reason
+53	para	no	ready for, end goal
+54	por	no	why = reason
+55	por	no	agent drives it
+56	para	yes	future point, deadline-ish
+57	para	no	para siempre
+58	para	no	recipient
+59	para	no	recipient
+60	para	yes	for Tom's benefit
+61	por	no	why = reason
+62	para	no	deadline
+63	por	no	route
+64	para	no	purpose
+65	para	no	place headed
+66	por	no	route
+67	por	no	time
+68	por	no	why = reason
+69	para	yes	affection goes to Mary
+70	por	no	reason
+71	por	no	time
+72	por	no	favor as motive
+73	por	no	place passed through
+74	para	no	purpose
+75	por	no	reason
+76	para	no	purpose
+77	por	no	by itself, means
+78	para	no	purpose
+79	para	no	what for = purpose
+80	por	no	duration
+81	por	no	doubts drive it
+82	por	no	duration
+83	por	no	worry about, reason
+84	para	no	recipient
+85	para	no	recipient
+86	por	no	reason
+87	por	yes	reason vs purpose clause
+88	para	no	purpose
+89	para	no	purpose
+90	por	no	she drives it
+91	por	no	favor as motive
+92	por	no	favor as motive
+93	por	no	why = reason
+94	por	no	reason
+95	para	no	purpose
+96	por	no	time
+97	para	no	purpose
+98	por	no	favor as motive
+99	para	no	recipient
+100	para	no	ends up in computers
+101	por	no	duration
+102	por	no	favor as motive
+103	por	no	duration
+104	para	no	what for
+105	para	no	purpose
+106	por	no	favor as motive
+107	por	no	place passed through
+108	por	no	time
+109	por	no	why = reason
+110	por	no	agent drives it
+111	para	no	occasion/purpose
+112	por	yes	exchange
+113	para	no	purpose
+114	por	yes	you drive the feeling
+115	por	yes	thing you're after
+116	por	no	means
+117	para	yes	purpose vs price
+118	por	no	why = reason
+119	por	no	why = reason
+120	para	no	purpose
+121	para	no	purpose
+122	por	no	favor as motive
+123	por	no	why = reason
+124	por	no	why = reason
+125	para	no	purpose
+126	por	no	reason
+127	por	yes	thing you're after
+128	por	no	agent drives it
+129	para	no	purpose
+130	por	no	why = reason
+131	por	no	favor as motive
+132	para	no	purpose
+133	por	no	reason
+134	por	yes	Mary causes pity
+135	por	no	why = reason
+136	para	no	event headed to
+137	para	no	purpose
+138	para	no	purpose
+139	por	no	price
+140	por	no	reason
+141	para	no	purpose
+142	para	no	recipient
+143	por	no	why = reason
+144	por	yes	thing you're after vs headed
+145	por	no	agent drives it
+146	por	yes	passes into
+147	por	no	why = reason
+148	por	no	why = reason
+149	para	no	place headed
+150	por	no	favor as motive
+151	para	no	recipient
+152	por	yes	no matter how much
+153	por	no	why = reason
+154	por	no	favor as motive
+155	por	yes	thing you're after
+156	por	no	reason
+157	para	no	occasion/purpose
+158	para	no	deadline
+159	por	yes	by far
+160	por	no	reason
+161	para	no	recipient
+162	para	no	purpose
+163	por	no	why = reason
+164	por	no	place passed through
+165	por	no	why = reason
+166	para	no	deadline
+167	por	no	reason
+168	por	yes	business drives it
+169	por	no	time
+170	por	no	time
+171	para	no	recipient
+172	por	no	why = reason
+173	por	no	why = reason
+174	por	no	why = reason
+175	por	no	reason
+176	para	no	recipient
+177	por	no	favor as motive
+178	por	yes	time
+179	para	no	recipient
+180	para	no	purpose
+181	por	no	reason
+182	por	no	why = reason
+183	por	no	favor as motive
+184	por	no	time
+185	para	no	purpose
+186	por	no	why = reason
+187	para	no	recipient
+188	por	no	place passed through
+189	para	no	purpose
+190	por	no	why = reason
+191	por	no	by yourself, means
+192	por	no	reason
+193	para	no	purpose
+194	por	no	why = reason
+195	por	no	route
+196	por	no	why = reason
+197	para	no	headed
+198	para	no	recipient
+199	para	no	purpose
+200	para	no	para nada
+201	por	no	time
+202	por	no	why = reason
+203	por	no	why = reason
+204	para	no	end goal
+205	por	no	favor as motive
+206	para	no	recipient
+207	por	no	agent drives it
+208	para	no	recipient
+209	por	no	favor as motive
+210	por	no	why = reason
+211	por	no	favor as motive
+212	para	no	headed
+213	por	no	favor as motive
+214	para	no	purpose
+215	por	no	reason
+216	por	yes	barely
+217	para	no	purpose
+218	por	no	chance drives it
+219	por	no	time
+220	por	no	reason
+221	por	no	favor as motive
+222	por	no	favor as motive
+223	por	no	reason
+224	por	no	reason
+225	para	yes	fin=end, ends up
+226	para	yes	infinitive
+227	por	no	favor as motive
+228	para	no	recipient
+229	por	yes	thing you're after
+230	por	yes	passes through everything
+231	para	no	purpose
+232	por	no	why = reason
+233	por	no	why = reason
+234	para	no	purpose
+235	para	no	purpose
+236	para	no	purpose
+237	para	yes	for your sake vs recipient
+238	por	no	why = reason
+239	para	no	purpose
+240	por	yes	not memorised
+241	por	no	favor as motive
+242	por	no	why = reason
+243	para	no	recipient
+244	por	no	why = reason
+245	por	no	why = reason
+246	para	no	purpose
+247	por	no	why = reason
+248	por	no	favor as motive
+249	para	no	recipient
+250	para	no	purpose
+251	para	yes	difficulty in finding
+252	para	no	purpose
+253	por	no	why = reason
+254	por	no	place passed through
+255	para	no	purpose
+256	para	no	purpose
+257	para	no	purpose
+258	por	no	chance
+259	para	no	purpose
+260	por	no	why = reason
+261	por	no	time
+262	por	no	favor as motive
+263	por	no	favor as motive
+264	por	no	chance
+265	por	no	why = reason
+266	para	no	recipient
+267	por	no	reason
+268	por	no	why = reason
+269	por	no	reason
+270	por	no	reason
+271	por	yes	time vs target
+272	por	yes	on behalf
+273	por	no	why = reason
+274	para	no	purpose
+275	por	no	why = reason
+276	por	no	why = reason
+277	por	no	reason
+278	para	no	recipient
+279	para	no	purpose
+280	por	no	reason
+281	por	no	favor as motive
+282	para	no	recipient
+283	para	no	purpose
+284	para	no	deadline
+285	para	no	purpose
+286	por	yes	thing you're after
+287	para	no	purpose
+288	para	no	purpose
+289	por	no	why = reason
+290	por	no	why = reason
+291	por	no	time
+292	por	no	why = reason
+293	por	no	place passed through
+294	para	no	purpose
+295	por	no	why = reason
+296	por	no	you drive it
+297	por	no	place passed through
+298	para	no	purpose
+299	para	no	purpose
+300	por	no	agent drives it
+301	para	yes	stops there, ends up
+302	por	yes	reason vs infinitive purpose
+303	por	no	why = reason
+304	por	no	place passed through
+305	para	yes	basis for
+306	por	no	why = reason
+307	para	no	purpose
+308	para	no	purpose
+309	por	no	why = reason
+310	por	yes	for all I know
+311	por	no	favor as motive
+312	por	no	favor as motive
+313	por	no	place passed through
+314	para	no	purpose
+315	por	no	why = reason
+316	para	no	purpose
+317	por	no	place passed through
+318	para	no	recipient
+319	por	no	favor as motive
+320	por	no	why = reason
+321	por	no	time
+322	por	yes	start via beginning
+323	por	no	why = reason
+324	por	no	why = reason
+325	por	no	why = reason
+326	para	no	purpose
+327	por	no	place passed through
+328	por	no	place passed through
+329	por	no	why = reason
+330	por	no	place passed through
+331	por	no	comes from you
+332	para	yes	feelings go to you
+333	para	no	recipient
+334	por	yes	by all means
+335	por	no	favor as motive
+336	por	no	thing you're after
+337	por	no	why = reason
+338	para	no	purpose
+339	por	no	favor as motive
+340	por	no	reason
+341	para	no	purpose
+342	por	yes	unclear
+343	para	no	purpose
+344	por	no	place passed through
+345	para	yes	yet to come
+346	por	no	why = reason
+347	por	no	favor as motive
+348	para	no	end goal
+349	por	no	time
+350	por	yes	not memorised
+351	por	no	why = reason
+352	por	no	means
+353	para	yes	plans for weekend
+354	para	no	purpose
+355	por	no	favor as motive
+356	por	no	agent drives it
+357	por	no	why = reason
+358	para	no	recipient
+359	para	no	purpose
+360	por	no	time
+361	para	no	purpose
+362	por	no	why = reason
+363	por	no	why = reason
+364	por	no	favor as motive
+365	por	yes	completely
+366	para	no	recipient
+367	para	no	purpose
+368	por	no	reason
+369	para	no	purpose
+370	para	no	no es para tanto
+371	para	yes	bad at
+372	por	no	place passed through
+373	para	no	purpose
+374	por	no	why = reason
+375	para	no	recipient
+376	para	no	purpose
+377	por	no	reason
+378	por	no	favor as motive
+379	para	yes	work for you
+380	para	no	purpose
+381	para	no	purpose
+382	por	no	favor as motive
+383	por	no	favor as motive
+384	para	no	recipient
+385	para	no	purpose
+386	para	no	purpose
+387	para	no	purpose
+388	por	no	route
+389	por	no	favor as motive
+390	por	no	favor as motive
+391	por	no	favor as motive
+392	por	no	why = reason
+393	para	no	place headed
+394	por	no	time
+395	para	no	recipient
+396	para	no	recipient
+397	por	no	why = reason
+398	por	no	why = reason
+399	por	no	thing you're after
+400	por	no	why = reason
+401	por	no	reason
+402	para	no	purpose
+403	por	no	route
+404	para	no	recipient
+405	por	no	reason
+406	por	no	that's why
+407	por	no	duration
+408	por	no	price
+409	por	no	why = reason
+410	para	no	recipient
+411	por	yes	unclear
+412	para	no	recipient
+413	por	no	time
+414	para	no	recipient
+415	por	no	by himself
+416	por	no	means
+417	por	no	favor as motive
+418	para	no	end goal
+419	por	yes	where to start
+420	para	no	purpose
+421	por	no	time
+422	por	no	time
+423	para	no	purpose
+424	para	no	purpose
+425	por	no	duration
+426	por	no	reason
+427	para	no	recipient
+428	por	no	place passed through
+429	por	yes	reason vs infinitive purpose
+430	para	no	recipient
+431	por	no	why = reason
+432	por	no	favor as motive
+433	para	no	recipient
+434	para	no	deadline
+435	por	no	favor as motive
+436	para	no	purpose
+437	para	no	recipient
+438	por	no	favor as motive
+439	por	no	reason
+440	para	no	occasion/purpose
+441	por	no	place passed through
+442	por	no	favor as motive
+443	para	no	recipient
+444	para	yes	purpose
+445	por	no	place passed through
+446	por	no	reason
+447	por	no	favor as motive
+448	para	yes	headed upward
+449	por	no	favor as motive
+450	por	no	agent drives it
+451	por	no	favor as motive
+452	para	no	purpose
+453	para	no	recipient
+454	por	no	why = reason
+455	para	no	purpose
+456	por	no	by herself
+457	para	no	what for
+458	para	no	recipient
+459	por	no	agent drives it
+460	para	no	occasion/purpose
+461	por	no	favor as motive
+462	por	no	favor as motive
+463	por	no	favor as motive
+464	por	no	why = reason
+465	por	yes	by themselves
+466	por	no	means
+467	por	no	mistake drives it
+468	para	no	deadline
+469	por	yes	by itself
+470	para	no	purpose
+471	por	no	reason
+472	por	yes	reason vs infinitive purpose
+473	por	no	luck drives it
+474	por	no	why = reason
+475	para	no	what for
+476	por	no	why = reason
+477	para	no	purpose
+478	por	yes	reason vs purpose clause
+479	para	no	purpose
+480	para	no	purpose
+481	por	yes	reason vs infinitive purpose
+482	para	no	end goal
+483	por	yes	thing you're after
+484	por	no	favor as motive
+485	por	no	agent drives it
+486	para	no	recipient
+487	para	no	purpose
+488	para	no	purpose
+489	para	no	end goal
+490	por	no	favor as motive
+491	para	no	purpose
+492	por	no	why = reason
+493	para	no	purpose
+494	para	no	purpose
+495	para	no	purpose
+496	para	no	purpose
+497	para	no	recipient
+498	por	no	favor as motive
+499	para	no	purpose
+500	para	no	occasion/purpose

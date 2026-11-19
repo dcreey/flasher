@@ -1,0 +1,201 @@
+id	prediction	unsure	note
+1	por	yes	favor: no clear category
+2	por	no	reason
+3	por	no	reason
+4	por	no	why = reason
+5	por	no	time
+6	por	no	passes through
+7	por	no	means
+8	por	no	means
+9	por	no	time
+10	por	no	author drives it
+11	por	no	reason
+12	para	yes	fin = end, ends up there?
+13	por	yes	fixed phrase, no category
+14	para	yes	your sake: you benefit (or reason)
+15	por	no	rate/time
+16	por	no	exchange/price
+17	por	no	thing you're after
+18	por	yes	fixed phrase, no category
+19	por	yes	fixed phrase, no category
+20	para	yes	vote goes to her (or thing after)
+21	por	yes	on my behalf, I drive it
+22	por	no	kids drive the worry
+23	por	no	through
+24	por	yes	fixed phrase, no category
+25	para	yes	about to: ends up finishing
+26	para	yes	left to do: purpose
+27	por	no	reason
+28	por	no	price
+29	por	yes	around here, vague route
+30	por	no	reason/source
+31	por	no	reason
+32	por	no	rate/time
+33	por	yes	multiplication, no category
+34	por	no	route
+35	por	no	means
+36	por	no	reason
+37	por	no	reason
+38	por	no	reason
+39	para	yes	ends up in peace
+40	por	no	reason/evidence
+41	por	no	reason
+42	por	no	means/reason
+43	por	yes	in case: reason?
+44	por	no	time/rate
+45	por	no	through
+46	por	yes	taken for: no category
+47	por	no	price
+48	por	yes	time (or deadline)
+49	por	yes	fixed phrase, no category
+50	por	no	time
+51	por	no	route
+52	por	yes	thing you're after (or purpose)
+53	por	no	reason
+54	por	no	reason
+55	para	yes	about to: ends up
+56	por	no	price
+57	por	yes	thing you're after
+58	por	no	thing you're after
+59	por	no	through/source
+60	por	no	reason
+61	por	yes	no category; pairs with por otro
+62	por	yes	rate
+63	por	yes	rate
+64	por	no	thing you're after
+65	por	no	thing you're after
+66	por	yes	no category
+67	por	yes	exchange (or ends up with size)
+68	por	no	price/rate
+69	por	no	reason
+70	por	no	route
+71	por	no	route
+72	por	yes	in case: reason?
+73	por	no	through
+74	por	no	reason
+75	por	no	reason
+76	por	no	reason
+77	por	no	thing you're after/reason
+78	por	yes	around there, vague route
+79	para	yes	lastly: end, ends up?
+80	por	no	reason
+81	para	yes	health is goal (or reason)
+82	por	no	means
+83	por	yes	no category
+84	por	no	reason
+85	por	yes	on my behalf, I drive it
+86	por	no	reason
+87	por	no	which way = route
+88	por	yes	on my behalf; hug goes to grandma
+89	para	yes	opinion; person
+90	por	no	price
+91	para	yes	toast goes to them
+92	por	yes	reason (or purpose)
+93	por	no	reason
+94	por	no	reason
+95	por	yes	no category
+96	por	yes	means?
+97	por	yes	time?
+98	por	no	time
+99	por	no	exchange
+100	por	no	price
+101	para	no	recipient
+102	para	no	purpose
+103	para	no	memorised para siempre
+104	para	no	purpose
+105	para	no	company gets the work
+106	para	no	destination
+107	para	no	deadline
+108	para	yes	comparison, no category
+109	para	yes	person; opinion
+110	para	yes	goal (or thing after)
+111	para	no	purpose
+112	para	no	purpose
+113	para	no	ends up a doctor
+114	para	no	destination
+115	para	no	destination
+116	para	yes	in mood for: purpose?
+117	para	no	purpose
+118	para	no	recipient
+119	para	no	purpose
+120	para	no	purpose
+121	para	yes	person it affects
+122	para	yes	to top it off: ends up?
+123	para	no	ends at eight
+124	para	no	deadline
+125	para	no	purpose
+126	para	no	purpose/deadline
+127	para	yes	comparison, no category
+128	para	no	memorised para nada
+129	para	no	destination
+130	para	yes	target date (or time)
+131	para	yes	ends up later
+132	para	no	purpose
+133	para	no	recipient
+134	para	no	deadline
+135	para	no	recipient
+136	para	no	recipient
+137	para	no	destination
+138	para	no	purpose/recipient
+139	para	yes	purpose?
+140	para	no	recipient
+141	para	no	purpose
+142	para	no	purpose
+143	para	no	destination
+144	para	no	gets the work
+145	para	yes	person
+146	para	yes	no category
+147	para	no	purpose
+148	para	yes	purpose?
+149	para	no	purpose
+150	para	no	destination
+151	para	no	recipient
+152	para	no	deadline
+153	para	no	deadline
+154	para	yes	target time (or time)
+155	para	no	deadline
+156	para	no	memorised no es para tanto
+157	para	yes	ends up: result
+158	para	no	purpose
+159	para	no	purpose
+160	para	no	purpose
+161	para	no	purpose
+162	para	no	purpose
+163	para	no	recipient
+164	para	no	purpose
+165	para	yes	comparison, no category
+166	para	no	deadline
+167	para	no	purpose
+168	para	no	purpose
+169	para	no	recipient
+170	para	no	recipient
+171	para	no	purpose
+172	para	no	ends up arriving
+173	para	no	purpose
+174	para	no	person
+175	para	no	ends up tomorrow
+176	para	yes	comparison, no category
+177	para	no	recipient
+178	para	no	purpose
+179	para	no	purpose
+180	para	no	ends up Thursday
+181	para	no	ends up next year
+182	para	no	purpose
+183	para	no	memorised para nada
+184	para	no	purpose
+185	para	yes	purpose (eso could be reason)
+186	para	no	pairs with para mal
+187	para	no	purpose
+188	para	no	purpose
+189	por	yes	duration = time
+190	para	no	purpose
+191	por	yes	why (or what for)
+192	para	no	destination
+193	para	yes	recipient (or reason)
+194	para	yes	destination (or route)
+195	para	no	purpose
+196	para	no	purpose
+197	para	no	purpose
+198	para	yes	deadline (or time)
+199	para	yes	purpose (or reason)
+200	para	no	purpose

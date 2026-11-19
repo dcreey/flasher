@@ -57,7 +57,8 @@ struct LearnView: View {
             .padding()
         }
         .background(Color(.systemGroupedBackground))
-        .navigationTitle("Learn")
+        .navigationTitle("Subjunctive")
+        .navigationBarTitleDisplayMode(.inline)
         .fullScreenCover(item: $round) { MoodSessionView(setup: $0) }
     }
 

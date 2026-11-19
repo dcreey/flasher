@@ -1,0 +1,201 @@
+id	sentence	english	answer	category	set_phrase
+1	___ favor, pásame la sal.	Please pass me the salt.	por	courtesy	yes
+2	Muchas gracias ___ venir.	Thanks a lot for coming.	por	gratitude	no
+3	No dormí nada; ___ eso estoy tan cansado.	I didn't sleep at all; that's why I'm so tired.	por	set phrase: therefore	yes
+4	¿___ qué no viniste ayer?	Why didn't you come yesterday?	por	question: why	yes
+5	Te marco ___ la tarde.	I'll call you in the afternoon.	por	time of day	no
+6	Pasé ___ tu casa, pero no estabas.	I stopped by your house, but you weren't there.	por	route: pass by	no
+7	Hablamos ___ teléfono anoche.	We talked on the phone last night.	por	means	no
+8	Me mandó las fotos ___ WhatsApp.	She sent me the photos on WhatsApp.	por	means	no
+9	Estuve en Guadalajara ___ dos semanas.	I was in Guadalajara for two weeks.	por	duration	no
+10	Cien años de soledad fue escrito ___ García Márquez.	One Hundred Years of Solitude was written by García Márquez.	por	agent (passive)	no
+11	Cancelaron el partido ___ la lluvia.	They canceled the game because of the rain.	por	cause	no
+12	¡___ fin llegó el camión!	The bus finally came!	por	set phrase: finally	yes
+13	¡___ supuesto que te ayudo!	Of course I'll help you!	por	set phrase: of course	yes
+14	Lo hice ___ ti, para que no te preocuparas.	I did it for your sake, so you wouldn't worry.	por	for someone's sake	no
+15	Íbamos a 120 kilómetros ___ hora.	We were going 120 kilometers per hour.	por	rate	no
+16	Te cambio mi torta ___ tus tacos.	I'll trade you my torta for your tacos.	por	exchange	no
+17	Ahorita vengo, voy a la tienda ___ leche.	Be right back, I'm going to the store for milk.	por	going to get	no
+18	___ cierto, ¿ya hablaste con tu mamá?	By the way, did you talk to your mom yet?	por	set phrase: by the way	yes
+19	___ lo menos avísame si vas a llegar tarde.	At least let me know if you're going to be late.	por	set phrase: at least	yes
+20	En la elección votamos ___ la candidata del partido verde.	In the election we voted for the green party's candidate.	por	voting	no
+21	Mi hermano va a trabajar ___ mí hoy porque estoy enfermo.	My brother is going to work in my place today because I'm sick.	por	substitution	no
+22	Me preocupo mucho ___ mis hijos.	I worry a lot about my kids.	por	concern	no
+23	Entramos ___ la puerta de atrás.	We came in through the back door.	por	route: through	no
+24	___ ejemplo, puedes tomar el metro.	For example, you can take the metro.	por	set phrase: for example	yes
+25	Estoy ___ terminar, dame cinco minutos.	I'm about to finish, give me five minutes.	por	estar por: about to	no
+26	Todavía queda mucho ___ hacer.	There's still a lot left to do.	por	quedar por: left to do	no
+27	Lo hago ___ gusto, no por obligación.	I do it because I enjoy it, not out of obligation.	por	motive	yes
+28	Pagué 50 pesos ___ el estacionamiento.	I paid 50 pesos for parking.	por	price	no
+29	¿Hay una farmacia ___ aquí?	Is there a pharmacy around here?	por	vague location	no
+30	Te lo digo ___ experiencia.	I'm telling you from experience.	por	basis	yes
+31	Lo multaron ___ manejar muy rápido.	He got a ticket for driving too fast.	por	cause	no
+32	Gana 500 pesos ___ día.	He earns 500 pesos a day.	por	rate	no
+33	Dos ___ tres son seis.	Two times three is six.	por	multiplication	no
+34	El tren pasa ___ Querétaro antes de llegar a la capital.	The train goes through Querétaro before reaching the capital.	por	route: through	no
+35	Te lo mando ___ correo.	I'll send it to you by email.	por	means	no
+36	___ suerte no pasó nada grave.	Luckily nothing serious happened.	por	set phrase: luckily	yes
+37	Te felicito ___ tu nuevo trabajo.	Congratulations on your new job.	por	reason	no
+38	Perdón ___ llegar tarde.	Sorry for being late.	por	apology	no
+39	Ya, dejémoslo ___ la paz.	Okay, let's just drop it.	por	set phrase: leave it alone	yes
+40	___ lo visto, va a llover.	By the looks of it, it's going to rain.	por	set phrase: apparently	yes
+41	Perdón, te marqué ___ error.	Sorry, I called you by mistake.	por	set phrase: by mistake	yes
+42	Nos encontramos ___ casualidad en el súper.	We ran into each other by chance at the supermarket.	por	set phrase: by chance	yes
+43	___ si acaso, lleva un suéter.	Just in case, take a sweater.	por	set phrase: just in case	yes
+44	Voy al gimnasio tres veces ___ semana.	I go to the gym three times a week.	por	frequency	no
+45	La conocí ___ un amigo.	I met her through a friend.	por	means: through	no
+46	Me tomaron ___ turista.	They took me for a tourist.	por	tomar por: mistake for	no
+47	Vendió su carro ___ menos de lo que valía.	He sold his car for less than it was worth.	por	price	no
+48	___ ahora estamos bien, gracias.	For now we're fine, thanks.	por	set phrase: for now	yes
+49	___ lo general, como en casa.	I generally eat at home.	por	set phrase: generally	yes
+50	Salimos a cenar el sábado ___ la noche.	We went out to dinner Saturday night.	por	time of day	no
+51	Dimos una vuelta ___ el centro.	We took a stroll around downtown.	por	route: around	no
+52	Los maestros luchan ___ mejores sueldos.	The teachers are fighting for better pay.	por	fighting for	no
+53	Se casó ___ amor, no por dinero.	She married for love, not for money.	por	motive	no
+54	___ desgracia, no pudimos ir.	Unfortunately, we couldn't go.	por	set phrase: unfortunately	yes
+55	Mejor métete, está ___ llover.	Better come inside, it's about to rain.	por	estar por: about to	no
+56	¿Cuánto me das ___ mi bici?	How much will you give me for my bike?	por	exchange	no
+57	Al final me decidí ___ la camisa azul.	In the end I went with the blue shirt.	por	choosing	no
+58	Mi mamá siempre pregunta ___ ti.	My mom always asks about you.	por	preguntar por	no
+59	Lo supe ___ mi prima, que me lo contó todo.	I found out from my cousin, who told me everything.	por	source	no
+60	Gracias ___ todo, de verdad.	Thanks for everything, really.	por	gratitude	yes
+61	___ un lado quiero ir, pero por otro estoy cansado.	On one hand I want to go, but on the other I'm tired.	por	set phrase: on one hand	yes
+62	Estoy cien ___ ciento seguro.	I'm one hundred percent sure.	por	set phrase: percent	yes
+63	El veinte ___ ciento de los alumnos reprobó.	Twenty percent of the students failed.	por	percentage	yes
+64	Pasa ___ mí a las ocho.	Pick me up at eight.	por	pasar por: pick up	no
+65	Voy ___ los niños a la escuela.	I'm going to pick up the kids from school.	por	going to get	no
+66	___ más que le explico, no entiende.	No matter how much I explain, he doesn't get it.	por	set phrase: no matter how much	yes
+67	¿Me lo puede cambiar ___ una talla más grande?	Can you exchange it for a bigger size?	por	exchange	no
+68	Le pagan ___ hora.	They pay him by the hour.	por	rate	no
+69	Me siento mal ___ lo que pasó.	I feel bad about what happened.	por	cause	no
+70	Viajamos ___ todo México en camión.	We traveled all over Mexico by bus.	por	throughout	no
+71	Me gusta correr ___ la playa en las mañanas.	I like to run along the beach in the mornings.	por	route: along	no
+72	___ cualquier cosa, aquí está mi número.	If anything comes up, here's my number.	por	set phrase: just in case	yes
+73	El gato se salió ___ la ventana.	The cat got out through the window.	por	route: through	no
+74	Está loco ___ ella.	He's crazy about her.	por	feeling toward	no
+75	Le dieron un premio ___ su trabajo en la comunidad.	They gave her an award for her work in the community.	por	reason	no
+76	No estudió; ___ lo tanto, reprobó.	He didn't study; therefore, he failed.	por	set phrase: therefore	yes
+77	Nada más lo hace ___ dinero.	He only does it for the money.	por	motive	no
+78	Mis llaves deben estar ___ ahí.	My keys must be around there somewhere.	por	vague location	no
+79	Y ___ último, quiero darles las gracias a todos.	And lastly, I want to thank everyone.	por	set phrase: lastly	yes
+80	Oaxaca es famoso ___ su mole.	Oaxaca is famous for its mole.	por	cause	no
+81	Dejé de fumar ___ mi salud.	I quit smoking for my health.	por	for someone's sake	no
+82	Perdimos ___ un gol.	We lost by one goal.	por	margin	no
+83	¡___ poco me caigo!	I almost fell!	por	set phrase: almost	yes
+84	Llegué tarde ___ el tráfico.	I was late because of the traffic.	por	cause	no
+85	Firma ___ mí, por favor, que no voy a poder ir.	Please sign for me, I won't be able to go.	por	substitution	no
+86	Lo abrí nada más ___ curiosidad.	I only opened it out of curiosity.	por	motive	no
+87	¿___ dónde se va al centro?	Which way is downtown?	por	route	no
+88	Dale un abrazo a tu abuela ___ mí.	Give your grandma a hug for me.	por	on behalf of	no
+89	___ mí, no hay problema; haz lo que quieras.	As far as I'm concerned, no problem; do what you want.	por	as far as I'm concerned	no
+90	Te lo dejo ___ 300 pesos.	I'll let you have it for 300 pesos.	por	price	no
+91	¡Brindemos ___ los novios!	Let's toast to the bride and groom!	por	toast	no
+92	Viajo mucho ___ trabajo.	I travel a lot for work.	por	cause	no
+93	Me dieron descuento ___ ser estudiante.	They gave me a discount for being a student.	por	cause	no
+94	Siempre pido lo mismo ___ costumbre.	I always order the same thing out of habit.	por	set phrase: out of habit	yes
+95	Se me olvidó ___ completo.	I completely forgot.	por	set phrase: completely	yes
+96	¿Nos puede cobrar ___ separado?	Can you charge us separately?	por	set phrase: separately	yes
+97	Hay que pagar la renta ___ adelantado.	You have to pay the rent in advance.	por	set phrase: in advance	yes
+98	El paquete llegó ___ la tarde.	The package arrived in the afternoon.	por	time of day	no
+99	Lo cambiaron ___ uno nuevo porque venía roto.	They replaced it with a new one because it came broken.	por	substitution	no
+100	¿___ cuánto me lo deja?	How much will you sell it to me for?	por	price	no
+101	Este regalo es ___ ti.	This gift is for you.	para	recipient	no
+102	Necesito lentes ___ leer.	I need glasses to read.	para	purpose (verb)	no
+103	Te voy a querer ___ siempre.	I'll love you forever.	para	set phrase: forever	yes
+104	Esta taza es ___ café.	This mug is for coffee.	para	use	no
+105	Trabajo ___ una empresa de software.	I work for a software company.	para	employer	no
+106	El camión ___ Puebla sale a las tres.	The bus to Puebla leaves at three.	para	destination	no
+107	Necesito el reporte ___ mañana.	I need the report by tomorrow.	para	deadline	no
+108	___ ser tan joven, toca muy bien la guitarra.	For someone so young, he plays guitar really well.	para	comparison	no
+109	___ mi gusto, está muy salado.	For my taste, it's too salty.	para	opinion	yes
+110	Estoy ahorrando ___ un carro.	I'm saving up for a car.	para	purpose (noun)	no
+111	Vine ___ hablar contigo.	I came to talk to you.	para	purpose (verb)	no
+112	¿___ qué sirve este botón?	What's this button for?	para	question: what for	yes
+113	Mi hija estudia ___ doctora.	My daughter is studying to be a doctor.	para	purpose (goal)	no
+114	¿Ya vas ___ tu casa?	Are you heading home already?	para	destination	no
+115	Ahorita voy ___ allá.	I'm heading over there right now.	para	destination	no
+116	Hoy no estoy ___ fiestas.	I'm not in the mood for parties today.	para	estar para: in the mood	no
+117	¿Tienes algo ___ el dolor de cabeza?	Do you have anything for a headache?	para	use	no
+118	Compré flores ___ mi mamá.	I bought flowers for my mom.	para	recipient	no
+119	___ que sepas, yo no fui.	Just so you know, it wasn't me.	para	set phrase: just so you know	yes
+120	Hay que salir temprano ___ que no lleguemos tarde.	We have to leave early so we're not late.	para	purpose (para que)	no
+121	Es muy difícil ___ mí entender esto.	It's very hard for me to understand this.	para	experiencer	no
+122	Y ___ colmo, se ponchó la llanta.	And to top it all off, we got a flat tire.	para	set phrase: to top it off	yes
+123	Faltan diez minutos ___ las ocho.	It's ten minutes to eight.	para	time: minutes to	no
+124	¿___ cuándo lo necesitas?	When do you need it by?	para	deadline	no
+125	Dejé la comida lista ___ la cena.	I left the food ready for dinner.	para	purpose (noun)	no
+126	Me estoy preparando ___ el examen.	I'm getting ready for the exam.	para	purpose (noun)	no
+127	Hace mucho calor ___ ser noviembre.	It's really hot for November.	para	comparison	no
+128	Esta pluma ya no sirve ___ nada.	This pen is no good for anything anymore.	para	use	yes
+129	Ya me voy ___ el trabajo.	I'm off to work now.	para	destination	no
+130	Tengo cita con el doctor ___ el martes.	I have a doctor's appointment for Tuesday.	para	date	no
+131	Guárdalo ___ después.	Save it for later.	para	time: for later	no
+132	___ empezar, vamos a revisar la tarea.	To start off, let's go over the homework.	para	set phrase: to begin with	yes
+133	Este cuarto es ___ las visitas.	This room is for guests.	para	use	no
+134	Regresa a las diez; ___ entonces ya habré terminado.	Come back at ten; by then I'll have finished.	para	set phrase: by then	yes
+135	Una mesa ___ cuatro, por favor.	A table for four, please.	para	recipient	no
+136	Esa película no es ___ niños.	That movie isn't for kids.	para	recipient	no
+137	Salieron ___ el aeropuerto hace una hora.	They left for the airport an hour ago.	para	destination	no
+138	Caminar es muy bueno ___ la salud.	Walking is very good for your health.	para	benefit	no
+139	___ ser sincero, no me gustó.	To be honest, I didn't like it.	para	set phrase: to be honest	yes
+140	Ella es demasiado buena ___ él.	She's too good for him.	para	comparison	no
+141	Ahorita no tengo tiempo ___ eso.	I don't have time for that right now.	para	purpose (noun)	no
+142	Ya está todo listo ___ la fiesta.	Everything is ready for the party.	para	purpose (noun)	no
+143	Vámonos ___ adentro, que hace frío.	Let's go inside, it's cold.	para	direction	no
+144	Mi tío trabaja ___ el gobierno.	My uncle works for the government.	para	employer	no
+145	Gracias, pero es demasiado ___ mí.	Thanks, but it's too much for me.	para	experiencer	no
+146	___ mí que va a llover.	I have a feeling it's going to rain.	para	set phrase: I think	yes
+147	¿Tienes algo ___ escribir?	Do you have something to write with?	para	purpose (verb)	no
+148	Y ___ variar, llegó tarde otra vez.	And as usual, he showed up late again.	para	set phrase: for a change (ironic)	yes
+149	El pastel es ___ el cumpleaños de Ana.	The cake is for Ana's birthday.	para	purpose (noun)	no
+150	El vuelo ___ Cancún viene retrasado.	The flight to Cancún is delayed.	para	destination	no
+151	¿___ quién es esta carta?	Who is this letter for?	para	recipient	no
+152	Lo quiero ___ ayer.	I wanted it yesterday (it's urgent).	para	set phrase: ASAP	yes
+153	Tengo que terminar el proyecto ___ fin de mes.	I have to finish the project by the end of the month.	para	deadline	no
+154	Pedí la pizza ___ las nueve.	I ordered the pizza for nine o'clock.	para	deadline	no
+155	Apúrate, que ___ cuando llegues ya no va a haber comida.	Hurry, by the time you get there there won't be any food left.	para	time: by the time	no
+156	Cálmate, no es ___ tanto.	Calm down, it's not that big a deal.	para	set phrase: not a big deal	yes
+157	La comida de tu abuela está ___ chuparse los dedos.	Your grandma's food is finger-licking good.	para	set phrase: delicious	yes
+158	Ya compré los regalos ___ Navidad.	I already bought the Christmas presents.	para	purpose (occasion)	no
+159	Uso el celular ___ todo.	I use my phone for everything.	para	use	no
+160	¿Me prestas tu pluma ___ firmar?	Can I borrow your pen to sign?	para	purpose (verb)	no
+161	Vamos al súper ___ comprar fruta.	We're going to the supermarket to buy fruit.	para	purpose (verb)	no
+162	___ llegar al centro, toma el metro.	To get downtown, take the metro.	para	purpose (verb)	no
+163	Es una buena noticia ___ todos.	It's good news for everyone.	para	recipient	no
+164	Se necesita experiencia ___ este puesto.	Experience is required for this position.	para	purpose (noun)	no
+165	Está muy alto ___ su edad.	He's very tall for his age.	para	comparison	no
+166	___ el lunes ya vas a tener la respuesta.	By Monday you'll have the answer.	para	deadline	no
+167	El agua no es ___ jugar.	Water isn't for playing with.	para	purpose (verb)	no
+168	¿Es ___ llevar o para comer aquí?	Is it to go or for here?	para	set phrase: to go	yes
+169	Mi abuela cocina ___ toda la familia los domingos.	My grandmother cooks for the whole family on Sundays.	para	beneficiary	no
+170	Queremos lo mejor ___ nuestros hijos.	We want the best for our children.	para	beneficiary	no
+171	Quiero aprender inglés ___ conseguir un mejor trabajo.	I want to learn English to get a better job.	para	purpose (verb)	no
+172	¿Cuánto falta ___ llegar?	How much longer until we get there?	para	time: until	no
+173	Lo hice ___ que vieras que sí puedo.	I did it so you'd see that I can.	para	purpose (para que)	no
+174	Es un libro fácil ___ un estudiante de tu nivel.	It's an easy book for a student at your level.	para	comparison	no
+175	Te guardé un pedazo de pastel ___ mañana.	I saved you a piece of cake for tomorrow.	para	time: for later	no
+176	___ ser la primera vez, lo hiciste muy bien.	For a first time, you did really well.	para	comparison	no
+177	Hay clases de natación ___ adultos.	There are swimming classes for adults.	para	recipient	no
+178	Me cambié de trabajo ___ ganar más.	I changed jobs to earn more.	para	purpose (verb)	no
+179	Se fue a Estados Unidos ___ trabajar.	He went to the United States to work.	para	purpose (verb)	no
+180	La junta se cambió ___ el jueves.	The meeting was moved to Thursday.	para	date	no
+181	Pospusieron la boda ___ el próximo año.	They postponed the wedding until next year.	para	date	no
+182	Mucho gusto. —Igualmente, ___ servirle.	Nice to meet you. —Likewise, at your service.	para	set phrase: at your service	yes
+183	¿Te molesta? —No, ___ nada.	Does it bother you? —No, not at all.	para	set phrase: not at all	yes
+184	___ acabar pronto, no quiero ir.	Long story short, I don't want to go.	para	set phrase: in short	yes
+185	No me des las gracias, ___ eso están los amigos.	Don't thank me, that's what friends are for.	para	set phrase: that's what X are for	yes
+186	___ bien o para mal, ya está hecho.	For better or for worse, it's done.	para	set phrase: for better or worse	yes
+187	Estoy aquí ___ ayudarte en lo que necesites.	I'm here to help you with whatever you need.	para	purpose (verb)	no
+188	Hay que regar las plantas ___ que no se sequen.	We need to water the plants so they don't dry out.	para	purpose (para que)	no
+189	Necesitamos un cuarto ___ dos noches.	We need a room for two nights.	para	planned duration	no
+190	Me regalaron un reloj ___ mi cumpleaños.	They gave me a watch for my birthday.	both	occasion	no
+191	¿___ qué me llamaste?	Why / what did you call me for?	both	question: why / what for	yes
+192	¡Ven ___ acá!	Come over here!	both	direction	no
+193	Todo lo que hago es ___ mis hijos.	Everything I do is for my kids.	both	sake / beneficiary	no
+194	Me voy ___ el centro.	I'm heading downtown / going by way of downtown.	both	destination / route	no
+195	Lo hice ___ ayudarte.	I did it to help you.	both	motive / purpose	no
+196	No te regaño, es ___ tu bien.	I'm not scolding you, it's for your own good.	both	sake / benefit	no
+197	¿Qué le compraste a tu mamá ___ el Día de las Madres?	What did you buy your mom for Mother's Day?	both	occasion	no
+198	Tenemos que terminar esto ___ la tarde.	We have to finish this in / by the afternoon.	both	time of day / deadline	no
+199	Me quedé en Oaxaca ___ la Guelaguetza.	I stayed in Oaxaca for the Guelaguetza.	both	cause / purpose	no
+200	No te llamé ___ no despertarte.	I didn't call you so I wouldn't wake you.	both	motive / purpose	no

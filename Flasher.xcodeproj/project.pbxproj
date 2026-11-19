@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D690A1D292D44A84887C9182 /* PorParaEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D000461D413A44E8AA41B410 /* PorParaEngineTests.swift */; };
+		2F4426F7BB73406BA6201DDB /* PorParaCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A3A4584BDD469FB7111133 /* PorParaCheckView.swift */; };
+		EE35C6C8D7354BC7BCF5AFA6 /* PorParaEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285059FC3081408F90DEF7B3 /* PorParaEngine.swift */; };
+		08941B5D247F4F709F5DB080 /* PorParaCourseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01C5EE87C0A41659F1D1101 /* PorParaCourseTests.swift */; };
+		0FCCB5A1634941A0A7C5305E /* PorParaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5A6618AF604076A7BA7FFE /* PorParaView.swift */; };
+		71CA7A8DF946456C9E286FE7 /* PorParaCourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB52FB80AB64F1295C20289 /* PorParaCourse.swift */; };
 		D7A100000000000000000D02 /* DrillReadings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A100000000000000000D01 /* DrillReadings.swift */; };
 		8E229DEFBF1048578076CE13 /* MoodMapProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6BF48D8E8446A58DE3168E /* MoodMapProgress.swift */; };
 		0FE408AB08E54D6EA9F1CBAA /* MoodMapRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED9063396254F3DA54DB9BD /* MoodMapRules.swift */; };
@@ -100,6 +106,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D000461D413A44E8AA41B410 /* PorParaEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorParaEngineTests.swift; sourceTree = "<group>"; };
+		38A3A4584BDD469FB7111133 /* PorParaCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorParaCheckView.swift; sourceTree = "<group>"; };
+		285059FC3081408F90DEF7B3 /* PorParaEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorParaEngine.swift; sourceTree = "<group>"; };
+		F01C5EE87C0A41659F1D1101 /* PorParaCourseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorParaCourseTests.swift; sourceTree = "<group>"; };
+		2C5A6618AF604076A7BA7FFE /* PorParaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorParaView.swift; sourceTree = "<group>"; };
+		ADB52FB80AB64F1295C20289 /* PorParaCourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorParaCourse.swift; sourceTree = "<group>"; };
 		D7A100000000000000000D01 /* DrillReadings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillReadings.swift; sourceTree = "<group>"; };
 		5F6BF48D8E8446A58DE3168E /* MoodMapProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapProgress.swift; sourceTree = "<group>"; };
 		BED9063396254F3DA54DB9BD /* MoodMapRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodMapRules.swift; sourceTree = "<group>"; };
@@ -201,6 +213,8 @@
 				D7A100000000000000000D01 /* DrillReadings.swift */,
 				5F6BF48D8E8446A58DE3168E /* MoodMapProgress.swift */,
 				BED9063396254F3DA54DB9BD /* MoodMapRules.swift */,
+				ADB52FB80AB64F1295C20289 /* PorParaCourse.swift */,
+				285059FC3081408F90DEF7B3 /* PorParaEngine.swift */,
 				0F07474B8811489CB2D7987A /* MoodMapReasons.swift */,
 				CC37545068B845F98EDF28E4 /* MoodMapMoreCards.swift */,
 				8AE31A1E02CB496D84D4F671 /* MoodEngine.swift */,
@@ -263,6 +277,8 @@
 				212F413245547E0FD2840FD9 /* HomeView.swift */,
 				D7A100000000000000000005 /* DrillView.swift */,
 				3E97B287F0C54D59B219AC79 /* MoodMapView.swift */,
+				2C5A6618AF604076A7BA7FFE /* PorParaView.swift */,
+				38A3A4584BDD469FB7111133 /* PorParaCheckView.swift */,
 				DF8E067FB3F24158BFA82389 /* MoodTriggerViews.swift */,
 				7045F70119B2781F3C96CC38 /* PlacementQuizView.swift */,
 				C50A4BCA62589D24D57F400C /* RaptorRoomView.swift */,
@@ -323,6 +339,8 @@
 				9D1FA2CB60F4886AD163AA56 /* SpanishCheckerTests.swift */,
 				A1B2C3D4E5F60718293A4B40 /* DrillSentencesTests.swift */,
 				C244BAAC67394F2F8CD60BB5 /* MoodMapTests.swift */,
+				F01C5EE87C0A41659F1D1101 /* PorParaCourseTests.swift */,
+				D000461D413A44E8AA41B410 /* PorParaEngineTests.swift */,
 				12B1809AECE94143B0104981 /* MoodRulesAuditTests.swift */,
 				A144B68D51824B6DA82251DE /* MoodCheckerCoverageTests.swift */,
 				D82B012114424BFFA1827B8E /* SearchRankingTests.swift */,
@@ -451,6 +469,8 @@
 				D7A100000000000000000D02 /* DrillReadings.swift in Sources */,
 				8E229DEFBF1048578076CE13 /* MoodMapProgress.swift in Sources */,
 				0FE408AB08E54D6EA9F1CBAA /* MoodMapRules.swift in Sources */,
+				71CA7A8DF946456C9E286FE7 /* PorParaCourse.swift in Sources */,
+				EE35C6C8D7354BC7BCF5AFA6 /* PorParaEngine.swift in Sources */,
 				85884567DA964BEDBBA271BA /* MoodMapReasons.swift in Sources */,
 				DDA27436E700418B9E76D5D8 /* MoodMapMoreCards.swift in Sources */,
 				A38E09AA69804FF588A51A65 /* MoodEngine.swift in Sources */,
@@ -469,6 +489,8 @@
 				D7A1000000000000000009D2 /* DrillContextsMore.swift in Sources */,
 				D7A100000000000000000006 /* DrillView.swift in Sources */,
 				478A1D31E5AB45C2850308BB /* MoodMapView.swift in Sources */,
+				0FCCB5A1634941A0A7C5305E /* PorParaView.swift in Sources */,
+				2F4426F7BB73406BA6201DDB /* PorParaCheckView.swift in Sources */,
 				D7A100000000000000000004 /* DrillVerbList.swift in Sources */,
 				D7A100000000000000000002 /* DrillSession.swift in Sources */,
 				A1B2C3D4E5F60718293A4B21 /* VerbProfileData.swift in Sources */,
@@ -505,6 +527,8 @@
 				936299D414BDB758B390BDAD /* SpanishCheckerTests.swift in Sources */,
 				A1B2C3D4E5F60718293A4B41 /* DrillSentencesTests.swift in Sources */,
 				F3067F8EE57A4D4D84A9CE1B /* MoodMapTests.swift in Sources */,
+				08941B5D247F4F709F5DB080 /* PorParaCourseTests.swift in Sources */,
+				D690A1D292D44A84887C9182 /* PorParaEngineTests.swift in Sources */,
 				65AFAF43C0624F9DB22F9C13 /* MoodRulesAuditTests.swift in Sources */,
 				EEE62F4A2D824127B260D5C9 /* MoodCheckerCoverageTests.swift in Sources */,
 				9F19F3D1CAAE4739B2210B9F /* SearchRankingTests.swift in Sources */,

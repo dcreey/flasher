@@ -1,0 +1,37 @@
+SET heldout: 467/500 = 93.4%
+   high: 227/231 = 98.3%
+   medium: 210/229 = 91.7%
+   low: 30/40 = 75.0%
+   5 [low] fallback->por want both/para | ___ de armar un escándalo.
+   47 [medium] purpose->para want both/por | Tom pagó un montón de dinero ___ esa guitarra.
+   49 [medium] pointInTime->para want both/por | Todavía queda ___ ver el resultado.
+   76 [high] setPhrase->por want both/para | Creí que ___ ahora Tom ya habría encontrado a María.
+   87 [low] person->para want both/por | Mi corazón se desangra ___ todos esos niños hambrientos.
+   104 [medium] purpose->para want both/por | Que no te dé dolor de estómago ___ comer demasiado.
+   107 [medium] pointInTime->para want both/por | Pensé que Tom planeaba quedarse ___ un mes.
+   173 [low] fallback->por want both/para | Quiero una explicación satisfactoria ___ tu conducta.
+   174 [medium] purpose->para want both/por | Ella retó al niño ___ llegar tan tarde a la casa.
+   184 [low] fallback->por want both/para | Me río ___ no llorar.
+   185 [low] fallback->por want both/para | No tengo sitio en mis estanterías ___ un libro más.
+   228 [medium] purpose->para want both/por | Busqué la carta ___ toda la casa.
+   236 [medium] reason->por want both/para | ¿Cómo hago ___ que ustedes se vayan?
+   240 [medium] stillToDo->por want both/para | Tom tuvo problemas ___ resolver la situación.
+   249 [medium] forSomeone->por want both/para | Creo que es altamente improbable que Tom se coma el sándwich que hiciste ___ él.
+   257 [high] purpose->para want both/por | Tom sintió que necesitaba explicar ___ qué venía atrasado.
+   261 [medium] purpose->para want both/por | Haría cualquier cosa ___ conseguir un empleo.
+   265 [low] fallback->por want both/para | Deberíamos esforzarnos al máximo ___ no ensuciar el medioambiente.
+   288 [low] fallback->por want both/para | ___ el campesino, las frutas son más importantes que las flores.
+   305 [low] person->para want both/por | Tom lavó los platos ___ Mary.
+   325 [medium] purpose->para want both/por | Tom fue secuestrado y retenido ___ sus captores en un edificio abandonado en Park Street.
+   331 [medium] forSomeone->por want both/para | Tom lo hizo ___ ti.
+   352 [low] fallback->por want both/para | ¿___ cuántas personas has comprado regalos navideños este año?
+   362 [medium] reason->por want both/para | ¿___ qué has venido aquí?
+   382 [medium] after->por want both/para | Haré un esfuerzo ___ terminar el trabajo hoy.
+   385 [medium] purpose->para want both/por | El testamento fue declarado nulo ___ el tribunal.
+   396 [low] fallback->por want both/para | Tenemos que encontrar un nuevo mercado ___ estos productos.
+   421 [medium] purpose->para want both/por | Lo he hecho solo ___ tu bien.
+   425 [medium] person->para want both/por | Ellos están viniendo ___ mí.
+   426 [medium] place->para want both/por | Hasta los expertos tomaron la pintura ___ un Rembrandt genuino.
+   436 [high] price->por want both/para | Ese coche está homologado ___ cinco personas.
+   440 [medium] reason->por want both/para | Fumar es perjudicial ___ la salud.
+   446 [high] purpose->para want both/por | ¿___ qué no usamos la escalera?
