@@ -3,7 +3,6 @@ import SwiftUI
 /// Type a Spanish sentence with por, para or ___ and see which one the simple rules pick, why, and how sure they are.
 struct PorParaCheckView: View {
     @State private var text = ""
-    @FocusState private var focused: Bool
 
     private var verdicts: [PorParaEngine.Verdict] { PorParaEngine.explain(text) }
     private let examples = ["Salgo ___ Monterrey mañana.", "Gracias ___ todo.", "Voy ___ las tortillas.", "¿Qué puedo hacer ___ ti?", "La tarea es ___ el lunes.", "Me quedan dos capítulos ___ leer."]
@@ -19,7 +18,6 @@ struct PorParaCheckView: View {
                     .lineLimit(1...4)
                     .textInputAutocapitalization(.sentences)
                     .autocorrectionDisabled()
-                    .focused($focused)
                     .padding(12)
                     .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 12))
 
@@ -45,7 +43,6 @@ struct PorParaCheckView: View {
         }
         .background(Color(.systemGroupedBackground))
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar { ToolbarItemGroup(placement: .keyboard) { Spacer(); Button("Done") { focused = false } } }
     }
 
     private func card(_ verdict: PorParaEngine.Verdict) -> some View {

@@ -42,6 +42,7 @@ func dismissKeyboard() {
 
 /// A small button on the top edge of the keyboard whenever it's open. The toolbar Done button can vanish after
 /// switching apps (a SwiftUI bug), so this one follows the keyboard's own show and hide notifications instead.
+/// It covers every screen: don't add a `ToolbarItemGroup(placement: .keyboard)` Done bar to any view.
 private struct KeyboardDismissButton: View {
     @State private var keyboardTop: CGFloat?
 
